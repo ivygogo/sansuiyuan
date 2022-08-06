@@ -5,7 +5,7 @@ public class DBService {
   public static final String host = "127.0.0.1";
   public static final String USERID = "admin";
   public static final String PSWD = "admin123";
-  public static final String DBNAME = "wulidb";
+  public static final String DBNAME = "wuli_test";
 
   private static final String DBURL = "jdbc:mysql://" + host + "/";
 
@@ -109,7 +109,7 @@ public class DBService {
       + "  UNIQUE KEY `Tenant_Id_UNIQUE` (`Tenant_Id`)," + "  UNIQUE KEY `PDF_UNIQUE` (`PDF`)"
       + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
 
-  private static final String CREATE_Faq = "REATE TABLE `faq` (" + "  `Id` int NOT NULL,"
+  private static final String CREATE_Faq = "CREATE TABLE `faq` (" + "  `Id` int NOT NULL,"
       + "  `Question` varchar(45) DEFAULT NULL,"
       + "  `Answer` varchar(45) DEFAULT NULL COMMENT 'link',"
       + "  `Publish_Time` datetime DEFAULT NULL,"
@@ -184,7 +184,7 @@ public class DBService {
       + "  UNIQUE KEY `Password_UNIQUE` (`Password`)," + "  UNIQUE KEY `Mail_UNIQUE` (`Mail`)"
       + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='物業資訊'";
 
-  private static final String CREATE_Room = "REATE TABLE `room` ("
+  private static final String CREATE_Room = "CREATE TABLE `room` ("
       + "  `Rid` int NOT NULL AUTO_INCREMENT,"
       + "  `Room_Number` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,"
       + "  `Building` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL," + "  `Floor` int NOT NULL,"
@@ -225,7 +225,7 @@ public class DBService {
       + "  UNIQUE KEY `name_UNIQUE` (`name`)," + "  UNIQUE KEY `Rid_UNIQUE` (`Rid`)"
       + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='房型,Q開頭的是數量 / P開頭的是價格'";
 
-  private static final String CREATE_Store = "REATE TABLE `store` (" + "  `Uid` int NOT NULL,"
+  private static final String CREATE_Store = "CREATE TABLE `store` (" + "  `Uid` int NOT NULL,"
       + "  `Name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,"
       + "  `Open_Hour` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,"
       + "  `Phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,"

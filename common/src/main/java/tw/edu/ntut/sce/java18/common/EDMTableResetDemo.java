@@ -16,9 +16,9 @@ public class EDMTableResetDemo {
             DBService.getUser(), DBService.getPassword());
         Statement stmt = connection.createStatement();) {
 
-      stmt.executeUpdate(DBService.getDropBooking());
+      stmt.executeUpdate(DBService.getDropFaq());
       System.out.println("表格刪除成功");
-      stmt.executeUpdate(DBService.getCreateBooking());
+      stmt.executeUpdate(DBService.getCreateFaq());
       System.out.println("表格產生成功");
 
     } catch (SQLException e) {
