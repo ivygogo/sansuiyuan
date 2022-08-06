@@ -16,19 +16,19 @@ import tw.edu.ntut.sce.java18.common.utils.GlobalService;
 @WebListener
 public class SystemInializationLinstener implements ServletContextListener {
 
-    public SystemInializationLinstener() {
-       
-    }
+  public SystemInializationLinstener() {
 
-    public void contextDestroyed(ServletContextEvent sce)  { 
-         
-    }
+  }
 
-	
-    public void contextInitialized(ServletContextEvent sce)  { 
-    	GlobalService gs = new GlobalService();
-    	ServletContext sc = sce.getServletContext();
-    	sc.setAttribute("SYSTEM", gs);
-    }
-	
+  public void contextDestroyed(ServletContextEvent sce) {
+
+  }
+
+
+  public void contextInitialized(ServletContextEvent sce) {
+    GlobalService gs = new GlobalService();
+    ServletContext sc = sce.getServletContext();
+    sc.setAttribute("SYSTEM", gs);
+  }
+
 }
