@@ -221,7 +221,7 @@
 											data-readonly="true" disabled>
 									</div>
 									<div class="email-ctn-nock">
-										<p>Bounce Rate</p>
+										<p>Bounce Rate測試</p>
 									</div>
 								</div>
 								<div class="email-round-pro">
