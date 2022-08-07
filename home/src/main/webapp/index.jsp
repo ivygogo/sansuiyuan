@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- 
+<!--
 ////////////////////////////////////////////////////////////////
 
 Author: Free-Template.co
@@ -593,35 +593,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 				</div>
 			</div>
-			<!--
-        <div class="row">
-          <div class="col-md-4 text-center">
-            <div class="pr-5 first-step">
-              <span class="text-black">01.</span>
-              <span class="custom-icon flaticon-house text-black"></span>
-              <h3 class="text-black">Find Property.</h3>
-              <p class="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-          </div>
-
-          <div class="col-md-4 text-center">
-            <div class="pr-5 second-step">
-              <span class="text-black">02.</span>
-              <span class="custom-icon flaticon-coin text-black"></span>
-              <h3 class="text-dark">Buy Property.</h3>
-              <p class="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-          </div>
-
-          <div class="col-md-4 text-center">
-            <div class="pr-5">
-              <span class="text-black">03.</span>
-              <span class="custom-icon flaticon-home text-black"></span>
-              <h3 class="text-dark">Outstanding Houses.</h3>
-              <p class="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-          </div>
-          -->
+			
 		</div>
 
 	</section>
