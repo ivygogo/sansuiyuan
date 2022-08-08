@@ -69,7 +69,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 			<div class="site-mobile-menu-body"></div>
 		</div>
 
-		<!-- 選單 -->
+		<!-- 選單測試 -->
 		<jsp:include page="fragment/menu_index.jsp" />
 
 		<!-- banner -->
