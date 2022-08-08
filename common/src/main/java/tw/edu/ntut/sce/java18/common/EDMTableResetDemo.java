@@ -11,10 +11,10 @@ public class EDMTableResetDemo {
 
   public static void main(String args[]) {
 
-    try (
-        Connection connection = DriverManager.getConnection(DBService.getDbTableUrl(),
-            DBService.getUser(), DBService.getPassword());
-        Statement stmt = connection.createStatement();) {
+    try (Connection connection =
+            DriverManager.getConnection(
+                DBService.getDbTableUrl(), DBService.getUser(), DBService.getPassword());
+        Statement stmt = connection.createStatement(); ) {
 
       stmt.executeUpdate(DBService.getDropFaq());
       System.out.println("表格刪除成功");
@@ -26,5 +26,4 @@ public class EDMTableResetDemo {
       e.printStackTrace();
     }
   }
-
 }

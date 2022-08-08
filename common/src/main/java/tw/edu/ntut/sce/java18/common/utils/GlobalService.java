@@ -16,7 +16,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -83,14 +82,13 @@ public class GlobalService {
 
   /**
    * 依MD5演算法將檔案file轉換為128位元(16個位元組)的資料。
-   * 
+   *
    * @param message : 要加密的字串
    * @return : 128位元資料的16進位表示法所構成的字串
    */
-
   public static String getMD5Endocing(File file) throws NoSuchAlgorithmException, IOException {
     MessageDigest md = MessageDigest.getInstance("MD5");
-    try (FileInputStream fis = new FileInputStream(file);) {
+    try (FileInputStream fis = new FileInputStream(file); ) {
       byte[] ba = new byte[1024];
       int len = 0;
       while ((len = fis.read(ba)) != -1) {
@@ -104,15 +102,13 @@ public class GlobalService {
       final int value = Byte.toUnsignedInt(b);
       buffer.append(value < 16 ? "0" : "");
       buffer.append(Integer.toHexString(value));
-
     }
     return buffer.toString();
   }
 
-
   public static String getSHA1Endocing(File file) throws NoSuchAlgorithmException, IOException {
     MessageDigest md = MessageDigest.getInstance("SHA-512");
-    try (FileInputStream fis = new FileInputStream(file);) {
+    try (FileInputStream fis = new FileInputStream(file); ) {
       byte[] ba = new byte[1024];
       int len = 0;
       while ((len = fis.read(ba)) != -1) {
@@ -127,14 +123,13 @@ public class GlobalService {
       final int value = Byte.toUnsignedInt(b);
       buffer.append(value < 16 ? "0" : "");
       buffer.append(Integer.toHexString(value));
-
     }
     return buffer.toString();
   }
 
   /**
    * 本方法可對字串message(Plaintext, 明文)加密，然後將加密後的字串 (Ciphertext, 密文)傳回。
-   * 
+   *
    * @param key : 加密金鑰
    * @param message : 明文，即要加密的字串
    * @return 加密後的
@@ -184,10 +179,7 @@ public class GlobalService {
     return encryptedString;
   }
 
-  /**
-   * 本方法可對加密之字串(Ciphertext)解密，key為當初加密時的金鑰 傳回值為解密後的字串(Plaintext)
-   * 
-   */
+  /** 本方法可對加密之字串(Ciphertext)解密，key為當初加密時的金鑰 傳回值為解密後的字串(Plaintext) */
   public static String decryptString(String key, String stringToDecrypt) {
     String decryptedString = "";
     try {
@@ -215,7 +207,7 @@ public class GlobalService {
     long size = imageFile.length();
     byte[] b = new byte[(int) size];
     SerialBlob sb = null;
-    try (FileInputStream fis = new FileInputStream(imageFile);) {
+    try (FileInputStream fis = new FileInputStream(imageFile); ) {
       fis.read(b);
       sb = new SerialBlob(b);
     }
@@ -225,7 +217,7 @@ public class GlobalService {
   public static Clob fileToClob(String textFileName) throws IOException, SQLException {
     Clob clob = null;
     try (InputStreamReader isr =
-        new InputStreamReader(new FileInputStream(textFileName), "UTF-8");) {
+        new InputStreamReader(new FileInputStream(textFileName), "UTF-8"); ) {
       char[] c = new char[8192];
       StringBuffer buf = new StringBuffer();
       int len = 0;
@@ -244,7 +236,7 @@ public class GlobalService {
         BufferedReader br = new BufferedReader(reader);
         FileOutputStream fos = new FileOutputStream(file);
         OutputStreamWriter osw = new OutputStreamWriter(fos, encoding);
-        PrintWriter out = new PrintWriter(osw);) {
+        PrintWriter out = new PrintWriter(osw); ) {
       String line = null;
       while ((line = br.readLine()) != null) {
         out.println(line);
@@ -263,6 +255,4 @@ public class GlobalService {
   public static String extractFileName(String pathName) throws IOException, SQLException {
     return pathName.substring(pathName.lastIndexOf("/") + 1);
   }
-
-
 }
