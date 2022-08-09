@@ -1,7 +1,6 @@
 package tw.edu.ntut.sce.java18.common.filiter;
 
 import java.io.IOException;
-
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,7 +12,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
+@WebFilter(
+    urlPatterns = {"/*"},
+    dispatcherTypes = {DispatcherType.REQUEST})
 // 本程式通知瀏覽器不要Cache伺服器送來的回應
 public class DisableCacheFilter implements Filter {
   public void destroy() {}
@@ -43,5 +44,4 @@ public class DisableCacheFilter implements Filter {
   }
 
   public void init(FilterConfig fConfig) throws ServletException {}
-
 }
