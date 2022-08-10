@@ -5,8 +5,8 @@ public class DBService {
   public static final String host = "127.0.0.1";
   public static final String USERID = "admin";
   public static final String PSWD = "admin123";
-  public static final String DBNAME = "wuli_test";
-
+  public static final String DBNAME = "wulidb";
+  public static final String JNDI_DB_NAME = "java:comp/env/jdbc/wuliDataMySQL";
   private static final String DBURL = "jdbc:mysql://" + host + "/";
 
   private static final String DBTABLEURL =
@@ -32,6 +32,7 @@ public class DBService {
   private static final String DROP_Roomtype = "DROP TABLE IF EXISTS roomtype";
   private static final String DROP_Store = "DROP TABLE IF EXISTS store";
   private static final String DROP_Tenant = "DROP TABLE IF EXISTS tenant";
+  private static final String DROP_Refund = "DROP TABLE IF EXISTS refund_account";
 
   private static final String CREATE_Banner =
       "CREATE TABLE `banner` ("
@@ -290,6 +291,22 @@ public class DBService {
           + "  UNIQUE KEY `Member_Id_UNIQUE` (`Member_Id`)"
           + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='租客'";
 
+  private static final String CREATE_Refund =
+      "CREATE TABLE `refund_account` ("
+          + "  `UId` int NOT NULL DEFAULT '1',"
+          + "  `Member_Id` int NOT NULL COMMENT '對應member id',"
+          + "  `Name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,"
+          + "  `RrefundBank` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,"
+          + "  `bankStore` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,"
+          + "  `Phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,"
+          + "  `refundName` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,"
+          + "  `CreateTime` datetime DEFAULT NULL,"
+          + "  `UpdateTime` datetime DEFAULT NULL,"
+          + "  PRIMARY KEY (`UId`),"
+          + "  UNIQUE KEY `UId_UNIQUE` (`UId`),"
+          + "  UNIQUE KEY `Member_Id_UNIQUE` (`Member_Id`)"
+          + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='保證人'";
+
   public static String getDropBanner() {
     return DROP_Banner;
   }
@@ -355,6 +372,10 @@ public class DBService {
     return DROP_Tenant;
   }
 
+  public static String getDropRefund() {
+    return DROP_Refund;
+  }
+
   public static String getCreateBanner() {
     return CREATE_Banner;
   }
@@ -414,6 +435,10 @@ public class DBService {
 
   public static String getCreateStore() {
     return CREATE_Store;
+  }
+
+  public static String getCREATE_Refund() {
+    return CREATE_Refund;
   }
 
   public static String getCreateTenant() {
