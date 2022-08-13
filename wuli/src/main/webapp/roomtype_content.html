@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="roomtype.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <!-- https://material.io/resources/icons/?style=baseline -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <title>WUUUUUUUUUUUUUUUULi</title>
+</head>
+
+<body>
+
+<div class="container-fluid border p-5 mt-5">
+  <div class="row">
+    <div class="border col-md-4 col-12 room-type-select">
+      <div class=" justify-content-center ">
+        <h2>房型選擇</h2>
+        <div class="d-flex flex-column select-block">
+          <div class="bg-white w-75 ms-auto me-auto border select-regin ">
+            <div class="text-center">
+              <span >　大樓　:
+            <select class="w-50 text-center " name="" id="room-build">
+              <option></option>
+              <option>C</option>
+              <option>E</option>
+            </select>
+            </span>
+            </div>
+          </div>
+
+          <div class="bg-white w-75 ms-auto me-auto border select-regin">
+            <div class="text-center">
+              <span>　房型　:</span>
+              <select class="w-50 text-center" name="" id="room-type">
+                <option></option>
+                <option value="1">單人A</option>
+                <option value="2">單人B</option>
+                <option value="3">單人C</option>
+                <option value="4">雙人A</option>
+                <option value="5">雙人B</option>
+                <option value="6">雙人C</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bg-white w-75 ms-auto me-auto border select-regin">
+            <div class="text-center">
+              <span>　樓層　:</span>
+              <select class="w-50 text-center" name="" id="room-floor">
+                <option></option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bg-white w-75 ms-auto me-auto border select-regin">
+            <div class="text-center">
+              <span>　位置　:</span>
+              <select class="w-50 text-center" name="" id="room-position">
+                <option></option>
+                <option>L</option>
+                <option>R</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bg-white w-75 ms-auto me-auto border select-regin">
+            <div class="text-center">
+              <span class="w-25">狀態　:　</span>
+              <span class="w-75 text-center" id="room-status">------</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+      <div class="col-md-8 col-12 ">
+        <div class="border border-danger tenant-information">
+          <h2>租客資訊</h2>
+          <hr>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="container-fluid d-none" id="room-type-main">
+  <div class="room-type-main-block row align-items-center ">
+    <div class="room-type-main-side-block col-md-6 col-12  ">
+      <div class="room-type-side-regin ">
+        <!--! 變數  -->
+        <div class="d-flex ps-5 pe-5 align-middle">
+          <div id="carouselExampleIndicators" class="carousel slide ms-auto me-auto"
+               data-bs-ride="carousel">
+            <div class="carousel-indicators mt-auto mb-auto">
+              <button type="button" data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="0" class="active" aria-current="true"
+                      aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner mt-5" style="max-height: 300px">
+              <div class="carousel-item active">
+                <img src="./images/roomtype/SingleA1.jpg" class="d-block container-fluid"
+                     style="max-height: 295px;" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./images/roomtype/SingleA2.jpg" class="d-block container-fluid"
+                     style="max-height: 295px" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./images/roomtype/SingleA3.jpg" class="d-block container-fluid "
+                     style="max-height: 295px" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button"
+                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button"
+                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="room-type-main-side-block col-md-6 col-12">
+      <div class="p-3 room-type-side-regin">
+        <h3> 房間設備： </h3>
+        <span class="row d-flex justify-content-around align-items-center">
+
+            <span class="col-2 text-center">
+              <span class="row material-icons ">tv</span>
+              <div class="row">
+                <div class="col text-center">電視 </div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons">shower</span>
+              <div class="row">
+                <div class="col text-center">熱水器</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons">air</span>
+              <div class="row">
+                <div class="col text-center">冷氣</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons">kitchen</span>
+              <div class="row">
+                <div class="col text-center">冰箱</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="col material-icons text-center">window</span>
+              <div class="row">
+                <div class="col text-center">紗窗</div>
+              </div>
+            </span>
+          </span>
+
+        <hr/>
+        <span class="row d-flex justify-content-around ">
+            <span class="col-2 text-center">
+              <span class="material-icons">chair_alt</span>
+              <div class="row">
+                <div class="col text-center" id="room-item-chair"></div>
+              </div>
+            </span>
+            <span class="col-2 text-center ">
+              <span class="row material-icons">single_bed</span>
+              <div class="row">
+                <div class="col text-center" id="room-item-bed">床型</div>
+              </div>
+
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons">desk</span>
+              <div class="row">
+                <div class="col text-center" id="room-item-desk">桌子</div>
+              </div>
+
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons ">all_inbox</span>
+              <div class="row">
+                <div class="col text-center" id="room-item-sideTable">床頭櫃</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons">door_sliding</span>
+              <div class="row">
+                <div class="col text-center" id="room-item-wardrobe">衣櫃</div>
+              </div>
+            </span>
+          </span>
+        <hr>
+
+        <h3> 公共設施： </h3>
+
+        <span class="row d-flex justify-content-around ">
+            <span class="col-2 text-center">
+              <span class="material-icons">elevator </span>
+              <div class="row">
+                <div class="col text-center">電梯</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons">on_device_training </span>
+              <div class="row">
+                <div class="col text-center">投幣式洗衣機</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons">local_laundry_service </span>
+              <div class="row">
+                <div class="col text-center">投幣式烘衣機</div>
+              </div>
+            </span>
+             <span class="col-2 text-center">
+              <span class="material-icons">wifi </span>
+              <div class="row">
+                <div class="col text-center">無線網路</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+            </span>
+          </span>
+      </div>
+    </div>
+
+    <div class="room-type-notice">
+      <div class="h3">說明</div>
+      <ol>
+        <li>每份合約的租約期限皆為每年的6月30號，若欲一次簽訂兩年以上，則需簽署多份合約。</li>
+        <li>房租已包含水費、網路費以及管理費，租客無須再額外支付相關費用。</li>
+        <li>電費採台電計價，請自行於每奇數月份（1、3、5、7、9、11﹚下旬至管理員室領取帳單，並自行繳納；若因遲繳而導致斷電情況發生，業者無需承擔任何責任。</li>
+        <li>山水苑有專用的垃圾丟棄區，各位租客無須追垃圾車；請各位租戶在垃圾打包時做好垃圾分類，並以現場標誌指示放置。</li>
+        <li>簽約時請備妥兩個月份租金；可現金支付、也可於現場出示轉帳證明(手機截圖或轉帳單據)。</li>
+        <li>請愛惜使用房內間所有物品，若經檢驗後並非自然損壞而是人為因素造成，則會收取費用。</li>
+      </ol>
+    </div>
+
+  </div>
+</div>
+
+
+</body>
+
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.js"></script>
+
+<script src="roomtype.js"></script>
+
+</html>
