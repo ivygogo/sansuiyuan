@@ -1,12 +1,10 @@
 /*以下的這種寫法是在CSS裡面帶入變數的概念
 變數名稱為--tenant-height , 值為 : 後的內容
-
 使用上
   height: var(--tenant-height);
 如果要做計算
    height: calc(var(--tenant-height ) - 80px);
 */
-
 /*-----------------*/
 
 body {
@@ -19,7 +17,6 @@ select {
   border: none;
   outline: none;
 }
-
 
 div {
   font-size: 14px;
@@ -89,6 +86,4 @@ div {
 .img-height {
   max-height: 295px;
 }
-
-
 /*-------------------------*/

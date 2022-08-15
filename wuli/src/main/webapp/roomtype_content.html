@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.css">
   <link rel="stylesheet" href="roomtype.css">
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-  <!-- https://material.io/resources/icons/?style=baseline -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <title>WUUUUUUUUUUUUUUUULi</title>
 </head>
@@ -21,16 +18,14 @@
         <div class="d-flex flex-column select-block">
           <div class="bg-white w-75 ms-auto me-auto border select-regin ">
             <div class="text-center">
-              <span>　大樓　:
-            <select class="w-50 text-center " name="" id="room-building">
+              <span>　大樓　:</span>
+              <select class="w-50 text-center " name="" id="room-building">
                 <option value="0">請選擇</option>
-              <option>C</option>
-              <option>E</option>
-            </select>
-            </span>
+                <option>C</option>
+                <option>E</option>
+              </select>
             </div>
           </div>
-
           <div class="bg-white w-75 ms-auto me-auto border select-regin">
             <div class="text-center">
               <span>　房型　:</span>
@@ -45,7 +40,6 @@
               </select>
             </div>
           </div>
-
           <div class="bg-white w-75 ms-auto me-auto border select-regin">
             <div class="text-center">
               <span>　樓層　:</span>
@@ -62,14 +56,13 @@
               </select>
             </div>
           </div>
-
           <div class="bg-white w-75 ms-auto me-auto border select-regin">
             <div class="text-center">
               <span>　位置　:</span>
-              <select class="w-50 text-center" name="" id="room-position">
+              <select class="w-50 text-center" name="room-position" id="room-position">
                 <option value="0">請選擇</option>
-                <option>L</option>
-                <option>R</option>
+                <option name="room-position1" value="LL">L</option>
+                <option name="room-position2" value="RR">R</option>
               </select>
             </div>
           </div>
@@ -93,14 +86,11 @@
           </div>
         </div>
       </div>
-
-
     </div>
     <div class="col-md-8 col-12 ">
       <div class="border border-danger tenant-information">
         <h2 id="tenant-information">租客資訊</h2>
         <hr>
-
       </div>
     </div>
   </div>
@@ -109,8 +99,8 @@
 <div class="container-fluid d-none" id="room-type-main">
   <div class="room-type-main-block row align-items-center ">
     <div class="room-type-main-side-block col-md-6 col-12  ">
-      <div class="room-type-side-regin ">
-        <div class="d-flex align-middle mt-5">
+      <div class="room-type-side-regin pt-0 pt-0">
+        <div class="d-flex align-middle mt-2 ">
           <div id="carouselExampleIndicators"
                class="carousel slide ms-auto me-auto mt-auto mb-auto "
                data-bs-ride="carousel">
@@ -124,7 +114,7 @@
                       data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner mt-5 " id="img-slide-block">
-              <!-- 裡面內容用JS產生-->
+              <!-- 裡面內容用JS動態產生-->
             </div>
             <button class="carousel-control-prev" type="button"
                     data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -143,9 +133,9 @@
 
     <div class="room-type-main-side-block col-md-6 col-12">
       <div class="p-3 room-type-side-regin">
-        <h3> 房間設備： </h3>
-        <span class="row d-flex justify-content-around align-items-center">
-
+        <div class="pt-2">
+          <h3> 房間設備： </h3>
+          <span class="row d-flex justify-content-around align-items-center">
             <span class="col-2 text-center">
               <span class="row material-icons ">tv</span>
               <div class="row">
@@ -176,11 +166,9 @@
                 <div class="col text-center">紗窗</div>
               </div>
             </span>
-
       </span>
-
-        <hr/>
-        <span class="row d-flex justify-content-around ">
+          <hr>
+          <span class="row d-flex justify-content-around ">
             <span class="col-2 text-center">
               <span class="material-icons">chair_alt</span>
               <div class="row">
@@ -192,14 +180,12 @@
               <div class="row">
                 <div class="col text-center" id="room-item-bed"></div>
               </div>
-
             </span>
             <span class="col-2 text-center">
               <span class="row material-icons">desk</span>
               <div class="row">
                 <div class="col text-center" id="room-item-desk"></div>
               </div>
-
             </span>
             <span class="col-2 text-center">
               <span class="row material-icons ">all_inbox</span>
@@ -220,10 +206,9 @@
               </div>
             </span>
           </span>
-        <hr>
-        <h3> 公共設施： </h3>
-
-        <span class="row d-flex justify-content-around ">
+          <hr>
+          <h3> 公共設施： </h3>
+          <span class="row d-flex justify-content-around ">
             <span class="col-2 text-center">
               <span class="material-icons">elevator </span>
               <div class="row">
@@ -242,15 +227,15 @@
                 <div class="col text-center">投幣式烘衣機</div>
               </div>
             </span>
-             <span class="col-2 text-center">
+            <span class="col-2 text-center">
               <span class="material-icons">wifi </span>
               <div class="row">
                 <div class="col text-center">無線網路</div>
               </div>
             </span>
-            <span class="col-2 text-center">
-            </span>
+            <span class="col-2 text-center"><!--湊數用來排版--></span>
           </span>
+        </div>
       </div>
     </div>
 
@@ -269,12 +254,11 @@
   </div>
 </div>
 
-
 </body>
 
-<script src="js/bootstrap.bundle.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 <script src="js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.js"></script>
 <script src="roomtype.js"></script>
 
 </html>

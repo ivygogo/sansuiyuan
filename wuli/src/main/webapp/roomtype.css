@@ -24,6 +24,9 @@ select {
   outline: none;
 }
 
+div {
+  font-size: 14px;
+}
 /*-----------------*/
 
 .room-type-select, .tenant-information {
@@ -64,7 +67,7 @@ select {
 }
 
 .room-type-main-side-block {
-  height: 385px;
+  height: 400px;
   margin-bottom: 15px;
 }
 
@@ -83,11 +86,10 @@ select {
 }
 
 #img-slide-block {
-  max-height: 300px
+  max-height: 320px
 }
 
 .img-height {
-  max-height: 295px;
+  max-height: 305px;
 }
-
 /*-------------------------*/
