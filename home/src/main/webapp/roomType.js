@@ -2,13 +2,13 @@ $(function () {
 
   const Type = "A"  //begin type ,會由nav產生
   let asciiType = Type.charCodeAt()   //A ~ F =65 ~70
-
   function renderFeature(asciiType) {
     const type = String.fromCharCode(asciiType)
 
-    $.getJSON('/home/RoomTypeServlet', type, function (res) {
-      const roomType = res;
-
+    $.getJSON('/home/common/RoomTypeServlet', type, function (res) {
+      const roomType = res[type];
+      console.log(res)
+      console.log(" array =" + roomType.pics)
       $('#room-type-title').text(roomType.name)
       $('#room-type-price').text(roomType.price + " 元 / 月")
       $('#room-type-rest').text(roomType.rest)
@@ -19,8 +19,8 @@ $(function () {
         $('#creatBooking').removeClass("invisible")
       }
 
-      if (roomType.availableFloor.length != 0) {
-        $('#room-type-available-floor').text(roomType.availableFloor)
+      if (roomType.availableFloors.length != 0) {
+        $('#room-type-available-floor').text(roomType.availableFloors)
       } else {
         $('#room-type-available-floor').text("無")
       }
@@ -28,9 +28,9 @@ $(function () {
       if (roomType.balcony == true) {
         $('#room-item-balcony').removeClass('d-none')
       } else {
-      $('#room-item-balcony').addClass('d-none')
-    }
-    $('#room-item-chair').text(roomType.chair)
+        $('#room-item-balcony').addClass('d-none')
+      }
+      $('#room-item-chair').text(roomType.chair)
     $('#room-item-bed').text(roomType.bed)
     $('#room-item-desk').text(roomType.desk)
     $('#room-item-sideTable').text(roomType.sideTable)
@@ -39,17 +39,17 @@ $(function () {
     const renderImg = roomType => {
       const $imgBlock = $('#img-slide-block')
       let picNum = 0
-      return roomType.pic.forEach(roomTypePic => {
-          if (picNum == 0) {
-            const $imgSlide = $(document.createElement("div")).addClass(
-              "carousel-item").addClass("active")
-            const $storeImg = $(document.createElement("img")).attr("src",
-              "./images/roomtype/" + roomTypePic).attr("alt",
-              "don't find pic").addClass(
-              "container-fluid").addClass("img-height")
-            $imgSlide.append($storeImg).appendTo($imgBlock)
-            picNum++
-          } else {
+      return roomType.pics.forEach(roomTypePic => {
+        if (picNum == 0) {
+          const $imgSlide = $(document.createElement("div")).addClass(
+            "carousel-item").addClass("active")
+          const $storeImg = $(document.createElement("img")).attr("src",
+            "./images/roomtype/" + roomTypePic).attr("alt",
+            "don't find pic").addClass(
+            "container-fluid").addClass("img-height")
+          $imgSlide.append($storeImg).appendTo($imgBlock)
+          picNum++
+        } else {
             const $imgSlide = $(document.createElement("div")).addClass(
               "carousel-item")
             const $storeImg = $(document.createElement("img")).attr("src",

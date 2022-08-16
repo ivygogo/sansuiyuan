@@ -26,6 +26,16 @@ $(function () {
     $('#room-type-value').remove()
 
     const type = $('#room-type').val()
+
+    if (type === "0") {
+      $('#room-type-value').remove()
+      $('#room-type-main').addClass('d-none')
+      $('#room-price').text("------")
+      $('#room-size').text("------")
+      $('#room-status').text("------")
+      return;
+    }
+
     $(document.createElement("div")).text(
       '房型代號 : ' + type + '  房型名稱 : ' + $(
         '#room-type option:selected').text()).attr('id',
@@ -33,16 +43,8 @@ $(function () {
 
     $('#room-type-main').removeClass('d-none')
 
-    $.getJSON('/wuli/RoomTypeServlet', type, function (res) {
-      const roomType = res
-      if (!roomType) {
-        $('#room-type-value').remove()
-        $('#room-type-main').addClass('d-none')
-        $('#room-price').text("------")
-        $('#room-size').text("------")
-        $('#room-status').text("------")
-        return;
-      }
+    $.getJSON('/wuli/common/RoomTypeServlet', type, function (res) {
+      const roomType = res[type]
 
       //清除圖片
       $('#img-slide-block').html("")
@@ -50,17 +52,17 @@ $(function () {
       const renderImg = roomType => {
         const $imgBlock = $('#img-slide-block')
         let n = 0
-        return roomType.pic.forEach(roomTypePic => {
-            if (n == 0) {
-              const $imgSlide = $(document.createElement("div")).addClass(
-                "carousel-item").addClass("active")
-              const $storeImg = $(document.createElement("img")).attr("src",
-                "./images/roomtype/" + roomTypePic).attr("alt",
-                "don't find pic").addClass(
-                "container-fluid").addClass("img-height")
-              $imgSlide.append($storeImg).appendTo($imgBlock)
-              n++
-            } else {
+        return roomType.pics.forEach(roomTypePic => {
+          if (n == 0) {
+            const $imgSlide = $(document.createElement("div")).addClass(
+              "carousel-item").addClass("active")
+            const $storeImg = $(document.createElement("img")).attr("src",
+              "./images/roomtype/" + roomTypePic).attr("alt",
+              "don't find pic").addClass(
+              "container-fluid").addClass("img-height")
+            $imgSlide.append($storeImg).appendTo($imgBlock)
+            n++
+          } else {
               const $imgSlide = $(document.createElement("div")).addClass(
                 "carousel-item")
               const $storeImg = $(document.createElement("img")).attr("src",
