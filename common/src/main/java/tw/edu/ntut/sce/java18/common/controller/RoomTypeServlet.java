@@ -2,6 +2,7 @@ package tw.edu.ntut.sce.java18.common.controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class RoomTypeServlet extends HttpServlet {
     var printWriter = response.getWriter();
     var roomTypeInfo = roomTypeService.queryRoomType(selectRoomType);
 
-    var roomTypeJson = gson.toJson(roomTypeInfo);
+    var roomTypeJson = gson.toJson(Map.of(roomTypeInfo.getType(), roomTypeInfo));
 
     printWriter.print(roomTypeJson);
 

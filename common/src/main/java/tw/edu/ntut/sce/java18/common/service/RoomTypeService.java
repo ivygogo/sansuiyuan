@@ -1,6 +1,5 @@
 package tw.edu.ntut.sce.java18.common.service;
 
-import java.util.Map;
 import tw.edu.ntut.sce.java18.common.dao.RoomTypeDao;
 import tw.edu.ntut.sce.java18.common.dao.impl.RoomTypeDaoImpl_JDBC;
 import tw.edu.ntut.sce.java18.common.model.RoomTypeBean;
@@ -16,10 +15,8 @@ public class RoomTypeService {
     roomTypeConverter = new RoomTypeConverter();
   }
 
-  public Map<String, RoomTypeServiceBean> queryRoomType(String type) {
+  public RoomTypeServiceBean queryRoomType(String type) {
     RoomTypeBean roomTypeBean = dao.queryRoomType(type);
-    RoomTypeServiceBean roomTypeServiceBean = roomTypeConverter.convert(roomTypeBean);
-
-    return Map.of(roomTypeServiceBean.getType(), roomTypeServiceBean);
+    return roomTypeConverter.convert(roomTypeBean);
   }
 }
