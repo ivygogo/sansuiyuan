@@ -7,6 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import tw.edu.ntut.sce.java18.common.controller.converter.RoomTypeConverter;
+import tw.edu.ntut.sce.java18.common.controller.model.RoomTypeControllerBean;
+import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean;
 import tw.edu.ntut.sce.java18.common.service.RoomTypeService;
 
 @WebServlet("/common/RoomTypeServlet")
@@ -25,10 +28,12 @@ public class RoomTypeServlet extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
 
     var printWriter = response.getWriter();
-    var roomType = roomTypeService.queryRoomType(selectRoomType);
+    RoomTypeServiceBean roomType = roomTypeService.queryRoomType(selectRoomType);
 
     // TODO may extract to another converter for Controller model and Service model conversion
-    var roomTypeResponse = Map.of(roomType.getType(), roomType);
+    RoomTypeControllerBean displayRoomType = new RoomTypeConverter().convert(roomType);
+    Map<String, RoomTypeControllerBean> roomTypeResponse =
+        Map.of(displayRoomType.getType(), displayRoomType);
     var roomTypeResponseJson = gson.toJson(roomTypeResponse);
 
     printWriter.print(roomTypeResponseJson);

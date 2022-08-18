@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.common.dao.impl;
+package tw.edu.ntut.sce.java18.common.storage.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import tw.edu.ntut.sce.java18.common.dao.RoomTypeDao;
-import tw.edu.ntut.sce.java18.common.model.RoomTypeBean;
+import tw.edu.ntut.sce.java18.common.storage.dao.RoomTypeDao;
+import tw.edu.ntut.sce.java18.common.storage.model.RoomTypeBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 
 public class RoomTypeDaoImpl_JDBC implements RoomTypeDao {

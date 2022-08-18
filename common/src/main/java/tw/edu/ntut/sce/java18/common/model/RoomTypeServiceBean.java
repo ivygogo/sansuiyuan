@@ -4,7 +4,6 @@ public class RoomTypeServiceBean {
   private String type;
   private String name;
   private String chair;
-  private String bed;
   private String desk;
   private String sideTable;
   private String wardrobe;
@@ -14,6 +13,56 @@ public class RoomTypeServiceBean {
   private String[] pics;
   private int rest;
   private int[] availableFloors;
+
+  private int total;
+
+  public int getTotal() {
+    return total;
+  }
+
+  public void setTotal(int total) {
+    this.total = total;
+  }
+
+  private Bed bed;
+
+  public Bed getBed() {
+    return bed;
+  }
+
+  public void setBed(Bed bed) {
+    this.bed = bed;
+  }
+
+  public static class Bed {
+    String displayName;
+    int quantity;
+    int price;
+
+    public String getDisplayName() {
+      return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+      this.displayName = displayName;
+    }
+
+    public int getQuantity() {
+      return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+      this.quantity = quantity;
+    }
+
+    public int getPrice() {
+      return price;
+    }
+
+    public void setPrice(int price) {
+      this.price = price;
+    }
+  }
 
   public RoomTypeServiceBean() {}
 
@@ -27,10 +76,6 @@ public class RoomTypeServiceBean {
 
   public void setChair(String chair) {
     this.chair = chair;
-  }
-
-  public void setBed(String bed) {
-    this.bed = bed;
   }
 
   public void setDesk(String desk) {
@@ -79,10 +124,6 @@ public class RoomTypeServiceBean {
 
   public String getChair() {
     return chair;
-  }
-
-  public String getBed() {
-    return bed;
   }
 
   public String getDesk() {

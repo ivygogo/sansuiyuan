@@ -1,13 +1,14 @@
-package tw.edu.ntut.sce.java18.common.service;
+package tw.edu.ntut.sce.java18.common.storage.converter;
 
-import tw.edu.ntut.sce.java18.common.model.RoomTypeBean;
 import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean;
+import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean.Bed;
+import tw.edu.ntut.sce.java18.common.storage.model.RoomTypeBean;
 
 public class RoomTypeConverter {
 
   public RoomTypeServiceBean convert(RoomTypeBean roomTypeBean) {
     RoomTypeServiceBean roomTypeServiceBean = new RoomTypeServiceBean();
-    String bed, desk, sideTable;
+    String desk, sideTable;
 
     roomTypeServiceBean.setPrice(roomTypeBean.getPrice());
     roomTypeServiceBean.setType(roomTypeBean.getType());
@@ -18,12 +19,18 @@ public class RoomTypeConverter {
     roomTypeServiceBean.setChair("椅子 * " + roomTypeBean.getQ_Chair());
     roomTypeServiceBean.setWardrobe("衣櫃 * " + roomTypeBean.getQ_Wardrobe());
 
-    int rest = roomTypeBean.getTotal() - 0;
+    int total = roomTypeBean.getTotal();
+    roomTypeServiceBean.setTotal(total);
+
+    var bed = new Bed();
     if (roomTypeBean.getQ_Bed_S() != 0) {
-      bed = "單人床 * " + roomTypeBean.getQ_Bed_S();
+      bed.setDisplayName("單人床");
+      bed.setQuantity(roomTypeBean.getQ_Bed_S());
     } else {
-      bed = "雙人床 * " + roomTypeBean.getQ_Bed_L();
+      bed.setDisplayName("雙人床");
+      bed.setQuantity(roomTypeBean.getQ_Bed_L());
     }
+    roomTypeServiceBean.setBed(bed);
 
     if (roomTypeBean.getQ_Desk_S() != 0) {
       desk = "3.5呎桌子 * " + roomTypeBean.getQ_Desk_S();
@@ -39,8 +46,7 @@ public class RoomTypeConverter {
     String[] arrPics = {roomTypeBean.getPic1(), roomTypeBean.getPic2(), roomTypeBean.getPic3()};
     int[] arrAvailableFloorA = {1, 3, 8};
 
-    roomTypeServiceBean.setRest(rest);
-    roomTypeServiceBean.setBed(bed);
+    //    roomTypeServiceBean.setBed(bed);
     roomTypeServiceBean.setDesk(desk);
     roomTypeServiceBean.setSideTable(sideTable);
     roomTypeServiceBean.setPics(arrPics);

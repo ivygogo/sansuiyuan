@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.common.model;
+package tw.edu.ntut.sce.java18.common.storage.model;
 
 public class RoomTypeBean {
   String type;
