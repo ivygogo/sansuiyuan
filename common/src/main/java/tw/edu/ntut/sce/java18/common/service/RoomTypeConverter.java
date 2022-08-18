@@ -5,7 +5,7 @@ import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean;
 
 public class RoomTypeConverter {
 
-  public RoomTypeServiceBean roomTypeDaoService(RoomTypeBean roomTypeBean) {
+  public RoomTypeServiceBean convert(RoomTypeBean roomTypeBean) {
     RoomTypeServiceBean roomTypeServiceBean = new RoomTypeServiceBean();
     String bed, desk, sideTable;
 

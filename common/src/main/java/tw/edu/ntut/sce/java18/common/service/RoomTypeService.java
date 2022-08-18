@@ -16,8 +16,7 @@ public class RoomTypeService {
 
   public Map<String, RoomTypeServiceBean> createRoomTypeObject(String type) {
     RoomTypeBean roomTypeBean = dao.queryRoomType(type);
-    RoomTypeServiceBean roomTypeDaoService =
-        new RoomTypeConverter().roomTypeDaoService(roomTypeBean);
+    RoomTypeServiceBean roomTypeDaoService = new RoomTypeConverter().convert(roomTypeBean);
 
     return Map.of(roomTypeDaoService.getType(), roomTypeDaoService);
   }
