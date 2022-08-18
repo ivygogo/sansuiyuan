@@ -25,11 +25,13 @@ public class RoomTypeServlet extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
 
     var printWriter = response.getWriter();
-    var roomTypeInfo = roomTypeService.queryRoomType(selectRoomType);
+    var roomType = roomTypeService.queryRoomType(selectRoomType);
 
-    var roomTypeJson = gson.toJson(Map.of(roomTypeInfo.getType(), roomTypeInfo));
+    // TODO may extract to another converter for Controller model and Service model conversion
+    var roomTypeResponse = Map.of(roomType.getType(), roomType);
+    var roomTypeResponseJson = gson.toJson(roomTypeResponse);
 
-    printWriter.print(roomTypeJson);
+    printWriter.print(roomTypeResponseJson);
 
     printWriter.flush();
   }
