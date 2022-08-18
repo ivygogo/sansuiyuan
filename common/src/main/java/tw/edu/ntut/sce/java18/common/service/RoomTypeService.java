@@ -8,15 +8,17 @@ import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean;
 
 public class RoomTypeService {
 
+  private final RoomTypeConverter roomTypeConverter;
   RoomTypeDao dao;
 
   public RoomTypeService() {
     dao = new RoomTypeDaoImpl_JDBC();
+    roomTypeConverter = new RoomTypeConverter();
   }
 
   public Map<String, RoomTypeServiceBean> createRoomTypeObject(String type) {
     RoomTypeBean roomTypeBean = dao.queryRoomType(type);
-    RoomTypeServiceBean roomTypeDaoService = new RoomTypeConverter().convert(roomTypeBean);
+    RoomTypeServiceBean roomTypeDaoService = roomTypeConverter.convert(roomTypeBean);
 
     return Map.of(roomTypeDaoService.getType(), roomTypeDaoService);
   }
