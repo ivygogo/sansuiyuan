@@ -12,6 +12,7 @@ import tw.edu.ntut.sce.java18.common.service.RoomTypeService;
 public class RoomTypeServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
+  private final RoomTypeService roomTypeService = new RoomTypeService();
   private Gson gson = new Gson();
 
   @Override
@@ -23,7 +24,7 @@ public class RoomTypeServlet extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
 
     var printWriter = response.getWriter();
-    var roomTypeInfo = new RoomTypeService().createRoomTypeObject(selectRoomType);
+    var roomTypeInfo = roomTypeService.createRoomTypeObject(selectRoomType);
 
     var roomTypeJson = gson.toJson(roomTypeInfo);
 
