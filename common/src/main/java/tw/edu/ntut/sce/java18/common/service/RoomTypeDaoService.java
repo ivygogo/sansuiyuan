@@ -3,7 +3,7 @@ package tw.edu.ntut.sce.java18.common.service;
 import tw.edu.ntut.sce.java18.common.model.RoomTypeBean;
 import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean;
 
-public class RoomTypeDaoService extends RoomTypeServiceBean {
+public class RoomTypeDaoService {
 
   public RoomTypeServiceBean roomTypeDaoService(RoomTypeBean roomTypeBean) {
     RoomTypeServiceBean roomTypeServiceBean = new RoomTypeServiceBean();
