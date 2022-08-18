@@ -24,7 +24,7 @@ public class RoomTypeServlet extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
 
     var printWriter = response.getWriter();
-    var roomTypeInfo = roomTypeService.createRoomTypeObject(selectRoomType);
+    var roomTypeInfo = roomTypeService.queryRoomType(selectRoomType);
 
     var roomTypeJson = gson.toJson(roomTypeInfo);
 
