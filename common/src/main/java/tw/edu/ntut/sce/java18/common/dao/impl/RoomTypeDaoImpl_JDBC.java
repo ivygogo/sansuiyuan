@@ -34,31 +34,55 @@ public class RoomTypeDaoImpl_JDBC implements RoomTypeDao {
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         if (resultSet.next()) {
           roomTypeBean = new RoomTypeBean();
-          roomTypeBean.setPrice(resultSet.getInt("Price"));
           roomTypeBean.setType(resultSet.getString("Type"));
-          roomTypeBean.setBalcony(resultSet.getBoolean("Balcony"));
-          //          roomTypeBean.setBed(resultSet.getString("Bed"));
-          //          roomTypeBean.setChair(resultSet.getString("Chair"));
-          //          roomTypeBean.setDesk(resultSet.getString("Desk"));
           roomTypeBean.setName(resultSet.getString("Name"));
-          //          roomTypeBean.setRest(resultSet.getInt("Rest"));
-          //          roomTypeBean.setSideTable(resultSet.getString("SideTable"));
+          roomTypeBean.setTotal(resultSet.getInt("Total"));
+          roomTypeBean.setPrice(resultSet.getInt("Price"));
           roomTypeBean.setSize(resultSet.getDouble("Size"));
-          //          roomTypeBean.setWardrobe(resultSet.getString("Wardrobe"));
+          roomTypeBean.setBalcony(resultSet.getBoolean("Balcony"));
+          roomTypeBean.setPic1(resultSet.getString("Pic1"));
+          roomTypeBean.setPic2(resultSet.getString("Pic2"));
+          roomTypeBean.setPic3(resultSet.getString("Pic3"));
 
-          String[] arrPics = {
-            resultSet.getString("Pic1"), resultSet.getString("Pic2"), resultSet.getString("Pic3")
-          };
+          roomTypeBean.setQ_TV(resultSet.getInt("Q_TV"));
+          roomTypeBean.setQ_Refrigerator(resultSet.getInt("Q_Refrigerator"));
+          roomTypeBean.setQ_AirCondition(resultSet.getInt("Q_AirCondition"));
+          roomTypeBean.setQ_Heater(resultSet.getInt("Q_Heater"));
+          roomTypeBean.setQ_Mirror(resultSet.getInt("Q_Mirror"));
+          roomTypeBean.setQ_Flow_Table(resultSet.getInt("Q_Flow_Table"));
+          roomTypeBean.setQ_Side_Table_S(resultSet.getInt("Q_Side_Table_S"));
+          roomTypeBean.setQ_Side_Table_L(resultSet.getInt("Q_Side_Table_L"));
+          roomTypeBean.setQ_Bed_Board_S(resultSet.getInt("Q_Bed_Board_S"));
+          roomTypeBean.setQ_Bed_Board_L(resultSet.getInt("Q_Bed_Board_S"));
+          roomTypeBean.setQ_Desk_S(resultSet.getInt("Q_Desk_S"));
+          roomTypeBean.setQ_Desk_L(resultSet.getInt("Q_Desk_L"));
+          roomTypeBean.setQ_Bed_S(resultSet.getInt("Q_Bed_S"));
+          roomTypeBean.setQ_Bed_L(resultSet.getInt("Q_Bed_L"));
+          roomTypeBean.setQ_Window_Screen_S(resultSet.getInt("Q_Window_Screen_S"));
+          roomTypeBean.setQ_Window_Screen_L(resultSet.getInt("Q_Window_Screen_L"));
+          roomTypeBean.setQ_Window_Screen_G(resultSet.getInt("Q_Window_Screen_G"));
+          roomTypeBean.setQ_Wardrobe(resultSet.getInt("Q_Wardrobe"));
+          roomTypeBean.setQ_Chair(resultSet.getInt("Q_Chair"));
 
-          roomTypeBean.setPics(arrPics);
-          roomTypeBean.setRest(6);
-          roomTypeBean.setBed("雙人床");
-          roomTypeBean.setDesk("大桌子");
-          roomTypeBean.setChair("椅子*1");
-          roomTypeBean.setWardrobe("衣櫃1");
-          roomTypeBean.setSideTable("小床頭櫃");
-          int[] arrAvailableFloorA = {1, 3, 8};
-          roomTypeBean.setAvailableFloors(arrAvailableFloorA);
+          roomTypeBean.setP_TV(resultSet.getInt("Q_TV"));
+          roomTypeBean.setP_Refrigerator(resultSet.getInt("P_Refrigerator"));
+          roomTypeBean.setP_AirCondition(resultSet.getInt("P_AirCondition"));
+          roomTypeBean.setP_Heater(resultSet.getInt("P_Heater"));
+          roomTypeBean.setP_Mirror(resultSet.getInt("P_Mirror"));
+          roomTypeBean.setP_Flow_Table(resultSet.getInt("P_Flow_Table"));
+          roomTypeBean.setP_Side_Table_S(resultSet.getInt("P_Side_Table_S"));
+          roomTypeBean.setP_Side_Table_L(resultSet.getInt("P_Side_Table_L"));
+          roomTypeBean.setP_Bed_Board_S(resultSet.getInt("P_Bed_Board_S"));
+          roomTypeBean.setP_Bed_Board_L(resultSet.getInt("P_Bed_Board_S"));
+          roomTypeBean.setP_Desk_S(resultSet.getInt("P_Desk_S"));
+          roomTypeBean.setP_Desk_L(resultSet.getInt("P_Desk_L"));
+          roomTypeBean.setP_Bed_S(resultSet.getInt("P_Bed_S"));
+          roomTypeBean.setP_Bed_L(resultSet.getInt("P_Bed_L"));
+          roomTypeBean.setP_Window_Screen_S(resultSet.getInt("P_Window_Screen_S"));
+          roomTypeBean.setP_Window_Screen_L(resultSet.getInt("P_Window_Screen_L"));
+          roomTypeBean.setP_Window_Screen_G(resultSet.getInt("P_Window_Screen_G"));
+          roomTypeBean.setP_Wardrobe(resultSet.getInt("P_Wardrobe"));
+          roomTypeBean.setP_Chair(resultSet.getInt("P_Chair"));
         }
       }
     } catch (SQLException ex) {

@@ -19,15 +19,11 @@ public class RoomTypeServlet extends HttpServlet {
       throws IOException {
 
     String selectRoomType = request.getQueryString();
-    System.out.println("++++++++++++++");
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
 
     var printWriter = response.getWriter();
-    System.out.println(selectRoomType);
-
-    //    GenRoomTypeInfo roomTypeInfo = GenRoomTypeInfo.createRoomTypeObject(selectRoomType);
-    var roomTypeInfo = new RoomTypeService().createRoomTypeObject2(selectRoomType);
+    var roomTypeInfo = new RoomTypeService().createRoomTypeObject(selectRoomType);
 
     var roomTypeJson = gson.toJson(roomTypeInfo);
 
