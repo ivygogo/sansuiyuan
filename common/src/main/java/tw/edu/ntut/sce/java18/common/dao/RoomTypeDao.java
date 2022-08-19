@@ -4,5 +4,7 @@ import tw.edu.ntut.sce.java18.common.model.RoomTypeBean;
 
 public interface RoomTypeDao {
 
-  RoomTypeBean queryRoomType(String type);
+  RoomTypeBean queryRoomTypeInfo(String type);
+
+  RoomTypeBean updateRoomTypeInfo(String type);
 }

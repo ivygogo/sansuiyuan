@@ -77,6 +77,11 @@ div {
   background-color: #fff;
 }
 
+.room-type-side-left-text {
+  font-size: 18px;
+}
+
+
 .room-type-notice {
   margin-top: 2%;
   margin-left: 1%;

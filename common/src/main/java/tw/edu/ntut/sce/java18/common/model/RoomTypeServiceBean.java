@@ -3,17 +3,16 @@ package tw.edu.ntut.sce.java18.common.model;
 public class RoomTypeServiceBean {
   private String type;
   private String name;
-  private String chair;
-  private String bed;
-  private String desk;
-  private String sideTable;
-  private String wardrobe;
-  private double size;
+  private int chair;
+  private Bed bed;
+  private Desk desk;
+  private SideTable sideTable;
+  private int wardrobe;
+  private String size;
   private double price;
   private boolean balcony;
   private String[] pics;
-  private int rest;
-  private int[] availableFloors;
+  private int total;
 
   public RoomTypeServiceBean() {}
 
@@ -25,27 +24,27 @@ public class RoomTypeServiceBean {
     this.name = name;
   }
 
-  public void setChair(String chair) {
+  public void setChair(int chair) {
     this.chair = chair;
   }
 
-  public void setBed(String bed) {
+  public void setBed(Bed bed) {
     this.bed = bed;
   }
 
-  public void setDesk(String desk) {
+  public void setDesk(Desk desk) {
     this.desk = desk;
   }
 
-  public void setSideTable(String sideTable) {
+  public void setSideTable(SideTable sideTable) {
     this.sideTable = sideTable;
   }
 
-  public void setWardrobe(String wardrobe) {
+  public void setWardrobe(int wardrobe) {
     this.wardrobe = wardrobe;
   }
 
-  public void setSize(double size) {
+  public void setSize(String size) {
     this.size = size;
   }
 
@@ -61,12 +60,8 @@ public class RoomTypeServiceBean {
     this.pics = pics;
   }
 
-  public void setRest(int rest) {
-    this.rest = rest;
-  }
-
-  public void setAvailableFloors(int[] availableFloors) {
-    this.availableFloors = availableFloors;
+  public void setTotal(int total) {
+    this.total = total;
   }
 
   public String getType() {
@@ -77,27 +72,27 @@ public class RoomTypeServiceBean {
     return name;
   }
 
-  public String getChair() {
+  public int getChair() {
     return chair;
   }
 
-  public String getBed() {
+  public Bed getBed() {
     return bed;
   }
 
-  public String getDesk() {
+  public Desk getDesk() {
     return desk;
   }
 
-  public String getSideTable() {
+  public SideTable getSideTable() {
     return sideTable;
   }
 
-  public String getWardrobe() {
+  public int getWardrobe() {
     return wardrobe;
   }
 
-  public double getSize() {
+  public String getSize() {
     return size;
   }
 
@@ -113,11 +108,106 @@ public class RoomTypeServiceBean {
     return pics;
   }
 
-  public int getRest() {
-    return rest;
+  public int getTotal() {
+    return total;
   }
 
-  public int[] getAvailableFloors() {
-    return availableFloors;
+  public static class Bed {
+    String name;
+    int quantity;
+    int priceBed;
+    int priceBedBoard;
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public int getQuantity() {
+      return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+      this.quantity = quantity;
+    }
+
+    public int getPrice() {
+      return priceBed;
+    }
+
+    public void setPrice(int price) {
+      this.priceBed = price;
+    }
+
+    public int getPriceBedBoard() {
+      return priceBedBoard;
+    }
+
+    public void setPriceBedBoard(int priceBedBoard) {
+      this.priceBedBoard = priceBedBoard;
+    }
+  }
+
+  public static class Desk {
+    String name;
+    int quantity;
+    int price;
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public int getQuantity() {
+      return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+      this.quantity = quantity;
+    }
+
+    public int getPrice() {
+      return price;
+    }
+
+    public void setPrice(int price) {
+      this.price = price;
+    }
+  }
+
+  public static class SideTable {
+    String name;
+    int quantity;
+    int price;
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public int getQuantity() {
+      return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+      this.quantity = quantity;
+    }
+
+    public int getPrice() {
+      return price;
+    }
+
+    public void setPrice(int price) {
+      this.price = price;
+    }
   }
 }

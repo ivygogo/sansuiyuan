@@ -44,7 +44,9 @@ $(function () {
     $('#room-type-main').removeClass('d-none')
 
     $.getJSON('/wuli/common/RoomTypeServlet', type, function (res) {
-      const roomType = res[type]
+
+      console.log(res)
+      const roomType = res
 
       //清除圖片
       $('#img-slide-block').html("")
@@ -53,16 +55,16 @@ $(function () {
         const $imgBlock = $('#img-slide-block')
         let n = 0
         return roomType.pics.forEach(roomTypePic => {
-          if (n == 0) {
-            const $imgSlide = $(document.createElement("div")).addClass(
-              "carousel-item").addClass("active")
-            const $storeImg = $(document.createElement("img")).attr("src",
-              "./images/roomtype/" + roomTypePic).attr("alt",
-              "don't find pic").addClass(
-              "container-fluid").addClass("img-height")
-            $imgSlide.append($storeImg).appendTo($imgBlock)
-            n++
-          } else {
+            if (n == 0) {
+              const $imgSlide = $(document.createElement("div")).addClass(
+                "carousel-item").addClass("active")
+              const $storeImg = $(document.createElement("img")).attr("src",
+                "./images/roomtype/" + roomTypePic).attr("alt",
+                "don't find pic").addClass(
+                "container-fluid").addClass("img-height")
+              $imgSlide.append($storeImg).appendTo($imgBlock)
+              n++
+            } else {
               const $imgSlide = $(document.createElement("div")).addClass(
                 "carousel-item")
               const $storeImg = $(document.createElement("img")).attr("src",
@@ -78,11 +80,11 @@ $(function () {
       renderImg(roomType)
 
       //修正各房型的內容
-      $('#room-item-chair').text(roomType.chair)
-      $('#room-item-bed').text(roomType.bed)
-      $('#room-item-desk').text(roomType.desk)
-      $('#room-item-sideTable').text(roomType.sideTable)
-      $('#room-item-wardrobe').text(roomType.wardrobe)
+      $('#room-item-chair').html(roomType.chair)
+      $('#room-item-bed').html(roomType.bed)
+      $('#room-item-desk').html(roomType.desk)
+      $('#room-item-sideTable').html(roomType.sideTable)
+      $('#room-item-wardrobe').html(roomType.wardrobe)
       $('#room-price').text(roomType.price)
       $('#room-size').text(roomType.size + '坪')
       $('#room-status').text(roomType.status)
