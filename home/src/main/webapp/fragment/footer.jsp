@@ -26,6 +26,7 @@
 			<div class="col-md-4">
 				<div class="mb-4">
 					<h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
+					<%-- 
 					<form action="#" method="post" class="footer-subscribe">
 						<div class="input-group mb-3">
 							<input type="text"
@@ -37,7 +38,7 @@
 									id="button-addon2">Send</button>
 							</div>
 						</div>
-					</form>
+					</form>--%>
 				</div>
 
 				<div class="">
