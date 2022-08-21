@@ -14,6 +14,8 @@ public class MemberBean implements Serializable {
   String idNumber;
   String mail;
   String password;
+  String county;
+  String district;
   String address;
   String nickname;
   Integer state;
@@ -56,10 +58,12 @@ public class MemberBean implements Serializable {
       String idNumber,
       String mail,
       String password,
+      String county,
+      String district,
       String address,
       String nickname,
-      Integer state,
-      String code,
+      Integer state, // 狀態
+      String code, // 驗證碼
       String school,
       Integer pic,
       Integer signature_1,
@@ -93,6 +97,8 @@ public class MemberBean implements Serializable {
     this.idNumber = idNumber;
     this.mail = mail;
     this.password = password;
+    this.county = county;
+    this.district = district;
     this.address = address;
     this.nickname = nickname;
     this.state = state;
@@ -124,11 +130,11 @@ public class MemberBean implements Serializable {
     this.refundAccount = refundAccount;
   }
 
+  /* ====== getter ======*/
+
   public static long getSerialversionuid() {
     return serialVersionUID;
   }
-
-  /* ====== getter ======*/
 
   public Integer getuId() {
     return uId;
@@ -156,6 +162,14 @@ public class MemberBean implements Serializable {
 
   public String getPassword() {
     return password;
+  }
+
+  public String getCounty() {
+    return county;
+  }
+
+  public String getDistrict() {
+    return district;
   }
 
   public String getAddress() {
@@ -274,7 +288,7 @@ public class MemberBean implements Serializable {
     return refundAccount;
   }
 
-  /* ====== Setter ======*/
+  /* ====== setter ======*/
 
   public void setuId(Integer uId) {
     this.uId = uId;
@@ -302,6 +316,14 @@ public class MemberBean implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public void setCounty(String county) {
+    this.county = county;
+  }
+
+  public void setDistrict(String district) {
+    this.district = district;
   }
 
   public void setAddress(String address) {

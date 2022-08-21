@@ -15,5 +15,9 @@ public interface MemberDao {
 
   MemberBean getMemberInfo(int uId);
 
+  String checkIdNumber(String formValue, int genderId);
+
   void setConnection(Connection con);
+
+  int updateMemberInfo(MemberBean bean);
 }

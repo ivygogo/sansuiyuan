@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -55,6 +58,8 @@ public class MemberDaoImpl_jdbc implements MemberDao {
           mb.setIdNumber(rs.getString("id_Number"));
           mb.setMail(rs.getString("mail"));
           mb.setPassword(rs.getString("password"));
+          mb.setCounty(rs.getString("county"));
+          mb.setDistrict(rs.getString("district"));
           mb.setAddress(rs.getString("address"));
           mb.setNickname(rs.getString("nickname"));
           mb.setState(rs.getInt("state"));
@@ -112,9 +117,142 @@ public class MemberDaoImpl_jdbc implements MemberDao {
     // TODO Auto-generated method stub
     return null;
   }
+  /*===確認身分證號是否正確===*/
+  @Override
+  public String checkIdNumber(String formValue, int genderId) {
+    String errMsg = "";
+    String idNumber = "";
+    int countyCode = -1;
+    idNumber = formValue.replace(" ", "");
+    countyCode = (int) (idNumber.substring(0, 1).toUpperCase().charAt(0));
+    List<Integer> code = new ArrayList<>();
+
+    if (idNumber == null || idNumber.trim().length() == 0) {
+      errMsg = "必須輸入身分證號";
+
+    } else if (idNumber.length() != 10) {
+      errMsg = "身分證號格式錯誤";
+
+    } else if (countyCode < 65 || countyCode > 90) {
+      errMsg = "身分證號縣市碼不正確";
+
+    } else if (genderId != Character.getNumericValue(idNumber.charAt(1))) {
+      errMsg = "身分證號性別碼不正確";
+
+    } else if (!(idNumber.substring(2)).matches("[0-9]{8}")) {
+      errMsg = "身分證號格式不正確";
+
+    } else if (idNumber.length() == 10 && (idNumber.substring(2)).matches("[0-9]{8}")) {
+
+      code.add((int) idNumber.substring(0, 1).toUpperCase().charAt(0));
+      // System.out.println((int) idNumber.substring(0, 1).toUpperCase().charAt(0));
+      for (int i = 1; i < idNumber.length(); i++) {
+        int num =
+            (Character.getNumericValue(idNumber.substring(i, (i + 1)).toUpperCase().charAt(0)));
+        code.add(num);
+      }
+      int[] weight = {
+        10, 11, 12, 13, 14, 15, 16, 17, 34, 18, 19, 20, 21, 22, 35, 23, 24, 25, 26, 27, 28, 29, 30,
+        31, 32, 33
+      };
+      int firstCode = weight[(code.get(0) - 65)];
+
+      int sum = (firstCode / 10) * 1 + (firstCode % 10) * 9;
+
+      int encode = 8;
+      for (int i = 1; i <= (idNumber.length() - 1); i++) {
+        sum += code.get(i) * encode;
+        // System.out.println("sum" + i + ":" + sum);
+        encode--;
+      }
+      sum += code.get(9);
+
+      int end = (int) (Integer.toString(sum).charAt((Integer.toString(sum).length() - 1)));
+
+      if (sum % 10 != 0) {
+        errMsg = "身分證號格式不正確";
+      } else {
+        errMsg = "checkOK";
+      }
+    }
+    return errMsg;
+  }
 
   @Override
   public void setConnection(Connection conn) {
     this.conn = conn;
+  }
+
+  @Override
+  public int updateMemberInfo(MemberBean bean) {
+    int n = 0;
+    String sql =
+        "UPDATE MEMBER SET "
+            + " NAME=?,  GENDER=?,  PHONE=?, ID_NUMBER=?,  COUNTY=?, "
+            + " DISTRICT=?,  ADDRESS=?,  NICKNAME=?, SCHOOL=?,  PIC=?, "
+            + " Signature_1=?,  Signature_2=?,  Signature_3=?, Favor_1=?,  Favor_2=?, "
+            + " Favor_3=?,  Open_Tag=?,  Update_Time=?, Last_IP=?  WHERE UID = ?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.clearParameters();
+      ps.setString(1, bean.getName());
+      ps.setInt(2, bean.getGender());
+      ps.setString(3, bean.getPhone());
+      ps.setString(4, bean.getIdNumber());
+      ps.setString(5, bean.getCounty());
+      ps.setString(6, bean.getDistrict());
+      ps.setString(7, bean.getAddress());
+      ps.setString(8, bean.getNickname());
+      ps.setString(9, bean.getSchool());
+      ps.setInt(10, bean.getPic());
+
+      if (bean.getSignature_1() != null) {
+        ps.setInt(11, bean.getSignature_1());
+      } else {
+        ps.setNull(11, Types.INTEGER);
+      }
+
+      if (bean.getSignature_2() != null) {
+        ps.setInt(12, bean.getSignature_2());
+      } else {
+        ps.setNull(12, Types.INTEGER);
+      }
+
+      if (bean.getSignature_2() != null) {
+        ps.setInt(13, bean.getSignature_3());
+      } else {
+        ps.setNull(13, Types.INTEGER);
+      }
+
+      if (bean.getFavor_1() != null) {
+        ps.setInt(14, bean.getFavor_1());
+      } else {
+        ps.setNull(14, Types.INTEGER);
+      }
+
+      if (bean.getFavor_2() != null) {
+        ps.setInt(15, bean.getFavor_2());
+      } else {
+        ps.setNull(15, Types.INTEGER);
+      }
+
+      if (bean.getFavor_3() != null) {
+        ps.setInt(16, bean.getFavor_3());
+      } else {
+        ps.setNull(16, Types.INTEGER);
+      }
+
+      ps.setInt(17, bean.getOpen_tag());
+      ps.setTimestamp(18, bean.getUpdate_time());
+      ps.setString(19, bean.getLast_IP());
+      ps.setInt(20, bean.getuId());
+      n = ps.executeUpdate();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "MemberDaoImpl_Jdbc()#updateMemberInfo(MemberBean)發生例外: " + ex.getMessage());
+    }
+
+    return n;
   }
 }
