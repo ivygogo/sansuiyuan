@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -45,7 +47,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
     return exist;
   }
 
-  /*======儲存個性標籤等資料======*/
+  /*======儲存個性標籤和室友喜好資料======*/
   @Override
   public int saveCf(CharacterAndFavorBean cf) {
     String sql =
@@ -69,7 +71,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
     return n;
   }
 
-  /*======查詢個性標籤等資料======*/
+  /*======用id查詢個性標籤和室友喜好資料(回傳物件)======*/
   @Override
   public CharacterAndFavorBean queryCf(int id) {
     CharacterAndFavorBean cfb = null;
@@ -97,7 +99,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
     return cfb;
   }
 
-  /*======取得個性標籤等資料======*/
+  /*======用id查詢個性標籤和室友喜好資料(回傳圖片檔名)======*/
   @Override
   public String getCfContent(int uId) {
     String sql = "SELECT NAME FROM Character_Favor WHERE ID =?";
@@ -120,5 +122,89 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
   @Override
   public void setConnection(Connection conn) {
     this.conn = conn;
+  }
+
+  /*======撈出個性標籤所有圖片檔名(回傳List)======*/
+  @Override
+  public List<String> getAllCharacter() {
+    String sql = "SELECT DISTINCT NAME FROM CHARACTER_FAVOR WHERE TYPE=1 AND IsShow=1 ";
+    List<String> list = new ArrayList<>();
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery(); ) {
+      while (rs.next()) {
+        String character = rs.getString(1);
+        if (character != null) {
+          list.add(character);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "CharacterAndFavorImpl()#getAllCharacter()發生例外: " + ex.getMessage());
+    }
+    return list;
+  }
+
+  /*======撈出室友喜好所有圖片檔名(回傳List)======*/
+  @Override
+  public List<String> getAllFavor() {
+    String sql = "SELECT DISTINCT NAME FROM CHARACTER_FAVOR WHERE TYPE=2 AND IsShow=1 ";
+    List<String> list = new ArrayList<>();
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery(); ) {
+      while (rs.next()) {
+        String favor = rs.getString(1);
+        if (favor != null) {
+          list.add(favor);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("CharacterAndFavorImpl()#getAllFavor()發生例外: " + ex.getMessage());
+    }
+    return list;
+  }
+
+  /*======透過個性標籤名稱取回id(回傳int)======*/
+  public int getSignatureId(String name) {
+    String sql = "SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=1";
+    int signatureId = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.setString(1, name);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          signatureId = rs.getInt("ID");
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "CharacterAndFavorImpl類別#getSignatureId()發生例外: " + ex.getMessage());
+    }
+    return signatureId;
+  }
+
+  /*======透過室友喜好名稱取回id(回傳int)======*/
+  @Override
+  public int getFavorId(String name) {
+    String sql = "SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=2";
+    int favorId = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.setString(1, name);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          favorId = rs.getInt("ID");
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "CharacterAndFavorImpl類別#getSignatureId()發生例外: " + ex.getMessage());
+    }
+    return favorId;
   }
 }
