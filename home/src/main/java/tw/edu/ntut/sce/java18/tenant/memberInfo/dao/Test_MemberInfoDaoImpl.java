@@ -7,15 +7,15 @@ import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import tw.edu.ntut.sce.java18.common.dao.MemberInfoDao;
+import tw.edu.ntut.sce.java18.common.dao.Test_MemberInfoDao;
 import tw.edu.ntut.sce.java18.common.model.MemberInfo;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 
-public class MemberInfoDaoImpl implements MemberInfoDao {
+public class Test_MemberInfoDaoImpl implements Test_MemberInfoDao {
   private DataSource ds = null;
   private Connection conn = null;
 
-  public MemberInfoDaoImpl() {
+  public Test_MemberInfoDaoImpl() {
     try {
       Context ctx = new InitialContext();
       ds = (DataSource) ctx.lookup(DBService.JNDI_DB_NAME);
