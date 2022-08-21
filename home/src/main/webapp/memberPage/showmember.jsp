@@ -20,7 +20,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-6 mb-5">
                     <div class="row " >
                       <div class="col" style="display: flex; justify-content: center; ">                          
-                            <img src="${pageContext.request.contextPath}//images/memberImg/${memberInfo.avatar}" alt="Free website template by Free-Template.co" class="img-fluid">
+                            <img src="${pageContext.request.contextPath}//images/avatarImg/${memberInfo.avatar}" alt="Free website template by Free-Template.co" class="img-fluid my-avatar">
                       </div>
                     </div>
                     
@@ -107,7 +107,7 @@
             <div class="row mb-1 mt-5 mx-3">
               <div class="col-md-12 text-left">
                 <div class="" style="display: flex; justify-content: center; ">
-                  <h3><button class="btn btn-edit mr-2 mb-2" id ="editMemerinfo">編輯會員資料</a></h3>
+                  <h3><button class="btn btn-edit mr-2 mb-2" id ="editMemerinfo" onclick="updateMemberinfo()">編輯會員資料</button></h3>
                 </div>
               </div>
             </div>

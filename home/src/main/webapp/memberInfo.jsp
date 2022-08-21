@@ -70,41 +70,199 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 
 <script>
-console.log(${str});
-      var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+ var editPage ;
+ var showPage ;
+ var checkPass;
+ var tabId;
+ 
+//console.log(${str});
+      /*var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
       triggerTabList.forEach(function (triggerEl) {
         var tabTrigger = new bootstrap.Tab(triggerEl)
-      
+        console.log(tabTrigger);
         triggerEl.addEventListener('click', function (event) {
           event.preventDefault()
+          console.log("hi");
           tabTrigger.show()
         })
-      })    
+      }) */   
       
       
       function doFirst(){
+    	  checkPage = '${myPage}';
+    	  checkTab ="#"+checkPage;
+    	  checkTabT ="\'#"+checkPage+"\'";
+    	  checkContentTab=checkTab+"-tab"
+    	  checkAllTab= "#myTabs a[href=\" "+ checkTab + "\"]"
+    	  checkPass ='${checkErr}';
+    	  alert(checkPage);
     	  
-    	  var btn = document.getElementById("editMemerinfo")
-    	  var homeinner = document.getElementById("home")
-    	  btn.addEventListener('click', function () {
-    		  document.getElementById("home").innerHTML = "";
-    		  $('#home').load('memberPage/editmember.jsp');
+    	  
+    	  if (checkPage ==="contact"){
+    		  //$('#contact').show()
+    		  $('#contact').attr('class', "tab-pane fade active show")
+    		  $('#myTabs a[href="#contact"]').tab('show')
     		  
-    	  });
+    		  $("#home-tab").attr("class", 'nav-link')
+    		  $("#profile-tab").attr("class", 'nav-link')
+          $("#contact-tab").attr('class', "nav-link active")
+    	  }
+    	  
+    	  if (checkPage ==="myinfo"){
+              //$('#contact').show()
+              $("#home-tab").attr("class", 'nav-link active')
+              $('#myTabs a[href="#myinfo"]').tab('show')
+              $('#myinfo').attr('class', "tab-pane fade active show")
+              $("#profile-tab").attr("class", 'nav-link')
+              $("#contact-tab").attr('class', "nav-link")
+              //$("#contact-tab").attr('class', "nav-link active")
+            }
+    	  
+    	  if (checkPage ==="profile"){
+             // $('#contact').show()
+              $('#profile').attr('class', "tab-pane fade active show")
+              $('#myTabs a[href="#profile"]').tab('show')
+              $("#contact-tab").attr('class', "nav-link")
+              $("#home-tab").attr("class", 'nav-link')
+              $("#profile-tab").attr("class", 'nav-link active')
+              //$("#contact-tab").attr('class', "nav-link active")
+            }
+    	  
+    	  
       }
       window.addEventListener('load', doFirst);
       
+      
+      
+      
+      /*
+      $(function () {
+      var isChange = false;
+      num = 0;
+
+          $("input").change(function (event) {
+        	  event.stopPropagation()
+        	  event.preventDefault()
+              isChange = true;
+              $(this).addClass("editing");
+          });
+          
+          $("a").click(function(event){
+        	  event.stopPropagation()
+        	  event.preventDefault()
+        	  alert(event.target.id);
+        	  var con;
+        	  con=confirm("你確認要放棄未填寫完成的表單嗎?"); //在頁面上彈出對話框
+        	  if(con==true){
+        		 if(num>0){
+        			 $("a").attr("disabled", false);
+        			 location.reload()
+        		 }
+        		  
+        	  }
+        	  else {
+        		  $("a").attr("disabled", true);
+        		  num++;
+        	  }
+        		  
+          })*/
+/*
+          $(window).bind('beforeunload', function (e) {
+              if (isChange || $(".editing").get().length > 0) {
+                  return '★資料尚未存檔，確定是否要離開？★';
+              }
+          })
+      });*/
+      
+      
+      
+      
+      $(function(){
+    	  $('#home-tab').click(function(){
+    		   checkPass ='${checkErr}'
+    		   clickid = event.target.id
+    		   alert(clickid)
+    			if(checkPass==1){
+    				$("#home-tab").attr("class", 'nav-link active')
+    	      $('#myTabs a[href="#myinfo"]').tab('show')
+    	      $('#myinfo').attr('class', "tab-pane fade active show")
+    	      $("#profile-tab").attr("class", 'nav-link')
+    	      $("#contact-tab").attr('class', "nav-link")
+    			} 
+    		  if(checkPass==0){
+    			  con=confirm("你確認要放棄未填寫完成的表單嗎?"); //在頁面上彈出對話框
+    	            if(con==true){
+    	             if(num>0){
+    	               //$("a").attr("disabled", false);
+    	               //location.reload()
+    	             }
+    	              
+    	            }
+    	            else {
+    	              //$("a").attr("disabled", true);
+    	              num++;
+    	            }
+    		  }
+    	  });
+    	  
+          
+    	  $('#profile-tab').click(function(){
+    		  
+              $('#contact').hide();
+              $('#profile').show();
+              $('#myinfo').hide();
+              //$('#myinfo').html("");
+              //$('#myinfo').load('memberPage/showmember.jsp');
+         });
+    	  
+    	  $('#contact-tab').click(function(){
+              $('#contact').show();
+              $('#profile').hide();
+              $('#myinfo').hide();
+              //$('#myinfo').html("");
+              //$('#myinfo').load('memberPage/showmember.jsp');
+        });
+    	  
+    	  
+      });
+      
+      
+      innerPage ="";
+      function updateMemberinfo(){
+              innerPage = "editMemerinfo";
+              alert("editMemerinfo")
+              if(innerPage =="editMemerinfo"){
+                 $('#myinfo').html("");
+                 $('#myinfo').load('memberPage/editmember.jsp');
+              }
+      }
+      
+      function updateTestinfo(){
+          
+    	  innerPage = "editTTT";
+    	  if(innerPage =="editTTT"){
+              $('#contact').html("");
+              $('#contact').load('memberPage/ShowTest.jsp');
+              }
+  }
+      
+    	  
+      
+        
+      /*      
       $(function () {
           $('#zipzip').twzipcode({
+        	  countySel: '高雄市',
         	  zipcodeIntoDistrict: true,
         	  css: ["city form-control", "town form-control"],
         	  countyName: "city", // 自訂城市 select 標籤的 name 值
-        	  districtName: "town" // 自訂區別 select 標籤的 name 值
+        	  districtName: "town", // 自訂區別 select 標籤的 name 值
+        		
           });
           var el = document.querySelectorAll("select");
           console.log(el);
       });
-      
+      */
       /*
       function loadMember(){
     	  $(function () {
@@ -167,7 +325,7 @@ console.log(${str});
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target"
-	data-offset="300"">
+	data-offset="300" data-editpage="" data-isPass="${checkErr}">
 	<div class="site-wrap">
 
 		<div class="site-mobile-menu site-navbar-target">
@@ -192,7 +350,7 @@ console.log(${str});
 				<!--標題-->
 				<div class="row mb-1 mt-5">
 					<div class="col-md-7 text-left">
-						<h2 class="section-title mb-3">會員專區 ${myname}</h2>
+						<h2 class="section-title mb-3">${isInvalid}會員專區 ${myPage}</h2>
 						<p class="lead">Lorem ipsum dolor sit amet consectetur
 							adipisicing elit. Minus minima neque tempora reiciendis.</p>
 					</div>
@@ -201,27 +359,36 @@ console.log(${str});
 				<!--tabs-->
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-							data-bs-target="#home" type="button" role="tab"
-							aria-controls="home" aria-selected="true">基本資訊</button>
+						<button class="nav-link" id="home-tab" data-bs-toggle="tab"
+							data-bs-target="#myinfo" type="button" role="tab"
+							aria-controls="myinfo" aria-selected="false" data-toggle="" data-target="">基本資訊</button>
 					</li>
 					<li class="nav-item mx-2" role="presentation">
-						<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+						<a class="nav-link" id="profile-tab" data-bs-toggle="tab"
 							data-bs-target="#profile" type="button" role="tab"
-							aria-controls="profile" aria-selected="false">契約簽訂資訊</button>
+							aria-controls="profile" aria-selected="false" data-toggle="" data-target="">契約簽訂資訊</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+						<a class="nav-link" id="contact-tab" data-bs-toggle="tab"
 							data-bs-target="#contact" type="button" role="tab"
-							aria-controls="contact" aria-selected="false">Contact</button>
+							aria-controls="contact" aria-selected="true" data-toggle="" data-target="">Contact</a>
 					</li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<!--分頁1-->
-					<div class="tab-pane fade show active" id="home" role="tabpanel"
+					<div class="tab-pane fade " id="myinfo" role="tabpanel"
 						aria-labelledby="home-tab">
-
-						<jsp:include page="memberPage/showmember.jsp" />
+						
+						<c:choose>
+              <c:when test="${isInvalid==true}">
+              <%--<jsp:include page="memberPage/valid.jsp" flush="true"/> --%>
+               <%@ include file="memberPage/valid.jsp"%>
+              </c:when>
+              <c:otherwise>
+                <jsp:include page="memberPage/showmember.jsp" flush="true"/>
+             ${checkErr}
+             </c:otherwise>
+            </c:choose>
 
 					</div>
 					<!--分頁2-->
@@ -308,49 +475,103 @@ console.log(${str});
 					</div>
 
 
-
+					<!--分頁3-->
 
 					<div class="tab-pane fade" id="contact" role="tabpanel"
 						aria-labelledby="contact-tab">
-						測試
-						<div id="resultJsonText"></div>
-						<div class="form-row" id="zipzip">
-							
-						</div>
-
+						<%--@ include file="memberPage/editTest.jsp"--%>
+						
+					
+						<c:choose>
+              <c:when test="${checkErr==1}">
+              <jsp:include page="memberPage/editTest.jsp" />
+               
+                
+              </c:when>
+              <c:otherwise>
+                <jsp:include page="memberPage/ShowTest.jsp" />
+             ${checkErr}
+             </c:otherwise>
+            </c:choose>
+				
+						
+						<%-- 
+						<c:choose>
+							<c:when test="${ErrMsg!=null}">
+								<%@ include file="memberPage/editTest.jsp"%>
+							</c:when>
+							<c:otherwise>
+								<%@ include file="memberPage/editTest.jsp"%>
+						 ${ErrMsg}
+						 </c:otherwise>
+						</c:choose>
+						--%>
 					</div>
+
 				</div>
+				<!-- id="myTabContent" -->
 			</div>
-		</section>
+	</div>
+	</section>
 
 
 
 
 
-		<jsp:include page="fragment/footer.jsp" />
 
-		<!-- .site-wrap -->
+<%-- 
+<!-- 魔豆 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">
+          注意
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        
+      </div>
+      <div class="modal-body">
+        是否要放棄本次儲存
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="modalNO">取消放棄
+        </button>
+        <button type="button" class="btn btn-primary" id="modalOK">
+          確定放棄
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<!-- 魔豆 -->
+--%>
 
-		<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
+	<jsp:include page="fragment/footer.jsp" />
 
+	<!-- .site-wrap -->
 
-		<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
-		<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
-		<script src="${pageContext.request.contextPath}/js/aos.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
-		<script src="${pageContext.request.contextPath}/js/main.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/file/bootstrap.bundle.js"></script>
+	<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
+ 
+
+	<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
+	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/aos.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/file/bootstrap.bundle.js"></script>
 </body>
 </html>
