@@ -6,13 +6,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import tw.edu.ntut.sce.java18.common.service.RoomService;
 import tw.edu.ntut.sce.java18.common.service.RoomTypeService;
 
 @WebServlet("/common/RoomTypeServlet")
 public class RoomTypeServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  private Gson gson = new Gson();
+  private final Gson gson = new Gson();
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,8 +24,13 @@ public class RoomTypeServlet extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
 
     var printWriter = response.getWriter();
+
+    // 找出基本的房型資料
     var serviceRoomType = new RoomTypeService().queryRoomType(selectedRoomType);
-    var roomTypeResponse = new RoomTypeServletConverter().convert(serviceRoomType);
+    // 找出空的樓層及對應數量
+    var serviceRoom = new RoomService().queryAvailableFloorCount(selectedRoomType);
+
+    var roomTypeResponse = new RoomTypeServletConverter().convert(serviceRoomType, serviceRoom);
     var roomTypeResponseJson = gson.toJson(roomTypeResponse);
     printWriter.print(roomTypeResponseJson);
 

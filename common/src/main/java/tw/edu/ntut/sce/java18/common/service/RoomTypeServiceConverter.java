@@ -6,7 +6,7 @@ import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean.Bed;
 import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean.Desk;
 import tw.edu.ntut.sce.java18.common.model.RoomTypeServiceBean.SideTable;
 
-public class RoomTypeConverter {
+public class RoomTypeServiceConverter {
 
   public RoomTypeServiceBean convert(RoomTypeBean src) {
     var roomType = new RoomTypeServiceBean();
