@@ -10,44 +10,25 @@ public class RoomTypeBean {
   String pic1;
   String pic2;
   String pic3;
-  int qTV;
-  int qRefrigerator;
-  int qAirCondition;
-  int qHeater;
-  int qMirror;
-  int qFlowTable;
-  int qSideTableS;
-  int qSideTableL;
-  int qBedBoardS;
-  int qBedBoardL;
-  int qDeskS;
-  int qDeskL;
-  int qBedS;
-  int qBedL;
-  int qWindowScreenS;
-  int qWindowScreenL;
-  int qWindowScreenG;
-  int qWardrobe;
-  int qChair;
-  int pTV;
-  int pRefrigerator;
-  int pAirCondition;
-  int pHeater;
-  int pMirror;
-  int pFlowTable;
-  int pSideTableS;
-  int pSideTableL;
-  int pBedBoardS;
-  int pBedBoardL;
-  int pDeskS;
-  int pDeskL;
-  int pBedS;
-  int pBedL;
-  int pWindowScreenS;
-  int pWindowScreenL;
-  int pWindowScreenG;
-  int pWardrobe;
-  int pChair;
+  int TV;
+  int refrigerator;
+  int airCondition;
+  int heater;
+  int mirror;
+  int flowTable;
+  int sideTableS;
+  int sideTableL;
+  int bedBoardS;
+  int bedBoardL;
+  int deskS;
+  int deskL;
+  int bedS;
+  int bedL;
+  int windowScreenS;
+  int windowScreenL;
+  int windowScreenG;
+  int wardrobe;
+  int chair;
 
   public String getType() {
     return type;
@@ -89,7 +70,7 @@ public class RoomTypeBean {
     this.size = size;
   }
 
-  public boolean getBalcony() {
+  public boolean isBalcony() {
     return balcony;
   }
 
@@ -121,307 +102,155 @@ public class RoomTypeBean {
     this.pic3 = pic3;
   }
 
-  public int getQTV() {
-    return qTV;
+  public int getTV() {
+    return TV;
   }
 
-  public void setQTV(int qTV) {
-    this.qTV = qTV;
+  public void setTV(int TV) {
+    this.TV = TV;
   }
 
-  public int getQRefrigerator() {
-    return qRefrigerator;
+  public int getRefrigerator() {
+    return refrigerator;
   }
 
-  public void setQRefrigerator(int qRefrigerator) {
-    this.qRefrigerator = qRefrigerator;
+  public void setRefrigerator(int refrigerator) {
+    this.refrigerator = refrigerator;
   }
 
-  public int getQAirCondition() {
-    return qAirCondition;
+  public int getAirCondition() {
+    return airCondition;
   }
 
-  public void setQAirCondition(int qAirCondition) {
-    this.qAirCondition = qAirCondition;
+  public void setAirCondition(int airCondition) {
+    this.airCondition = airCondition;
   }
 
-  public int getQHeater() {
-    return qHeater;
+  public int getHeater() {
+    return heater;
   }
 
-  public void setQHeater(int qHeater) {
-    this.qHeater = qHeater;
+  public void setHeater(int heater) {
+    this.heater = heater;
   }
 
-  public int getQMirror() {
-    return qMirror;
+  public int getMirror() {
+    return mirror;
   }
 
-  public void setQMirror(int qMirror) {
-    this.qMirror = qMirror;
+  public void setMirror(int mirror) {
+    this.mirror = mirror;
   }
 
-  public int getQFlowTable() {
-    return qFlowTable;
+  public int getFlowTable() {
+    return flowTable;
   }
 
-  public void setQFlowTable(int qFlowTable) {
-    this.qFlowTable = qFlowTable;
+  public void setFlowTable(int flowTable) {
+    this.flowTable = flowTable;
   }
 
-  public int getQSideTableS() {
-    return qSideTableS;
+  public int getSideTableS() {
+    return sideTableS;
   }
 
-  public void setQSideTableS(int qSideTableS) {
-    this.qSideTableS = qSideTableS;
+  public void setSideTableS(int sideTableS) {
+    this.sideTableS = sideTableS;
   }
 
-  public int getQSideTableL() {
-    return qSideTableL;
+  public int getSideTableL() {
+    return sideTableL;
   }
 
-  public void setQSideTableL(int qSideTableL) {
-    this.qSideTableL = qSideTableL;
+  public void setSideTableL(int sideTableL) {
+    this.sideTableL = sideTableL;
   }
 
-  public int getQBedBoardS() {
-    return qBedBoardS;
+  public int getBedBoardS() {
+    return bedBoardS;
   }
 
-  public void setQBedBoardS(int qBedBoardS) {
-    this.qBedBoardS = qBedBoardS;
+  public void setBedBoardS(int bedBoardS) {
+    this.bedBoardS = bedBoardS;
   }
 
-  public int getQBedBoardL() {
-    return qBedBoardL;
+  public int getBedBoardL() {
+    return bedBoardL;
   }
 
-  public void setQBedBoardL(int qBedBoardL) {
-    this.qBedBoardL = qBedBoardL;
+  public void setBedBoardL(int bedBoardL) {
+    this.bedBoardL = bedBoardL;
   }
 
-  public int getQDeskS() {
-    return qDeskS;
+  public int getDeskS() {
+    return deskS;
   }
 
-  public void setQDeskS(int qDeskS) {
-    this.qDeskS = qDeskS;
+  public void setDeskS(int deskS) {
+    this.deskS = deskS;
   }
 
-  public int getQDeskL() {
-    return qDeskL;
+  public int getDeskL() {
+    return deskL;
   }
 
-  public void setQDeskL(int qDeskL) {
-    this.qDeskL = qDeskL;
+  public void setDeskL(int deskL) {
+    this.deskL = deskL;
   }
 
-  public int getQBedS() {
-    return qBedS;
+  public int getBedS() {
+    return bedS;
   }
 
-  public void setQBedS(int qBedS) {
-    this.qBedS = qBedS;
+  public void setBedS(int bedS) {
+    this.bedS = bedS;
   }
 
-  public int getQBedL() {
-    return qBedL;
+  public int getBedL() {
+    return bedL;
   }
 
-  public void setQBedL(int qBedL) {
-    this.qBedL = qBedL;
+  public void setBedL(int bedL) {
+    this.bedL = bedL;
   }
 
-  public int getQWindowScreenS() {
-    return qWindowScreenS;
+  public int getWindowScreenS() {
+    return windowScreenS;
   }
 
-  public void setQWindowScreenS(int qWindowScreenS) {
-    this.qWindowScreenS = qWindowScreenS;
+  public void setWindowScreenS(int windowScreenS) {
+    this.windowScreenS = windowScreenS;
   }
 
-  public int getQWindowScreenL() {
-    return qWindowScreenL;
+  public int getWindowScreenL() {
+    return windowScreenL;
   }
 
-  public void setQWindowScreenL(int qWindowScreenL) {
-    this.qWindowScreenL = qWindowScreenL;
+  public void setWindowScreenL(int windowScreenL) {
+    this.windowScreenL = windowScreenL;
   }
 
-  public int getQWindowScreenG() {
-    return qWindowScreenG;
+  public int getWindowScreenG() {
+    return windowScreenG;
   }
 
-  public void setQWindowScreenG(int qWindowScreenG) {
-    this.qWindowScreenG = qWindowScreenG;
+  public void setWindowScreenG(int windowScreenG) {
+    this.windowScreenG = windowScreenG;
   }
 
-  public int getQWardrobe() {
-    return qWardrobe;
+  public int getWardrobe() {
+    return wardrobe;
   }
 
-  public void setQWardrobe(int qWardrobe) {
-    this.qWardrobe = qWardrobe;
+  public void setWardrobe(int wardrobe) {
+    this.wardrobe = wardrobe;
   }
 
-  public int getQChair() {
-    return qChair;
+  public int getChair() {
+    return chair;
   }
 
-  public void setQChair(int qChair) {
-    this.qChair = qChair;
-  }
-
-  public int getPTV() {
-    return pTV;
-  }
-
-  public void setPTV(int pTV) {
-    this.pTV = pTV;
-  }
-
-  public int getPRefrigerator() {
-    return pRefrigerator;
-  }
-
-  public void setPRefrigerator(int pRefrigerator) {
-    this.pRefrigerator = pRefrigerator;
-  }
-
-  public int getPAirCondition() {
-    return pAirCondition;
-  }
-
-  public void setPAirCondition(int pAirCondition) {
-    this.pAirCondition = pAirCondition;
-  }
-
-  public int getPHeater() {
-    return pHeater;
-  }
-
-  public void setPHeater(int pHeater) {
-    this.pHeater = pHeater;
-  }
-
-  public int getPMirror() {
-    return pMirror;
-  }
-
-  public void setPMirror(int pMirror) {
-    this.pMirror = pMirror;
-  }
-
-  public int getPFlowTable() {
-    return pFlowTable;
-  }
-
-  public void setPFlowTable(int pFlowTable) {
-    this.pFlowTable = pFlowTable;
-  }
-
-  public int getPSideTableS() {
-    return pSideTableS;
-  }
-
-  public void setPSideTableS(int pSideTableS) {
-    this.pSideTableS = pSideTableS;
-  }
-
-  public int getPSideTableL() {
-    return pSideTableL;
-  }
-
-  public void setPSideTableL(int pSideTableL) {
-    this.pSideTableL = pSideTableL;
-  }
-
-  public int getPBedBoardS() {
-    return pBedBoardS;
-  }
-
-  public void setPBedBoardS(int pBedBoardS) {
-    this.pBedBoardS = pBedBoardS;
-  }
-
-  public int getPBedBoardL() {
-    return pBedBoardL;
-  }
-
-  public void setPBedBoardL(int pBedBoardL) {
-    this.pBedBoardL = pBedBoardL;
-  }
-
-  public int getPDeskS() {
-    return pDeskS;
-  }
-
-  public void setPDeskS(int pDeskS) {
-    this.pDeskS = pDeskS;
-  }
-
-  public int getPDeskL() {
-    return pDeskL;
-  }
-
-  public void setPDeskL(int pDeskL) {
-    this.pDeskL = pDeskL;
-  }
-
-  public int getPBedS() {
-    return pBedS;
-  }
-
-  public void setPBedS(int pBedS) {
-    this.pBedS = pBedS;
-  }
-
-  public int getPBedL() {
-    return pBedL;
-  }
-
-  public void setPBedL(int pBedL) {
-    this.pBedL = pBedL;
-  }
-
-  public int getPWindowScreenS() {
-    return pWindowScreenS;
-  }
-
-  public void setPWindowScreenS(int pWindowScreenS) {
-    this.pWindowScreenS = pWindowScreenS;
-  }
-
-  public int getPWindowScreenL() {
-    return pWindowScreenL;
-  }
-
-  public void setPWindowScreenL(int pWindowScreenL) {
-    this.pWindowScreenL = pWindowScreenL;
-  }
-
-  public int getPWindowScreenG() {
-    return pWindowScreenG;
-  }
-
-  public void setPWindowScreenG(int pWindowScreenG) {
-    this.pWindowScreenG = pWindowScreenG;
-  }
-
-  public int getPWardrobe() {
-    return pWardrobe;
-  }
-
-  public void setPWardrobe(int pWardrobe) {
-    this.pWardrobe = pWardrobe;
-  }
-
-  public int getPChair() {
-    return pChair;
-  }
-
-  public void setPChair(int pChair) {
-    this.pChair = pChair;
+  public void setChair(int chair) {
+    this.chair = chair;
   }
 }

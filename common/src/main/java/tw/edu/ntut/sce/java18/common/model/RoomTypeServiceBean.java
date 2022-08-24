@@ -115,8 +115,6 @@ public class RoomTypeServiceBean {
   public static class Bed {
     String name;
     int quantity;
-    int priceBed;
-    int priceBedBoard;
 
     public String getName() {
       return name;
@@ -132,29 +130,12 @@ public class RoomTypeServiceBean {
 
     public void setQuantity(int quantity) {
       this.quantity = quantity;
-    }
-
-    public int getPrice() {
-      return priceBed;
-    }
-
-    public void setPrice(int price) {
-      this.priceBed = price;
-    }
-
-    public int getPriceBedBoard() {
-      return priceBedBoard;
-    }
-
-    public void setPriceBedBoard(int priceBedBoard) {
-      this.priceBedBoard = priceBedBoard;
     }
   }
 
   public static class Desk {
     String name;
     int quantity;
-    int price;
 
     public String getName() {
       return name;
@@ -170,21 +151,12 @@ public class RoomTypeServiceBean {
 
     public void setQuantity(int quantity) {
       this.quantity = quantity;
-    }
-
-    public int getPrice() {
-      return price;
-    }
-
-    public void setPrice(int price) {
-      this.price = price;
     }
   }
 
   public static class SideTable {
     String name;
     int quantity;
-    int price;
 
     public String getName() {
       return name;
@@ -200,14 +172,6 @@ public class RoomTypeServiceBean {
 
     public void setQuantity(int quantity) {
       this.quantity = quantity;
-    }
-
-    public int getPrice() {
-      return price;
-    }
-
-    public void setPrice(int price) {
-      this.price = price;
     }
   }
 }

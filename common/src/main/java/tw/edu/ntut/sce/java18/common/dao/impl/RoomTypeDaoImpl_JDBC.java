@@ -44,45 +44,25 @@ public class RoomTypeDaoImpl_JDBC implements RoomTypeDao {
           roomTypeBean.setPic2(resultSet.getString("Pic2"));
           roomTypeBean.setPic3(resultSet.getString("Pic3"));
 
-          roomTypeBean.setQTV(resultSet.getInt("Q_TV"));
-          roomTypeBean.setQRefrigerator(resultSet.getInt("Q_Refrigerator"));
-          roomTypeBean.setQAirCondition(resultSet.getInt("Q_AirCondition"));
-          roomTypeBean.setQHeater(resultSet.getInt("Q_Heater"));
-          roomTypeBean.setQMirror(resultSet.getInt("Q_Mirror"));
-          roomTypeBean.setQFlowTable(resultSet.getInt("Q_Flow_Table"));
-          roomTypeBean.setQSideTableS(resultSet.getInt("Q_Side_Table_S"));
-          roomTypeBean.setQSideTableL(resultSet.getInt("Q_Side_Table_L"));
-          roomTypeBean.setQBedBoardS(resultSet.getInt("Q_Bed_Board_S"));
-          roomTypeBean.setQBedBoardL(resultSet.getInt("Q_Bed_Board_S"));
-          roomTypeBean.setQDeskS(resultSet.getInt("Q_Desk_S"));
-          roomTypeBean.setQDeskL(resultSet.getInt("Q_Desk_L"));
-          roomTypeBean.setQBedS(resultSet.getInt("Q_Bed_S"));
-          roomTypeBean.setQBedL(resultSet.getInt("Q_Bed_L"));
-          roomTypeBean.setQWindowScreenS(resultSet.getInt("Q_Window_Screen_S"));
-          roomTypeBean.setQWindowScreenL(resultSet.getInt("Q_Window_Screen_L"));
-          roomTypeBean.setQWindowScreenG(resultSet.getInt("Q_Window_Screen_G"));
-          roomTypeBean.setQWardrobe(resultSet.getInt("Q_Wardrobe"));
-          roomTypeBean.setQChair(resultSet.getInt("Q_Chair"));
-
-          roomTypeBean.setPTV(resultSet.getInt("Q_TV"));
-          roomTypeBean.setPRefrigerator(resultSet.getInt("P_Refrigerator"));
-          roomTypeBean.setPAirCondition(resultSet.getInt("P_AirCondition"));
-          roomTypeBean.setPHeater(resultSet.getInt("P_Heater"));
-          roomTypeBean.setPMirror(resultSet.getInt("P_Mirror"));
-          roomTypeBean.setPFlowTable(resultSet.getInt("P_Flow_Table"));
-          roomTypeBean.setPSideTableS(resultSet.getInt("P_Side_Table_S"));
-          roomTypeBean.setPSideTableL(resultSet.getInt("P_Side_Table_L"));
-          roomTypeBean.setPBedBoardS(resultSet.getInt("P_Bed_Board_S"));
-          roomTypeBean.setPBedBoardL(resultSet.getInt("P_Bed_Board_S"));
-          roomTypeBean.setPDeskS(resultSet.getInt("P_Desk_S"));
-          roomTypeBean.setPDeskL(resultSet.getInt("P_Desk_L"));
-          roomTypeBean.setPBedS(resultSet.getInt("P_Bed_S"));
-          roomTypeBean.setPBedL(resultSet.getInt("P_Bed_L"));
-          roomTypeBean.setPWindowScreenS(resultSet.getInt("P_Window_Screen_S"));
-          roomTypeBean.setPWindowScreenL(resultSet.getInt("P_Window_Screen_L"));
-          roomTypeBean.setPWindowScreenG(resultSet.getInt("P_Window_Screen_G"));
-          roomTypeBean.setPWardrobe(resultSet.getInt("P_Wardrobe"));
-          roomTypeBean.setPChair(resultSet.getInt("P_Chair"));
+          roomTypeBean.setTV(resultSet.getInt("TV"));
+          roomTypeBean.setRefrigerator(resultSet.getInt("Refrigerator"));
+          roomTypeBean.setAirCondition(resultSet.getInt("AirCondition"));
+          roomTypeBean.setHeater(resultSet.getInt("Heater"));
+          roomTypeBean.setMirror(resultSet.getInt("Mirror"));
+          roomTypeBean.setFlowTable(resultSet.getInt("Flow_Table"));
+          roomTypeBean.setSideTableS(resultSet.getInt("Side_Table_S"));
+          roomTypeBean.setSideTableL(resultSet.getInt("Side_Table_L"));
+          roomTypeBean.setBedBoardS(resultSet.getInt("Bed_Board_S"));
+          roomTypeBean.setBedBoardL(resultSet.getInt("Bed_Board_S"));
+          roomTypeBean.setDeskS(resultSet.getInt("Desk_S"));
+          roomTypeBean.setDeskL(resultSet.getInt("Desk_L"));
+          roomTypeBean.setBedS(resultSet.getInt("Bed_S"));
+          roomTypeBean.setBedL(resultSet.getInt("Bed_L"));
+          roomTypeBean.setWindowScreenS(resultSet.getInt("Window_Screen_S"));
+          roomTypeBean.setWindowScreenL(resultSet.getInt("Window_Screen_L"));
+          roomTypeBean.setWindowScreenG(resultSet.getInt("Window_Screen_G"));
+          roomTypeBean.setWardrobe(resultSet.getInt("Wardrobe"));
+          roomTypeBean.setChair(resultSet.getInt("Chair"));
         }
       }
     } catch (SQLException ex) {
@@ -93,7 +73,12 @@ public class RoomTypeDaoImpl_JDBC implements RoomTypeDao {
   }
 
   @Override
-  public RoomTypeBean updateRoomTypeInfo(String type) {
-    return null;
+  public void updateRoomTypeInfo(RoomTypeBean roomTypeBean) {
+    String sql =
+        "UPDATE MEMBER SET "
+            + " NAME=?,  GENDER=?,  PHONE=?, ID_NUMBER=?,  COUNTY=?, "
+            + " DISTRICT=?,  ADDRESS=?,  NICKNAME=?, SCHOOL=?,  PIC=?, "
+            + " Signature_1=?,  Signature_2=?,  Signature_3=?, Favor_1=?,  Favor_2=?, "
+            + " Favor_3=?,  Open_Tag=?,  Update_Time=?, Last_IP=?  WHERE UID = ?";
   }
 }

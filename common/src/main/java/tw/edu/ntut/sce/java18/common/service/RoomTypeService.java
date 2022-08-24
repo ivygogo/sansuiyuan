@@ -14,7 +14,6 @@ public class RoomTypeService {
   public RoomTypeServiceBean queryRoomType(String type) {
 
     var roomTypeBean = dao.queryRoomTypeInfo(type);
-    var roomType = new RoomTypeConverter().convert(roomTypeBean);
-    return roomType;
+    return new RoomTypeServiceConverter().convert(roomTypeBean);
   }
 }

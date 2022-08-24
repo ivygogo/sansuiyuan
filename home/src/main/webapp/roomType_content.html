@@ -6,17 +6,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.css">
   <link rel="stylesheet" href="roomType.css">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-  <title>HOMEEEEEEEEEEEEEEEEEEEe</title>
+  <title>HOME</title>
 </head>
 
 <body>
 <div class="room-type-title text-align align-self-baseline text-center ">
-  <span class="material-icons" id="pre-room-type"> arrow_back_ios </span>
-  <span class="border h1 m-3 me-5" id="room-type-title"></span>
+  <span class="material-icons change-behavior" id="pre-room-type"
+        title="下一個房型"> arrow_back_ios </span>
+  <span class="h1 m-3 me-5" id="room-type-title"></span>
   <span class="h4 text-danger me-3" id="room-type-price"></span>
-  <span class="material-icons" id="next-room-type"> arrow_forward_ios </span>
-  <button class="float-end btn-outline-danger" type="button" id="creatBooking">預約看房</button>
-
+  <span class="material-icons change-behavior" id="next-room-type"
+        title="前一個房型"> arrow_forward_ios </span>
+  <button class="float-end btn-outline-danger" type="button" id="createBooking">預約看房</button>
 </div>
 
 <div class="container-fluid">
@@ -128,7 +129,7 @@
                 <div class="col text-center" id="room-item-wardrobe"></div>
               </div>
             </span>
-          <span class="col-2 text-center  d-none" id="room-item-balcony">
+          <span class="col-2 text-center d-none" id="room-item-balcony">
             <span class="row material-icons">balcony</span>
               <div class="row">
                 <div class="col text-center">陽台</div>
@@ -147,15 +148,15 @@
               </div>
             </span>
             <span class="col-2 text-center">
-              <span class="material-icons">on_device_training </span>
+              <span class="material-icons" title="投幣式">on_device_training </span>
               <div class="row">
-                <div class="col text-center">投幣式洗衣機</div>
+                <div class="col text-center">洗衣機</div>
               </div>
             </span>
             <span class="col-2 text-center">
-              <span class="material-icons">local_laundry_service </span>
+              <span class="material-icons" title="投幣式">local_laundry_service </span>
               <div class="row">
-                <div class="col text-center">投幣式烘衣機</div>
+                <div class="col text-center">烘衣機</div>
               </div>
             </span>
           <span class="col-2 text-center">

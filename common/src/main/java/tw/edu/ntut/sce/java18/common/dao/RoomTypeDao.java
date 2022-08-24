@@ -6,5 +6,5 @@ public interface RoomTypeDao {
 
   RoomTypeBean queryRoomTypeInfo(String type);
 
-  RoomTypeBean updateRoomTypeInfo(String type);
+  void updateRoomTypeInfo(RoomTypeBean roomTypeBean);
 }

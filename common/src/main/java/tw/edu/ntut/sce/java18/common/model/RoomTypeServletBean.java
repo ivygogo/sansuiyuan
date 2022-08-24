@@ -1,5 +1,7 @@
 package tw.edu.ntut.sce.java18.common.model;
 
+import java.util.ArrayList;
+
 public class RoomTypeServletBean {
   private String type;
   private String name;
@@ -13,7 +15,7 @@ public class RoomTypeServletBean {
   private boolean balcony;
   private String[] pics;
   private int rest;
-  private int[] availableFloors;
+  private ArrayList<Integer> availableFloors;
 
   public RoomTypeServletBean() {}
 
@@ -65,7 +67,7 @@ public class RoomTypeServletBean {
     this.rest = rest;
   }
 
-  public void setAvailableFloors(int[] availableFloors) {
+  public void setAvailableFloors(ArrayList<Integer> availableFloors) {
     this.availableFloors = availableFloors;
   }
 
@@ -117,7 +119,7 @@ public class RoomTypeServletBean {
     return rest;
   }
 
-  public int[] getAvailableFloors() {
+  public ArrayList<Integer> getAvailableFloors() {
     return availableFloors;
   }
 }
