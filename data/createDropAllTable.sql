@@ -295,7 +295,7 @@ CREATE TABLE `room`
   PRIMARY KEY (`Rid`),
   UNIQUE KEY `Room_Number_UNIQUE` (`RoomId`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 193
+  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='房間';
 
@@ -305,59 +305,40 @@ DROP TABLE IF EXISTS `roomtype`;
 
 CREATE TABLE `roomtype`
 (
-  `Type`              varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'A-F',
-  `name`              varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '單人房A/雙人A',
-  `Total`             int                                                         NOT NULL COMMENT '該房型的總共數量',
-  `Price`             int                                                          DEFAULT NULL,
-  `Size`              varchar(6) COLLATE utf8mb4_unicode_ci                        DEFAULT NULL,
-  `Balcony`           tinyint                                                      DEFAULT NULL,
-  `Pic1`              varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Pic2`              varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Pic3`              varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '格局link',
-  `Q_TV`              int                                                          DEFAULT '1',
-  `Q_Refrigerator`    int                                                          DEFAULT '1',
-  `Q_AirCondition`    int                                                          DEFAULT '1',
-  `Q_Heater`          int                                                          DEFAULT '1',
-  `Q_Mirror`          int                                                          DEFAULT '1',
-  `Q_Flow_Table`      int                                                          DEFAULT '1',
-  `Q_Side_Table_S`    int                                                          DEFAULT NULL,
-  `Q_Side_Table_L`    int                                                          DEFAULT NULL,
-  `Q_Bed_Board_S`     int                                                          DEFAULT NULL,
-  `Q_Bed_Board_L`     int                                                          DEFAULT NULL,
-  `Q_Desk_S`          int                                                          DEFAULT NULL,
-  `Q_Desk_L`          int                                                          DEFAULT NULL,
-  `Q_Bed_S`           int                                                          DEFAULT NULL,
-  `Q_Bed_L`           int                                                          DEFAULT NULL,
-  `Q_Window_Screen_S` int                                                          DEFAULT NULL,
-  `Q_Window_Screen_L` int                                                          DEFAULT NULL,
-  `Q_Window_Screen_G` int                                                          DEFAULT NULL COMMENT '落地紗窗',
-  `Q_Wardrobe`        int                                                          DEFAULT NULL,
-  `Q_Chair`           int                                                          DEFAULT NULL,
-  `P_TV`              int                                                          DEFAULT NULL,
-  `P_Refrigerator`    int                                                          DEFAULT '10500',
-  `P_AirCondition`    int                                                          DEFAULT NULL,
-  `P_Heater`          int                                                          DEFAULT NULL,
-  `P_Mirror`          int                                                          DEFAULT '900',
-  `P_Flow_Table`      int                                                          DEFAULT '600',
-  `P_Side_Table_S`    int                                                          DEFAULT '3300',
-  `P_Side_Table_L`    int                                                          DEFAULT '3500',
-  `P_Bed_Board_S`     int                                                          DEFAULT '1800',
-  `P_Bed_Board_L`     int                                                          DEFAULT '2000',
-  `P_Desk_S`          int                                                          DEFAULT '3400',
-  `P_Desk_L`          int                                                          DEFAULT '3600',
-  `P_Bed_S`           int                                                          DEFAULT '3300',
-  `P_Bed_L`           int                                                          DEFAULT '3500',
-  `P_Window_Screen_S` int                                                          DEFAULT '1600',
-  `P_Window_Screen_L` int                                                          DEFAULT '2000',
-  `P_Window_Screen_G` int                                                          DEFAULT '2000',
-  `P_Wardrobe`        int                                                          DEFAULT '4500',
-  `P_Chair`           int                                                          DEFAULT '1800',
-  PRIMARY KEY (`Type`, `Total`),
-  UNIQUE KEY `name_UNIQUE` (`name`),
-  UNIQUE KEY `Rid_UNIQUE` (`Type`)
+  `Type`            varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Name`            varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Total`           int                                                         NOT NULL,
+  `Price`           int                                                          DEFAULT NULL,
+  `Size`            varchar(6) COLLATE utf8mb4_unicode_ci                        DEFAULT NULL,
+  `Balcony`         tinyint                                                      DEFAULT NULL,
+  `Pic1`            varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Pic2`            varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Pic3`            varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `TV`              int                                                          DEFAULT '1',
+  `Refrigerator`    int                                                          DEFAULT '1',
+  `AirCondition`    int                                                          DEFAULT '1',
+  `Heater`          int                                                          DEFAULT '1',
+  `Mirror`          int                                                          DEFAULT '1',
+  `Flow_Table`      int                                                          DEFAULT '1',
+  `Side_Table_S`    int                                                          DEFAULT NULL,
+  `Side_Table_L`    int                                                          DEFAULT NULL,
+  `Bed_Board_S`     int                                                          DEFAULT NULL,
+  `Bed_Board_L`     int                                                          DEFAULT NULL,
+  `Desk_S`          int                                                          DEFAULT NULL,
+  `Desk_L`          int                                                          DEFAULT NULL,
+  `Bed_S`           int                                                          DEFAULT NULL,
+  `Bed_L`           int                                                          DEFAULT NULL,
+  `Window_Screen_S` int                                                          DEFAULT NULL,
+  `Window_Screen_L` int                                                          DEFAULT NULL,
+  `Window_Screen_G` int                                                          DEFAULT NULL,
+  `Wardrobe`        int                                                          DEFAULT NULL,
+  `Chair`           int                                                          DEFAULT NULL,
+  PRIMARY KEY (`Type`),
+  UNIQUE KEY `Rid_UNIQUE` (`Type`),
+  UNIQUE KEY `name_UNIQUE` (`Name`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci COMMENT ='房型,Q開頭的是數量 / P開頭的是價格';
+  COLLATE = utf8mb4_unicode_ci;
 
 /*Table structure for table `store` */
 
@@ -405,3 +386,18 @@ CREATE TABLE `tenant`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='租客';
+
+/*Table structure for table `furniture_price` */
+
+DROP TABLE IF EXISTS `furniture_price`;
+
+CREATE TABLE `furniture_price`
+(
+  `Id`    int NOT NULL AUTO_INCREMENT,
+  `Name`  varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Price` int                                    DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 20
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;
