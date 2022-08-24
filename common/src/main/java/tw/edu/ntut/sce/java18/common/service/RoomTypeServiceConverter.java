@@ -12,12 +12,12 @@ public class RoomTypeServiceConverter {
     var roomType = new RoomTypeServiceBean();
     roomType.setPrice(src.getPrice());
     roomType.setType(src.getType());
-    roomType.setBalcony(src.getBalcony());
+    roomType.setBalcony(src.isBalcony());
     roomType.setName(src.getName());
     roomType.setSize(src.getSize());
-    roomType.setWardrobe(src.getQWardrobe());
+    roomType.setWardrobe(src.getWardrobe());
     roomType.setTotal(src.getTotal());
-    roomType.setChair(src.getQChair());
+    roomType.setChair(src.getChair());
 
     roomType.setBed(convertBed(src));
     roomType.setDesk(convertDesk(src));
@@ -30,44 +30,36 @@ public class RoomTypeServiceConverter {
 
   private SideTable convertSideTable(RoomTypeBean src) {
     SideTable sideTable = new SideTable();
-    if (src.getQSideTableS() != 0) {
-      sideTable.setName("小床頭櫃");
-      sideTable.setPrice(src.getPSideTableS());
-      sideTable.setQuantity(src.getQSideTableS());
+    if (src.getSideTableS() != 0) {
+      sideTable.setName("(小)床頭櫃");
+      sideTable.setQuantity(src.getSideTableS());
     } else {
-      sideTable.setName("大床頭櫃");
-      sideTable.setPrice(src.getPSideTableL());
-      sideTable.setQuantity(src.getQSideTableL());
+      sideTable.setName("(大)床頭櫃");
+      sideTable.setQuantity(src.getSideTableL());
     }
     return sideTable;
   }
 
   private Bed convertBed(RoomTypeBean src) {
     Bed bed = new Bed();
-    if (src.getQBedS() != 0) {
+    if (src.getBedS() != 0) {
       bed.setName("單人床");
-      bed.setPrice(src.getPBedS());
-      bed.setQuantity(src.getQBedS());
-      bed.setPriceBedBoard(src.getPBedBoardS());
+      bed.setQuantity(src.getBedS());
     } else {
       bed.setName("雙人床");
-      bed.setPrice(src.getPBedL());
-      bed.setQuantity(src.getQBedL());
-      bed.setPriceBedBoard(src.getPBedBoardL());
+      bed.setQuantity(src.getBedL());
     }
     return bed;
   }
 
   private Desk convertDesk(RoomTypeBean src) {
     Desk desk = new Desk();
-    if (src.getQDeskS() != 0) {
-      desk.setName("小桌子");
-      desk.setPrice(src.getPDeskS());
-      desk.setQuantity(src.getQDeskS());
+    if (src.getDeskS() != 0) {
+      desk.setName("(小)書桌");
+      desk.setQuantity(src.getDeskS());
     } else {
-      desk.setName("大桌子");
-      desk.setPrice(src.getPDeskL());
-      desk.setQuantity(src.getQDeskL());
+      desk.setName("(大)書桌");
+      desk.setQuantity(src.getDeskL());
     }
     return desk;
   }

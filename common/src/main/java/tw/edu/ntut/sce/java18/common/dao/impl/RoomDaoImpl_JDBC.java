@@ -29,21 +29,21 @@ public class RoomDaoImpl_JDBC implements RoomDao {
   }
 
   @Override
-  public Map<Integer, Long> getAvailableFloorCount(String type) {
+  public Map<Integer, Integer> getAvailableFloorCount(String type) {
 
-    Map<Integer, Long> availableFloorCount = new HashMap<>();
+    Map<Integer, Integer> availableFloorCount = new HashMap<>();
 
     for (var f = 1; f <= 8; f++) {
       String sql =
-          "SELECT COUNT(FLOOR) FROM room WHERE Tenant_Number IS NOT NULL AND Roomtype= \""
+          "SELECT COUNT(FLOOR) FROM room WHERE Tenant_Number IS NULL AND Roomtype='"
               + type
-              + "\" and FLOOR="
+              + "' and FLOOR="
               + f;
       try (Connection connection = ds.getConnection();
           PreparedStatement ps = connection.prepareStatement(sql);
           ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
-          long count = rs.getLong(1);
+          Integer count = rs.getInt(1);
           availableFloorCount.put(f, count);
         }
       } catch (SQLException ex) {
@@ -52,16 +52,13 @@ public class RoomDaoImpl_JDBC implements RoomDao {
             "MemberDaoImpl_Jdbc()#getAvailableFloor()發生例外: " + ex.getMessage());
       }
     }
-    System.out.println();
-    System.out.println(availableFloorCount.values());
-
     return availableFloorCount;
   }
 
   @Override
   public ArrayList<String> getEmptyRoom() {
     ArrayList<String> emptyRoom = new ArrayList<>();
-    String sql = "SELECT RoomId FROM room WHERE Tenant_Number IS NOT NULL";
+    String sql = "SELECT RoomId FROM room WHERE Tenant_Number IS NULL";
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery()) {

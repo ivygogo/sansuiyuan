@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RoomServiceBean {
 
   ArrayList<Integer> availableFloor;
-  Long lest;
+  Integer lest;
 
   public ArrayList<Integer> getAvailableFloor() {
     return availableFloor;
@@ -15,11 +15,11 @@ public class RoomServiceBean {
     this.availableFloor = availableFloor;
   }
 
-  public Long getLest() {
+  public Integer getLest() {
     return lest;
   }
 
-  public void setLest(Long lest) {
+  public void setLest(Integer lest) {
     this.lest = lest;
   }
 }

@@ -45,7 +45,8 @@ div {
 .material-icons {
   font-size: 36px;
   margin-right: -15px;
-  margin-left: -15px
+  margin-left: -15px;
+  cursor: default;
 }
 
 .room-type-title {
@@ -92,3 +93,7 @@ div {
   max-height: 295px;
 }
 /*-------------------------*/
+.change-behavior:hover {
+  cursor: pointer;
+
+}

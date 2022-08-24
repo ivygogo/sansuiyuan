@@ -13,8 +13,6 @@ public class RoomService {
 
   public RoomServiceBean queryAvailableFloorCount(String type) {
     var availableFloorCount = dao.getAvailableFloorCount(type);
-    var roomServiceBean =
-        new RoomServiceConverter().convertAvailableFloorTotal(availableFloorCount);
-    return roomServiceBean;
+    return new RoomServiceConverter().convertAvailableFloorTotal(availableFloorCount);
   }
 }

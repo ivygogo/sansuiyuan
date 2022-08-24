@@ -6,7 +6,7 @@ import tw.edu.ntut.sce.java18.common.model.RoomBean;
 
 public interface RoomDao {
 
-  Map<Integer, Long> getAvailableFloorCount(String type);
+  Map<Integer, Integer> getAvailableFloorCount(String type);
 
   ArrayList<String> getEmptyRoom();
 
