@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao;
+package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,15 +9,14 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import tw.edu.ntut.sce.java18.common.dao.CharacterAndFavorDao;
 import tw.edu.ntut.sce.java18.common.model.CharacterAndFavorBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
+import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.CharacterAndFavorDao;
 
-public class CharacterAndFavorImpl implements CharacterAndFavorDao {
+public class CharacterAndFavorDaoImpl implements CharacterAndFavorDao {
   private DataSource ds = null;
-  private Connection conn = null;
 
-  public CharacterAndFavorImpl() {
+  public CharacterAndFavorDaoImpl() {
     try {
       Context ctx = new InitialContext();
       ds = (DataSource) ctx.lookup(DBService.JNDI_DB_NAME);
@@ -29,7 +28,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
 
   /*======判斷id是否存在======*/
   @Override
-  public boolean idExists(int id) {
+  public boolean checkCharacterAndFavorIdExists(int id) {
     boolean exist = false;
     String sql = "SELECT * FROM Character_Favor WHERE ID = ?";
     try (Connection connection = ds.getConnection();
@@ -49,7 +48,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
 
   /*======儲存個性標籤和室友喜好資料======*/
   @Override
-  public int saveCf(CharacterAndFavorBean cf) {
+  public int save(CharacterAndFavorBean characterandfavor) {
     String sql =
         " insert into Character_Favor "
             + " (TYPE, NAME, isshow, createtime, update_time) "
@@ -57,11 +56,11 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
     int n = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
-      ps.setInt(1, cf.getType());
-      ps.setString(2, cf.getName());
-      ps.setInt(3, cf.getIsShow());
-      ps.setTimestamp(4, cf.getCreatetime());
-      ps.setTimestamp(5, cf.getCreatetime());
+      ps.setInt(1, characterandfavor.getType());
+      ps.setString(2, characterandfavor.getName());
+      ps.setInt(3, characterandfavor.getIsShow());
+      ps.setTimestamp(4, characterandfavor.getCreatetime());
+      ps.setTimestamp(5, characterandfavor.getCreatetime());
       n = ps.executeUpdate();
 
     } catch (SQLException ex) {
@@ -73,7 +72,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
 
   /*======用id查詢個性標籤和室友喜好資料(回傳物件)======*/
   @Override
-  public CharacterAndFavorBean queryCf(int id) {
+  public CharacterAndFavorBean queryCharacterAndFavorByPrimaryKey(int id) {
     CharacterAndFavorBean cfb = null;
     String sql = "SELECT * FROM Character_Favor WHERE ID = ?";
     try (Connection connection = ds.getConnection();
@@ -101,12 +100,12 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
 
   /*======用id查詢個性標籤和室友喜好資料(回傳圖片檔名)======*/
   @Override
-  public String getCfContent(int uId) {
+  public String queryCharacterAndFavorNameByPrimaryKey(int id) {
     String sql = "SELECT NAME FROM Character_Favor WHERE ID =?";
     String cfName = null;
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
-      ps.setInt(1, uId);
+      ps.setInt(1, id);
       try (ResultSet rs = ps.executeQuery(); ) {
         if (rs.next()) {
           cfName = rs.getString("name");
@@ -117,11 +116,6 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
       throw new RuntimeException("CharacterAndFavorImpl類別#getCfContent()發生例外: " + ex.getMessage());
     }
     return cfName;
-  }
-
-  @Override
-  public void setConnection(Connection conn) {
-    this.conn = conn;
   }
 
   /*======撈出個性標籤所有圖片檔名(回傳List)======*/
@@ -169,7 +163,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
 
   /*======透過個性標籤名稱取回id(回傳int)======*/
   public int getSignatureId(String name) {
-    String sql = "SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=1";
+    String sql = " SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=1 ";
     int signatureId = -1;
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql); ) {
@@ -190,7 +184,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
   /*======透過室友喜好名稱取回id(回傳int)======*/
   @Override
   public int getFavorId(String name) {
-    String sql = "SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=2";
+    String sql = " SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=2 ";
     int favorId = -1;
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql); ) {
@@ -205,6 +199,7 @@ public class CharacterAndFavorImpl implements CharacterAndFavorDao {
       throw new RuntimeException(
           "CharacterAndFavorImpl類別#getSignatureId()發生例外: " + ex.getMessage());
     }
+    // System.out.println("!!!favorId" + favorId);
     return favorId;
   }
 }
