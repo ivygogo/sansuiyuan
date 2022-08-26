@@ -1,17 +1,14 @@
-package tw.edu.ntut.sce.java18.common.dao;
+package tw.edu.ntut.sce.java18.tenant.memberInfo.dao;
 
-import java.sql.Connection;
 import java.util.List;
 import tw.edu.ntut.sce.java18.common.model.TenantBean;
 
 public interface TenantDao {
-  boolean idExists(int Member_Id);
+  boolean checkTenantIdExists(int memberId);
 
-  int saveTenant(TenantBean tb);
+  int saveTenant(TenantBean tenant);
 
-  TenantBean queryTenant(int Member_Id);
+  TenantBean queryTenantByMemberId(int memberId);
 
-  List<TenantBean> getContractInfo(int Member_Id);
-
-  void setConnection(Connection con);
+  List<TenantBean> getContractInfo(int memberId);
 }

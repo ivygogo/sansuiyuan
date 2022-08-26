@@ -6,7 +6,7 @@ import java.sql.Date;
 public class TenantBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  Integer uId;
+  Integer id;
   Integer Member_Id;
   String Contract_Number;
   Date Begin_Time;
@@ -18,7 +18,7 @@ public class TenantBean implements Serializable {
   public TenantBean() {}
 
   public TenantBean(
-      Integer uId,
+      Integer id,
       Integer member_Id,
       String contract_Number,
       Date begin_Time,
@@ -26,7 +26,7 @@ public class TenantBean implements Serializable {
       String room_Number,
       Integer deposit) {
     super();
-    this.uId = uId;
+    this.id = id;
     Member_Id = member_Id;
     Contract_Number = contract_Number;
     Begin_Time = begin_Time;
@@ -41,8 +41,8 @@ public class TenantBean implements Serializable {
     return serialVersionUID;
   }
 
-  public Integer getuId() {
-    return uId;
+  public Integer getId() {
+    return id;
   }
 
   public Integer getMember_Id() {
@@ -70,8 +70,8 @@ public class TenantBean implements Serializable {
   }
 
   /* ====== setter======*/
-  public void setuId(Integer uId) {
-    this.uId = uId;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public void setMember_Id(Integer member_Id) {
