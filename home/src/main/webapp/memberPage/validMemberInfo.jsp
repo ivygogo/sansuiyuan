@@ -314,31 +314,12 @@
 	<div class="row mb-1 mt-5 mx-3">
 		<div class="col-md-12 text-left">
 			<div class="" style="display: flex; justify-content: center;">
-				<h2 class="text-black mb-4">會員基本資料valid ${memberInfo.gender}</h2>
-				<p>驗證${isInvalid}</p>
-				<p>ErrMsg${ErrMsg.isEmpty()}</p>
-				<p>${ErrMsg.errNickname}</p>
-				<p>${ErrMsg.errPhone}</p>
-				<p>${ErrMsg.errIdNumber}</p>
-
-				<p>${ErrMsg.errGender}</p>
-
-				<p>${ErrMsg.errPhone}</p>
-				<p>${ErrMsg.errCounty}</p>
-				<p>${ErrMsg.errDistrict}</p>
-				<p>${ErrMsg.errAaddress}</p>
-				<p>${ErrMsg.errOpenTag}</p>
-				<p>${ErrMsg.errSchool}</p>
-				<p>${ErrMsg.errCharacter}</p>
-
-
-				<p>${ErrMsg.errCharacter}</p>
-				<p>${ErrMsg.errFavor}</p>
+				<h2 class="text-black mb-4">會員基本資料</h2>
 			</div>
 		</div>
 	</div>
 
-	<!-- param.name -->
+	<!-- form開始 -->
 	<form action="<c:url value="/MemberInfoUpdate.do"/>" method="post"
 		class="p-5 bg-white" enctype="multipart/form-data">
 		<section class="site-section" id="about-section">
@@ -373,20 +354,20 @@
 
 						<div class="form-row mt-2">
 							<div class="col">
-								<h6>暱稱 ${ErrMsg.errNickname}</h6>
+								<h6>暱稱*</h6>
 								<c:choose>
-									<c:when test="${ErrMsg.errNickname==null}">
-										<input type="text" name="myNickname" class="form-control"
+									<c:when test="${ErrMsg.errNickname!=null}">
+										<input type="text" name="myNickname" class="form-control is-invalid"
 											size="10" maxlength="10" id="validationServer01"
-											placeholder="" value="${LoginOK.nickname}" required>
+											placeholder="" value="${param.myNickname}" required>
 										<div class="invalid-feedback">${ErrMsg.errNickname}</div>
 									</c:when>
 
 									<c:otherwise>
 										<input type="text" name="myNickname"
-											class="form-control is-invalid" size="10" maxlength="10"
+											class="form-control" size="10" maxlength="10"
 											id="validationServer01" placeholder=""
-											value="${LoginOK.nickname}" required>
+											value="${nickname}" required>
 										<div class="invalid-feedback">${ErrMsg.errNickname}</div>
 									</c:otherwise>
 								</c:choose>
@@ -402,17 +383,17 @@
 						<div class="mx-0">
 							<h6 class="text-black-opacity-05">姓名*</h6>
 							<c:choose>
-								<c:when test="${ErrMsg.errName==null}">
-									<input type="text" name="myName" class="form-control"
-										id="validationServer01" placeholder="" value="${LoginOK.name}"
+								<c:when test="${ErrMsg.errName!=null}">
+									<input type="text" name="myName" class="form-control is-invalid"
+										id="validationServer01" placeholder="" value="${param.myName}"
 										required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errName}</div>
 								</c:when>
 
 								<c:otherwise>
 									<input type="text" name="myName"
-										class="form-control is-invalid" id="validationServer01"
-										placeholder="" value="${LoginOK.name}" required>
+										class="form-control" id="validationServer01"
+										placeholder="" value="${name}" required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errName}</div>
 								</c:otherwise>
 							</c:choose>
@@ -423,17 +404,17 @@
 
 							<h6 class="text-black-opacity-05">聯絡手機號碼*</h6>
 							<c:choose>
-								<c:when test="${ErrMsg.errPhone==null}">
-									<input type="text" name="myPhone" class="form-control"
+								<c:when test="${ErrMsg.errPhone!=null}">
+									<input type="text" name="myPhone" class="form-control is-invalid"
 										id="validationServer01" placeholder=""
-										value="${LoginOK.phone}" required>
+										value="${param.myPhone}" required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errPhone}</div>
 								</c:when>
 
 								<c:otherwise>
 									<input type="text" name="myPhone"
-										class="form-control is-invalid" id="validationServer01"
-										placeholder="" value="${LoginOK.phone}" required>
+										class="form-control" id="validationServer01"
+										placeholder="" value="${phone}" required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errPhone}</div>
 								</c:otherwise>
 							</c:choose>
@@ -441,17 +422,17 @@
 
 							<h6 class="text-black-opacity-05 mt-4">身份字號*</h6>
 							<c:choose>
-								<c:when test="${ErrMsg.errIdNumber==null}">
-									<input type="text" name="myId" class="form-control"
+								<c:when test="${ErrMsg.errIdNumber!=null}">
+									<input type="text" name="myId" class="form-control is-invalid"
 										id="validationServer01" placeholder=""
-										value="${LoginOK.idNumber}" required>
+										value="${param.myId}" required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errIdNumber}</div>
 								</c:when>
 
 								<c:otherwise>
-									<input type="text" name="myId" class="form-control is-invalid"
+									<input type="text" name="myId" class="form-control"
 										id="validationServer01" placeholder=""
-										value="${LoginOK.idNumber}" required>
+										value="${idNumber}" required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errIdNumber}</div>
 								</c:otherwise>
 							</c:choose>
@@ -462,17 +443,17 @@
 
 							<h6 class="text-black-opacity-05">地址</h6>			
 							<c:choose>
-                <c:when test="${ErrMsg.errAaddress==null}">
-                  <input type="text" name="myAdress" class="form-control"
+                <c:when test="${ErrMsg.errAaddress!=null}">
+                  <input type="text" name="myAdress" class="form-control is-invalid"
                     id="validationServer01" placeholder=""
-                    value="${LoginOK.address}" required>
+                    value="${param.myAdress}" required>
                   <div class="invalid-feedback mb-4">${ErrMsg.errAaddress}</div>
                 </c:when>
 
                 <c:otherwise>
-                  <input type="text" name="myAdress" class="form-control is-invalid"
+                  <input type="text" name="myAddress" class="form-control"
                     id="validationServer01" placeholder=""
-                    value="${LoginOK.address}" required>
+                    value="${param.myAddress}" required>
                   <div class="invalid-feedback mb-4">${ErrMsg.errAaddress}</div>
                 </c:otherwise>
               </c:choose>
@@ -480,17 +461,17 @@
 
 							<h6 class="text-black-opacity-05 mt-5">就讀學校</h6>
 								<c:choose>
-                <c:when test="${ErrMsg.errSchool==null}">
-                  <input type="text" name="mySchool" class="form-control"
+                <c:when test="${ErrMsg.errSchool!=null}">
+                  <input type="text" name="mySchool" class="form-control is-invalid"
                     id="validationServer01" placeholder=""
-                    value="${LoginOK.school}" required>
+                    value="${param.mySchool}" required>
                   <div class="invalid-feedback mb-4">${ErrMsg.errSchool}</div>
                 </c:when>
 
                 <c:otherwise>
-                  <input type="text" name="mySchool" class="form-control is-invalid"
+                  <input type="text" name="mySchool" class="form-control"
                     id="validationServer01" placeholder=""
-                    value="${LoginOK.school}" required>
+                    value="${param.mySchool}" required>
                   <div class="invalid-feedback mb-4">${ErrMsg.errSchool}</div>
                 </c:otherwise>
               </c:choose>
@@ -498,7 +479,7 @@
 
 							<%-- <h6 class="text-black-opacity-05 mt-5">找室友功能1</h6>
 							${FindRoommateTag} --%>
-							<h6 class="text-black-opacity-05 mt-5">找室友功能${open_tag }</h6>
+							<h6 class="text-black-opacity-05 mt-5">找室友功能</h6>
 							${ansRoommate}
 							<div class="invalid-feedback mb-4">${errOpenTag}</div>
 							<!-- findRoommate -->
@@ -527,8 +508,7 @@
 			<div class="col-md-12 text-left">
 				<div class="" style="display: flex; justify-content: center;">
 					<button class="btn btn-edit mr-2 mb-2" type="subimt">我要儲存</button>
-					<button class="btn btn-edit mr-2 mb-2" type="reset" value="reset"
-						id="reset-btn">重新設定</button>
+					<button type="button" class="btn btn-edit mr-2 mb-2" onclick="dropForm()" id="dropIt">放棄修改</button>
 				</div>
 			</div>
 		</div>

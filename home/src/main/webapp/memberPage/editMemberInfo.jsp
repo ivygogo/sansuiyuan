@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div class="tab-pane fade show active" id="home" role="tabpanel"
-	aria-labelledby="home-tab">
+
 	
 	<script type="text/javascript">
 		$(function() {
@@ -43,7 +42,7 @@
 			wrapper.appendChild(oldChild);
 
 			var oldChild2 = document.getElementById('inputState2');
-			var wrapper2 = document.createElement('divs');
+			var wrapper2 = document.createElement('div');
 			wrapper2.className = "form-group col-md-6";
 			wrapper2.id = "zip2"
 			oldParent.appendChild(wrapper2);
@@ -59,8 +58,7 @@
             //$("input[name='avatarIcon']").get(0).checked = false;
             startAvatar = `${Avatar}`;
             //alert(startAvatar);
-            let avatarClick = $(
-            "input[name='avatarIcon']:radio:checked").val();
+            let avatarClick = $("input[name='avatarIcon']:radio:checked").val();
             let link = "images/avatarImg/";
             link += avatarClick;
             link += ".png";
@@ -70,7 +68,7 @@
             //alert($("#avaName").text);
           });
   }
-  window.addEventListener('load', doFirstp);
+  window.addEventListener('load', doFirstp());
 		
 		
 		$(function(){
@@ -256,8 +254,46 @@
 		          doFirstp();
 		    })
 		  })
-		
-		
+		/*
+		$('#profile-tab').click(function(event){
+			
+			str = $('#editMemberInfo').val()
+			//alert(event.target.id);
+			//alert(str);
+			if (str==='editMemberInfo'){
+				
+				con=confirm("你確認要放棄未填寫完成的表單嗎?"); //在頁面上彈出對話框
+				
+	            if(con==true){
+	              
+	              $('#myinfo').html("");
+	                $('#myinfo').load('memberPage/showMemberInfo.jsp');
+	                window.location.href='/home/MemberInfo.do';
+	             } 
+	            if(con==false) {
+	            	//$('#myinfo').load('memberPage/editMemberInfo.jsp');
+	              //window.location.href='/home/MemberInfo.do';
+	              alert("false");
+	              $("#home-tab").attr("class", 'nav-link active')
+	              $("#profile-tab").attr("class", 'nav-link')
+	               
+	               $('#myinfo').html("");
+	               
+	               
+	               $('#profile').html("");
+	               $('#profile').attr('class', "tab-pane fade")
+	               $('#myinfo').attr('class', "tab-pane fade active show")
+	               $('#profile').hide();
+	               $('#myinfo').show()
+	               //location.reload()
+	               $('#myinfo').html("");
+                 $('#myinfo').load('memberPage/editMemberInfo.jsp');
+	               
+	            }
+			}
+			
+			
+		})*/
 		
 		$("#reset-btn").click(function(){
 			let avatarResetLink = "images/avatarImg/";
@@ -275,10 +311,19 @@
 	<div class="row mb-1 mt-5 mx-3">
 		<div class="col-md-12 text-left">
 			<div class="" style="display: flex; justify-content: center;">
-				<h2 class="text-black mb-4">會員基本資料editmember</h2>
+				<h2 class="text-black mb-4">會員基本資料editmember</h2></br>
+				
 			</div>
 		</div>
 	</div>
+	<div class="row mb-1  mx-3">
+    <div class="col-md-12 text-left">
+      <div class="" style="display: flex; justify-content: center;">
+        <h6 class="text mb-4" style="color:red;">請注意: *為必填資料</h6>
+        <input id="editMemberInfo" value="editMemberInfo" hidden>
+      </div>
+    </div>
+  </div>
 
 <!-- param.name -->
  <form action="<c:url value="/MemberInfoUpdate.do"/>" method="post" class="p-5 bg-white" enctype="multipart/form-data"> 
@@ -292,7 +337,7 @@
 						<div class="row ">
 							<div class="col" style="display: flex; justify-content: center;"
 								id="avatarImg">
-								<img src="${pageContext.request.contextPath}//images/avatarImg/${memberInfo.avatar}"
+								<img src="${pageContext.request.contextPath}//images/avatarImg/${Avatar}.png"
 									alt="Free website template by Free-Template.co"
 									class="img-fluid my-avatar">
 							</div>
@@ -313,7 +358,7 @@
 
 						<div class="form-row mt-2">
 							<div class="col">
-								<h6>暱稱</h6>
+								<h6>暱稱*</h6>
 								<input type="text" name="myNickname"
 									class="form-control invalid" size="10" maxlength="10"
 									id="validationServer01" placeholder=""
@@ -338,12 +383,12 @@
 
 							<h6 class="text-black-opacity-05">聯絡手機號碼*</h6>
 							<input type="text" name = "myPhone" class="form-control"
-								value="${LoginOK.phone}">
+								value="${LoginOK.phone}" required>
 							<div class="invalid-feedback mb-4">請輸入手機09XX-XXX-XXX</div>
 
 							<h6 class="text-black-opacity-05 mt-4">身份字號*</h6>
 							<input type="text" name="myId" class="form-control"
-								value="${LoginOK.idNumber}">
+								value="${LoginOK.idNumber}" required>
 							<div class="invalid-feedback mb-4">要判斷身分證</div>
 
 							<h6 class="text-black-opacity-05 mt-4">戶籍地址*</h6>
@@ -362,11 +407,11 @@
 
 							<h6 class="text-black-opacity-05">地址</h6>
 							<input type="text" name="myAddress" class="form-control"
-								value="${LoginOK.address}"> 
+								value="${LoginOK.address}" required> 
 							<div class="invalid-feedback mb-4">Looks good!</div>
 
 							<h6 class="text-black-opacity-05 mt-4">就讀學校</h6>
-							<input type="text" name="school" class="form-control mb-4"
+							<input type="text" name="mySchool" class="form-control mb-4"
 								value="${LoginOK.school}">
 								
 							<h6 class="text-black-opacity-05 mt-5">找室友功能</h6>
@@ -388,11 +433,10 @@
 		<div class="col-md-12 text-left">
 			<div class="" style="display: flex; justify-content: center;">
 				<button class="btn btn-edit mr-2 mb-2" type="subimt">我要儲存</button>
-				<button class="btn btn-edit mr-2 mb-2" type="reset" value="reset" id="reset-btn">重新設定</button>
+				<button type="button" class="btn btn-edit mr-2 mb-2" onclick="dropForm()" id="dropIt">放棄修改</button>
 			</div>
 		</div>
 	</div>
 	</form>
-</div>
 
 

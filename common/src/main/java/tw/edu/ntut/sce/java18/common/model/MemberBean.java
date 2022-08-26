@@ -2,7 +2,7 @@ package tw.edu.ntut.sce.java18.common.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.List;
 
 public class MemberBean implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -41,12 +41,12 @@ public class MemberBean implements Serializable {
   String favorStrAll;
   String avatar;
   String level;
-  ArrayList<String> contract;
-
-  ArrayList<TenantBean> tenant = new ArrayList<>();
-  ArrayList<GuarantorBean> guarantor = new ArrayList<>();
-  ArrayList<RefundAccountBean> refundAccount = new ArrayList<>();
-
+  List<String> contract;
+  List<TenantBean> tenant;
+  List<GuarantorBean> guarantorList;
+  List<RefundAccountBean> refundAccountList;
+  GuarantorBean guarantor;
+  RefundAccountBean refundAccount;
   /* ====== 建構子 ======*/
   public MemberBean() {}
 
@@ -62,8 +62,8 @@ public class MemberBean implements Serializable {
       String district,
       String address,
       String nickname,
-      Integer state, // 狀態
-      String code, // 驗證碼
+      Integer state,
+      String code,
       String school,
       Integer pic,
       Integer signature_1,
@@ -85,10 +85,12 @@ public class MemberBean implements Serializable {
       String favorStrAll,
       String avatar,
       String level,
-      ArrayList<String> contract,
-      ArrayList<TenantBean> tenant,
-      ArrayList<GuarantorBean> guarantor,
-      ArrayList<RefundAccountBean> refundAccount) {
+      List<String> contract,
+      List<TenantBean> tenant,
+      List<GuarantorBean> guarantorList,
+      List<RefundAccountBean> refundAccountList,
+      GuarantorBean guarantor,
+      RefundAccountBean refundAccount) {
     super();
     this.uId = uId;
     this.name = name;
@@ -126,6 +128,8 @@ public class MemberBean implements Serializable {
     this.level = level;
     this.contract = contract;
     this.tenant = tenant;
+    this.guarantorList = guarantorList;
+    this.refundAccountList = refundAccountList;
     this.guarantor = guarantor;
     this.refundAccount = refundAccount;
   }
@@ -272,19 +276,27 @@ public class MemberBean implements Serializable {
     return level;
   }
 
-  public ArrayList<String> getContract() {
+  public List<String> getContract() {
     return contract;
   }
 
-  public ArrayList<TenantBean> getTenant() {
+  public List<TenantBean> getTenant() {
     return tenant;
   }
 
-  public ArrayList<GuarantorBean> getGuarantor() {
+  public List<GuarantorBean> getGuarantorList() {
+    return guarantorList;
+  }
+
+  public List<RefundAccountBean> getRefundAccountList() {
+    return refundAccountList;
+  }
+
+  public GuarantorBean getGuarantor() {
     return guarantor;
   }
 
-  public ArrayList<RefundAccountBean> getRefundAccount() {
+  public RefundAccountBean getRefundAccount() {
     return refundAccount;
   }
 
@@ -426,19 +438,27 @@ public class MemberBean implements Serializable {
     this.level = level;
   }
 
-  public void setContract(ArrayList<String> contract) {
+  public void setContract(List<String> contract) {
     this.contract = contract;
   }
 
-  public void setTenant(ArrayList<TenantBean> tenant) {
+  public void setTenant(List<TenantBean> tenant) {
     this.tenant = tenant;
   }
 
-  public void setGuarantor(ArrayList<GuarantorBean> guarantor) {
+  public void setGuarantorList(List<GuarantorBean> guarantor) {
+    this.guarantorList = guarantor;
+  }
+
+  public void setRefundAccountList(List<RefundAccountBean> refundAccount) {
+    this.refundAccountList = refundAccount;
+  }
+
+  public void setGuarantor(GuarantorBean guarantor) {
     this.guarantor = guarantor;
   }
 
-  public void setRefundAccount(ArrayList<RefundAccountBean> refundAccount) {
+  public void setRefundAccount(RefundAccountBean refundAccount) {
     this.refundAccount = refundAccount;
   }
 }
