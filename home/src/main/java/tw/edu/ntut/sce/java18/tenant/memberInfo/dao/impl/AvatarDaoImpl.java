@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao;
+package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,13 +9,12 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import tw.edu.ntut.sce.java18.common.dao.AvatarDao;
 import tw.edu.ntut.sce.java18.common.model.AvatarBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
+import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.AvatarDao;
 
 public class AvatarDaoImpl implements AvatarDao {
   private DataSource ds = null;
-  private Connection con = null;
 
   public AvatarDaoImpl() {
     try {
@@ -27,14 +26,14 @@ public class AvatarDaoImpl implements AvatarDao {
     }
   }
 
-  /*======以uId判斷頭像是否存在======*/
+  /*======以Id判斷頭像是否存在======*/
   @Override
-  public boolean idExists(int uid) {
+  public boolean checkAvatarIdExists(int id) {
     boolean exist = false;
-    String sql = "SELECT * FROM Avatar WHERE uId = ?";
+    String sql = "SELECT * FROM Avatar WHERE Id = ?";
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
-      ps.setInt(1, uid);
+      ps.setInt(1, id);
       try (ResultSet rs = ps.executeQuery(); ) {
         if (rs.next()) {
           exist = true;
@@ -49,20 +48,20 @@ public class AvatarDaoImpl implements AvatarDao {
 
   /*======儲存頭像======*/
   @Override
-  public int saveAvatar(AvatarBean ab) {
+  public int saveAvatar(AvatarBean avatar) {
     String sql =
         " insert into Avatar "
-            + " (uId, AvatarName, genderType, isShow, createTime, updateTime) "
+            + " (id, AvatarName, genderType, isShow, createTime, updateTime) "
             + " values(?, ?, ?, ?, ?, ?) ";
     int n = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
-      ps.setInt(1, ab.getUId());
-      ps.setString(2, ab.getAvatarName());
-      ps.setInt(1, ab.getGenderType());
-      ps.setInt(3, ab.getIsShow());
-      ps.setTimestamp(4, ab.getCreatetime());
-      ps.setTimestamp(5, ab.getUpdatetime());
+      ps.setInt(1, avatar.getId());
+      ps.setString(2, avatar.getAvatarName());
+      ps.setInt(1, avatar.getGenderType());
+      ps.setInt(3, avatar.getIsShow());
+      ps.setTimestamp(4, avatar.getCreatetime());
+      ps.setTimestamp(5, avatar.getUpdatetime());
 
       n = ps.executeUpdate();
 
@@ -75,16 +74,16 @@ public class AvatarDaoImpl implements AvatarDao {
 
   /*======以ID尋找頭像======*/
   @Override
-  public AvatarBean queryAvatarById(int uid) {
+  public AvatarBean queryAvatarByPrimaryKey(int id) {
     AvatarBean ab = null;
-    String sql = "SELECT * FROM Avatar WHERE uID = ?";
+    String sql = "SELECT * FROM Avatar WHERE ID = ?";
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
-      ps.setInt(1, uid);
+      ps.setInt(1, id);
       try (ResultSet rs = ps.executeQuery(); ) {
         if (rs.next()) {
           ab = new AvatarBean();
-          ab.setUId(rs.getInt("uid"));
+          ab.setId(rs.getInt("id"));
           ab.setAvatarName(rs.getString("AvatarName"));
           ab.setGenderType(rs.getInt("GenderType"));
           ab.setIsShow(rs.getInt("isShow"));
@@ -101,16 +100,15 @@ public class AvatarDaoImpl implements AvatarDao {
   }
 
   /*======以avatarName尋找頭像======*/
-  @Override
-  public int queryAvatarByName(String avatarName) {
+  public int queryAvatarIdByName(String avatarName) {
     int avatarId = -1;
-    String sql = "SELECT uid FROM Avatar WHERE avatarName = ?";
+    String sql = "SELECT ID FROM Avatar WHERE avatarName = ?";
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setString(1, avatarName);
       try (ResultSet rs = ps.executeQuery(); ) {
         if (rs.next()) {
-          avatarId = rs.getInt("uid");
+          avatarId = rs.getInt("id");
         }
       }
 
@@ -123,7 +121,7 @@ public class AvatarDaoImpl implements AvatarDao {
 
   /*======以性別取出所有頭像，丟給編輯頁面======*/
   @Override
-  public List<String> queryAvatarByGender(int genderId) {
+  public List<String> queryAvatarNameByGender(int genderId) {
     List<String> list = new ArrayList<>();
     String sql = "SELECT avatarName FROM Avatar WHERE GenderType = ? AND IsShow=1";
     try (Connection connection = ds.getConnection();
@@ -143,10 +141,5 @@ public class AvatarDaoImpl implements AvatarDao {
       throw new RuntimeException("AvatarDaoImpl類別#queryAvatarByGender()發生例外: " + ex.getMessage());
     }
     return list;
-  }
-
-  @Override
-  public void setConnection(Connection conn) {
-    this.con = conn;
   }
 }
