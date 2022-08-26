@@ -68,9 +68,8 @@ public class RefundAccountDaoImpl implements RefundAccountDao {
   @Override
   public int saveRefundAccount(RefundAccountBean refundAccount) {
     String sql =
-        " insert into Refund_Account "
-            + " (member_id, refundBank, bankStore, BANKACCOUNT, refundName, createtime, updatetime) "
-            + " values(?, ?, ?, ?, ?, ?, ?) ";
+        " insert into Refund_Account  (member_id, refundBank, bankStore, BANKACCOUNT, refundName,"
+            + " createtime, updatetime)  values(?, ?, ?, ?, ?, ?, ?) ";
     int n = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {

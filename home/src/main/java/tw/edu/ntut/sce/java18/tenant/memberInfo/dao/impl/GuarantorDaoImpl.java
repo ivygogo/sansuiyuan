@@ -50,9 +50,8 @@ public class GuarantorDaoImpl implements GuarantorDao {
   @Override
   public int saveGuarantor(GuarantorBean guarantor) {
     String sql =
-        " insert into Guarantor "
-            + " (member_id, NAME, id_number, phone, county, District, address, relation, create_time, update_time) "
-            + " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+        " insert into Guarantor  (member_id, NAME, id_number, phone, county, District, address,"
+            + " relation, create_time, update_time)  values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
     int n = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
