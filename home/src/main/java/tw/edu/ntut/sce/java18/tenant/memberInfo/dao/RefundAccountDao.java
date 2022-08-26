@@ -13,4 +13,6 @@ public interface RefundAccountDao {
   RefundAccountBean queryRefundAccountByPrimaryKey(int id); // 此uId不是帳號，而是PK
 
   RefundAccountBean queryRefundAccountByMemberId(int memberId);
+
+  int updateRefundAccount(RefundAccountBean refundAccountBean);
 }
