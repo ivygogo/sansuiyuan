@@ -5,11 +5,13 @@ import java.sql.Timestamp;
 
 public class GuarantorBean implements Serializable {
   private static final long serialVersionUID = 1L;
-  Integer uId;
+  Integer id;
   Integer member_id;
   String name;
   String id_number;
   String phone;
+  String county;
+  String district;
   String address;
   String relation;
   Timestamp create_time;
@@ -19,21 +21,25 @@ public class GuarantorBean implements Serializable {
   public GuarantorBean() {}
 
   public GuarantorBean(
-      Integer uId,
+      Integer id,
       Integer member_id,
       String name,
       String id_number,
       String phone,
+      String county,
+      String district,
       String address,
       String relation,
       Timestamp create_time,
       Timestamp update_time) {
     super();
-    this.uId = uId;
+    this.id = id;
     this.member_id = member_id;
     this.name = name;
     this.id_number = id_number;
     this.phone = phone;
+    this.county = county;
+    this.district = district;
     this.address = address;
     this.relation = relation;
     this.create_time = create_time;
@@ -45,8 +51,8 @@ public class GuarantorBean implements Serializable {
     return serialVersionUID;
   }
 
-  public Integer getuId() {
-    return uId;
+  public Integer getId() {
+    return id;
   }
 
   public Integer getMember_id() {
@@ -63,6 +69,14 @@ public class GuarantorBean implements Serializable {
 
   public String getPhone() {
     return phone;
+  }
+
+  public String getCounty() {
+    return county;
+  }
+
+  public String getDistrict() {
+    return district;
   }
 
   public String getAddress() {
@@ -82,8 +96,8 @@ public class GuarantorBean implements Serializable {
   }
 
   /* ====== setter======*/
-  public void setuId(Integer uId) {
-    this.uId = uId;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public void setMember_id(Integer member_id) {
@@ -100,6 +114,14 @@ public class GuarantorBean implements Serializable {
 
   public void setPhone(String phone) {
     this.phone = phone;
+  }
+
+  public void setCounty(String county) {
+    this.county = county;
+  }
+
+  public void setDistrict(String district) {
+    this.district = district;
   }
 
   public void setAddress(String address) {

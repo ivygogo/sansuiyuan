@@ -1,17 +1,16 @@
-package tw.edu.ntut.sce.java18.common.dao;
+package tw.edu.ntut.sce.java18.tenant.memberInfo.dao;
 
-import java.sql.Connection;
 import tw.edu.ntut.sce.java18.common.model.RefundAccountBean;
 
 public interface RefundAccountDao {
 
-  boolean idExists(int uId);
+  boolean checkRefundAccountIdExists(int id);
 
-  int saveRefundAccount(RefundAccountBean rab);
+  boolean checkRefundAccountIdExistsByMemberId(int memberId);
 
-  RefundAccountBean queryRefundAccountId(int uId); // 此uId不是帳號，而是PK
+  int saveRefundAccount(RefundAccountBean refundAccount);
 
-  RefundAccountBean getRefundAccount(int Member_Id);
+  RefundAccountBean queryRefundAccountByPrimaryKey(int id); // 此uId不是帳號，而是PK
 
-  void setConnection(Connection con);
+  RefundAccountBean queryRefundAccountByMemberId(int memberId);
 }

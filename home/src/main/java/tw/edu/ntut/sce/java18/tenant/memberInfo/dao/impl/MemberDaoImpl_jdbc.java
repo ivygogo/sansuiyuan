@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao;
+package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import tw.edu.ntut.sce.java18.common.dao.MemberDao;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
+import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.MemberDao;
 
 public class MemberDaoImpl_jdbc implements MemberDao {
 
@@ -30,7 +30,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   }
 
   @Override
-  public boolean idExists(String mail) {
+  public boolean checkMemberAccountExists(String mail) {
     return false;
   }
 
@@ -42,7 +42,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
 
   /*用UID查詢會員資料用*/
   @Override
-  public MemberBean queryMemberId(int uId) {
+  public MemberBean queryMemberByPrimaryKey(int uId) {
     MemberBean mb = null;
     String sql = "SELECT * FROM Member WHERE uId = ?";
     try (Connection connection = ds.getConnection();
@@ -92,7 +92,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
 
   /*用UID查詢會員資料用*/
   @Override
-  public boolean uIdExists(int uId) {
+  public boolean checkMemberUidExists(int uId) {
     boolean exist = false;
     String sql = "SELECT * FROM Member WHERE UID = ?";
 
@@ -112,11 +112,6 @@ public class MemberDaoImpl_jdbc implements MemberDao {
     return exist;
   }
 
-  @Override
-  public MemberBean getMemberInfo(int uId) {
-    // TODO Auto-generated method stub
-    return null;
-  }
   /*===確認身分證號是否正確===*/
   @Override
   public String checkIdNumber(String formValue, int genderId) {
@@ -167,8 +162,6 @@ public class MemberDaoImpl_jdbc implements MemberDao {
       }
       sum += code.get(9);
 
-      int end = (int) (Integer.toString(sum).charAt((Integer.toString(sum).length() - 1)));
-
       if (sum % 10 != 0) {
         errMsg = "身分證號格式不正確";
       } else {
@@ -179,12 +172,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   }
 
   @Override
-  public void setConnection(Connection conn) {
-    this.conn = conn;
-  }
-
-  @Override
-  public int updateMemberInfo(MemberBean bean) {
+  public int updateMemberInfo(MemberBean member) {
     int n = 0;
     String sql =
         "UPDATE MEMBER SET "
@@ -195,57 +183,58 @@ public class MemberDaoImpl_jdbc implements MemberDao {
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql); ) {
       ps.clearParameters();
-      ps.setString(1, bean.getName());
-      ps.setInt(2, bean.getGender());
-      ps.setString(3, bean.getPhone());
-      ps.setString(4, bean.getIdNumber());
-      ps.setString(5, bean.getCounty());
-      ps.setString(6, bean.getDistrict());
-      ps.setString(7, bean.getAddress());
-      ps.setString(8, bean.getNickname());
-      ps.setString(9, bean.getSchool());
-      ps.setInt(10, bean.getPic());
+      ps.setString(1, member.getName());
+      ps.setInt(2, member.getGender());
+      ps.setString(3, member.getPhone());
+      ps.setString(4, member.getIdNumber());
+      ps.setString(5, member.getCounty());
+      ps.setString(6, member.getDistrict());
+      ps.setString(7, member.getAddress());
+      ps.setString(8, member.getNickname());
+      ps.setString(9, member.getSchool());
+      ps.setInt(10, member.getPic());
 
-      if (bean.getSignature_1() != null) {
-        ps.setInt(11, bean.getSignature_1());
+      if (member.getSignature_1() != null) {
+        ps.setInt(11, member.getSignature_1());
       } else {
         ps.setNull(11, Types.INTEGER);
       }
 
-      if (bean.getSignature_2() != null) {
-        ps.setInt(12, bean.getSignature_2());
+      if (member.getSignature_2() != null) {
+        ps.setInt(12, member.getSignature_2());
       } else {
         ps.setNull(12, Types.INTEGER);
       }
 
-      if (bean.getSignature_2() != null) {
-        ps.setInt(13, bean.getSignature_3());
+      if (member.getSignature_3() != null) {
+        ps.setInt(13, member.getSignature_3());
       } else {
         ps.setNull(13, Types.INTEGER);
       }
 
-      if (bean.getFavor_1() != null) {
-        ps.setInt(14, bean.getFavor_1());
+      if (member.getFavor_1() != null) {
+        ps.setInt(14, member.getFavor_1());
       } else {
         ps.setNull(14, Types.INTEGER);
       }
 
-      if (bean.getFavor_2() != null) {
-        ps.setInt(15, bean.getFavor_2());
+      if (member.getFavor_2() != null) {
+        ps.setInt(15, member.getFavor_2());
       } else {
         ps.setNull(15, Types.INTEGER);
       }
 
-      if (bean.getFavor_3() != null) {
-        ps.setInt(16, bean.getFavor_3());
+      if (member.getFavor_3() != null) {
+        ps.setInt(16, member.getFavor_3());
       } else {
         ps.setNull(16, Types.INTEGER);
       }
 
-      ps.setInt(17, bean.getOpen_tag());
-      ps.setTimestamp(18, bean.getUpdate_time());
-      ps.setString(19, bean.getLast_IP());
-      ps.setInt(20, bean.getuId());
+      ps.setInt(17, member.getOpen_tag());
+      ps.setTimestamp(18, member.getUpdate_time());
+      ps.setString(19, member.getLast_IP());
+      ps.setInt(20, member.getuId());
+
       n = ps.executeUpdate();
     } catch (SQLException ex) {
       ex.printStackTrace();

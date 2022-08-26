@@ -45,15 +45,15 @@ public class MemberInfoUpdateServlet extends HttpServlet {
       mb = new MemberBean();
     }
     Map<String, String> errorMsgs = new HashMap<String, String>();
-    Map<String, String> successMsgs = new HashMap<String, String>();
+
     request.setCharacterEncoding("UTF-8");
     response.setContentType("text/html; charset=UTF-8");
     request.setAttribute("ErrMsg", errorMsgs);
-    session.setAttribute("successMsg", successMsgs);
 
     String name = "";
     int gender = 0;
     String phone = "";
+
     String idNumber = " ";
     String county = "";
     String district = "";
@@ -74,8 +74,6 @@ public class MemberInfoUpdateServlet extends HttpServlet {
     String signatureAll = "";
     String favorStrAll = "";
     String avatar = "";
-    String level = "";
-    ArrayList<String> contract = null;
 
     ArrayList<String> signatureList = new ArrayList<>();
     ArrayList<String> favorList = new ArrayList<>();
@@ -122,7 +120,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
         }
         // System.out.println("hadCharacter:" + hadCharacter);
         // System.out.println("hadFavor:" + hadFavor);
-        // System.out.println("表單名稱:" + partList.get(i));
+        System.out.println("表單名稱:" + partList.get(i));
       }
 
       for (Part p : parts) {
@@ -153,7 +151,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
             if (nickname == null || nickname.trim().length() == 0) {
               errorMsgs.put("errNickname", "必須輸入暱稱");
             } else {
-              request.setAttribute("nickname", nickname);
+              session.setAttribute("nickname", nickname);
             }
           }
 
@@ -164,7 +162,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
             if (name == null || name.trim().length() == 0) {
               errorMsgs.put("errName", "必須輸入大名");
             } else {
-              request.setAttribute("name", name);
+              session.setAttribute("name", name);
               // errorMsgs.put("errName", null);
             }
           }
@@ -183,8 +181,8 @@ public class MemberInfoUpdateServlet extends HttpServlet {
                 gender = 2;
               }
               mb.setGender(gender);
-              request.setAttribute("genderStr", genderStr);
-              request.setAttribute("gender", gender);
+              session.setAttribute("genderStr", genderStr);
+              session.setAttribute("gender", gender);
             }
           }
 
@@ -203,13 +201,13 @@ public class MemberInfoUpdateServlet extends HttpServlet {
             } else if (!matcher.matches()) {
               errorMsgs.put("errPhone", "手機電話格式後8碼錯誤"); // str.matches("[0-9]{4}-[0-9]{6}")
             } else {
-              request.setAttribute("phone", phone);
+              session.setAttribute("phone", phone);
             }
           }
 
           /*===判斷身分證號===*/
           else if (fldName.equals("myId")) {
-            String errMsg = "";
+            String errMsg = ""; // 要來接收checkIdNumber的傳回值
             int genderCode = -1;
             idNumber = value.replace(" ", "");
             mb.setIdNumber(idNumber);
@@ -279,7 +277,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
             }
           }
           /*===判斷學校資料===*/
-          else if (fldName.equals("school")) {
+          else if (fldName.equals("mySchool")) {
             school = value;
             if (school == null || school.trim().length() == 0) {
               errorMsgs.put("errSchool", "必須輸入學校");
@@ -300,13 +298,9 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           else if (fldName.length() > 7 && fldName.substring(0, 7).equals("myFavor")) {
             String favor = value;
             favorList.add(favor);
-            if (signatureList.size() > 3) {
-              errorMsgs.put("errFavor", "ohoh~個性標籤數量上限為3個");
+            if (favorList.size() > 3) {
+              errorMsgs.put("errFavor", "ohoh~室友喜好數量上限為3個");
             }
-          } else if (open_tag == 1 && hadCharacter == false) {
-            errorMsgs.put("errCharacter", "您已啟用找室友功能，請輸入個性標籤，讓合租夥伴更了解你/妳");
-          } else if (open_tag == 1 && hadFavor == false) {
-            errorMsgs.put("errFavor", "您已啟用找室友功能，請輸入室友喜好，讓合租夥伴更了解你/妳");
           }
 
         } else {
@@ -411,11 +405,13 @@ public class MemberInfoUpdateServlet extends HttpServlet {
     }
     mb.setFavorStrAll(favorTabs);
     // System.out.println("個性標籤characterTabs" + characterTabs);
-    // System.out.println("個性標籤favorList" + favorTabs);
+    System.out.println("個性標籤favorList" + favorTabs);
     signatureAll = characterTabs.substring(0, (characterTabs.length() - 1));
     String ansCharacter = ms.getCharacterTempTag(signatureAll);
+
     favorStrAll = favorTabs.substring(0, (favorTabs.length() - 1));
     String ansFavor = ms.getFavorTempTag(favorStrAll);
+
     session.setAttribute("ansCharacter", ansCharacter);
     session.setAttribute("ansFavor", ansFavor);
     // signatureList.removeAll(signatureList);
@@ -463,6 +459,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
       newBean.setGender(gender);
       newBean.setPhone(phone);
       newBean.setIdNumber(idNumber);
+      newBean.setMail(oldBean.getMail());
       newBean.setCounty(county);
       newBean.setDistrict(district);
       newBean.setAddress(address);
@@ -474,6 +471,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
       newBean.setSignature_2(signature_2);
       newBean.setSignature_3(signature_3);
       newBean.setFavor_1(favor_1);
+      System.out.println(favor_1);
       newBean.setFavor_2(favor_2);
       newBean.setFavor_3(favor_3);
       newBean.setOpen_tag(open_tag);
@@ -487,12 +485,13 @@ public class MemberInfoUpdateServlet extends HttpServlet {
       update_time = Timestamp.valueOf(datetime);
       newBean.setUpdate_time(update_time);
       newBean.setContract(oldBean.getContract());
-      newBean.setGuarantor(oldBean.getGuarantor());
+      newBean.setGuarantorList(oldBean.getGuarantorList());
       ms.updateMemberInfo(newBean);
       session.setAttribute("memberInfo", newBean);
       session.setAttribute("LoginOK", newBean);
-      RequestDispatcher rd = request.getRequestDispatcher("/memberInfo.jsp");
-      rd.forward(request, response);
+      response.sendRedirect("/home/MemberInfo.do");
+      // RequestDispatcher rd = request.getRequestDispatcher("/memberInfo.jsp");
+      // rd.forward(request, response);
       return;
     }
   } // doPost end

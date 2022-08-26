@@ -1,17 +1,17 @@
-package tw.edu.ntut.sce.java18.common.dao;
+package tw.edu.ntut.sce.java18.tenant.memberInfo.dao;
 
-import java.sql.Connection;
+import java.util.List;
 import tw.edu.ntut.sce.java18.common.model.GuarantorBean;
 
 public interface GuarantorDao {
 
-  boolean uIdExists(int uId);
+  boolean checkGuarantorIdExists(int memberId);
 
-  int saveGuarantor(GuarantorBean gb);
+  int saveGuarantor(GuarantorBean guarantor);
 
-  GuarantorBean queryGuarantorId(int uId);
+  GuarantorBean queryGuarantorByPrimaryKey(int id); //
 
-  GuarantorBean getGuarantorInfo(int member_id);
+  List<GuarantorBean> getGuarantorInfo(int memberId);
 
-  void setConnection(Connection con);
+  int updateGuarantorInfo(GuarantorBean guarantor);
 }

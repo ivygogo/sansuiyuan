@@ -39,26 +39,24 @@ public class MemberInfoServlet extends HttpServlet {
       return;
     }
     MemberInfoServiceImpl misi = new MemberInfoServiceImpl();
+
+    /*先把3個性別的頭像準備好*/
     String maleAvatar = misi.getAllAvatarByGender(0);
-
-    System.out.println(maleAvatar);
-
     String femaleAvatar = misi.getAllAvatarByGender(1);
-
-    System.out.println(femaleAvatar);
-
     String otherAvatar = misi.getAllAvatarByGender(2);
-
-    System.out.println(otherAvatar);
-
+    // System.out.println(otherAvatar);
     session.setAttribute("maleAvatar", maleAvatar);
     session.setAttribute("femaleAvatar", femaleAvatar);
     session.setAttribute("otherAvatar", otherAvatar);
 
+    /*測試資料可以在這邊測試，透過session並運用LoginOK傳遞存進資料庫的會員資料*/
     MemberBean mb = misi.getMemberInfo(1);
-    session.setAttribute("myPage", "myinfo");
     session.setAttribute("LoginOK", mb);
     session.setAttribute("memberInfo", mb);
+
+    String s = (String) session.getAttribute("myPage");
+    System.out.println("我是S:" + s);
+
     var memberResponse = Map.of("result", mb);
     String str = new Gson().toJson(memberResponse);
 
