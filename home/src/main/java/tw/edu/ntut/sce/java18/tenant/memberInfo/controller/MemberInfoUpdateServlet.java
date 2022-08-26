@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -75,9 +76,9 @@ public class MemberInfoUpdateServlet extends HttpServlet {
     String favorStrAll = "";
     String avatar = "";
 
-    ArrayList<String> signatureList = new ArrayList<>();
-    ArrayList<String> favorList = new ArrayList<>();
-    ArrayList<String> partList = new ArrayList<>();
+    List<String> signatureList = new ArrayList<>();
+    List<String> favorList = new ArrayList<>();
+    List<String> partList = new ArrayList<>();
     boolean hadCharacter = false;
     boolean hadFavor = false;
 
@@ -134,20 +135,20 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           if (fldName.equals("avatarIcon")) {
             avatar = value;
             System.out.println("myAvata:" + avatar);
-            mb.setAvatar(avatar + ".png");
+            // mb.setAvatar(avatar + ".png");
             if (value == null || avatar.trim().length() == 0) {
               errorMsgs.put("avatarIcon", "必須選擇頭貼");
             } else {
               pic = ms.getAvatarId(avatar + ".png");
               session.setAttribute("Avatar", avatar);
-              mb.setPic(pic);
+              // mb.setPic(pic);
             }
           }
 
           /*===判斷暱稱===*/
           else if (fldName.equals("myNickname")) {
             nickname = value;
-            mb.setNickname(nickname);
+            // mb.setNickname(nickname);
             if (nickname == null || nickname.trim().length() == 0) {
               errorMsgs.put("errNickname", "必須輸入暱稱");
             } else {
@@ -158,7 +159,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           /*===判斷姓名===*/
           else if (fldName.equals("myName")) {
             name = value;
-            mb.setName(name);
+            // mb.setName(name);
             if (name == null || name.trim().length() == 0) {
               errorMsgs.put("errName", "必須輸入大名");
             } else {
@@ -180,7 +181,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
               } else {
                 gender = 2;
               }
-              mb.setGender(gender);
+              // mb.setGender(gender);
               session.setAttribute("genderStr", genderStr);
               session.setAttribute("gender", gender);
             }
@@ -189,7 +190,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           /*===判斷電話===*/
           else if (fldName.equals("myPhone")) {
             phone = value.replace(" ", "");
-            mb.setPhone(phone);
+            // mb.setPhone(phone);
             Pattern pattern = Pattern.compile("\\d{8}");
             Matcher matcher = pattern.matcher(phone.substring(2));
             if (phone == null || phone.trim().length() == 0) {
@@ -210,7 +211,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
             String errMsg = ""; // 要來接收checkIdNumber的傳回值
             int genderCode = -1;
             idNumber = value.replace(" ", "");
-            mb.setIdNumber(idNumber);
+            // mb.setIdNumber(idNumber);
             if (gender != 2) {
               genderCode = gender + 1;
             } else {
@@ -228,7 +229,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           /*===判斷縣市===*/
           else if (fldName.equals("county")) {
             county = value;
-            mb.setCounty(county);
+            // mb.setCounty(county);
             if (county == null || county.trim().length() == 0) {
               errorMsgs.put("errCounty", "必須輸入縣市");
             } else {
@@ -238,7 +239,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           /*===判斷區域===*/
           else if (fldName.equals("district")) {
             district = value;
-            mb.setDistrict(district);
+            // mb.setDistrict(district);
             if (district == null || district.trim().length() == 0) {
               errorMsgs.put("errDistrict", "必須輸入區域");
             } else {
@@ -248,7 +249,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           /*===判斷地址===*/
           else if (fldName.equals("myAddress")) {
             address = value;
-            mb.setAddress(address);
+            // mb.setAddress(address);
             if (address == null || address.trim().length() == 0) {
               errorMsgs.put("errAaddress", "必須輸入地址");
             } else {
@@ -266,12 +267,12 @@ public class MemberInfoUpdateServlet extends HttpServlet {
             } else {
               if (openTagStr.equals("on")) {
                 open_tag = 1;
-                mb.setOpen_tag(open_tag);
+                // mb.setOpen_tag(open_tag);
                 request.setAttribute("open_tag", open_tag);
                 // System.out.println(open_tag);
               } else {
                 open_tag = 0;
-                mb.setOpen_tag(open_tag);
+                // mb.setOpen_tag(open_tag);
                 request.setAttribute("open_tag", open_tag);
               }
             }
@@ -373,7 +374,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
         characterTabs += "、";
       }
     }
-    mb.setSignatureAll(characterTabs);
+    // mb.setSignatureAll(characterTabs);
 
     String favorTabs = "";
     if (favorList.size() == 1) {
@@ -403,7 +404,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
         favorTabs += "、";
       }
     }
-    mb.setFavorStrAll(favorTabs);
+    // mb.setFavorStrAll(favorTabs);
     // System.out.println("個性標籤characterTabs" + characterTabs);
     System.out.println("個性標籤favorList" + favorTabs);
     signatureAll = characterTabs.substring(0, (characterTabs.length() - 1));
@@ -444,7 +445,8 @@ public class MemberInfoUpdateServlet extends HttpServlet {
     }
 
     if (!errList.isEmpty()) {
-      session.setAttribute("isInvalid", true);
+      session.setAttribute("myPage", "myinfo");
+      request.setAttribute("isInvalid", true);
       // System.out.println(errList.get(0));
       RequestDispatcher rd = request.getRequestDispatcher("/memberInfo.jsp");
       rd.forward(request, response);
@@ -487,6 +489,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
       newBean.setContract(oldBean.getContract());
       newBean.setGuarantorList(oldBean.getGuarantorList());
       ms.updateMemberInfo(newBean);
+      session.setAttribute("myPage", "myinfo");
       session.setAttribute("memberInfo", newBean);
       session.setAttribute("LoginOK", newBean);
       response.sendRedirect("/home/MemberInfo.do");

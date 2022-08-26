@@ -1,13 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<% String editState = request.getParameter("edit");
+System.out.print("editState"+editState);
+if (editState!=null&&editState.equals("drop")){
+request.setAttribute("guarantorIsInvalid", false);
+request.setAttribute("isInvalid", false);
+request.setAttribute("RefundIsInvalid", false);
 
+System.out.print("editState:::::"+editState);
+}
+%>
 
 
 <div class="row mb-1 mt-5 mx-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
-			<h2 class="text-black mb-4">會員基本資料</h2>
+			<h2 class="text-black mb-4">會員基本資料${isInvalid}</h2>
 		</div>
 	</div>
 </div>

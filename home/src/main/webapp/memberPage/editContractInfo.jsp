@@ -62,6 +62,8 @@ $(function() {
     wrapper2.appendChild(oldChild2);
 
   })
+  
+
 </script>
 <div class="row mb-1 mt-5 ml-3">
 	<div class="col-md-12 text-left">

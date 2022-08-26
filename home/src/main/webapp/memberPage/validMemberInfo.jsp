@@ -315,27 +315,6 @@
 		<div class="col-md-12 text-left">
 			<div class="" style="display: flex; justify-content: center;">
 				<h2 class="text-black mb-4">會員基本資料</h2>
-				<%-- 
-				<p>驗證${isInvalid}</p>
-				<p>ErrMsg${ErrMsg.isEmpty()}</p>
-				<p>${ErrMsg.errNickname}</p>
-				<p>${ErrMsg.errPhone}</p>
-				<p>${ErrMsg.errIdNumber}</p>
-
-				<p>${ErrMsg.errGender}</p>
-
-				<p>${ErrMsg.errPhone}</p>
-				<p>${ErrMsg.errCounty}</p>
-				<p>${ErrMsg.errDistrict}</p>
-				<p>${ErrMsg.errAaddress}</p>
-				<p>${ErrMsg.errOpenTag}</p>
-				<p>${ErrMsg.errSchool}</p>
-				<p>${ErrMsg.errCharacter}</p>
-
-
-				<p>${ErrMsg.errCharacter}</p>
-				<p>${ErrMsg.errFavor}</p>
-				--%>
 			</div>
 		</div>
 	</div>
@@ -375,7 +354,7 @@
 
 						<div class="form-row mt-2">
 							<div class="col">
-								<h6>暱稱* ${ErrMsg.errNickname}</h6>
+								<h6>暱稱*</h6>
 								<c:choose>
 									<c:when test="${ErrMsg.errNickname!=null}">
 										<input type="text" name="myNickname" class="form-control is-invalid"

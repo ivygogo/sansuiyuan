@@ -124,7 +124,7 @@
 				<c:choose>
 					<c:when test="${LoginOK.refundAccount==null}">
 						<div class="row lg-mx-5">
-							<div class="col lg-mx-5 mx-5 border ">
+							<div class="col lg-mx-5 mx-5 border mb-5">
 								<div class="" style="display: flex; justify-content: center;">
 									<h3 class="text-black mt-5">您目前尚未新增資料</h3>
 								</div>
@@ -143,7 +143,7 @@
 								<div class="" style="display: flex; justify-content: center;">
 									<h3>
 										<button class="btn btn-edit mr-2 mb-2" id="editContractInfo"
-											onclick="updateContractinfo()">新增退款資訊</button>
+											onclick="updateRefundinfo()">新增退款資訊</button>
 									</h3>
 								</div>
 							</div>
@@ -164,7 +164,7 @@
 								<div class="" style="display: flex; justify-content: center;">
 									<h3>
 										<button class="btn btn-edit mr-2 mb-4" id="editContractInfo"
-											onclick="updateContractinfo()">編輯退款資訊</button>
+											onclick="updateRefundinfo()">編輯退款資訊</button>
 									</h3>
 								</div>
 							</div>

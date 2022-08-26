@@ -3,9 +3,13 @@
 
 <% String editState = request.getParameter("edit");
 System.out.print("editState"+editState);
-//if (editState.equals("drop")){
-  //request.setAttribute("guarantorIsInvalid", null);
-//}
+if (editState!=null&&editState.equals("drop")){
+request.setAttribute("guarantorIsInvalid", false);
+request.setAttribute("isInvalid", false);
+request.setAttribute("RefundIsInvalid", false);
+
+System.out.print("editState:::::"+editState);
+}
 %>
 <!-- 
 ////////////////////////////////////////////////////////////////
@@ -26,7 +30,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>${SYSTEM.systemName}-會員資料</title>
+<title>${SYSTEM.systemName}-會員資料${isInvalid}</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -146,7 +150,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                      $('#home').attr('class', "tab-pane fade")
                      $("#home-tab").attr("aria-selected", 'false')
                      $('#home').html("")
-                    $('#home').load('memberPage/showMemberInfo.jsp')
+                    $('#home').load('memberPage/showMemberInfo.jsp?edit=drop')
                }
     	   }else{
     		   checkPage = "profile"
@@ -177,7 +181,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                   $('#profile').attr('class', "tab-pane fade")
                   $("#profile-tab").attr("aria-selected", 'false')
                       $('#profile').html("")
-                     $('#profile').load('memberPage/showContractInfo.jsp')
+                     $('#profile').load('memberPage/showContractInfo.jsp?edit=drop')
                 }
           }else{
           checkPage = "myinfo"
@@ -191,10 +195,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
           
         })
       })
-      
-      
-      
-      
       
       innerPage ="";
       function updateMemberinfo(){
@@ -245,9 +245,27 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                 );
     }
       
+     function updateRefundinfo(){
+          innerPage = "updateRefundinfo";
+          if(innerPage =="updateRefundinfo"){
+                $('#profile').html("");
+                $('#profile').load('memberPage/editRefundInfo.jsp');
+                }
+          $("html,body").animate(
+                  {
+                    scrollTop: 0,
+                  },
+                  600
+                );
+    }
+      
+      
       function dropForm(){
+    	  $('#home').html("")
          $('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
+    	  $('#profile').html("")
          $('#profile').load('memberPage/showContractInfo.jsp?edit=drop');
+    	  document.location.href="/home/MemberInfo.do"
          $("html,body").animate(
         		    {
         		      scrollTop: 0,
@@ -257,6 +275,20 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
          //location.reload();
       }
       
+      /*window.onload = function() {
+          window.addEventListener("beforeunload", function (e) {
+        	  var qs = document.querySelector("form");
+              if (qs==null) {
+                  return undefined;
+              }
+
+              var confirmationMessage = 'It looks like you have been editing something. '
+                                      + 'If you leave before saving, your changes will be lost.';
+
+              (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+              return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+          });
+      };*/
      </script>
 </head>
 
@@ -336,6 +368,10 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 						<c:choose>
               <c:when test="${guarantorIsInvalid==true}">
                 <jsp:include page="memberPage/validContractInfo.jsp" flush="true"/>
+                <%-- include file="memberPage/validMemberInfo.jsp" --%>
+              </c:when>
+              <c:when test="${RefundIsInvalid==true}">
+                <jsp:include page="memberPage/validRefundInfo.jsp" flush="true"/>
                 <%-- include file="memberPage/validMemberInfo.jsp" --%>
               </c:when>
               <c:otherwise>
