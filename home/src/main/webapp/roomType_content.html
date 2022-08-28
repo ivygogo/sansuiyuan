@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="roomType.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <title>HOME</title>
+</head>
+
+<body>
+<div class="room-type-title text-align align-self-baseline text-center ">
+  <span class="material-icons change-behavior" id="pre-room-type"
+        title="下一個房型"> arrow_back_ios </span>
+  <span class="h1 m-3 me-5" id="room-type-title"></span>
+  <span class="h4 text-danger me-3" id="room-type-price"></span>
+  <span class="material-icons change-behavior" id="next-room-type"
+        title="前一個房型"> arrow_forward_ios </span>
+  <button class="float-end btn-outline-danger" type="button" id="createBooking">預約看房</button>
+</div>
+
+<div class="container-fluid">
+  <div class="room-type-main-block row align-items-center">
+    <div class="room-type-main-side-block col-md-6 col-12">
+      <div class="room-type-side-regin ">
+        <div class="me-3 ms-3 mt-3">
+          <div class="ms-1  d-flex justify-content-between room-type-side-left-text">
+            <span>房間大小：<span id="room-type-size"></span>坪</span>
+            <span>剩餘間數：<span id="room-type-rest"></span>間</span>
+          </div>
+          <div class="text-end room-type-side-left-text ">可挑選樓層：<span
+            id="room-type-available-floor"></span></div>
+        </div>
+        <!--! 變數  -->
+        <div class="d-flex align-middle">
+          <div id="carouselExampleIndicators" class="carousel slide ms-auto me-auto"
+               data-bs-ride="carousel">
+            <div class="carousel-indicators ">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                      class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner mt-2" style="max-height: 300px" id="img-slide-block">
+            </div>
+            <button class="carousel-control-prev" type="button"
+                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button"
+                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="room-type-main-side-block col-md-6 col-12">
+      <div class="p-3 room-type-side-regin">
+        <h3> 房間設備： </h3>
+        <span class="row d-flex justify-content-around align-items-center">
+          <span class="col-2 text-center">
+            <span class="row material-icons">tv</span>
+              <div class="row">
+                <div class="col text-center">電視 </div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons">shower</span>
+              <div class="row">
+                <div class="col text-center text-nowrap">熱水器</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons">air</span>
+              <div class="row">
+                <div class="col text-center">冷氣</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons">kitchen</span>
+              <div class="row">
+                <div class="col text-center">冰箱</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="col material-icons text-center">window</span>
+              <div class="row">
+                <div class="col text-center">紗窗</div>
+              </div>
+            </span>
+          </span>
+        <hr/>
+        <span class="row d-flex justify-content-around">
+          <span class="col-2 text-center">
+            <span class="material-icons">chair_alt</span>
+              <div class="row">
+                <div class="col text-center" id="room-item-chair"></div>
+              </div>
+            </span>
+            <span class="col-2 text-center ">
+              <span class="row material-icons">single_bed</span>
+              <div class="row">
+                <div class="col text-center text-nowrap" id="room-item-bed"></div>
+              </div>
+
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons">desk</span>
+              <div class="row">
+                <div class="col text-center text-nowrap" id="room-item-desk"></div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons ">all_inbox</span>
+              <div class="row">
+                <div class="col text-center text-nowrap" id="room-item-sideTable"></div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="row material-icons">door_sliding</span>
+              <div class="row">
+                <div class="col text-center" id="room-item-wardrobe"></div>
+              </div>
+            </span>
+          <span class="col-2 text-center d-none" id="room-item-balcony">
+            <span class="row material-icons">balcony</span>
+              <div class="row">
+                <div class="col text-center">陽台</div>
+              </div>
+            </span>
+          </span>
+        <hr>
+
+        <h3> 公共設施： </h3>
+
+        <span class="row d-flex justify-content-around">
+          <span class="col-2 text-center">
+            <span class="material-icons">elevator </span>
+              <div class="row">
+                <div class="col text-center">電梯</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons" title="投幣式">on_device_training </span>
+              <div class="row">
+                <div class="col text-center">洗衣機</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+              <span class="material-icons" title="投幣式">local_laundry_service </span>
+              <div class="row">
+                <div class="col text-center">烘衣機</div>
+              </div>
+            </span>
+          <span class="col-2 text-center">
+            <span class="material-icons">wifi </span>
+              <div class="row">
+                <div class="col text-center">無線網路</div>
+              </div>
+            </span>
+            <span class="col-2 text-center">
+            </span>
+          </span>
+      </div>
+    </div>
+
+    <div class="room-type-notice">
+      <div class="h3">說明</div>
+      <ol>
+        <li>每份合約的租約期限皆為每年的6月30號，若欲一次簽訂兩年以上，則需簽署多份合約。</li>
+        <li>房租已包含水費、網路費以及管理費，租客無須再額外支付相關費用。</li>
+        <li>電費採台電計價，請自行於每奇數月份（1、3、5、7、9、11﹚下旬至管理員室領取帳單，並自行繳納；若因遲繳而導致斷電情況發生，業者無需承擔任何責任。</li>
+        <li>山水苑有專用的垃圾丟棄區，各位租客無須追垃圾車；請各位租戶在垃圾打包時做好垃圾分類，並以現場標誌指示放置。</li>
+        <li>簽約時請備妥兩個月份租金；可現金支付、也可於現場出示轉帳證明(手機截圖或轉帳單據)。</li>
+        <li>請愛惜使用房內間所有物品，若經檢驗後並非自然損壞而是人為因素造成，則會收取費用。</li>
+      </ol>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script src="js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.js"></script>
+<script src="roomType.js"></script>
+
+</html>

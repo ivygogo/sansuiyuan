@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<% int n = (int) (Math.random() * 10) + 1; 
+request.setAttribute("page", n);
+%>
+
 <header class="site-navbar py-4 js-sticky-header site-navbar-target"
 	role="banner">
 
@@ -43,14 +47,15 @@
 						<li><a href="roommate.jsp" class="nav-link ">找室友</a></li>
 						<li><a href="#about-section" class="nav-link">討論區</a></li>
 						<c:if test="${empty LoginOK}">
-							<li><a href="login.html" class="nav-link">登入/註冊</a></li>
+							<li><a href="<c:url value="/MemberInfo.do?v=${page}"/>" class="nav-link">登入/註冊</a></li>
 						</c:if>
 						<c:if test="${! empty LoginOK }">
-							<li><a href="#contact-section" class="nav-link">會員專區</a></li>
+							<li><a href="<c:url value="/MemberInfo.do?v=${page}"/>" class="nav-link">會員專區</a></li>
 						</c:if>
 					</ul>
 				</nav>
 			</div>
+			
 
 
 			<div class="col-6 d-inline-block d-xl-none ml-md-0 py-3">
