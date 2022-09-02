@@ -33,7 +33,7 @@ import tw.edu.ntut.sce.java18.tenant.memberInfo.utils.CheckIdNumberFormat;
     location = "",
     fileSizeThreshold = 1024 * 1024,
     maxFileSize = 1024 * 1024 * 500,
-    maxRequestSize = 1024 * 1024 * 500 * 5)
+    maxRequestSize = 1024L * 1024 * 500 * 5)
 public class MemberContractInfoUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;
   MemberBean mb; // LoginOK放登入後的資料 memberInfo放修改的資料，如果沒錯誤就讓 LoginOK 會員資料 = memberInfo
@@ -284,8 +284,9 @@ public class MemberContractInfoUpdate extends HttpServlet {
     } catch (Exception e) {
       e.printStackTrace();
       errorMsgs.put("errDBMessage", e.getMessage());
-      RequestDispatcher rd = request.getRequestDispatcher("/MemberInfo.do");
+      RequestDispatcher rd = request.getRequestDispatcher("/memberInfo.jsp");
       rd.forward(request, response);
+      return;
     }
 
     // session.setAttribute("myPage", "profile");

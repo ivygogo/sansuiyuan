@@ -261,18 +261,18 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
       
       
       function dropForm(){
-    	  $('#home').html("")
-         $('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
-    	  $('#profile').html("")
-         $('#profile').load('memberPage/showContractInfo.jsp?edit=drop');
+    	 //$('#home').html("")
+        // $('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
+    	  //$('#profile').html("")
+        // $('#profile').load('memberPage/showContractInfo.jsp?edit=drop');
     	  document.location.href="/home/MemberInfo.do"
-         $("html,body").animate(
+         /*$("html,body").animate(
         		    {
         		      scrollTop: 0,
         		    },
         		    600
         		  );
-         //location.reload();
+         //location.reload();*/
       }
       
       /*window.onload = function() {

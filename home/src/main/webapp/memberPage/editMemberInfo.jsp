@@ -353,7 +353,7 @@
 								<h5>請選擇頭像</h5>
 							</div>
 						</div>
-							 ${FindAvaterTag} <!--name = avatarIcon-->
+							 ${FindAvatarTag} <!--name = avatarIcon-->
 						<!--表單-->
 
 						<div class="form-row mt-2">
