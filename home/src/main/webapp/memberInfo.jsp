@@ -213,15 +213,11 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                     );
       }
       
-      function updateContractinfo(id){
+      function updateContractinfo(){
     	  innerPage = "editContractinfo";
-    	  guarantor = '${LoginOK.guarantorList}'
-    	  gurantorLink = 'memberPage/editContractInfo.jsp';
-    	  gurantorLink2 ='memberPage/editContractInfo.jsp?info=' + id;
-    	  alert(gurantorLink2);
     	  if(innerPage =="editContractinfo"){
               $('#profile').html("");
-              $('#profile').load(gurantorLink2);
+              $('#profile').load('memberPage/editContractInfo.jsp');
               }
     	  $("html,body").animate(
                   {
@@ -231,19 +227,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                 );
   }
       
-      function insertContractinfo(){
-          innerPage = "insertContractinfo";
-          if(innerPage =="insertContractinfo"){
-                $('#profile').html("");
-                $('#profile').load('memberPage/insertContractInfo.jsp');
-                }
-          $("html,body").animate(
-                  {
-                    scrollTop: 0,
-                  },
-                  600
-                );
-    }
       
      function updateRefundinfo(){
           innerPage = "updateRefundinfo";

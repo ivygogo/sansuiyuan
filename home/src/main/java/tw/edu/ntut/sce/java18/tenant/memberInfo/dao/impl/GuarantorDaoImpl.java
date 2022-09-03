@@ -105,6 +105,36 @@ public class GuarantorDaoImpl implements GuarantorDao {
     return gb;
   }
 
+  @Override
+  public GuarantorBean queryGuarantorByMemberId(int memberId) {
+    GuarantorBean gb = null;
+    String sql = "SELECT * FROM Guarantor WHERE Member_ID = ?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setInt(1, memberId);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          gb = new GuarantorBean();
+          gb.setId(rs.getInt("Id"));
+          gb.setMember_id(rs.getInt("Member_id"));
+          gb.setName(rs.getString("name"));
+          gb.setId_number(rs.getString("id_number"));
+          gb.setPhone(rs.getString("phone"));
+          gb.setCounty(rs.getString("county"));
+          gb.setDistrict(rs.getString("district"));
+          gb.setAddress(rs.getString("address"));
+          gb.setRelation(rs.getString("relation"));
+          gb.setCreate_time(rs.getTimestamp("Create_time"));
+          gb.setUpdate_time(rs.getTimestamp("update_time"));
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("GuarantorDaoImpl類別#queryGuarantorId()發生例外: " + ex.getMessage());
+    }
+    return gb;
+  }
+
   /*======取得保證人等資料======*/
   @Override
   public List<GuarantorBean> getGuarantorInfo(int memberId) {

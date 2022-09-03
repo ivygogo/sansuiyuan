@@ -43,7 +43,8 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     member.setLevel(getMemberLevel(uId));
     member.setAvatar(getAvatar(uId));
     member.setContract(getMemberContract(uId));
-    member.setGuarantorList(guarantorDao.getGuarantorInfo(uId));
+    member.setGuarantor(guarantorDao.queryGuarantorByMemberId(uId));
+    //    member.setGuarantorList(guarantorDao.queryGuarantorByPrimaryKey(uId));
     member.setRefundAccount(refundAccountDao.queryRefundAccountByMemberId(uId));
     return member;
   }

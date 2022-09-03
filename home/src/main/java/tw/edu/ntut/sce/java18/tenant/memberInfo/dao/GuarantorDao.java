@@ -11,6 +11,8 @@ public interface GuarantorDao {
 
   GuarantorBean queryGuarantorByPrimaryKey(int id); //
 
+  GuarantorBean queryGuarantorByMemberId(int memberId);
+
   List<GuarantorBean> getGuarantorInfo(int memberId);
 
   int updateGuarantorInfo(GuarantorBean guarantor);
