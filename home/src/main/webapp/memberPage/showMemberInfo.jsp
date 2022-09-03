@@ -125,8 +125,7 @@ System.out.print("editState:::::"+editState);
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
 			<h3>
-				<button class="btn btn-edit mr-2 mb-2" id="editMemberinfo"
-					onclick="updateMemberinfo()">編輯會員資料</button>
+				<button class="btn btn-edit mr-2 mb-2" id="editMemberinfo" onclick="updateMemberinfo()">編輯會員資料</button>
 			</h3>
 		</div>
 	</div>

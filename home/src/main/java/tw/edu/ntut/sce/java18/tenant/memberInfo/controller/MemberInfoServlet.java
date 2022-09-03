@@ -55,7 +55,7 @@ public class MemberInfoServlet extends HttpServlet {
     session.setAttribute("memberInfo", mb);
 
     String s = (String) session.getAttribute("myPage");
-    System.out.println("我是S:" + s);
+    // System.out.println("我是S:" + s);
 
     var memberResponse = Map.of("result", mb);
     String str = new Gson().toJson(memberResponse);
@@ -71,13 +71,13 @@ public class MemberInfoServlet extends HttpServlet {
     String favorTags = misi.getFavorTag(mb.getuId());
     String genderTags = misi.getGenderTag(mb.getuId());
     String findRoommateTag = misi.getFindRoommateTag(mb.getuId());
-    String findAvaterTag = misi.getFindAvatarTag(mb.getuId());
+    String findAvatarTag = misi.getFindAvatarTag(mb.getuId());
 
     session.setAttribute("CharacterTag", characterTags);
     session.setAttribute("FavorTag", favorTags);
     session.setAttribute("GenderTags", genderTags);
     session.setAttribute("FindRoommateTag", findRoommateTag);
-    session.setAttribute("FindAvaterTag", findAvaterTag);
+    session.setAttribute("FindAvatarTag", findAvatarTag); // 錯誤...
 
     session.setAttribute("Avatar", avatar);
 

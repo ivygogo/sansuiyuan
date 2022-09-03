@@ -1,18 +1,13 @@
-<%@page import="tw.edu.ntut.sce.java18.common.model.GuarantorBean"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<% String i = request.getParameter("info");
-System.out.print("jsp"+i);
-int guarantorIndex = Integer.parseInt(i);
-session.setAttribute("num", guarantorIndex);
-%>
-<c:forEach var="guarantor" items="${LoginOK.guarantorList}" begin="${num}" end="${num}">
+
 
 <script type="text/javascript">
 $(function(){
-	str1 =`${guarantor.county}`
-		str2 =`${guarantor.district}`
+	str1 =`${LoginOK.guarantor.county}`
+		str2 =`${LoginOK.guarantor.district}`
 		alert(str1 + str2)
 })
 
@@ -99,13 +94,13 @@ $(function() {
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">姓名</h6>
 					<input type="text" id="fname" class="form-control col-12 mb-4 mx-4" name="guarantorName"
-						value="${guarantor.name}">
+						value="${LoginOK.guarantor.name}">
 				</div>
 
 				<div class="col lg-mx-5  ">
 					<h6 class="text-black-opacity-05 mx-4">關係</h6>
 					<input type="text" id="fname" class="form-control col-12 mb-4 mx-4" name="guarantorRelation"
-						value="${guarantor.relation}">
+						value="${LoginOK.guarantor.relation}">
 				</div>
 			</div>
 
@@ -114,13 +109,13 @@ $(function() {
 					<h6 class="text-black-opacity-05 mx-4">身份字號</h6>
 					<input type="text" id="fname"
 						class="form-control col-12 mx-4" name="guarantorIdNumber"
-						value="${guarantor.id_number}">
+						value="${LoginOK.guarantor.id_number}">
 				</div>
 				<div class="col lg-mx-5">
 					<h6 class="text-black-opacity-05 mx-4">聯絡手機號碼</h6>
 					<input type="text" id="fname"
 						class="form-control mx-4 col-12" name="guarantorPhone"
-						value="${guarantor.phone}">
+						value="${LoginOK.guarantor.phone}">
 				</div>
 			</div>
 			<div class="row lg-mx-5 mb-5">
@@ -132,7 +127,7 @@ $(function() {
 					<h6 class="text-black-opacity-05 mx-4 mt-4">&nbsp; </h6>
 					<input type="text" id="fname"
 						class="form-control mx-4 col-md-12" name="guarantorAddress"
-						value="${guarantor.address}">
+						value="${LoginOK.guarantor.address}">
 					
 				</div>
 			</div>
@@ -151,5 +146,5 @@ $(function() {
 
 	</form>
 </section>
-</c:forEach>
+
 

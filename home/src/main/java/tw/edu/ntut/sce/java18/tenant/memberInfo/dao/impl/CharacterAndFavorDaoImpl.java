@@ -161,6 +161,31 @@ public class CharacterAndFavorDaoImpl implements CharacterAndFavorDao {
     return list;
   }
 
+  /*======合併以上兩個方法======*/
+
+  @Override
+  public List<String> getCharacterOrFavorNameByType(int type) {
+    List<String> list = new ArrayList<>();
+    String sql = "SELECT DISTINCT NAME FROM CHARACTER_FAVOR WHERE TYPE=? AND IsShow=1 ";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.setInt(1, type);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        while (rs.next()) {
+          String favor = rs.getString(1);
+          if (favor != null) {
+            list.add(favor);
+          }
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("CharacterAndFavorImpl()#getAllFavor()發生例外: " + ex.getMessage());
+    }
+
+    return list;
+  }
+
   /*======透過個性標籤名稱取回id(回傳int)======*/
   public int getSignatureId(String name) {
     String sql = " SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=1 ";
@@ -201,5 +226,27 @@ public class CharacterAndFavorDaoImpl implements CharacterAndFavorDao {
     }
     // System.out.println("!!!favorId" + favorId);
     return favorId;
+  }
+
+  @Override
+  public int getCharacterOrFavorIdByNameAndType(String name, int type) {
+    String sql = " SELECT ID FROM CHARACTER_FAVOR WHERE NAME =? AND TYPE=? ";
+    int CharacterOrFavorId = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.setString(1, name);
+      ps.setInt(2, type);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          CharacterOrFavorId = rs.getInt("ID");
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "CharacterAndFavorImpl類別#getSignatureId()發生例外: " + ex.getMessage());
+    }
+
+    return type;
   }
 }

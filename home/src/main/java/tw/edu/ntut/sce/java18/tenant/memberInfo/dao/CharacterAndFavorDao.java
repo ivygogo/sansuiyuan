@@ -16,7 +16,11 @@ public interface CharacterAndFavorDao {
 
   List<String> getAllFavor();
 
+  List<String> getCharacterOrFavorNameByType(int type);
+
   int getSignatureId(String name); // 跟下面合併
 
   int getFavorId(String name);
+
+  int getCharacterOrFavorIdByNameAndType(String name, int type);
 }

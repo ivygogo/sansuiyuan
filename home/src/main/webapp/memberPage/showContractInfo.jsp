@@ -24,7 +24,7 @@
 				</div>
 
 				<c:choose>
-					<c:when test="${LoginOK.guarantorList==null}">
+					<c:when test="${LoginOK.guarantor==null}">
 						<div class="row lg-mx-5">
 							<div class="col lg-mx-5 mx-5 border ">
 								<div class="" style="display: flex; justify-content: center;">
@@ -53,57 +53,21 @@
 					</c:when>
 
 					<c:otherwise>
-						<%-- table 開始 --%>
-						<c:forEach var="guarantor" items="${LoginOK.guarantorList}" varStatus="vs">
-						<c:if test="${vs.first}">
-						<div class="table-responsive">
-						<table class="table table-striped ">
-							<thead>
-								<tr>
-									<th scope="col "><div class="text-center">#</div></th>
-									<th scope="col text-center"><div class="text-center">姓名</div></th>
-									<th scope="col text-center"><div class="text-center">關係</div></th>
-									<th scope="col text-center"><div class="text-center">身分證號</div></th>
-									<th scope="col text-center"><div class="text-center">聯絡電話</div></th>
-									<th scope="col text-center"><div class="text-center">地址</div></th>
-									<th scope="col text-center"><div class="text-center">功能</div></th>
-								</tr>
-							</thead>
-							<tbody>
-							</c:if>
-								<tr>
-									<th scope="row"><div class="text-center">${vs.index+1}</div></th>
-									<td><div class="text-center">${guarantor.name}</div></td>
-									<td><div class="text-center">${guarantor.relation}</div></td>
-									<td><div class="text-center">${guarantor.id_number}</div></td>
-									<td><div class="text-center">${guarantor.phone}</div></td>
-									<td><div class="text-center">${guarantor.county}${guarantor.district}${guarantor.address}</div></td>
-									<td><div class="text-center">
-										
-										<button class="btntable btn-table mx-1 my-1" id="editContractInfo"
-                      onclick="updateContractinfo(${vs.index})"
-                      style="width: 60px; height: 30px;">
-                      <h6>修改</h6>
-                    </button>
-                    <button class="btntable btn-table mx-1 my-1" id="editContractInfo"
-                      onclick="updateContractinfo()"
-                      style="width: 60px; height: 30px;">
-                      <h6>刪除</h6>
-                    </button></div>
-									</td>
-								</tr>
-								
-                <c:if test="${vs.last}">
-							</tbody>
-						</table>
-						</div>
-						</c:if>
-  </c:forEach>
+					<h6 class="text-black-opacity-05 mt-4 mx-4">姓名</h6>
+            <h3 class="text-black mb-4 mx-4">${LoginOK.guarantor.name}</h3>
+            <h6 class="text-black-opacity-05 mx-4">關係</h6>
+            <h3 class="text-black mb-4 mx-4">${LoginOK.guarantor.relation}</h3>
+            <h6 class="text-black-opacity-05 mx-4">身分證號</h6>
+            <h3 class="text-black mb-4 mx-4">${LoginOK.guarantor.id_number}</h3>
+            <h6 class="text-black-opacity-05 mx-4">聯絡電話</h6>
+            <h3 class="text-black mb-4 mx-4">${LoginOK.guarantor.phone}</h3>
+					  <h6 class="text-black-opacity-05 mx-4">地址</h6>
+            <h3 class="text-black mb-4 mx-4">${LoginOK.guarantor.county}${LoginOK.guarantor.district}${LoginOK.guarantor.address}</h3>
 
 						<div class="" style="display: flex; justify-content: center;">
 							<h3>
 								<button class="btn btn-edit mr-2 mb-4 mt-4" id="editContractInfo"
-									onclick="insertContractinfo()">新增契約簽訂資訊</button>
+									onclick="updateContractinfo()">修改契約簽訂資訊</button>
 							</h3>
 						</div>
 					</c:otherwise>

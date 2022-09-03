@@ -124,7 +124,7 @@
 				</div>
 			</div>
 
-			<div class="row lg-mx-5">
+			<div class="row lg-mx-5 mt-2">
 
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">姓名</h6>
@@ -133,7 +133,7 @@
 							<input type="text" id="fname"
 								class="form-control col-12  mx-4 is-invalid"
 								name="guarantorName" value="${param.guarantorName}" required>
-							<div class="invalid-feedback mb-4 mx-4">${ErrMsg.errGuarantorName}</div>
+							<div class="invalid-feedback mx-4">${ErrMsg.errGuarantorName}</div>
 						</c:when>
 
 						<c:otherwise>
@@ -144,14 +144,14 @@
 					</c:choose>
 				</div>
 
-				<div class="col lg-mx-5  ">
+				<div class="col lg-mx-5">
 					<h6 class="text-black-opacity-05 mx-4">關係</h6>
 					<c:choose>
             <c:when test="${ErrMsg.errGuarantorRelation!=null}">
               <input type="text" id="fname"
                 class="form-control col-12 mb-4 mx-4 is-invalid"
                 name="guarantorRelation" value="${param.guarantorRelation}" required>
-              <div class="invalid-feedback mx-4 mb-4">${ErrMsg.errGuarantorName}</div>
+              <div class="invalid-feedback mx-4 ">${ErrMsg.errGuarantorName}</div>
             </c:when>
 
             <c:otherwise>
@@ -163,7 +163,7 @@
 				</div>
 			</div>
 
-			<div class="row lg-mx-5">
+			<div class="row lg-mx-5 mt-2">
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">保證人身份證字號</h6>
 						
@@ -172,7 +172,7 @@
               <input type="text" id="fname"
                 class="form-control col-12  mx-4 is-invalid"
                 name="guarantorIdNumber" value="${param.guarantorIdNumber}" required>
-              <div class="invalid-feedback mb-4 mx-4">${ErrMsg.errIdNumber}</div>
+              <div class="invalid-feedback mx-4">${ErrMsg.errIdNumber}</div>
             </c:when>
 
             <c:otherwise>
@@ -184,7 +184,7 @@
 					
 				</div>
 				
-				<div class="col lg-mx-5">
+				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">聯絡手機號碼</h6>
 						
 						<c:choose>
@@ -204,7 +204,7 @@
 
 				</div>
 			</div>
-			<div class="row lg-mx-5 ">
+			<div class="row lg-mx-5 mt-2">
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">戶籍地址</h6>
 					<div class="form-row ml-3" id="myzip"></div>

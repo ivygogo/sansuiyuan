@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -33,7 +32,7 @@ import tw.edu.ntut.sce.java18.tenant.memberInfo.utils.CheckIdNumberFormat;
     location = "",
     fileSizeThreshold = 1024 * 1024,
     maxFileSize = 1024 * 1024 * 500,
-    maxRequestSize = 1024 * 1024 * 500 * 5)
+    maxRequestSize = 1024L * 1024 * 500 * 5)
 public class MemberContractInfoUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;
   MemberBean mb; // LoginOK放登入後的資料 memberInfo放修改的資料，如果沒錯誤就讓 LoginOK 會員資料 = memberInfo
@@ -60,16 +59,14 @@ public class MemberContractInfoUpdate extends HttpServlet {
     } else {
       mb = new MemberBean();
     }
-    int guarantorIndex = (int) session.getAttribute("num");
-    GuarantorBean oldbean = mb.getGuarantorList().get(guarantorIndex);
-    System.out.println("guarantorIndex" + guarantorIndex);
-    String isNew = (String) session.getAttribute("guarantorId");
-    System.out.println("isNew: " + isNew);
+
+    GuarantorBean oldbean = guarantorDao.queryGuarantorByPrimaryKey(mb.getuId());
     guarantorIsExist = guarantorDao.checkGuarantorIdExists(mb.getuId());
 
     if (guarantorIsExist == false) {
       guarantor.setMember_id(mb.getuId());
     }
+
     try {
       Collection<Part> parts = request.getParts();
 
@@ -228,7 +225,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
         return;
       } else {
         session.setAttribute("guarantorIsInvalid", false);
-        if (isNew.equals("insertPage")) {
+        if (guarantorIsExist == false) {
           System.out.println("儲存資料");
           GuarantorBean newBean = new GuarantorBean();
           newBean.setMember_id(mb.getuId());
@@ -247,12 +244,11 @@ public class MemberContractInfoUpdate extends HttpServlet {
           newBean.setUpdate_time(newtime);
           guarantorDao.saveGuarantor(newBean); // save
 
-          List<GuarantorBean> guarntorList = guarantorDao.getGuarantorInfo(mb.getuId());
-          mb.setGuarantorList(guarntorList);
+          mb.setGuarantor(newBean);
           session.setAttribute("myPage", "profile");
           response.sendRedirect("/home/MemberInfo.do");
 
-        } else if (isNew.equals("updatePage")) {
+        } else if (guarantorIsExist == true) {
           GuarantorBean newBean = new GuarantorBean();
 
           newBean.setId(oldbean.getId());
@@ -271,10 +267,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
           newBean.setCreate_time(newtime);
           newBean.setUpdate_time(newtime);
           guarantorDao.updateGuarantorInfo(newBean);
-
-          session.setAttribute("myPage", "profile");
-          List<GuarantorBean> guarntorList = guarantorDao.getGuarantorInfo(mb.getuId());
-          mb.setGuarantorList(guarntorList);
+          mb.setGuarantor(newBean);
           session.setAttribute("myPage", "profile");
           response.sendRedirect("/home/MemberInfo.do");
         }
@@ -284,8 +277,9 @@ public class MemberContractInfoUpdate extends HttpServlet {
     } catch (Exception e) {
       e.printStackTrace();
       errorMsgs.put("errDBMessage", e.getMessage());
-      RequestDispatcher rd = request.getRequestDispatcher("/MemberInfo.do");
+      RequestDispatcher rd = request.getRequestDispatcher("/memberInfo.jsp");
       rd.forward(request, response);
+      return;
     }
 
     // session.setAttribute("myPage", "profile");

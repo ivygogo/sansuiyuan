@@ -70,7 +70,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 	<!-- 選單 -->
-	<jsp:include page="menu_index.jsp" />
+	<jsp:include page="fragment/menu_index.jsp" />
 
 	<!-- Start Status area -->
 	<div class="notika-status-area">
@@ -624,7 +624,7 @@
 	</div>
 	<!-- End Realtime sts area-->
 	<!-- 頁面 -->
-	<jsp:include page="footer.jsp" />
+	<jsp:include page="fragment/footer.jsp" />
 	<!-- jquery
 		============================================ -->
 	<script src="js/vendor/jquery-1.12.4.min.js"></script>
