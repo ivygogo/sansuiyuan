@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.landlord.model.Impl;
+package tw.edu.ntut.sce.java18.landlord.model.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
