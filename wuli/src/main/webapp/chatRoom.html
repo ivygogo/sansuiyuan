@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="chatRoom.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  <title> chatroom - Wuli </title>
+</head>
+<body>
+
+<!--todo  搜尋功能 (名字 or ...?)-->
+<!--todo  Refactor-->
+<!--todo  關閉時間的讀取,以及判斷本聊天室是否關閉 => 是否物業可以強開強關???-->
+<!--todo  推播給所有 / 特定類別的住戶 ??????-->
+
+<!--todo  是否需要給預設的對話視窗內容(網路安全警告?)? or先將聊天室的挑選選單置中(最麻煩要改版面)? or直接留白?(最簡單)-->
+<!--todo  TOTAL的未讀訊息計算 ... from資料庫  登入時就要算出來?-->
+<!--todo  聊天對象的是否已讀 & 頁面顯示 .... 從資料庫撈未讀!=0 ?-->
+<!--todo  聊天本人的相關資訊 ....應該可以直接從物業的資料欄位撈-->
+<!--todo  聊天對象的圖片位置以及資訊 ....預計從member過來-->
+
+<div class="container-fluid">
+  <div class="chat-main-all">
+    <div class=" ">
+      <!--      用checkbox做開關-->
+      <input type="checkbox" name="" id="sideMenu--active" class="d-none">
+      <div class="chat-main-block chat-main-block-left">
+        <h3 class="text-center p-2">訊息列表　<i class="fa fa-search search-icon" title="點擊開關搜尋功能"></i>
+        </h3>
+        <div>
+          <div>
+            <input type="search" id="search" class="d-none form-control mb-2"
+                   placeholder="search..." name="search-string">
+          </div>
+
+          <select class="form-select" aria-label=" select " name="form-select">
+            <option value="0" selected>所有分類</option>
+            <option value="B">預約</option>
+            <option value="R">報修</option>
+            <option value="F">找室友</option>
+          </select>
+          <div class="p-2 d-flex justify-content-around m-3 ">
+            <input type="radio" name="is-talk-able" id="active" value="true"> 開放中
+            <input type="radio" name="is-talk-able" id="un-active" title="僅供查詢" value="false"> 已關閉
+          </div>
+        </div>
+
+        <div id="checklist" class="chatRooms-block">
+        </div>
+
+      </div>
+      <label for="sideMenu--active" id="side-label" class="d-none">
+        <i class="fas fa-angle-right"></i>
+      </label>
+    </div>
+
+    <div class="">
+      <div class="chat-main-block chat-main-block-right">
+        <div>
+          <div class="chat-with mb-2">
+          <span class="text-center mt-1">
+          <img src="./images/avatarImg/boy01.png" alt="X" height="60px"
+               class="float-start m-1 chat-avatar">
+          <span class="d-inline-block border text-start m-1">
+            <div id="chat-target"></div>
+            <div class="">身分：<span id="id-type"></span></div>
+          </span>
+            <span class="float-end isClose-block" title="本聊天視窗關閉後訊息僅供查詢，將不再提供訊息傳遞服務"> <span
+              id="close-time"></span> </span>
+            <span class="clearfix"></span>
+          </span>
+          </div>
+
+          <div class="chat-inside-block">
+
+          </div>
+          <div class="d-flex mt-4 input-row justify-content-around">
+            <textarea id="input-message" cols="4" rows="2" class=""></textarea>
+            <button type="button" class="btn-send-message">送出</button>
+          </div>
+          <div class="result"></div>
+          <div class="p-3 mt-2 ">
+            注意：使用本聊聊功能進行聊天時，請注意於網路發言的基本禮儀。<br>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</body>
+<script src="js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.js"></script>
+<script src="chatRoom.js"></script>
+</html>
