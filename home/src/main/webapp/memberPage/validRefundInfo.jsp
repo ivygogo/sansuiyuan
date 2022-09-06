@@ -9,8 +9,8 @@
 			'districtSel2' : `${memberInfo.district}`,
 			zipcodeIntoDistrict : true,
 			css : [ "county form-control", "district form-control" ],
-			countyName : "county2", // 自訂城市 select 標籤的 name 值
-			districtName : "district2", // 自訂區別 select 標籤的 name 值
+			countyName : "county2", 
+			districtName : "district2", 
 			onCountySelect : changecb,
 			onDistrictSelect : changecb
 		});
@@ -22,12 +22,8 @@
 		el[1].id = "inputState4";
 
 		function changecb() {
-			// 取得縣市 county（返回字串）
 			var county = $('#myzip').twzipcode('get', 'county2');
 			var district = $('#myzip').twzipcode('get', 'district2');
-			//var result = $('#zipzip').twzipcode('get', 'county,district'); // 以 , 字串傳入
-			//console.log(county);
-			//console.log(district);
 		}
 	});
 

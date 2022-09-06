@@ -4,10 +4,10 @@ import tw.edu.ntut.sce.java18.landlord.model.LandlordInfo;
 import tw.edu.ntut.sce.java18.landlord.model.LandlordInfoDao;
 import tw.edu.ntut.sce.java18.landlord.model.impl.LandlordInfoDaoImpl;
 
-public class LanlordInfoService {
+public class LandlordInfoService {
   LandlordInfoDao landlordInfoDao;
 
-  public LanlordInfoService() {
+  public LandlordInfoService() {
 
     landlordInfoDao = new LandlordInfoDaoImpl();
   }

@@ -147,10 +147,8 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
         /*有了鍵就可以通過map集合的get方法獲取其對應的値 ( key:01, vaule: a  key: 02,vaule: b  key:03, vaule: c)*/
         String value = errorMsgs.get(key);
         // System.out.println("key: " + key + ", vaule: " + value);
-        if (value != null) {
-          errList.add(key);
-          // System.out.println(errList.get(0));
-        }
+        errList.add(key);
+        // System.out.println(errList.get(0));
       }
 
       if (!errList.isEmpty()) {
@@ -171,9 +169,10 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
           newBean.setRefundName(refundAccount.getRefundName());
           newBean.setBankAccount(refundAccount.getBankAccount());
 
-          SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-          String datetime = sdFormat.format(new Date());
-          Timestamp newtime = Timestamp.valueOf(datetime);
+          // SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+          // String datetime = sdFormat.format(new Date());
+          // Timestamp newtime = Timestamp.valueOf(datetime);
+          Timestamp newtime = new Timestamp(System.currentTimeMillis());
           newBean.setCreate_time(newtime);
           newBean.setUpdate_time(newtime);
           refundAccountDao.saveRefundAccount(newBean); // save
@@ -191,9 +190,10 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
           newBean.setRefundName(refundAccount.getRefundName());
           newBean.setBankAccount(refundAccount.getBankAccount());
 
-          SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-          String datetime = sdFormat.format(new Date());
-          Timestamp newtime = Timestamp.valueOf(datetime);
+//          SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//          String datetime = sdFormat.format(new Date());
+//          Timestamp newtime = Timestamp.valueOf(datetime);
+          Timestamp newtime = new Timestamp(System.currentTimeMillis());
           newBean.setUpdate_time(newtime);
           refundAccountDao.updateRefundAccount(newBean);
 

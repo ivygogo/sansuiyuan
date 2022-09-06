@@ -487,8 +487,8 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     String ans = "";
     int selected = -1;
 
-    List<String> characterList = cfDao.getAllCharacter(); // 取回CF資料庫所有的個性標籤資料放入表單
-
+    // List<String> characterList = cfDao.getAllCharacter(); // 取回CF資料庫所有的個性標籤資料放入表單
+    List<String> characterList = cfDao.getCharacterOrFavorNameByType(1);
     if (characterTabs.equals("無")) {
       for (int i = 0; i < characterList.size(); i++) {
 
@@ -549,8 +549,8 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     String ans = "";
     int selected = -1;
 
-    List<String> favorList = cfDao.getAllFavor(); // 取回所有的tag
-
+    // List<String> favorList = cfDao.getAllFavor(); // 取回所有的tag
+    List<String> favorList = cfDao.getCharacterOrFavorNameByType(2);
     if (favorTabs.equals("無")) {
       for (int i = 0; i < favorList.size(); i++) {
         ans +=
@@ -736,6 +736,12 @@ public class MemberInfoServiceImpl implements MemberInfoService {
       ans += list.get(i) + ",";
     }
     return ans;
+  }
+
+  @Override
+  public int getCharacterOrFavorIdByNameAndType(String name, int type) {
+    int characterOrFavorId = cfDao.getCharacterOrFavorIdByNameAndType(name, type);
+    return characterOrFavorId;
   }
 
   @Override

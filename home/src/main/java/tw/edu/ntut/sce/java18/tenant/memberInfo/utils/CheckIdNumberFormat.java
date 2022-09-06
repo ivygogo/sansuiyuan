@@ -9,7 +9,7 @@ public class CheckIdNumberFormat {
     String errMsg = "";
     String idNumber = "";
     int countyCode = -1;
-    idNumber = formValue.replace(" ", "");
+    idNumber = formValue.replace("\\s*", "");
     countyCode = (int) (idNumber.substring(0, 1).toUpperCase().charAt(0));
     List<Integer> code = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class CheckIdNumberFormat {
       if (sum % 10 != 0) {
         errMsg = "身分證號格式不正確";
       } else {
-        errMsg = "checkOK";
+        errMsg = "null";
       }
     }
     return errMsg;

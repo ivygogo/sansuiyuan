@@ -166,7 +166,7 @@ public class GuarantorDaoImpl implements GuarantorDao {
       ex.printStackTrace();
       throw new RuntimeException("GuarantorDaoImpl類別#queryGuarantorId()發生例外: " + ex.getMessage());
     }
-    System.out.println("queryGuarantorId: " + guarantorList.size());
+    // System.out.println("queryGuarantorId: " + guarantorList.size());
     return guarantorList;
   }
 
@@ -189,7 +189,7 @@ public class GuarantorDaoImpl implements GuarantorDao {
       ps.setString(7, guarantor.getRelation());
       ps.setTimestamp(8, guarantor.getUpdate_time());
       ps.setInt(9, guarantor.getId());
-      System.out.println("GuarantorDaoImpl#updateGuarantorInfo" + guarantor.getId());
+      // System.out.println("GuarantorDaoImpl#updateGuarantorInfo" + guarantor.getId());
       n = ps.executeUpdate();
 
     } catch (SQLException ex) {

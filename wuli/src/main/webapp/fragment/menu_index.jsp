@@ -340,6 +340,7 @@
 									<li><a href="index-4.html">Dashboard Four</a></li>
 									<li><a href="analytics.html">Analytics</a></li>
 									<li><a href="widgets.html">Widgets</a></li>
+                  <li><a href="memberInfo.jsp">memberinfo</a></li>
 								</ul></li>
 							<li><a data-toggle="collapse" data-target="#demoevent"
 								href="#">Email</a>
@@ -442,8 +443,10 @@
 							<li><a href="index-3.html">Dashboard Three</a></li>
 							<li><a href="index-4.html">Dashboard Four</a></li>
 							<li><a href="analytics.html">Analytics</a></li>
-							<li><a href="widgets.html">Widgets</a></li>
-						</ul>
+							<li><a href="memberInfo.jsp">Widgets</a></li>
+              <li><a href="memberInfo.jsp">memberinfo</a></li>
+
+            </ul>
 					</div>
 					<div id="mailbox"
 						class="tab-pane notika-tab-menu-bg animated flipInX">
