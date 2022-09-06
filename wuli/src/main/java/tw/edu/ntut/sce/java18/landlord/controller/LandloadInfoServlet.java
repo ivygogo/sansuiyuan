@@ -137,7 +137,7 @@ public class LandloadInfoServlet extends HttpServlet {
           else if (fldName.equals("landloadPhone")) {
             var landloadPhone = value;
             Matcher matcher;
-            landloadPhone = value.replace("\\s*", "");
+            landloadPhone = value.replaceAll("\\s*", "");
             landlordInfoEdit.setPhone(landloadPhone);
 
             if (landloadPhone.length() != 10) {

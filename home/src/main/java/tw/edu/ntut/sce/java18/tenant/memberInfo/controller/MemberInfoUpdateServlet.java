@@ -185,7 +185,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
 
         // ======判斷電話======
         else if (fldName.equals("myPhone")) {
-          phone = value.replace("\\s*", "");
+          phone = value.replaceAll("\\s*", "");
           // mb.setPhone(phone);
           Pattern pattern = Pattern.compile("\\d{8}");
           Matcher matcher = pattern.matcher(phone.substring(2));
@@ -215,7 +215,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
           }
           errMsg = ms.checkIdNumber(idNumber, genderCode);
 
-          if (!errMsg.equals("null")) {
+          if (errMsg != null) {
             errorMsgs.put("errIdNumber", errMsg);
           } else {
 

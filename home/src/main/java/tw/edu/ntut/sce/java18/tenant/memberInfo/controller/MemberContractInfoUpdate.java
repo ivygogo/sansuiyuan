@@ -110,7 +110,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
             else if (fldName.equals("guarantorIdNumber")) {
               String errMsg = ""; // 要來接收checkIdNumber的傳回值
               String idNumber = value;
-              idNumber = value.replace("\\s* ", "");
+              idNumber = value.replaceAll("\\s* ", "");
               guarantor.setId_number(idNumber);
               int genderCode = -1;
               if (idNumber.length() < 10) {
@@ -126,7 +126,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
                 }
               }
 
-              if (!errMsg.equals("null")) {
+              if (errMsg == null) {
                 errorMsgs.put("errIdNumber", errMsg);
               } else {
                 request.setAttribute("guarantorIdNumber", idNumber);
@@ -257,9 +257,9 @@ public class MemberContractInfoUpdate extends HttpServlet {
           newBean.setAddress(guarantor.getAddress());
           newBean.setRelation(guarantor.getRelation());
 
-          //SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-          //String datetime = sdFormat.format(new Date());
-          //Timestamp newtime = Timestamp.valueOf(datetime);
+          // SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+          // String datetime = sdFormat.format(new Date());
+          // Timestamp newtime = Timestamp.valueOf(datetime);
           Timestamp newtime = new Timestamp(System.currentTimeMillis());
           newBean.setCreate_time(newtime);
           newBean.setUpdate_time(newtime);
