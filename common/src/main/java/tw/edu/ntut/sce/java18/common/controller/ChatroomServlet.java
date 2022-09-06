@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +12,7 @@ import tw.edu.ntut.sce.java18.common.model.ChatMessageServiceBean;
 import tw.edu.ntut.sce.java18.common.service.ChatMessageService;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 
-// @Controller
-@WebServlet("/common/ChatroomServlet")
+// @WebServlet("/common/ChatroomServlet")
 public class ChatroomServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -56,9 +54,9 @@ public class ChatroomServlet extends HttpServlet {
     List chatroomLastMessage = convert.getChatroomLastMessage(Integer.parseInt(id));
 
     Gson gson = new Gson();
-    String lastMessage = gson.toJson(chatroomLastMessage);
+    String chatroomList = gson.toJson(chatroomLastMessage);
 
-    printWriter.print(lastMessage);
+    printWriter.print(chatroomList);
     printWriter.flush();
   }
 

@@ -24,6 +24,10 @@ public class ChatroomService {
     return dao.queryIdByChatroomName(chatroomName);
   }
 
+  public String getChatroomName(int roomId) {
+    return dao.queryChatroomNameById(roomId);
+  }
+
   // TODO 登入時就要連到自己的聊天室???>
 
   // TODO 預約成功,找室友配對成功,報修  傳送系統訊息?

@@ -2,7 +2,7 @@ $(function () {
   window.onload = decideBlockSize
   window.onreset = decideBlockSize
   window.onresize = decideBlockSize //只要發現有縮放螢幕的狀況就呼叫decideBlockSize
-  const name1 = 7 //  要發訊息的人    //TODO (從會員資料)
+  const name1 = 0 //  要發訊息的人    //TODO (從會員資料)
   let name2
 //tmp for create new room
   // const name2 = 8 //  要發訊息的人    //TODO (從會員資料)
@@ -31,6 +31,11 @@ $(function () {
   $('input[name=is-talk-able]').change(function () {
     showSelect()
   })
+
+  // modify $('*[data-open="true"]')
+  $(`*[data-memberid="${name2}"]`).closest('table').find(
+    '.chat-trim-text').text(
+    $('.message-content').last().text())
 
   // 根據選擇顯示聊天對象 -----------------
   function showSelect() {
@@ -68,10 +73,11 @@ $(function () {
     //  要傳訊息的對象  //TODO 從id去抓綽號
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
     console.log('傳訊對象:' + name2)
+    $('#chat-target').text(`${name2}的綽號`) // todo
+    $('#chat-target').data('memberId', name2)
 
-    $('#chat-target').text(`${name2}的綽號`)
     $('.chat-avatar').text(`${name2}的照片`)  //todo
-    $('#id-type').text(`${name2}的房號or身分`)  // todo 前台顯示身分,後台顯示房號
+    $('#id-type').text(`${name2}的房號or身分`)  // todo 已簽約是房號,未簽約是一般會員
 
     if ($(e.target).closest('table').data("open") === true) {
       $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
@@ -81,7 +87,7 @@ $(function () {
       $(".btn-send-message").prop('disabled', false);
 
     } else {
-      $('.isClose-block').html('本聊天室已關閉')
+      $('.isClose-block').html('本聊天室已關閉') //todo 可強制開啟
       $("#input-message").prop('disabled', true);
       $(".btn-send-message").prop('disabled', true);
     }
@@ -102,40 +108,13 @@ $(function () {
       console.log(message)
       console.log(Object.keys(message).length)
 
-      // todo ------------- renderMessage(message)
-
-      if (message.currentDate !== $('.date-change').last().text()) {
-        $('.chat-inside-block').append(`
-      <div class="date-divide">
-        <span class="date-change">${message.currentDate}</span>
-      </div>
-      `)
-      }
-
-      if (message.sender === name1) {
-        $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="col-4"></span>
-        <span class="send-message-content col-8 message-content">${message.content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${message.currentTime}</span>
-       </div>`)
-      } else {
-        $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="send-message-content col-8 message-content">${message.content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${message.currentTime}</span>
-        <span class="col-4"></span>
-       </div>`)
-      }
+      renderMessage(message)
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
       console.log($('.date-change').last().text())
       console.log($('.message-content').last().text())
-      $(e.target).closest('table').find('.chat-trim-text').text(
-        $('.message-content').last().text())
+
     }
 
     console.log($('.message-content').last().text())
@@ -253,7 +232,7 @@ $(function () {
   function loadExistChatroom() {
     $.ajax({
       type: 'POST',
-      url: '/home/common/ChatroomServlet?callFrom=loadChatroomList',
+      url: '/wuii/ChatroomServlet?callFrom=loadChatroomList',
       data: {'Id': name1},
       success: function (resp) {
         renderChatroomList(resp)
@@ -267,18 +246,27 @@ $(function () {
   // -----------------
   function renderChatroomList(resp) {
     console.log(resp)
+    let target;
     for (let i = 0; i < resp.length; i++) {
       //const avatar =  resp[i].avatar  //todo pic
       //const name =  resp[i].name  //todo name
       //const type //todo type
-      console.log(resp[i].chatroomType)
 
-      let target
-      if (name1 !== resp[i].sender) {
-        target = resp[i].sender
+      if ((resp[i].sender && resp[i].receiver) === 0) {
+        target = resp[i].chatroomName.split('_')[1]
+        if (name1 === resp[i].chatroomName.split('_')[0]) {
+          console.log(resp[i].chatroomName.split('_')[0] + '----------')
+          target = resp[i].chatroomName.split('_')[0]
+        }
       } else {
-        target = resp[i].receiver
+        if (name1 !== resp[i].sender) {
+          target = resp[i].sender
+        } else {
+          target = resp[i].receiver
+        }
       }
+
+      console.log('target = ' + target)
       $('#checklist').append(
         `<table class="chatroom-block" data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen} data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
           <tr>
@@ -302,43 +290,18 @@ $(function () {
   function loadOldChatroom() {
     $.ajax({
       type: 'POST',
-      url: '/home/common/ChatroomServlet?callFrom=loadOldMessage',
+      url: '/wuli/ChatroomServlet?callFrom=loadOldMessage',
       data: {
         'user': name1, 'target': name2
       },
       success: function (resp) {
         console.log(Object.keys(resp).length)
         for (let k in resp) {
-          if (resp[k].currentDate !== $('.date-change').last().text()) {
-
-            $('.chat-inside-block').append(`
-      <div class="date-divide">
-        <span class="date-change">${resp[k].currentDate}</span>
-      </div>
-      `)
-          }
-
-          if (resp[k].sender === name1) {
-            $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="col-4"></span>
-        <span class="send-message-content col-8 message-content">${resp[k].content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${resp[k].currentTime}</span>
-       </div>`)
-          } else {
-            $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="send-message-content col-8 message-content">${resp[k].content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${resp[k].currentTime}</span>
-        <span class="col-4"></span>
-       </div>`)
-          }
+          console.log(k)
+          renderMessage(resp[k])
         }
         $('.chat-inside-block').scrollTop(
           $('.chat-inside-block')[0].scrollHeight)
-
       },
       err: function () {
         console.log('renderChatroomList with error')
@@ -348,31 +311,34 @@ $(function () {
 
   // -----------------
   function renderMessage(message) {
-    if (message.currentDate !== $('.date-change').last().text()) {
-      $('.chat-inside-block').append(`
+    if ((message.receiver || message.sender) === $('#chat-target').data(
+      'memberId')) {
+
+      if (message.currentDate !== $('.date-change').last().text()) {
+        $('.chat-inside-block').append(`
       <div class="date-divide">
         <span class="date-change">${message.currentDate}</span>
       </div>
       `)
-    }
+      }
 
-    if (message.sender === name1) {
-      $('.chat-inside-block').append(`
+      if (message.sender === name1) {
+        $('.chat-inside-block').append(`
        <div class="send-message-block row m-3">
         <span class="col-4"></span>
         <span class="send-message-content col-8 message-content">${message.content}</span>
         <span class="col-4"></span>
         <span class="send-message-time col-8 text-end">${message.currentTime}</span>
        </div>`)
-    } else {
-      $('.chat-inside-block').append(`
+      } else {
+        $('.chat-inside-block').append(`
        <div class="send-message-block row m-3">
         <span class="send-message-content col-8 message-content">${message.content}</span>
         <span class="col-4"></span>
         <span class="send-message-time col-8 text-end">${message.currentTime}</span>
         <span class="col-4"></span>
        </div>`)
+      }
     }
   }
-
 })

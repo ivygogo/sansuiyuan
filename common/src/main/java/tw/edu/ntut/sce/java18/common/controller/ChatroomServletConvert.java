@@ -20,14 +20,13 @@ public class ChatroomServletConvert {
     var existChatroomList = chatroomService.getExistChatroom(id);
 
     for (ArrayList existChatroom : existChatroomList) {
-
       SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
-
       var chatMessageBean = chatMessageService.getLastMessage((int) existChatroom.get(0));
 
       LoadChatroom loadChatroom = new LoadChatroom();
       loadChatroom.setChatroomId((int) existChatroom.get(0));
       loadChatroom.setChatroomType((String) existChatroom.get(1));
+      loadChatroom.setChatroomName(chatroomService.getChatroomName(loadChatroom.getChatroomId()));
       loadChatroom.setCloseTime(sdf.format(existChatroom.get(2)));
       loadChatroom.setContent(chatMessageBean.getContent());
       loadChatroom.setReceiver(chatMessageBean.getReceiver());
@@ -45,12 +44,15 @@ public class ChatroomServletConvert {
   class LoadChatroom {
     int chatroomId;
     String chatroomType;
+    String chatroomName;
     String closeTime;
     int sender;
     int receiver;
     String content;
     int unRead;
     boolean isOpen;
+
+
 
     public boolean isOpen() {
       return isOpen;
@@ -66,6 +68,14 @@ public class ChatroomServletConvert {
 
     public void setChatroomId(int chatroomId) {
       this.chatroomId = chatroomId;
+    }
+
+    public String getChatroomName() {
+      return chatroomName;
+    }
+
+    public void setChatroomName(String chatroomName) {
+      this.chatroomName = chatroomName;
     }
 
     public String getChatroomType() {

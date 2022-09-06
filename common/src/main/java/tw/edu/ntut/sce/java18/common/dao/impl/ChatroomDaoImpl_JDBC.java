@@ -110,4 +110,22 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
       throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
     }
   }
+
+  public String queryChatroomNameById(int chatroomId) {
+    String sql = "SELECT  CONCAT(member1,\"_\",member2) chatroomName FROM chatroom WHERE Id = ?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setInt(1, chatroomId);
+
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+          return resultSet.getString("chatroomName");
+        }
+        return "";
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
+    }
+  }
 }

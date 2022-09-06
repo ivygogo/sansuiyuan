@@ -2,7 +2,8 @@ $(function () {
   window.onload = decideBlockSize
   window.onreset = decideBlockSize
   window.onresize = decideBlockSize //只要發現有縮放螢幕的狀況就呼叫decideBlockSize
-  const name1 = 5 //  要發訊息的人    //TODO (從會員資料)
+  const name1 = 1 //  要發訊息的人    //TODO (從會員資料)
+  let name2
 //tmp for create new room
   // const name2 = 8 //  要發訊息的人    //TODO (從會員資料)
   // const names = [name1, name2]
@@ -60,16 +61,18 @@ $(function () {
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
     console.log('傳訊對象:' + name2)
 
-    $('#chat-target').text(`${name2}的綽號`)
     $('.chat-avatar').text(`${name2}的照片`)  //todo
 
-    if (name2 != 7) {
+    if (name2 !== 0) {
       $('#chat-target').text(`${name2}的綽號`)
+      $('#chat-target').data('memberId', name2)
       $('#id-type').text(`${name2}的身分`)  // todo 前台顯示身分,後台顯示房號
     } else {
-      $('#chat-target').text("房東")
-      $('#id-type').text('管理員')  // todo 前台顯示身分,後台顯示房號
+      $('#chat-target').text("房東11")
+      $('#chat-target').data('memberId', name2)
+      $('#id-type').text('管理員')
     }
+
 
     if ($(e.target).closest('table').data("open") === true) {
       $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
@@ -99,32 +102,7 @@ $(function () {
       const message = JSON.parse(event.data);
       console.log(message)
       console.log(Object.keys(message).length)
-
-      if (message.currentDate !== $('.date-change').last().text()) {
-        $('.chat-inside-block').append(`
-      <div class="date-divide">
-        <span class="date-change">${message.currentDate}</span>
-      </div>
-      `)
-      }
-
-      if (message.sender === name1) {
-        $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="col-4"></span>
-        <span class="send-message-content col-8 message-content">${message.content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${message.currentTime}</span>
-       </div>`)
-      } else {
-        $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="send-message-content col-8 message-content">${message.content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${message.currentTime}</span>
-        <span class="col-4"></span>
-       </div>`)
-      }
+      renderMessage(message)
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
@@ -249,7 +227,7 @@ $(function () {
   function loadExistChatroom() {
     $.ajax({
       type: 'POST',
-      url: '/home/common/ChatroomServlet?callFrom=loadChatroomList',
+      url: '/home/ChatroomServlet?callFrom=loadChatroomList',
       data: {'Id': name1},
       success: function (resp) {
         renderChatroomList(resp)
@@ -263,18 +241,25 @@ $(function () {
   // -----------------
   function renderChatroomList(resp) {
     console.log(resp)
+    let target
     for (let i = 0; i < resp.length; i++) {
       //const avatar =  resp[i].avatar  //todo pic
       //const name =  resp[i].name  //todo name
       //const type //todo type
       console.log(resp[i].chatroomType)
 
-      let target
-      if (name1 !== resp[i].sender) {
-        target = resp[i].sender
+      if ((resp[i].sender && resp[i].receiver) === 0) {
+        target = resp[i].chatroomName.split('_')[1]
+        if (name1 === resp[i].chatroomName.split('_')[0]) {
+          console.log(resp[i].chatroomName.split('_')[0] + '----------')
+          target = resp[i].chatroomName.split('_')[0]
+        }
       } else {
-        target = resp[i].receiver
-
+        if (name1 !== resp[i].sender) {
+          target = resp[i].sender
+        } else {
+          target = resp[i].receiver
+        }
       }
 
       $('#checklist').append(
@@ -300,39 +285,14 @@ $(function () {
   function loadOldChatroom() {
     $.ajax({
       type: 'POST',
-      url: '/home/common/ChatroomServlet?callFrom=loadOldMessage',
+      url: '/home/ChatroomServlet?callFrom=loadOldMessage',
       data: {
         'user': name1, 'target': name2
       },
       success: function (resp) {
         console.log(Object.keys(resp).length)
         for (let k in resp) {
-          if (resp[k].currentDate !== $('.date-change').last().text()) {
-
-            $('.chat-inside-block').append(`
-      <div class="date-divide">
-        <span class="date-change">${resp[k].currentDate}</span>
-      </div>
-      `)
-          }
-
-          if (resp[k].sender === name1) {
-            $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="col-4"></span>
-        <span class="send-message-content col-8 message-content">${resp[k].content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${resp[k].currentTime}</span>
-       </div>`)
-          } else {
-            $('.chat-inside-block').append(`
-       <div class="send-message-block row m-3">
-        <span class="send-message-content col-8 message-content">${resp[k].content}</span>
-        <span class="col-4"></span>
-        <span class="send-message-time col-8 text-end">${resp[k].currentTime}</span>
-        <span class="col-4"></span>
-       </div>`)
-          }
+          renderMessage(resp[k])
         }
         $('.chat-inside-block').scrollTop(
           $('.chat-inside-block')[0].scrollHeight)
@@ -341,6 +301,39 @@ $(function () {
         console.log('renderChatroomList with error')
       }
     })
+  }
+
+  function renderMessage(message) {
+
+    if ((message.receiver || message.sender) === $('#chat-target').data(
+      'memberId')) {
+
+      if (message.currentDate !== $('.date-change').last().text()) {
+        $('.chat-inside-block').append(`
+      <div class="date-divide">
+        <span class="date-change">${message.currentDate}</span>
+      </div>
+      `)
+      }
+
+      if (message.sender === name1) {
+        $('.chat-inside-block').append(`
+       <div class="send-message-block row m-3">
+        <span class="col-4"></span>
+        <span class="send-message-content col-8 message-content">${message.content}</span>
+        <span class="col-4"></span>
+        <span class="send-message-time col-8 text-end">${message.currentTime}</span>
+       </div>`)
+      } else {
+        $('.chat-inside-block').append(`
+       <div class="send-message-block row m-3">
+        <span class="send-message-content col-8 message-content">${message.content}</span>
+        <span class="col-4"></span>
+        <span class="send-message-time col-8 text-end">${message.currentTime}</span>
+        <span class="col-4"></span>
+       </div>`)
+      }
+    }
   }
 
 })

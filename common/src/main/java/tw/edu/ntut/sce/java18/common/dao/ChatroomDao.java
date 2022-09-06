@@ -8,6 +8,8 @@ public interface ChatroomDao {
 
   int queryIdByChatroomName(String chatroomName);
 
+  String queryChatroomNameById(int chatroomId);
+
   // id  sender isclose?
   ArrayList<ArrayList> queryExistChatroomBySender(int member);
 }
