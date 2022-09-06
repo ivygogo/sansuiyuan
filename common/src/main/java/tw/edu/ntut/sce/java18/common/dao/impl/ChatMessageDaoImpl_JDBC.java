@@ -86,14 +86,14 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
     }
   }
 
-  public int queryUnreadCount(int chatroomId) {
-    String sql = "SELECT COUNT(*) FROM chat_message WHERE chatroom_Id = ? AND isRead = FALSE  ";
+  public int queryUnreadCount(int chatroomId, int userId) {
+    String sql =
+        "SELECT COUNT(*) FROM chat_message WHERE chatroom_Id = ? AND isRead = FALSE And Receiver = ?";
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
-
       preparedStatement.setInt(1, chatroomId);
-
+      preparedStatement.setInt(2, userId);
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         if (resultSet.next()) {
           int unReadCount = resultSet.getInt("COUNT(*)");
@@ -107,6 +107,9 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
       throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
     }
   }
+
+  @Override
+  public void updateUnReadStatus(int roomId, int user) {}
 
   @Override
   public ChatMessageBean queryLastMessage(int chatroomId) {

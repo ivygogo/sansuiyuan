@@ -61,7 +61,7 @@ public class ChatMessageService {
     return messageServiceBeanArrayList;
   }
 
-  public int getUnreadCount(int roomId) {
-    return dao.queryUnreadCount(roomId);
+  public int getUnreadCount(int roomId, int userId) {
+    return dao.queryUnreadCount(roomId, userId);
   }
 }

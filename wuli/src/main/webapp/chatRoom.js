@@ -11,7 +11,7 @@ $(function () {
   // ws = new WebSocket(`ws://localhost:8080/home/chat/${names[0]}_${names[1]}`);
 
   // finish! 讀取chatroomList  -----------------
-  loadExistChatroom()
+  loadExistChatroom(name1)
 
   //搜尋 todo
   $('.search-icon').click(function () {
@@ -79,6 +79,7 @@ $(function () {
     $('.chat-avatar').text(`${name2}的照片`)  //todo
     $('#id-type').text(`${name2}的房號or身分`)  // todo 已簽約是房號,未簽約是一般會員
 
+
     if ($(e.target).closest('table').data("open") === true) {
       $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
       $('#close-time').text(
@@ -94,7 +95,7 @@ $(function () {
 
     $('.chat-inside-block').text("")
     // ------------------
-    loadOldChatroom()
+    loadOldChatMessage()
     // ------------------
 
     ws = new WebSocket(
@@ -107,7 +108,6 @@ $(function () {
       const message = JSON.parse(event.data);
       console.log(message)
       console.log(Object.keys(message).length)
-
       renderMessage(message)
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
@@ -229,10 +229,10 @@ $(function () {
   })
 
   // -----------------
-  function loadExistChatroom() {
+  function loadExistChatroom(name1) {
     $.ajax({
       type: 'POST',
-      url: '/wuii/ChatroomServlet?callFrom=loadChatroomList',
+      url: '/wuli/ChatroomServlet?callFrom=loadChatroomList',
       data: {'Id': name1},
       success: function (resp) {
         renderChatroomList(resp)
@@ -251,22 +251,9 @@ $(function () {
       //const avatar =  resp[i].avatar  //todo pic
       //const name =  resp[i].name  //todo name
       //const type //todo type
+      console.log('unread = ' + resp[i].unRead)
+      target = resp[i].target
 
-      if ((resp[i].sender && resp[i].receiver) === 0) {
-        target = resp[i].chatroomName.split('_')[1]
-        if (name1 === resp[i].chatroomName.split('_')[0]) {
-          console.log(resp[i].chatroomName.split('_')[0] + '----------')
-          target = resp[i].chatroomName.split('_')[0]
-        }
-      } else {
-        if (name1 !== resp[i].sender) {
-          target = resp[i].sender
-        } else {
-          target = resp[i].receiver
-        }
-      }
-
-      console.log('target = ' + target)
       $('#checklist').append(
         `<table class="chatroom-block" data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen} data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
           <tr>
@@ -287,7 +274,7 @@ $(function () {
   }
 
   // -----------------
-  function loadOldChatroom() {
+  function loadOldChatMessage() {
     $.ajax({
       type: 'POST',
       url: '/wuli/ChatroomServlet?callFrom=loadOldMessage',
@@ -297,7 +284,6 @@ $(function () {
       success: function (resp) {
         console.log(Object.keys(resp).length)
         for (let k in resp) {
-          console.log(k)
           renderMessage(resp[k])
         }
         $('.chat-inside-block').scrollTop(
@@ -311,8 +297,8 @@ $(function () {
 
   // -----------------
   function renderMessage(message) {
-    if ((message.receiver || message.sender) === $('#chat-target').data(
-      'memberId')) {
+    if (message.receiver === $('#chat-target').data('memberId')
+      || message.sender === $('#chat-target').data('memberId')) {
 
       if (message.currentDate !== $('.date-change').last().text()) {
         $('.chat-inside-block').append(`

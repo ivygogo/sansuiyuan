@@ -4,16 +4,12 @@ $(function () {
   window.onresize = decideBlockSize //只要發現有縮放螢幕的狀況就呼叫decideBlockSize
   const name1 = 1 //  要發訊息的人    //TODO (從會員資料)
   let name2
-//tmp for create new room
-  // const name2 = 8 //  要發訊息的人    //TODO (從會員資料)
-  // const names = [name1, name2]
-  // names.sort()
-  // ws = new WebSocket(`ws://localhost:8080/home/chat/${names[0]}_${names[1]}`);
 
-  // finish! 讀取chatroomList  -----------------
-  loadExistChatroom()
+  // 讀取chatroomList  -----------------
 
-  // unfinish -----------------
+  loadExistChatroom(name1)
+
+  // unfinish todo -----------------
   // todo 選擇分類,如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
   $('.form-select').change(function () {
     showSelect()
@@ -68,11 +64,10 @@ $(function () {
       $('#chat-target').data('memberId', name2)
       $('#id-type').text(`${name2}的身分`)  // todo 前台顯示身分,後台顯示房號
     } else {
-      $('#chat-target').text("房東11")
-      $('#chat-target').data('memberId', name2)
+      $('#chat-target').text("房東")
+      $('#chat-target').data('memberId', 0)
       $('#id-type').text('管理員')
     }
-
 
     if ($(e.target).closest('table').data("open") === true) {
       $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
@@ -89,7 +84,7 @@ $(function () {
 
     $('.chat-inside-block').text("")
     // ------------------
-    loadOldChatroom()
+    loadOldChatMessage()
     // ------------------
 
     ws = new WebSocket(
@@ -224,12 +219,13 @@ $(function () {
   })
 
   // -----------------
-  function loadExistChatroom() {
+  function loadExistChatroom(name1) {
     $.ajax({
       type: 'POST',
       url: '/home/ChatroomServlet?callFrom=loadChatroomList',
       data: {'Id': name1},
       success: function (resp) {
+        console.log(name1)
         renderChatroomList(resp)
       },
       err: function () {
@@ -246,21 +242,8 @@ $(function () {
       //const avatar =  resp[i].avatar  //todo pic
       //const name =  resp[i].name  //todo name
       //const type //todo type
-      console.log(resp[i].chatroomType)
-
-      if ((resp[i].sender && resp[i].receiver) === 0) {
-        target = resp[i].chatroomName.split('_')[1]
-        if (name1 === resp[i].chatroomName.split('_')[0]) {
-          console.log(resp[i].chatroomName.split('_')[0] + '----------')
-          target = resp[i].chatroomName.split('_')[0]
-        }
-      } else {
-        if (name1 !== resp[i].sender) {
-          target = resp[i].sender
-        } else {
-          target = resp[i].receiver
-        }
-      }
+      console.log('unread = ' + resp[i].unRead)
+      target = resp[i].target
 
       $('#checklist').append(
         `<table class="chatroom-block" data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen} data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
@@ -282,7 +265,7 @@ $(function () {
   }
 
   // -----------------
-  function loadOldChatroom() {
+  function loadOldChatMessage() {
     $.ajax({
       type: 'POST',
       url: '/home/ChatroomServlet?callFrom=loadOldMessage',
@@ -305,9 +288,8 @@ $(function () {
 
   function renderMessage(message) {
 
-    if ((message.receiver || message.sender) === $('#chat-target').data(
-      'memberId')) {
-
+    if (message.receiver === $('#chat-target').data('memberId')
+      || message.sender === $('#chat-target').data('memberId')) {
       if (message.currentDate !== $('.date-change').last().text()) {
         $('.chat-inside-block').append(`
       <div class="date-divide">

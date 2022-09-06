@@ -11,5 +11,7 @@ public interface ChatMessageDao {
 
   ChatMessageBean queryLastMessage(int chatroomId);
 
-  int queryUnreadCount(int roomId);
+  int queryUnreadCount(int roomId, int user);
+
+  void updateUnReadStatus(int roomId, int user);
 }

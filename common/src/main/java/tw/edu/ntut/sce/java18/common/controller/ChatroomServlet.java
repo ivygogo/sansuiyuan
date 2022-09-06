@@ -41,7 +41,6 @@ public class ChatroomServlet extends HttpServlet {
 
   public void loadChatroomList(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
-    System.out.println("begin loadChatroomList()");
 
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
@@ -50,7 +49,7 @@ public class ChatroomServlet extends HttpServlet {
     // 進入畫面就load出左側頁面所需的內容
     ChatroomServletConvert convert = new ChatroomServletConvert();
     String id = request.getParameter("Id"); // from JS loadExistChatroom()  =7
-
+    System.out.println("search user id = " + id);
     List chatroomLastMessage = convert.getChatroomLastMessage(Integer.parseInt(id));
 
     Gson gson = new Gson();

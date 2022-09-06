@@ -46,10 +46,11 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
-  public ArrayList<ArrayList> queryExistChatroomBySender(int member) {
+  public ArrayList<ArrayList> queryExistChatroomByUser(int member) {
     System.out.println("begin ChatroomDaoImpl_JDBC  with member = " + member);
-    String sql = "SELECT Id, Chat_type, Close_Time FROM chatroom WHERE member1 = ? OR member2 = ?";
-    var existChatrooms = new ArrayList();
+    String sql =
+        "SELECT Id, member1, member2, Chat_type, Close_Time FROM chatroom WHERE member1 = ? OR member2 = ?";
+    var existChatroomList = new ArrayList();
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
@@ -61,9 +62,14 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
           existChatroom.add(resultSet.getInt("Id"));
           existChatroom.add(resultSet.getString("Chat_type"));
           existChatroom.add(resultSet.getTimestamp("Close_Time"));
-          existChatrooms.add(existChatroom);
+          if (resultSet.getInt("member1") == member) {
+            existChatroom.add(resultSet.getInt("member2"));
+          } else {
+            existChatroom.add(resultSet.getInt("member1"));
+          }
+          existChatroomList.add(existChatroom);
         }
-        return existChatrooms;
+        return existChatroomList;
       }
     } catch (SQLException ex) {
       ex.printStackTrace();
