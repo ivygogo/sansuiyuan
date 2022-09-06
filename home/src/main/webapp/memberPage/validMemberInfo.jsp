@@ -9,11 +9,11 @@
 	function doFirstp(){
 		
 	$("input[name='avatarIcon']").click(
-	        function() {//判斷點擊
+	        function() {
 	        	alert(event.target.id);
-	          //$("input[name='avatarIcon']").get(0).checked = false;
+	        	<%--//$("input[name='avatarIcon']").get(0).checked = false;--%>
 	          startAvatar = `${Avatar}`;
-	          //alert(startAvatar);
+	          <%--//alert(startAvatar);--%>
 	          let avatarClick = $(
 	          "input[name='avatarIcon']:radio:checked").val();
 	          let link = "images/avatarImg/";
@@ -22,7 +22,6 @@
 	          $("#avatarImg img").attr('src', link);
 	          $("#avaName").html(avatarClick);
 	          
-	          //alert($("#avaName").text);
 	        });
 	}
 	window.addEventListener('load', doFirstp);
@@ -219,8 +218,8 @@
 				'districtSel' : `${TempDistrict}`,
 				zipcodeIntoDistrict : true,
 				css : [ "county form-control", "district form-control" ],
-				countyName : "county", // 自訂城市 select 標籤的 name 值
-				districtName : "district", // 自訂區別 select 標籤的 name 值
+				countyName : "county", 
+				districtName : "district", 
 				onCountySelect : changecb,
 				onDistrictSelect : changecb
 			});
@@ -233,10 +232,8 @@
 			  
 			
 			function changecb() {
-				// 取得縣市 county（返回字串）
 				county = $('#zipzip').twzipcode('get', 'county');
 				district = $('#zipzip').twzipcode('get', 'district');
-				//var result = $('#zipzip').twzipcode('get', 'county,district'); // 以 , 字串傳入
 				console.log(county);
 				console.log(district);
 				var str = county;
@@ -247,9 +244,8 @@
 		$(function() {
 			county1 = $('#zipzip').twzipcode('get', 'county');
 			district1 = $('#zipzip').twzipcode('get', 'district');
-			//console.log(county);
 			if(county1[0].length==0||district1[0].length==0){
-
+				
 				  var oldChild = document.getElementById('inputState');
 			    $("#inputState").attr('class', "form-control is-invalid");
 		      var wrapper = document.createElement('div');
@@ -278,7 +274,7 @@
 	        $("#countyMsg").html('${ErrMsg.errCounty}');
 	        $("#districtMsg").html('${ErrMsg.errDistrict}');
 			}else{
-				//alert("noerr")
+				
 				var oldChild = document.getElementById('inputState');
 			      var wrapper = document.createElement('div');
 			      wrapper.className = "form-group col-md-6"
@@ -304,12 +300,11 @@
 			avatarResetLink += ".png";
 			$("#avaName").html(startAvatar);
 			$("#avatarImg2 img").attr('src', avatarResetLink);
-			//alert(startAvatar);
+			<%--alert(startAvatar);--%>
 		})
 	</script>
-	<!-- 內容開始  -->
 
-	<!--分頁1-->
+	<%--內容開始--%>
 
 	<div class="row mb-1 mt-5 mx-3">
 		<div class="col-md-12 text-left">
@@ -318,16 +313,14 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- form開始 -->
+	<%--form開始--%>
 	<form action="<c:url value="/MemberInfoUpdate.do"/>" method="post"
 		class="p-5 bg-white" enctype="multipart/form-data">
 		<section class="site-section" id="about-section">
 			<div class="container">
 
-
 				<div class="row ">
-					<!--頭像-->
+					<%--頭像--%>
 					<div class="col-sm-12 col-md-12 col-lg-6 mb-3">
 						<div class="row ">
 							<div class="col" style="display: flex; justify-content: center;"
@@ -349,25 +342,26 @@
 							</div>
 						</div>
 						${ansAvatar}
-						<!--name = avatarIcon-->
-						<!--表單-->
+						<%--name = avatarIcon--%>
 
+
+						<%--右邊表單--%>
 						<div class="form-row mt-2">
 							<div class="col">
 								<h6>暱稱*</h6>
 								<c:choose>
 									<c:when test="${ErrMsg.errNickname!=null}">
-										<input type="text" name="myNickname" class="form-control is-invalid"
-											size="10" maxlength="10" id="validationServer01"
-											placeholder="" value="${param.myNickname}" required>
+										<input type="text" name="myNickname"
+											class="form-control is-invalid" size="10" maxlength="10"
+											id="validationServer01" placeholder=""
+											value="${param.myNickname}" required>
 										<div class="invalid-feedback">${ErrMsg.errNickname}</div>
 									</c:when>
 
 									<c:otherwise>
-										<input type="text" name="myNickname"
-											class="form-control" size="10" maxlength="10"
-											id="validationServer01" placeholder=""
-											value="${nickname}" required>
+										<input type="text" name="myNickname" class="form-control"
+											size="10" maxlength="10" id="validationServer01"
+											placeholder="" value="${nickname}" required>
 										<div class="invalid-feedback">${ErrMsg.errNickname}</div>
 									</c:otherwise>
 								</c:choose>
@@ -375,7 +369,7 @@
 						</div>
 					</div>
 
-					<!--文字-->
+					
 					<div class="col-sm-12 col-md-12 col-lg-6">
 						<div class="row mt-4">
 							<div class="col"></div>
@@ -384,37 +378,37 @@
 							<h6 class="text-black-opacity-05">姓名*</h6>
 							<c:choose>
 								<c:when test="${ErrMsg.errName!=null}">
-									<input type="text" name="myName" class="form-control is-invalid"
-										id="validationServer01" placeholder="" value="${param.myName}"
-										required>
+									<input type="text" name="myName"
+										class="form-control is-invalid" id="validationServer01"
+										placeholder="" value="${param.myName}" required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errName}</div>
 								</c:when>
 
 								<c:otherwise>
-									<input type="text" name="myName"
-										class="form-control" id="validationServer01"
-										placeholder="" value="${name}" required>
+									<input type="text" name="myName" class="form-control"
+										id="validationServer01" placeholder="" value="${name}"
+										required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errName}</div>
 								</c:otherwise>
 							</c:choose>
 
 							<h6 class="text-black-opacity-05 mt-4">性別*</h6>
-						${ansGender}<br>
+							${ansGender}<br>
 
 
 							<h6 class="text-black-opacity-05">聯絡手機號碼*</h6>
 							<c:choose>
 								<c:when test="${ErrMsg.errPhone!=null}">
-									<input type="text" name="myPhone" class="form-control is-invalid"
-										id="validationServer01" placeholder=""
-										value="${param.myPhone}" required>
+									<input type="text" name="myPhone"
+										class="form-control is-invalid" id="validationServer01"
+										placeholder="" value="${param.myPhone}" required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errPhone}</div>
 								</c:when>
 
 								<c:otherwise>
-									<input type="text" name="myPhone"
-										class="form-control" id="validationServer01"
-										placeholder="" value="${phone}" required>
+									<input type="text" name="myPhone" class="form-control"
+										id="validationServer01" placeholder="" value="${phone}"
+										required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errPhone}</div>
 								</c:otherwise>
 							</c:choose>
@@ -424,79 +418,76 @@
 							<c:choose>
 								<c:when test="${ErrMsg.errIdNumber!=null}">
 									<input type="text" name="myId" class="form-control is-invalid"
-										id="validationServer01" placeholder=""
-										value="${param.myId}" required>
+										id="validationServer01" placeholder="" value="${param.myId}"
+										required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errIdNumber}</div>
 								</c:when>
 
 								<c:otherwise>
 									<input type="text" name="myId" class="form-control"
-										id="validationServer01" placeholder=""
-										value="${idNumber}" required>
+										id="validationServer01" placeholder="" value="${idNumber}"
+										required>
 									<div class="invalid-feedback mb-4">${ErrMsg.errIdNumber}</div>
 								</c:otherwise>
 							</c:choose>
 
 							<h6 class="text-black-opacity-05 mt-4">戶籍地址*</h6>
 							<div class="form-row" id="zipzip"></div>
-							
 
-							<h6 class="text-black-opacity-05">地址</h6>			
+
+							<h6 class="text-black-opacity-05">地址</h6>
 							<c:choose>
-                <c:when test="${ErrMsg.errAaddress!=null}">
-                  <input type="text" name="myAdress" class="form-control is-invalid"
-                    id="validationServer01" placeholder=""
-                    value="${param.myAdress}" required>
-                  <div class="invalid-feedback mb-4">${ErrMsg.errAaddress}</div>
-                </c:when>
+								<c:when test="${ErrMsg.errAddress!=null}">
+									<input type="text" name="myAdress"
+										class="form-control is-invalid" id="validationServer01"
+										placeholder="" value="${param.myAdress}" required>
+									<div class="invalid-feedback mb-4">${ErrMsg.errAddress}</div>
+								</c:when>
 
-                <c:otherwise>
-                  <input type="text" name="myAddress" class="form-control"
-                    id="validationServer01" placeholder=""
-                    value="${param.myAddress}" required>
-                  <div class="invalid-feedback mb-4">${ErrMsg.errAaddress}</div>
-                </c:otherwise>
-              </c:choose>
+								<c:otherwise>
+									<input type="text" name="myAddress" class="form-control"
+										id="validationServer01" placeholder=""
+										value="${param.myAddress}" required>
+									<div class="invalid-feedback mb-4">${ErrMsg.errAddress}</div>
+								</c:otherwise>
+							</c:choose>
 
 
 							<h6 class="text-black-opacity-05 mt-5">就讀學校</h6>
-								<c:choose>
-                <c:when test="${ErrMsg.errSchool!=null}">
-                  <input type="text" name="mySchool" class="form-control is-invalid"
-                    id="validationServer01" placeholder=""
-                    value="${param.mySchool}" required>
-                  <div class="invalid-feedback mb-4">${ErrMsg.errSchool}</div>
-                </c:when>
+							<c:choose>
+								<c:when test="${ErrMsg.errSchool!=null}">
+									<input type="text" name="mySchool"
+										class="form-control is-invalid" id="validationServer01"
+										placeholder="" value="${param.mySchool}" required>
+									<div class="invalid-feedback mb-4">${ErrMsg.errSchool}</div>
+								</c:when>
 
-                <c:otherwise>
-                  <input type="text" name="mySchool" class="form-control"
-                    id="validationServer01" placeholder=""
-                    value="${param.mySchool}" required>
-                  <div class="invalid-feedback mb-4">${ErrMsg.errSchool}</div>
-                </c:otherwise>
-              </c:choose>
-								
+								<c:otherwise>
+									<input type="text" name="mySchool" class="form-control"
+										id="validationServer01" placeholder=""
+										value="${param.mySchool}" required>
+									<div class="invalid-feedback mb-4">${ErrMsg.errSchool}</div>
+								</c:otherwise>
+							</c:choose>
 
-							<%-- <h6 class="text-black-opacity-05 mt-5">找室友功能1</h6>
-							${FindRoommateTag} --%>
 							<h6 class="text-black-opacity-05 mt-5">找室友功能</h6>
 							${ansRoommate}
 							<div class="invalid-feedback mb-4">${errOpenTag}</div>
-							<!-- findRoommate -->
+							<%--findRoommate--%>
 
 							<h6 class="text-black-opacity-05">個性標籤</h6>
-							${ansCharacter}
-							<input type="hidden" name="myCharacter" class="form-control is-invalid"
-                    id="validationServer01" placeholder="">
-							 <div class="invalid-feedback mb-4">${ErrMsg.errCharacter}</div>
-							<!-- myCharacter -->
+							${ansCharacter} <input type="hidden" name="myCharacter"
+								class="form-control is-invalid" id="validationServer01"
+								placeholder="">
+							<div class="invalid-feedback mb-4">${ErrMsg.errCharacter}</div>
+							<%--myCharacter--%>
 
 							<h6 class="text-black-opacity-05 mt-3">室友條件</h6>
-							${ansFavor}
-							<input type="hidden" name="myFavor" class="form-control is-invalid"
-                    id="validationServer01" placeholder="">
+							${ansFavor} <input type="hidden" name="myFavor"
+								class="form-control is-invalid" id="validationServer01"
+								placeholder="">
 							<div class="invalid-feedback mb-4">${ErrMsg.errFavor}</div>
-							<!-- myFavor -->
+							<%--myFavor--%>
 
 						</div>
 					</div>
@@ -508,7 +499,8 @@
 			<div class="col-md-12 text-left">
 				<div class="" style="display: flex; justify-content: center;">
 					<button class="btn btn-edit mr-2 mb-2" type="subimt">我要儲存</button>
-					<button type="button" class="btn btn-edit mr-2 mb-2" onclick="dropForm()" id="dropIt">放棄修改</button>
+					<button type="button" class="btn btn-edit mr-2 mb-2"
+						onclick="dropForm()" id="dropIt">放棄修改</button>
 				</div>
 			</div>
 		</div>

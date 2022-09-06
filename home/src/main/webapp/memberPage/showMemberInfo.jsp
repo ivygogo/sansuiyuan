@@ -2,16 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% String editState = request.getParameter("edit");
-System.out.print("editState"+editState);
+//System.out.print("editState"+editState);
 if (editState!=null&&editState.equals("drop")){
 request.setAttribute("guarantorIsInvalid", false);
 request.setAttribute("isInvalid", false);
 request.setAttribute("RefundIsInvalid", false);
 
-System.out.print("editState:::::"+editState);
+//System.out.print("editState:::::"+editState);
 }
 %>
-
 
 <div class="row mb-1 mt-5 mx-3">
 	<div class="col-md-12 text-left">

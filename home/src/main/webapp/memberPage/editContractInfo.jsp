@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,7 +7,7 @@
 $(function(){
 	str1 =`${LoginOK.guarantor.county}`
 		str2 =`${LoginOK.guarantor.district}`
-		alert(str1 + str2)
+		<%--alert(str1 + str2)--%>
 })
 
 $(function() {
@@ -17,8 +16,10 @@ $(function() {
       'districtSel' : str2,
       zipcodeIntoDistrict : true,
       css : [ "county form-control", "district form-control" ],
-      countyName : "county2", // 自訂城市 select 標籤的 name 值
-      districtName : "district2", // 自訂區別 select 標籤的 name 值
+      countyName : "county2", 
+      <%--自訂城市 select 標籤的 name 值--%>
+      districtName : "district2", 
+      <%--自訂區別 select 標籤的 name 值--%>
       onCountySelect : changecb,
       onDistrictSelect : changecb
     });
@@ -31,12 +32,8 @@ $(function() {
     el[1].id = "inputState4";
 
     function changecb() {
-      // 取得縣市 county（返回字串）
       var county = $('#myzip').twzipcode('get', 'county2');
       var district = $('#myzip').twzipcode('get', 'district2');
-      //var result = $('#zipzip').twzipcode('get', 'county,district'); // 以 , 字串傳入
-      //console.log(county);
-      //console.log(district);
     }
   });
 
@@ -87,10 +84,9 @@ $(function() {
 				</div>
 			</div>
 			
-
+			
 			<div class="row lg-mx-5">
-
-
+			
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">姓名</h6>
 					<input type="text" id="fname" class="form-control col-12 mb-4 mx-4" name="guarantorName"

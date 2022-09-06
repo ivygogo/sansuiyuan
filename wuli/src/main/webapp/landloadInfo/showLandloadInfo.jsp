@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script>
-$.getJSON('LandloadInfo.do').then(res=> {    
-    //console.log(res);
+$.getJSON('/wuli/LandloadInfo.do').then(res=> {
+    console.log(res);
     $("#LandlordName >h3").text(res.resultData.name);
     $("#LandlordPhone >h3").text(res.resultData.phone);
     let landlordAddress = res.resultData.county + res.resultData.district + res.resultData.address;
@@ -11,7 +11,6 @@ $.getJSON('LandloadInfo.do').then(res=> {
     $("#LandlordMail >h3").text(res.resultData.mail);
     let landlordStamp = res.resultImg;
     $("#LandlordStamp >img").attr("src" , landlordStamp);
-    
 })
 
 //window.location.reload("#LandlordStamp >img");
@@ -42,8 +41,8 @@ $.getJSON('LandloadInfo.do').then(res=> {
       </div>
     </div>
   </div>
-  <!-- Breadcomb area End-->
-  <!-- Form Examples area start-->
+  <%--Breadcomb area End--%>
+  <%-- Form Examples area start--%>
   <div class="form-example-area">
     <div class="container">
       <div class="row ">

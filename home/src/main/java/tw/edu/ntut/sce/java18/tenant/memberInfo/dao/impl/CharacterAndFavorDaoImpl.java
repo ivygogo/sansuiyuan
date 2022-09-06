@@ -247,6 +247,6 @@ public class CharacterAndFavorDaoImpl implements CharacterAndFavorDao {
           "CharacterAndFavorImpl類別#getSignatureId()發生例外: " + ex.getMessage());
     }
 
-    return type;
+    return CharacterOrFavorId;
   }
 }

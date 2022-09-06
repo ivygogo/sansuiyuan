@@ -50,4 +50,6 @@ public interface MemberInfoService {
   int getSignatureId(String name);
 
   int getFavorId(String name);
+
+  int getCharacterOrFavorIdByNameAndType(String name, int type); // 此方法合併getSignatureId和getFavorId方法
 }
