@@ -126,7 +126,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
                 }
               }
 
-              if (errMsg == null) {
+              if (errMsg != null) {
                 errorMsgs.put("errIdNumber", errMsg);
               } else {
                 request.setAttribute("guarantorIdNumber", idNumber);
