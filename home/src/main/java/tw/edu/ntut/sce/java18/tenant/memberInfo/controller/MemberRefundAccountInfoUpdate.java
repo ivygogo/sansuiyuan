@@ -2,10 +2,8 @@ package tw.edu.ntut.sce.java18.tenant.memberInfo.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -168,10 +166,6 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
           newBean.setBankStore(refundAccount.getBankStore());
           newBean.setRefundName(refundAccount.getRefundName());
           newBean.setBankAccount(refundAccount.getBankAccount());
-
-          // SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-          // String datetime = sdFormat.format(new Date());
-          // Timestamp newtime = Timestamp.valueOf(datetime);
           Timestamp newtime = new Timestamp(System.currentTimeMillis());
           newBean.setCreate_time(newtime);
           newBean.setUpdate_time(newtime);
@@ -189,10 +183,6 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
           newBean.setBankStore(refundAccount.getBankStore());
           newBean.setRefundName(refundAccount.getRefundName());
           newBean.setBankAccount(refundAccount.getBankAccount());
-
-//          SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//          String datetime = sdFormat.format(new Date());
-//          Timestamp newtime = Timestamp.valueOf(datetime);
           Timestamp newtime = new Timestamp(System.currentTimeMillis());
           newBean.setUpdate_time(newtime);
           refundAccountDao.updateRefundAccount(newBean);
