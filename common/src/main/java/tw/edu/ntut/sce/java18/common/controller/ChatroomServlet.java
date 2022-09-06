@@ -26,8 +26,6 @@ public class ChatroomServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    System.out.println("--------------------");
-
     String callFrom = request.getParameter("callFrom");
     System.out.println(callFrom);
 
@@ -36,6 +34,9 @@ public class ChatroomServlet extends HttpServlet {
     } else if (callFrom.equals(("loadOldMessage"))) {
       System.out.println("inside the call form loadOldMessage");
       loadOldMessage(request, response);
+    } else if (callFrom.equals(("changeReadCount"))) {
+      System.out.println("inside the call form loadOldMessage");
+      changeReadCount(request, response);
     }
   }
 
@@ -85,5 +86,22 @@ public class ChatroomServlet extends HttpServlet {
 
     printWriter.print(result);
     printWriter.flush();
+  }
+
+  public void changeReadCount(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+    ChatMessageService chatMessageService = new ChatMessageService();
+
+    int userId = Integer.parseInt(request.getParameter("userId"));
+    int targetId = Integer.parseInt(request.getParameter("targetId"));
+
+    String chatroomName = userId + "_" + targetId;
+    if (userId > targetId) {
+      chatroomName = targetId + "_" + userId;
+    }
+
+    int roomId = new ChatroomService().getChatroomId(chatroomName);
+
+    chatMessageService.changeReadStatus(roomId, userId);
   }
 }

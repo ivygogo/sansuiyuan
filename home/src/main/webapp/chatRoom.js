@@ -85,6 +85,7 @@ $(function () {
     $('.chat-inside-block').text("")
     // ------------------
     loadOldChatMessage()
+    changeUnreadCount(name1, name2)
     // ------------------
 
     ws = new WebSocket(
@@ -318,4 +319,17 @@ $(function () {
     }
   }
 
+  function changeUnreadCount(userId, targetId) {
+    $.ajax({
+      type: 'POST',
+      url: '/wuli/ChatroomServlet?callFrom=changeReadCount',
+      data: {
+        'userId': userId,
+        'targetId': targetId
+      },
+      err: function () {
+        console.log('changeUnreadCount() with error')
+      }
+    })
+  }
 })

@@ -36,7 +36,6 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
         "INSERT INTO chat_message "
             + "(Chatroom_Id,Sender,Receiver,Content,Send_time,isRead) "
             + "VALUE (?,?,?,?,?,?)";
-    //      VALUE (1,100,101,"安安你好",20220831141445,0)
 
     var ldtCreateTime = LocalDateTime.now();
     var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -56,7 +55,7 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
 
     } catch (SQLException ex) {
       ex.printStackTrace();
-      throw new RuntimeException("ChatMessageImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
+      throw new RuntimeException("ChatMessageImpl_JDBC類別#insertMessage()發生例外: " + ex.getMessage());
     }
   }
 
@@ -88,7 +87,8 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
 
   public int queryUnreadCount(int chatroomId, int userId) {
     String sql =
-        "SELECT COUNT(*) FROM chat_message WHERE chatroom_Id = ? AND isRead = FALSE And Receiver = ?";
+        "SELECT COUNT(*) FROM chat_message WHERE chatroom_Id = ? "
+            + "AND isRead = FALSE And Receiver = ?";
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
@@ -104,12 +104,27 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
       }
     } catch (SQLException ex) {
       ex.printStackTrace();
-      throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
+      throw new RuntimeException(
+          "ChatroomDaoImpl_JDBC類別#queryUnreadCount()發生例外: " + ex.getMessage());
     }
   }
 
   @Override
-  public void updateUnReadStatus(int roomId, int user) {}
+  public void updateUnReadStatus(int roomId, int userId) {
+    String sql =
+        "UPDATE chat_message SET isRead = 1 WHERE chatroom_Id = ? AND isRead = FALSE AND Receiver  = ?";
+
+    try (Connection connection = ds.getConnection();
+        var preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setInt(1, roomId);
+      preparedStatement.setInt(2, userId);
+      preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "ChatroomDaoImpl_JDBC類別#updateUnReadStatus()發生例外: " + ex.getMessage());
+    }
+  }
 
   @Override
   public ChatMessageBean queryLastMessage(int chatroomId) {

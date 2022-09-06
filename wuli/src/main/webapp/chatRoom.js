@@ -79,7 +79,6 @@ $(function () {
     $('.chat-avatar').text(`${name2}的照片`)  //todo
     $('#id-type').text(`${name2}的房號or身分`)  // todo 已簽約是房號,未簽約是一般會員
 
-
     if ($(e.target).closest('table').data("open") === true) {
       $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
       $('#close-time').text(
@@ -96,6 +95,8 @@ $(function () {
     $('.chat-inside-block').text("")
     // ------------------
     loadOldChatMessage()
+    changeUnreadCount(name1, name2)
+
     // ------------------
 
     ws = new WebSocket(
@@ -106,15 +107,12 @@ $(function () {
 
     ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
-      console.log(message)
-      console.log(Object.keys(message).length)
       renderMessage(message)
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
       console.log($('.date-change').last().text())
       console.log($('.message-content').last().text())
-
     }
 
     console.log($('.message-content').last().text())
@@ -326,5 +324,19 @@ $(function () {
        </div>`)
       }
     }
+  }
+
+  function changeUnreadCount(userId, targetId) {
+    $.ajax({
+      type: 'POST',
+      url: '/wuli/ChatroomServlet?callFrom=changeReadCount',
+      data: {
+        'userId': userId,
+        'targetId': targetId
+      },
+      err: function () {
+        console.log('changeUnreadCount() with error')
+      }
+    })
   }
 })
