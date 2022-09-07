@@ -11,4 +11,6 @@ public interface ChatroomDao {
   String queryChatroomNameById(int chatroomId);
 
   ArrayList<ArrayList> queryExistChatroomByUser(int member);
+
+  void updateCloseTime(int roomId, int time);
 }

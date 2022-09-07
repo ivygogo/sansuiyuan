@@ -12,18 +12,12 @@
 <body>
 <!--todo  Refactor-->
 
-<!--todo  是否需要給預設的對話視窗內容(網路安全警告?)? or先將聊天室的挑選選單置中(最麻煩要改版面)? or直接留白?(最簡單)-->
-<!--todo  TOTAL的未讀訊息計算 ... from資料庫  登入時就要算出來?-->
-<!--todo  聊天對象的是否已讀 & 頁面顯示 .... 從資料庫撈未讀!=0 ?-->
 <!--todo  聊天對象的圖片位置以及資訊 ....預計從member過來-->
-
 <!--todo  聊天本人的相關資訊 ....預計需要登入的session-->
-<!--todo  關閉時間的讀取,以及本聊天室的關閉與否-->
 <!--todo  系統通知部分 (唯讀的一個系統對話視窗 or直接放在 房東/找室友間的對話視窗 or 不做
              1.聊天室開啟後的首則訊息(ex."您已預約X日X時看房 or 已將報修資訊通知物業")
              2.通知需要領取電費帳單/續約 (設定固定時間自動發訊息 with mail通知???)
              3.是否接受新的找室友對話????? -->
-
 
 <div class="container-fluid">
   <div class="chat-main-all">
@@ -33,12 +27,6 @@
       <div class="chat-main-block chat-main-block-left">
         <h3 class="text-center p-2">訊息列表</h3>
         <div>
-          <select class="form-select" aria-label=" select " name="form-select">
-            <option value="0" selected>所有分類</option>
-            <option value="B">預約</option>
-            <option value="R">報修</option>
-            <option value="F">找室友</option>
-          </select>
           <div class="p-2 d-flex justify-content-around m-3 ">
             <input type="radio" name="is-talk-able" id="active" value="true"> 開放中
             <input type="radio" name="is-talk-able" id="un-active" title="僅供查詢" value="false"> 已關閉

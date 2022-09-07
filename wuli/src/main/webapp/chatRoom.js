@@ -2,14 +2,11 @@ $(function () {
   window.onload = decideBlockSize
   window.onreset = decideBlockSize
   window.onresize = decideBlockSize //只要發現有縮放螢幕的狀況就呼叫decideBlockSize
+
+  //todo  可直接開啟聊天室?? 可強開已關閉的聊天室??  需不需要disable??
+
   const name1 = 0 //  要發訊息的人    //TODO (從會員資料)
   let name2
-//tmp for create new room
-  // const name2 = 8 //  要發訊息的人    //TODO (從會員資料)
-  // const names = [name1, name2]
-  // names.sort()
-  // ws = new WebSocket(`ws://localhost:8080/home/chat/${names[0]}_${names[1]}`);
-
   // finish! 讀取chatroomList  -----------------
   loadExistChatroom(name1)
 
@@ -17,6 +14,12 @@ $(function () {
   $('.search-icon').click(function () {
     if ($('#search').hasClass('d-none')) {
       $('#search').removeClass('d-none')
+      $('#search').keypress(function (enter) {
+        if (enter.key === "Enter") {
+          //todo  ajax to  search房號 by targeId   from roomtable/
+        }
+      })
+
     } else {
       $('#search').addClass('d-none')
     }
@@ -26,7 +29,6 @@ $(function () {
   $('.form-select').change(function () {
     showSelect()
   })
-
   //finish 選擇是否還可以聊聊的視窗
   $('input[name=is-talk-able]').change(function () {
     showSelect()
@@ -41,7 +43,7 @@ $(function () {
   function showSelect() {
     const chatroomBlock = $('.chatroom-block')
     const selectValue = $('.form-select').val()
-
+    chatroomBlock.hide()
     if (selectValue === '0') {
       if ($('input[name=is-talk-able]:checked').val() === "true") {
         console.log('all + open')
@@ -53,15 +55,16 @@ $(function () {
         $('*[data-open="false"]').show()
       }
     } else {
-      chatroomBlock.hide()
-      if (chatroomBlock.data('chattype') === selectValue) {
-        if ($('input[name=is-talk-able]:checked').val() === "true") {
-          $('*[data-open="true"]').show()
-        } else {
-          $('*[data-open="false"]').show()
-        }
+      $(`*[data-chattype="${selectValue}"]`).show()
+      if ($('input[name=is-talk-able]:checked').val() === "true") {
+        console.log("+++++++++++" + selectValue + "  " + "true ")
+        $('*[data-open="false"]').hide()
+      } else if ($('input[name=is-talk-able]:checked').val() === "false") {
+        console.log("+++++++++++" + selectValue + "  " + "false ")
+        $('*[data-open="true"]').hide()
       }
-    }
+      }
+
   }
 
   //--------------------------------------------------
@@ -70,14 +73,17 @@ $(function () {
 
   $('#checklist').on('click', '.chatroom-block', e => {
 
-    //  要傳訊息的對象  //TODO 從id去抓綽號
+    //  要傳訊息的對象  ------------
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
     console.log('傳訊對象:' + name2)
-    $('#chat-target').text(`${name2}的綽號`) // todo
     $('#chat-target').data('memberId', name2)
 
-    $('.chat-avatar').text(`${name2}的照片`)  //todo
-    $('#id-type').text(`${name2}的房號or身分`)  // todo 已簽約是房號,未簽約是一般會員
+    // todo ajax  from member ---------
+    $('#chat-target').text(`${name2}的綽號`)
+    $('.chat-avatar').text(`${name2}的照片`)
+    // todo  ajax判斷是否簽約 from roomTable ,
+    //  沒有合約的會就是一般會員,有的話是房號 -----
+    $('#id-type').text(`${name2}的房號or身分`)
 
     if ($(e.target).closest('table').data("open") === true) {
       $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
@@ -87,7 +93,7 @@ $(function () {
       $(".btn-send-message").prop('disabled', false);
 
     } else {
-      $('.isClose-block').html('本聊天室已關閉') //todo 可強制開啟
+      $('.isClose-block').html('本聊天室已關閉') //todo 可強制開啟?????????
       $("#input-message").prop('disabled', true);
       $(".btn-send-message").prop('disabled', true);
     }
@@ -101,10 +107,10 @@ $(function () {
 
     ws = new WebSocket(
       `ws://localhost:8080/home/chat/${name1}_${name2}`);
-
-    //移動卷軸
+    //移動卷軸 ------------------
     $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
+    //onMessage ------------------
     ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
       renderMessage(message)
@@ -113,12 +119,13 @@ $(function () {
 
       console.log($('.date-change').last().text())
       console.log($('.message-content').last().text())
+      $(e.target).closest('table').find('.chat-trim-text').text(
+        $('.message-content').last().text())
     }
-
+    //todo last message in trim-text
     console.log($('.message-content').last().text())
 
-    // 將未讀訊息歸零
-    $(e.target).closest('table').find('.chat-unread').text('0')
+    // $(e.target).closest('table').find('.chat-unread').text('0')
     $(e.target).closest('table').find('.chat-unread').css(
       {'visibility': 'hidden'})
   })

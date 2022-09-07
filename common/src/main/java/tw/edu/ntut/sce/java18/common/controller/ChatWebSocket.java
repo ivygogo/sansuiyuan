@@ -41,28 +41,19 @@ public class ChatWebSocket {
     var member1 = Integer.parseInt(chatroomName.split("_")[0]);
     var member2 = Integer.parseInt(chatroomName.split("_")[1]);
 
-    System.out.println(member1);
-    System.out.println(member2);
-
-    int memberL;
-    int memberS;
+    int memberS = member1;
+    int memberL = member2;
 
     if (member1 > member2) {
       memberL = member1;
       memberS = member2;
-    } else {
-      memberS = member1;
-      memberL = member2;
     }
+
     String username = memberS + "_" + memberL;
     System.out.println(member1);
     System.out.println(member2);
 
     clients.put(username, webSocketMap);
-
-    System.out.println(clients.get(username));
-    System.out.println(clients.get(username).get(String.valueOf(member1)));
-    System.out.println(clients.get(username).get(String.valueOf(member2)));
 
     var chatroom = new ChatroomService();
     // 這段之後會抽出去
@@ -77,7 +68,6 @@ public class ChatWebSocket {
 
   @OnMessage
   public void onMessage(Session session, ChatMessageServiceBean message) {
-
     var chatMessageService = new ChatMessageService();
     chatMessageService.createMessage(message);
 
@@ -94,12 +84,15 @@ public class ChatWebSocket {
   public void onClose(Session session) {
     clients.remove("chatroomName"); // TODO 似乎關不起來?
     System.out.println("WebSocket is Closed!");
+    System.out.println("WebSocket is Closed!");
   }
 
   @OnError
   public void onError(Session session, Throwable throwable) {
-    System.out.println(clients.remove("user")); // TODO 似乎關不起來?
-    System.out.println("WebSocket was disconnect with some error");
+    System.out.println(clients.remove("user")); // TODO 似乎關不起來  但確認?
+    System.out.println("WebSocket was disconnect with some error !!!!!!!!!!!!!!!!");
+    System.out.println("WebSocket was disconnect with some error !!!!!!!!!!!!!!!!");
+    System.out.println("WebSocket was disconnect with some error !!!!!!!!!!!!!!!!");
   }
 
   private static void sendTo(ChatMessageServiceBean message, String chatroomName) {
@@ -121,9 +114,7 @@ public class ChatWebSocket {
               .getBasicRemote()
               .sendObject(message);
         }
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      } catch (EncodeException e) {
+      } catch (IOException | EncodeException e) {
         throw new RuntimeException(e);
       }
     }

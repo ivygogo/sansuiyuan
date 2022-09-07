@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import tw.edu.ntut.sce.java18.common.service.ChatMessageService;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService;
+
 public class ChatroomServletConvert {
   // todo reciver or sender都要去member getname , 照片
 
@@ -20,7 +21,6 @@ public class ChatroomServletConvert {
     var existChatroomList = chatroomService.getExistChatroom(userId);
 
     for (ArrayList existChatroom : existChatroomList) {
-      System.out.println("++++++++++++++++++++" + existChatroom.get(0));
       SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
       var chatMessageBean = chatMessageService.getLastMessage((int) existChatroom.get(0));
       LoadChatroom loadChatroom = new LoadChatroom();
@@ -35,7 +35,6 @@ public class ChatroomServletConvert {
       loadChatroom.setOpen(currentTime.before((Timestamp) existChatroom.get(2)));
       loadChatroom.setUnRead(
           chatMessageService.getUnreadCount(loadChatroom.getChatroomId(), userId));
-      System.out.println("房號 = " + existChatroom.get(0) + "   target = " + existChatroom.get(3));
       chatroomLastMessage.add(loadChatroom);
     }
 
@@ -53,8 +52,6 @@ public class ChatroomServletConvert {
     String content;
     int unRead;
     boolean isOpen;
-
-
 
     public boolean isOpen() {
       return isOpen;

@@ -47,9 +47,9 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
 
   @Override
   public ArrayList<ArrayList> queryExistChatroomByUser(int member) {
-    System.out.println("begin ChatroomDaoImpl_JDBC  with member = " + member);
     String sql =
-        "SELECT Id, member1, member2, Chat_type, Close_Time FROM chatroom WHERE member1 = ? OR member2 = ?";
+        "SELECT Id, member1, member2, Chat_type, Close_Time "
+            + "FROM chatroom WHERE member1 = ? OR member2 = ?";
     var existChatroomList = new ArrayList();
 
     try (Connection connection = ds.getConnection();
@@ -134,4 +134,8 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
       throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
     }
   }
+
+  @Override
+  public void updateCloseTime(int roomId, int time) {}
+  // todo  time有正負  立刻為0
 }

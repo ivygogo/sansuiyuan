@@ -6,50 +6,25 @@ $(function () {
   let name2
 
   // 讀取chatroomList  -----------------
-
   loadExistChatroom(name1)
 
-  // unfinish todo -----------------
-  // todo 選擇分類,如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
-  $('.form-select').change(function () {
-    showSelect()
-  })
-
+  // todo 如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
   //finish 選擇是否還可以聊聊的視窗
   $('input[name=is-talk-able]').change(function () {
-    showSelect()
+    if ($('input[name=is-talk-able]:checked').val() === "true") {
+      console.log('all + open')
+      $('*[data-open="true"]').show()
+      $('*[data-open="false"]').hide()
+    } else {
+      console.log('all + close')
+      $('*[data-open="true"]').hide()
+      $('*[data-open="false"]').show()
+    }
   })
 
-  // 根據選擇顯示聊天對象 -----------------
-  function showSelect() {
-    const chatroomBlock = $('.chatroom-block')
-    const selectValue = $('.form-select').val()
-
-    if (selectValue === '0') {
-      if ($('input[name=is-talk-able]:checked').val() === "true") {
-        console.log('all + open')
-        $('*[data-open="true"]').show()
-        $('*[data-open="false"]').hide()
-      } else {
-        console.log('all + close')
-        $('*[data-open="true"]').hide()
-        $('*[data-open="false"]').show()
-      }
-    } else {
-      chatroomBlock.hide()
-      if (chatroomBlock.data('chattype') === selectValue) {
-        if ($('input[name=is-talk-able]:checked').val() === "true") {
-          $('*[data-open="true"]').show()
-        } else {
-          $('*[data-open="false"]').show()
-        }
-      }
-    }
-  }
-
   //--------------------------------------------------
-  //finish: WebSocket連線 / 未讀歸零
-  //TODO  讀取未讀訊息量 / render新訊息在底下的trimText內
+  //finish: WebSocket連線 / 未讀歸零 / 讀取未讀訊息量
+  //TODO render新訊息在底下的trimText內
 
   $('#checklist').on('click', '.chatroom-block', e => {
 
@@ -110,8 +85,7 @@ $(function () {
 
     console.log($('.message-content').last().text())
 
-    // 將未讀訊息歸零
-    $(e.target).closest('table').find('.chat-unread').text('0')
+    // $(e.target).closest('table').find('.chat-unread').text('0')
     $(e.target).closest('table').find('.chat-unread').css(
       {'visibility': 'hidden'})
   })

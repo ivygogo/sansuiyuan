@@ -97,7 +97,6 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         if (resultSet.next()) {
           int unReadCount = resultSet.getInt("COUNT(*)");
-          System.out.println(unReadCount);
           return unReadCount;
         }
         return 0;

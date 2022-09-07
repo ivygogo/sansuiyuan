@@ -27,16 +27,15 @@ public class ChatroomServlet extends HttpServlet {
       throws ServletException, IOException {
 
     String callFrom = request.getParameter("callFrom");
-    System.out.println(callFrom);
 
     if (callFrom.equals("loadChatroomList")) {
       loadChatroomList(request, response);
     } else if (callFrom.equals(("loadOldMessage"))) {
-      System.out.println("inside the call form loadOldMessage");
       loadOldMessage(request, response);
     } else if (callFrom.equals(("changeReadCount"))) {
-      System.out.println("inside the call form loadOldMessage");
       changeReadCount(request, response);
+    } else if (callFrom.equals(("changerClosetime"))) {
+      changeCloseTime(request, response);
     }
   }
 
@@ -50,7 +49,6 @@ public class ChatroomServlet extends HttpServlet {
     // 進入畫面就load出左側頁面所需的內容
     ChatroomServletConvert convert = new ChatroomServletConvert();
     String id = request.getParameter("Id"); // from JS loadExistChatroom()  =7
-    System.out.println("search user id = " + id);
     List chatroomLastMessage = convert.getChatroomLastMessage(Integer.parseInt(id));
 
     Gson gson = new Gson();
@@ -104,4 +102,7 @@ public class ChatroomServlet extends HttpServlet {
 
     chatMessageService.changeReadStatus(roomId, userId);
   }
+
+  public void changeCloseTime(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {}
 }

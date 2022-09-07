@@ -14,6 +14,7 @@ public class ChatroomService {
   public int isExist(int member1, int member2) {
     return dao.queryIdByChatroomName(member1 + "_" + member2);
   }
+
   public void createChatroom(String type, int member1, int member2) {
     dao.insertChatroom(type, member1, member2);
   }
@@ -35,4 +36,7 @@ public class ChatroomService {
     return dao.queryExistChatroomByUser(id);
   }
 
+  public void changeCloseTime(int roomId, int time) {
+    dao.updateCloseTime(roomId, time);
+  }
 }
