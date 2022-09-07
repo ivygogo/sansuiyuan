@@ -1,6 +1,6 @@
 package tw.edu.ntut.sce.java18.common.model;
 
-public class FurniturePriceBeam {
+public class FurniturePriceBean {
   int id;
   String name;
   int price;

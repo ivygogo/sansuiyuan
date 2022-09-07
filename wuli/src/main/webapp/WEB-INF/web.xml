@@ -3,7 +3,7 @@
   version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
   <resource-ref>
-    <description>JNDI DataSource </description>
+    <description>JNDI DataSource</description>
     <res-ref-name>jdbc/wuliDataMySQL</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
@@ -17,6 +17,14 @@
       <secure>true</secure>
     </cookie-config>
   </session-config>
-</web-app>
 
+  <servlet>
+    <servlet-name>ChatroomServlet</servlet-name>
+    <servlet-class>tw.edu.ntut.sce.java18.common.controller.ChatroomServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChatroomServlet</servlet-name>
+    <url-pattern>/ChatroomServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
 
