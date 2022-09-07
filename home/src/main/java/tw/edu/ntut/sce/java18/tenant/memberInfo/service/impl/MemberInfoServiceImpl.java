@@ -4,48 +4,56 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import tw.edu.ntut.sce.java18.common.dao.impl.AvatarDaoImpl;
+import tw.edu.ntut.sce.java18.common.dao.impl.CharacterAndFavorDaoImpl;
+import tw.edu.ntut.sce.java18.common.dao.impl.MemberDaoImpl_jdbc;
 import tw.edu.ntut.sce.java18.common.model.AvatarBean;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.model.TenantBean;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.AvatarDaoImpl;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.CharacterAndFavorImpl;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.MemberDaoImpl_jdbc;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.TenantDaoImpl;
+import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.GuarantorDaoImpl;
+import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.RefundAccountDaoImpl;
+import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.TenantDaoImpl;
 import tw.edu.ntut.sce.java18.tenant.memberInfo.service.MemberInfoService;
 
 public class MemberInfoServiceImpl implements MemberInfoService {
   MemberDaoImpl_jdbc mbDao = new MemberDaoImpl_jdbc();
-  CharacterAndFavorImpl cfDao = new CharacterAndFavorImpl();
+  CharacterAndFavorDaoImpl cfDao = new CharacterAndFavorDaoImpl();
   AvatarDaoImpl avaDao = new AvatarDaoImpl();
   TenantDaoImpl tenantDao = new TenantDaoImpl();
+
   String level = "一般會員";
   String character = "";
   String favor = "";
   String avatarLink = "";
-  ArrayList<String> contract;
+  List<String> contract;
 
   public MemberInfoServiceImpl() {}
 
   @Override
   public MemberBean getMemberInfo(int uId) {
-    MemberBean mb = mbDao.queryMemberId(uId);
 
-    if (mb.getSchool().trim().length() == 0) {
-      mb.setSchool("無");
+    MemberBean member = mbDao.queryMemberByPrimaryKey(uId);
+    GuarantorDaoImpl guarantorDao = new GuarantorDaoImpl();
+    RefundAccountDaoImpl refundAccountDao = new RefundAccountDaoImpl();
+    if (member.getSchool().trim().length() == 0) {
+      member.setSchool("無");
     }
-    mb.setSignatureAll(getSignature(uId));
-    mb.setFavorStrAll(getFavor(uId));
-    mb.setLevel(getMemberLevel(uId));
-    mb.setAvatar(getAvatar(uId));
-    mb.setContract(getMemberContract(uId));
-    return mb;
+    member.setSignatureAll(getSignature(uId));
+    member.setFavorStrAll(getFavor(uId));
+    member.setLevel(getMemberLevel(uId));
+    member.setAvatar(getAvatar(uId));
+    member.setContract(getMemberContract(uId));
+    member.setGuarantor(guarantorDao.queryGuarantorByMemberId(uId));
+    //    member.setGuarantorList(guarantorDao.queryGuarantorByPrimaryKey(uId));
+    member.setRefundAccount(refundAccountDao.queryRefundAccountByMemberId(uId));
+    return member;
   }
 
   /*====用memberId來找個性標籤，組成字串後可以秀出字串====*/
   @Override
   public String getSignature(int uId) {
 
-    MemberBean mb = mbDao.queryMemberId(uId);
+    MemberBean mb = mbDao.queryMemberByPrimaryKey(uId);
     String tab1 = "";
     String tab2 = "";
     String tab3 = "";
@@ -53,19 +61,19 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     if (mb.getSignature_1() == null || mb.getSignature_1() < 1) {
       tab1 = "無";
     } else {
-      tab1 = cfDao.getCfContent(mb.getSignature_1());
+      tab1 = cfDao.queryCharacterAndFavorNameByPrimaryKey(mb.getSignature_1());
     }
 
     if (mb.getSignature_2() == null || mb.getSignature_2() < 1) {
       tab2 = "無";
     } else {
-      tab2 = cfDao.getCfContent(mb.getSignature_2());
+      tab2 = cfDao.queryCharacterAndFavorNameByPrimaryKey(mb.getSignature_2());
     }
 
     if (mb.getSignature_3() == null || mb.getSignature_3() < 1) {
       tab3 = "無";
     } else {
-      tab3 = cfDao.getCfContent(mb.getSignature_3());
+      tab3 = cfDao.queryCharacterAndFavorNameByPrimaryKey(mb.getSignature_3());
     }
 
     if (tab1.equals("無") && tab2.equals("無") && tab3.equals("無")) {
@@ -88,7 +96,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   @Override
   public String getFavor(int uId) {
 
-    MemberBean mb = mbDao.queryMemberId(uId);
+    MemberBean mb = mbDao.queryMemberByPrimaryKey(uId);
     String tab1 = "";
     String tab2 = "";
     String tab3 = "";
@@ -96,19 +104,19 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     if (mb.getFavor_1() == null || mb.getFavor_1() < 1) {
       tab1 = "無";
     } else {
-      tab1 = cfDao.getCfContent(mb.getFavor_1());
+      tab1 = cfDao.queryCharacterAndFavorNameByPrimaryKey(mb.getFavor_1());
     }
 
     if (mb.getFavor_2() == null || mb.getFavor_2() < 1) {
       tab2 = "無";
     } else {
-      tab2 = cfDao.getCfContent(mb.getFavor_2());
+      tab2 = cfDao.queryCharacterAndFavorNameByPrimaryKey(mb.getFavor_2());
     }
 
     if (mb.getFavor_3() == null || mb.getFavor_3() < 1) {
       tab3 = "無";
     } else {
-      tab3 = cfDao.getCfContent(mb.getFavor_3());
+      tab3 = cfDao.queryCharacterAndFavorNameByPrimaryKey(mb.getFavor_3());
     }
 
     if (tab1.equals("無") && tab2.equals("無") && tab3.equals("無")) {
@@ -131,13 +139,13 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   public String getAvatar(int uId) {
     AvatarBean ab = null;
 
-    MemberBean mb = mbDao.queryMemberId(uId);
+    MemberBean mb = mbDao.queryMemberByPrimaryKey(uId);
 
-    if (avaDao.idExists(mb.getPic())) {
-      ab = avaDao.queryAvatarById(mb.getPic());
+    if (avaDao.checkAvatarIdExists(mb.getPic())) {
+      ab = avaDao.queryAvatarByPrimaryKey(mb.getPic());
       avatarLink = ab.getAvatarName();
     } else {
-      avatarLink = "defaultPic.jpg";
+      avatarLink = "default.png";
     }
 
     return avatarLink;
@@ -173,7 +181,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 
   /*====用memberId來取得會員合約====*/
   @Override
-  public ArrayList<String> getMemberContract(int uId) {
+  public List<String> getMemberContract(int uId) {
     contract = new ArrayList<>();
 
     List<TenantBean> memContract = new ArrayList<>();
@@ -198,19 +206,18 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     List<String> characterList = cfDao.getAllCharacter(); // 取回所有的tag
     String characterTabs = getSignature(uId);
     if (characterTabs.equals("無")) {
-      for (String tabs : characterList) {
-        int i = 0;
+      for (int i = 0; i < characterList.size(); i++) {
+
         ans +=
             "<div class=\"form-check form-check-inline\">"
                 + "<input class=\"form-check-input\" type=\"checkbox\" name=\"myCharacter"
                 + (i + 1)
                 + "\" id=\"inlineCheckbox\" value=\""
-                + tabs
+                + characterList.get(i)
                 + "\">"
                 + "<label class=\"form-check-label mx-2\" for=\"inlineCheckbox\">"
-                + tabs
+                + characterList.get(i)
                 + "</label> </div>";
-        i++;
       }
       System.out.println("無");
     } else {
@@ -261,23 +268,24 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     List<String> favorList = cfDao.getAllFavor(); // 取回所有的tag
     String favorTabs = getFavor(uId);
     if (favorTabs.equals("無")) {
-      for (String tabs : favorList) {
-        int i = 0;
+      for (int i = 0; i < favorList.size(); i++) {
+
         ans +=
             "<div class=\"form-check form-check-inline\">"
                 + "<input class=\"form-check-input\" type=\"checkbox\" name=\"myFavor"
                 + (i + 1)
                 + "\" id=\"inlineCheckbox\" value=\""
-                + tabs
+                + favorList.get(i)
                 + "\">"
                 + "<label class=\"form-check-label mx-2\" for=\"inlineCheckbox\">"
-                + tabs
+                + favorList.get(i)
                 + "</label> </div>";
-        i++;
       }
       System.out.println("無");
     } else {
+
       List<String> favorTabsList = Arrays.asList(favorTabs.split("、"));
+
       for (int i = 0; i < favorList.size(); i++) {
         for (int j = 0; j < favorTabsList.size(); j++) {
           if (favorList.get(i).equals(favorTabsList.get(j))) {
@@ -321,7 +329,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     String ans = "";
     String[] genderType = {"male", "female", "nogender"};
     String[] genderStr = {"男生", "女生", "不公開"};
-    MemberBean mb = mbDao.queryMemberId(uId);
+    MemberBean mb = mbDao.queryMemberByPrimaryKey(uId);
     for (int i = 0; i < 3; i++) {
       if (i == mb.getGender()) {
         ans +=
@@ -347,9 +355,9 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   @Override
   public String getFindRoommateTag(int uId) {
     String ans = "";
-    String[] openType = {"on", "off"};
-    String[] openStr = {"開啟", "關閉"};
-    MemberBean mb = mbDao.queryMemberId(uId);
+    String[] openType = {"off", "on"};
+    String[] openStr = {"關閉", "開啟"};
+    MemberBean mb = mbDao.queryMemberByPrimaryKey(uId);
     for (int i = 0; i < 2; i++) {
       if (i == mb.getOpen_tag()) {
         ans +=
@@ -376,12 +384,55 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   public String getFindAvatarTag(int uId) {
     String ans = "";
     ans += "<div id=\"avatarBlock\">";
-    MemberBean mb = mbDao.queryMemberId(uId);
-    List<String> list = avaDao.queryAvatarByGender(mb.getGender()); // 取得所有的頭像(不含副檔名.png)
+    MemberBean mb = mbDao.queryMemberByPrimaryKey(uId);
+    List<String> list = avaDao.queryAvatarNameByGender(mb.getGender()); // 取得所有的頭像(不含副檔名.png)
     String dbAvatar = getAvatar(uId).replace(".png", "");
 
     int colNum = list.size() / 3;
     int col = 0;
+
+    if (colNum == 0) {
+      ans +=
+          "<div class=\"row mb-2\">\n"
+              + "<div class=\"col\" id=\"avatarId"
+              + (col + 1)
+              + "\" style=\"display: flex; justify-content: center;\">";
+      for (int i = col * 3; i < list.size(); i++) {
+
+        if (list.get(i).equals(dbAvatar)) {
+          ans +=
+              "<input type=\"radio\" name=\"avatarIcon\" class=\"advice\" value=\""
+                  + list.get(i)
+                  + "\" "
+                  + "id=\"adviceRadio"
+                  + (i + 1)
+                  + "\" checked hidden />"
+                  + "<label for=\"adviceRadio"
+                  + (i + 1)
+                  + "\" class=\"advice mx-2\" "
+                  + " style=\"background-image: url('images/avataricon/"
+                  + list.get(i)
+                  + ".png'); background-size: 100px 100px;\"></label>";
+
+        } else {
+          ans +=
+              "<input type=\"radio\" name=\"avatarIcon\" class=\"advice\" value=\""
+                  + list.get(i)
+                  + "\" "
+                  + "id=\"adviceRadio"
+                  + (i + 1)
+                  + "\"  hidden />"
+                  + "<label for=\"adviceRadio"
+                  + (i + 1)
+                  + "\" class=\"advice mx-2\" "
+                  + " style=\"background-image: url('images/avataricon/"
+                  + list.get(i)
+                  + ".png'); background-size: 100px 100px;\"></label>";
+        }
+      }
+      ans += "</div>\n" + "</div>";
+    }
+
     while (col < colNum) {
       ans +=
           "<div class=\"row mb-2\">\n"
@@ -436,8 +487,8 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     String ans = "";
     int selected = -1;
 
-    List<String> characterList = cfDao.getAllCharacter(); // 取回CF資料庫所有的個性標籤資料放入表單
-
+    // List<String> characterList = cfDao.getAllCharacter(); // 取回CF資料庫所有的個性標籤資料放入表單
+    List<String> characterList = cfDao.getCharacterOrFavorNameByType(1);
     if (characterTabs.equals("無")) {
       for (int i = 0; i < characterList.size(); i++) {
 
@@ -498,8 +549,8 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     String ans = "";
     int selected = -1;
 
-    List<String> favorList = cfDao.getAllFavor(); // 取回所有的tag
-
+    // List<String> favorList = cfDao.getAllFavor(); // 取回所有的tag
+    List<String> favorList = cfDao.getCharacterOrFavorNameByType(2);
     if (favorTabs.equals("無")) {
       for (int i = 0; i < favorList.size(); i++) {
         ans +=
@@ -616,7 +667,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   public String getFindAvatarTempTag(String avartar, int gender) {
     String ans = "";
     ans += "<div id=\"avatarBlock\">";
-    List<String> list = avaDao.queryAvatarByGender(gender); // 取得所有的頭像(不含副檔名.png)
+    List<String> list = avaDao.queryAvatarNameByGender(gender); // 取得所有的頭像(不含副檔名.png)
 
     int colNum = list.size() / 3;
     int col = 0;
@@ -668,7 +719,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 
   @Override
   public int getAvatarId(String avatarName) {
-    int avatarUid = avaDao.queryAvatarByName(avatarName);
+    int avatarUid = avaDao.queryAvatarIdByName(avatarName);
     return avatarUid;
   }
 
@@ -679,12 +730,18 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   }
 
   public String getAllAvatarByGender(int gender) {
-    List<String> list = avaDao.queryAvatarByGender(gender);
+    List<String> list = avaDao.queryAvatarNameByGender(gender);
     String ans = "";
     for (int i = 0; i < list.size(); i++) {
       ans += list.get(i) + ",";
     }
     return ans;
+  }
+
+  @Override
+  public int getCharacterOrFavorIdByNameAndType(String name, int type) {
+    int characterOrFavorId = cfDao.getCharacterOrFavorIdByNameAndType(name, type);
+    return characterOrFavorId;
   }
 
   @Override
@@ -696,7 +753,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   @Override
   public int getFavorId(String name) {
     int favorId = cfDao.getFavorId(name);
-    return 0;
+    return favorId;
   }
 
   @Override

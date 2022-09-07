@@ -1,20 +1,17 @@
 package tw.edu.ntut.sce.java18.common.dao;
 
-import java.sql.Connection;
 import java.util.List;
 import tw.edu.ntut.sce.java18.common.model.AvatarBean;
 
 public interface AvatarDao {
 
-  boolean idExists(int uid);
+  boolean checkAvatarIdExists(int id);
 
-  int saveAvatar(AvatarBean ab);
+  int saveAvatar(AvatarBean avatar); // 要修改
 
-  AvatarBean queryAvatarById(int uid);
+  AvatarBean queryAvatarByPrimaryKey(int id); // 要修改
 
-  int queryAvatarByName(String avatarName);
+  int queryAvatarIdByName(String avatarName); // queryAvatarIdByName
 
-  List<String> queryAvatarByGender(int genderId);
-
-  void setConnection(Connection con);
+  List<String> queryAvatarNameByGender(int genderId); // queryAvatarNameByName
 }

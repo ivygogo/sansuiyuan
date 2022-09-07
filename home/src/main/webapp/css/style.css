@@ -275,6 +275,31 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 	color: #fff;
 }
 
+/*----按鈕 0824-----*/
+.btntable {
+  font-size: 16px;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.btntable.btn-table {
+  font-size: 22px;
+  background: #37cfa2;
+  border-color: #37cfa2;
+  color: #fff;
+}
+
+.btntable.btn-table:hover {
+  background: #343a40;
+  color: #fff;
+  border-color: #343a40;
+}
+
+.btntable.btn-table.btn-black--hover:hover {
+  background: #666666;
+  color: #fff;
+}
+
 .line-height-1 {
 	line-height: 1 !important;
 }

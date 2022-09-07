@@ -6,11 +6,11 @@ import java.sql.Timestamp;
 public class RefundAccountBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  Integer uId;
+  Integer id;
   Integer member_id;
   String refundBank;
   String bankStore;
-  String phone;
+  String bankAccount;
   String refundName;
   Timestamp create_time;
   Timestamp update_time;
@@ -21,20 +21,20 @@ public class RefundAccountBean implements Serializable {
 
   /* ====== 建構子 ======*/
   public RefundAccountBean(
-      Integer uId,
+      Integer id,
       Integer member_id,
       String refundBank,
       String bankStore,
-      String phone,
+      String bankAccount,
       String refundName,
       Timestamp create_time,
       Timestamp update_time) {
     super();
-    this.uId = uId;
+    this.id = id;
     this.member_id = member_id;
     this.refundBank = refundBank;
     this.bankStore = bankStore;
-    this.phone = phone;
+    this.bankAccount = bankAccount;
     this.refundName = refundName;
     this.create_time = create_time;
     this.update_time = update_time;
@@ -45,8 +45,8 @@ public class RefundAccountBean implements Serializable {
     return serialVersionUID;
   }
 
-  public Integer getuId() {
-    return uId;
+  public Integer getId() {
+    return id;
   }
 
   public Integer getMember_id() {
@@ -61,8 +61,8 @@ public class RefundAccountBean implements Serializable {
     return bankStore;
   }
 
-  public String getPhone() {
-    return phone;
+  public String getBankAccount() {
+    return bankAccount;
   }
 
   public String getRefundName() {
@@ -78,8 +78,8 @@ public class RefundAccountBean implements Serializable {
   }
 
   /* ====== setter ======*/
-  public void setuId(Integer uId) {
-    this.uId = uId;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public void setMember_id(Integer member_id) {
@@ -94,8 +94,8 @@ public class RefundAccountBean implements Serializable {
     this.bankStore = bankStore;
   }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
+  public void setBankAccount(String bankAccount) {
+    this.bankAccount = bankAccount;
   }
 
   public void setRefundName(String refundName) {

@@ -7,7 +7,7 @@ public class AvatarBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  Integer uId;
+  Integer id;
   String avatarName;
   Integer genderType;
   Integer isShow;
@@ -17,14 +17,14 @@ public class AvatarBean implements Serializable {
   public AvatarBean() {}
 
   public AvatarBean(
-      Integer uId,
+      Integer id,
       String avatarName,
       Integer genderType,
       Integer isShow,
       Timestamp createtime,
       Timestamp updatetime) {
     super();
-    this.uId = uId;
+    this.id = id;
     this.avatarName = avatarName;
     this.genderType = genderType;
     this.isShow = isShow;
@@ -37,8 +37,8 @@ public class AvatarBean implements Serializable {
     return serialVersionUID;
   }
 
-  public Integer getUId() {
-    return uId;
+  public Integer getId() {
+    return id;
   }
 
   public String getAvatarName() {
@@ -61,8 +61,8 @@ public class AvatarBean implements Serializable {
     return updatetime;
   }
   /* ====== setter ======*/
-  public void setUId(Integer uId) {
-    this.uId = uId;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public void setAvatarName(String avatarName) {

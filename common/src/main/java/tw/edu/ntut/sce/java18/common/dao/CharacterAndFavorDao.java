@@ -1,25 +1,26 @@
 package tw.edu.ntut.sce.java18.common.dao;
 
-import java.sql.Connection;
 import java.util.List;
 import tw.edu.ntut.sce.java18.common.model.CharacterAndFavorBean;
 
 public interface CharacterAndFavorDao {
-  boolean idExists(int id);
+  boolean checkCharacterAndFavorIdExists(int id); // 改id
 
-  int saveCf(CharacterAndFavorBean cfb);
+  int save(CharacterAndFavorBean characterandfavor); // save
 
-  CharacterAndFavorBean queryCf(int id);
+  CharacterAndFavorBean queryCharacterAndFavorByPrimaryKey(int id);
 
-  String getCfContent(int uId);
+  String queryCharacterAndFavorNameByPrimaryKey(int id); // getCfName
 
-  void setConnection(Connection conn);
-
-  List<String> getAllCharacter();
+  List<String> getAllCharacter(); // 跟下面合併
 
   List<String> getAllFavor();
 
-  int getSignatureId(String name);
+  List<String> getCharacterOrFavorNameByType(int type);
+
+  int getSignatureId(String name); // 跟下面合併
 
   int getFavorId(String name);
+
+  int getCharacterOrFavorIdByNameAndType(String name, int type);
 }

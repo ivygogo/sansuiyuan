@@ -1,0 +1,24 @@
+body { 
+  background-color: #eee;
+  font-family: verdana;
+  font-size: 15pt;
+}
+form {
+	border: solid 1px;
+}
+#submit{
+	background-color: orange;
+}
+select{
+	width:170px;
+}
+
+#booklist{
+	text-align: center;
+	border: solid 1px lightgreen;
+	background-color: white;
+}
+#memo {
+	text-align: left;
+	left: 20%;
+}
