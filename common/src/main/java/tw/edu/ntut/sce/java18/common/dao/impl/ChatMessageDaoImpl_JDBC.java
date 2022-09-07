@@ -96,8 +96,7 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
       preparedStatement.setInt(2, userId);
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         if (resultSet.next()) {
-          int unReadCount = resultSet.getInt("COUNT(*)");
-          return unReadCount;
+          return resultSet.getInt("COUNT(*)");
         }
         return 0;
       }
@@ -111,7 +110,8 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
   @Override
   public void updateUnReadStatus(int roomId, int userId) {
     String sql =
-        "UPDATE chat_message SET isRead = 1 WHERE chatroom_Id = ? AND isRead = FALSE AND Receiver  = ?";
+        "UPDATE chat_message SET isRead = 1 WHERE chatroom_Id = ? "
+            + "AND isRead = FALSE AND Receiver  = ?";
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
@@ -130,7 +130,8 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
     ChatMessageBean chatMessageBean = new ChatMessageBean();
 
     String sql =
-        "SELECT Sender, Receiver, Content, Send_Time FROM  chat_message WHERE Chatroom_Id = ? ORDER BY id DESC LIMIT 1";
+        "SELECT Sender, Receiver, Content, Send_Time FROM chat_message WHERE Chatroom_Id = ? "
+            + "ORDER BY id DESC LIMIT 1";
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
