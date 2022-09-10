@@ -88,6 +88,7 @@ $(function () {
         roomItemDesk.html(roomType.desk)
         const roomItemSideTable = $('#room-item-sideTable')
         roomItemSideTable.html(roomType.sideTable)
+        $('#room-item-chair').html(roomType.chair)
 
         roomItemBed.html(roomType.bed)
         roomItemSideTable.html(roomType.sideTable)

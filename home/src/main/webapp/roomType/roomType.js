@@ -9,7 +9,6 @@ $(function () {
 
     $.getJSON('/home/common/RoomTypeServlet', type, function (res) {
       const roomType = res;
-
       $('#room-type-title').text(roomType.name)
       $('#room-type-price').text(roomType.price + " 元 / 月")
       $('#room-type-rest').text(roomType.rest)
@@ -40,6 +39,7 @@ $(function () {
       const roomItemSideTable = $('#room-item-sideTable')
       roomItemSideTable.html(roomType.sideTable)
       $('#room-item-wardrobe').html(roomType.wardrobe)
+      $('#room-item-chair').html(roomType.chair)
 
       if (roomItemBed.text().includes('雙人床')) {
         roomItemBed.attr('title', '5呎 * 6.2呎')
@@ -61,22 +61,22 @@ $(function () {
         const $imgBlock = $('#img-slide-block')
         let picNum = 0
         return roomType.pics.forEach(roomTypePic => {
-          if (picNum === 0) {
-            const $imgSlide = $(document.createElement("div")).addClass(
-              "carousel-item").addClass("active")
-            const $storeImg = $(document.createElement("img")).attr("src",
-              "./images/roomtype/" + roomTypePic).attr("alt",
-              "don't find pic").addClass(
-              "container-fluid").addClass("img-height")
-            $imgSlide.append($storeImg).appendTo($imgBlock)
-            picNum++
-          } else {
-            const $imgSlide = $(document.createElement("div")).addClass(
-              "carousel-item")
-            const $storeImg = $(document.createElement("img")).attr("src",
-              "./images/roomtype/" + roomTypePic).attr("alt",
-              "we can't find this picture,check location").addClass(
-              "container-fluid").addClass("img-height").addClass("d-block");
+            if (picNum === 0) {
+              const $imgSlide = $(document.createElement("div")).addClass(
+                "carousel-item").addClass("active")
+              const $storeImg = $(document.createElement("img")).attr("src",
+                "./images/roomtype/" + roomTypePic).attr("alt",
+                "don't find pic").addClass(
+                "container-fluid").addClass("img-height")
+              $imgSlide.append($storeImg).appendTo($imgBlock)
+              picNum++
+            } else {
+              const $imgSlide = $(document.createElement("div")).addClass(
+                "carousel-item")
+              const $storeImg = $(document.createElement("img")).attr("src",
+                "./images/roomtype/" + roomTypePic).attr("alt",
+                "we can't find this picture,check location").addClass(
+                "container-fluid").addClass("img-height").addClass("d-block");
               $imgSlide.append($storeImg).appendTo($imgBlock)
             }
           }
@@ -93,16 +93,29 @@ $(function () {
     $('#img-slide-block').html("")
     index = (index - 1 + roomTypesCount) % roomTypesCount
     renderFeature()
+    $('#createBooking')[0].click()
+
   })
 
   $('#next-room-type').click(function () {
     $('#img-slide-block').html("")
     index = (index + 1 + roomTypesCount) % roomTypesCount
     renderFeature()
+    $('#createBooking')[0].click()
   })
 
   $('#createBooking').click(function () {
-    alert("booking!!!!!")
+    //todo 確認是否有登入
+    $('#move-to-bookingJsp')[0].click()
+
+    if ($('#createBooking').text().includes("取消")) {
+      $('#createBooking').text("我要預約")
+      $('#formDialogDiv').addClass('d-none')
+    } else {
+      $('#booking-room-type').val($('#room-type-title')[0].textContent)
+      $('#createBooking').text("取消")
+      $('#formDialogDiv').removeClass('d-none')
+    }
 
   })
 })
