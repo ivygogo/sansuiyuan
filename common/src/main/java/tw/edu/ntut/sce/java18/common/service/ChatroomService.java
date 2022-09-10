@@ -11,12 +11,16 @@ public class ChatroomService {
     dao = new ChatroomDaoImpl_JDBC();
   }
 
-  public int isExist(int member1, int member2) {
-    return dao.queryIdByChatroomName(member1 + "_" + member2);
+  public int isExist(int member1, int member2, String chatroomType) {
+    return dao.queryIdByChatroomName(member1 + "_" + member2, chatroomType);
   }
 
   public void createChatroom(String type, int member1, int member2) {
     dao.insertChatroom(type, member1, member2);
+  }
+
+  public int getChatroomId(String chatroomName, String chatType) {
+    return dao.queryIdByChatroomName(chatroomName, chatType);
   }
 
   public int getChatroomId(String chatroomName) {

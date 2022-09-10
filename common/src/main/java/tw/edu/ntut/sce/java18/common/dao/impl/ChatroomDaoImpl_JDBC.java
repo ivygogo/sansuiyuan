@@ -27,8 +27,28 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
+  public int queryIdByChatroomName(String chatroomName, String chatroomType) {
+    String sql = "SELECT Id FROM chatroom WHERE CONCAT(member1,\"_\",member2) = ? And Chat_type =?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setString(1, chatroomName);
+      preparedStatement.setString(2, chatroomType);
+
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+          return resultSet.getInt("Id");
+        }
+        return -1;
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
+    }
+  }
+
+  @Override
   public int queryIdByChatroomName(String chatroomName) {
-    String sql = "SELECT Id FROM chatroom WHERE CONCAT(member1,\"_\",member2) = ? ";
+    String sql = "SELECT Id FROM chatroom WHERE CONCAT(member1,\"_\",member2) = ?";
     try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setString(1, chatroomName);
@@ -116,6 +136,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
       throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
     }
   }
+
 
   public String queryChatroomNameById(int chatroomId) {
     String sql = "SELECT  CONCAT(member1,\"_\",member2) chatroomName FROM chatroom WHERE Id = ?";

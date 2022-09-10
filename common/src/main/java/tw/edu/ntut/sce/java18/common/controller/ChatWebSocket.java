@@ -13,7 +13,6 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import tw.edu.ntut.sce.java18.common.model.ChatMessageServiceBean;
 import tw.edu.ntut.sce.java18.common.service.ChatMessageService;
-import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.common.utils.MessageDecoder;
 import tw.edu.ntut.sce.java18.common.utils.MessageEncoder;
 
@@ -55,15 +54,6 @@ public class ChatWebSocket {
 
     clients.put(username, webSocketMap);
 
-    var chatroom = new ChatroomService();
-    // 這段之後會抽出去
-    if (chatroom.isExist(memberS, memberL) != -1) {
-      System.out.println("this chatroom is exist");
-    } else {
-      System.out.println("ready to create new chatroom");
-      chatroom.createChatroom(type, memberS, memberL);
-      System.out.println("new chatroom " + memberS + "_" + memberL + " is created");
-    }
   }
 
   @OnMessage

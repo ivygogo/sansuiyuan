@@ -6,9 +6,11 @@ public interface ChatroomDao {
 
   void insertChatroom(String type, int member1, int member2);
 
-  int queryIdByChatroomName(String chatroomName);
-
   String queryChatroomNameById(int chatroomId);
+
+  int queryIdByChatroomName(String chatroomName, String chatroomType);
+
+  int queryIdByChatroomName(String chatroomName);
 
   ArrayList<ArrayList> queryExistChatroomByUser(int member);
 
