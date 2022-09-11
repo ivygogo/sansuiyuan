@@ -9,8 +9,8 @@
 			'districtSel' : `${TempDistrict2}`,
 			zipcodeIntoDistrict : true,
 			css : [ "county form-control", "district form-control" ],
-			countyName : "county2", // 自訂城市 select 標籤的 name 值
-			districtName : "district2", // 自訂區別 select 標籤的 name 值
+			countyName : "county2", 
+			districtName : "district2",
 			onCountySelect : changecb,
 			onDistrictSelect : changecb
 		});
@@ -22,19 +22,14 @@
 		el[1].id = "inputState4";
 
 		function changecb() {
-			// 取得縣市 county（返回字串）
 			var county = $('#myzip').twzipcode('get', 'county2');
 			var district = $('#myzip').twzipcode('get', 'district2');
-			//var result = $('#zipzip').twzipcode('get', 'county,district'); // 以 , 字串傳入
-			//console.log(county);
-			//console.log(district);
 		}
 	});
 	
 	$(function() {
       county1 = $('#myzip').twzipcode('get', 'county');
       district1 = $('#myzip').twzipcode('get', 'district');
-      //console.log(county);
       if(county1[0].length==0||district1[0].length==0){
 
           var oldChild = document.getElementById('inputState3');
@@ -84,14 +79,8 @@
       }
     })
 	
-	
-	
-	
-	
-	
-	
-	
 </script>
+
 <div class="row mb-1 mt-5 ml-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
@@ -215,11 +204,11 @@
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">&nbsp;</h6>
 					<c:choose>
-            <c:when test="${ErrMsg.errAaddress!=null}">
+            <c:when test="${ErrMsg.errAddress!=null}">
               <input type="text" id="fname"
                 class="form-control col-12 mx-4 is-invalid"
                 name="guarantorAddress" value="${param.guarantorAddress}" required>
-              <div class="invalid-feedback mx-4">${ErrMsg.errAaddress}</div>
+              <div class="invalid-feedback mx-4">${ErrMsg.errAddress}</div>
             </c:when>
 
             <c:otherwise>

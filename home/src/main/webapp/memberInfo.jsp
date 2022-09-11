@@ -1,14 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <% String editState = request.getParameter("edit");
-System.out.print("editState"+editState);
+//System.out.print("editState"+editState);
 if (editState!=null&&editState.equals("drop")){
 request.setAttribute("guarantorIsInvalid", false);
 request.setAttribute("isInvalid", false);
 request.setAttribute("RefundIsInvalid", false);
 
-System.out.print("editState:::::"+editState);
+//System.out.print("editState:::::"+editState);
 }
 %>
 <!-- 
@@ -92,7 +93,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     	  checkContentTab=checkTab+"-tab"
     	  checkAllTab= "#myTabs a[href=\" "+ checkTab + "\"]"
     	  checkPass ='${checkErr}';
-    	  alert(checkPage);
+    	  //alert(checkPage);
     	  
     	  
     	  if (checkPage ==="myinfo"||checkPage.length==0){
@@ -117,7 +118,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     	  
           function updateMemberinfo(){
                   innerPage = "editMemberinfo";
-                  alert("editMemberinfo")
+                  //alert("editMemberinfo")
                   if(innerPage =="editMemberinfo"){
                      $('#myinfo').html("");
                      $('#myinfo').load('memberPage/editMemberInfo.jsp');
@@ -138,7 +139,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     	   var qs = document.querySelector("form");
     	   //alert(qs)
     	   if(qs!=null){
-    		   alert(qs)
+    		   //alert(qs)
     		   var con;
            con=confirm("你確認要放棄未填寫完成的表單嗎?");
            if(con==true){
@@ -169,7 +170,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     	  var qs = document.querySelector("form");
           //alert(qs)
           if(qs!=null){
-            alert(qs)
+            //alert(qs)
             var con;
             con=confirm("你確認要放棄未填寫完成的表單嗎?");
             if(con==true){
@@ -199,7 +200,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
       innerPage ="";
       function updateMemberinfo(){
               innerPage = "editMemberinfo";
-              alert("editMemberinfo")
+              //alert("editMemberinfo")
               if(innerPage =="editMemberinfo"){
                  $('#home').html("");
                  $('#home').load('memberPage/editMemberInfo.jsp');
@@ -244,34 +245,19 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
       
       
       function dropForm(){
-    	 //$('#home').html("")
+    	 <%--$('#home').html("")
         // $('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
     	  //$('#profile').html("")
-        // $('#profile').load('memberPage/showContractInfo.jsp?edit=drop');
+        // $('#profile').load('memberPage/showContractInfo.jsp?edit=drop');--%>
     	  document.location.href="/home/MemberInfo.do"
-         /*$("html,body").animate(
+    		<%--$("html,body").animate(
         		    {
         		      scrollTop: 0,
         		    },
         		    600
         		  );
-         //location.reload();*/
+         //location.reload();--%>
       }
-      
-      /*window.onload = function() {
-          window.addEventListener("beforeunload", function (e) {
-        	  var qs = document.querySelector("form");
-              if (qs==null) {
-                  return undefined;
-              }
-
-              var confirmationMessage = 'It looks like you have been editing something. '
-                                      + 'If you leave before saving, your changes will be lost.';
-
-              (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-              return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-          });
-      };*/
      </script>
 </head>
 
@@ -288,17 +274,14 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 			<div class="site-mobile-menu-body"></div>
 		</div>
 
-		<!-- 下列敘述設定變數funcName的值為SHO，topMVC.jsp 會用到此變數 -->
-
-
-		<!-- 選單 -->
+		<%--選單--%>
 		<jsp:include page="fragment/menu_content.jsp" />
 
 
-		<!-- 內容開始  -->
+		<%--內容開始--%>
 		<section class="login-block">
 			<div class="container mt-5 mb-5">
-				<!--標題-->
+				<%--標題--%>
 				<div class="row mb-1 mt-5">
 					<div class="col-md-7 text-left">
 						<h2 class="section-title mb-3" id="myTitle">會員專區 ${myPage}</h2>
@@ -306,7 +289,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 					</div>
 				</div>
 
-				<!--tabs-->
+				<%--tabs--%>
 				<ul class="nav nav-tabs" id="myTabs" role="tablist">
 					<li class="nav-item" role="presentation">
 						<button class="nav-link" id="home-tab" data-bs-toggle="tab"
@@ -315,131 +298,62 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 							data-target="">基本資訊</button>
 					</li>
 					<li class="nav-item mx-2" role="presentation"><button
-						class="nav-link" id="profile-tab" data-bs-toggle="tab"
-						data-bs-target="#profile" type="button" role="tab"
-						aria-controls="profile" aria-selected="false" data-toggle=""
-						data-target="">契約簽訂資訊</button></li>
-
-					<%--<li class="nav-item" role="presentation">
-            <a class="nav-link" id="contact-tab" data-bs-toggle="tab"
-              data-bs-target="#contact" type="button" role="tab"
-              aria-controls="contact" aria-selected="true" data-toggle="" data-target="">Contact</a>
-          </li>
-          --%>
+							class="nav-link" id="profile-tab" data-bs-toggle="tab"
+							data-bs-target="#profile" type="button" role="tab"
+							aria-controls="profile" aria-selected="false" data-toggle=""
+							data-target="">契約簽訂資訊</button></li>
 
 				</ul>
 				<div class="tab-content" id="myTabContent">
-		<!--分頁1-->
+					<%--分頁1--%>
 					<div class="tab-pane fade  " id="home" role="tabpanel"
 						aria-labelledby="home-tab">
 
 						<c:choose>
 							<c:when test="${isInvalid==true}">
-								<jsp:include page="memberPage/validMemberInfo.jsp" flush="true"/>
-								<%-- include file="memberPage/validMemberInfo.jsp" --%>
+								<jsp:include page="memberPage/validMemberInfo.jsp" flush="true" />
 							</c:when>
 							<c:otherwise>
 								<jsp:include page="memberPage/showMemberInfo.jsp" flush="true" />
-             ${checkErr}
-             </c:otherwise>
+							</c:otherwise>
 						</c:choose>
 
 					</div>
-		<!--分頁2-->
+					<!--分頁2-->
 					<div class="tab-pane fade" id="profile" role="tabpanel"
 						aria-labelledby="profile-tab">
 						<c:choose>
-              <c:when test="${guarantorIsInvalid==true}">
-                <jsp:include page="memberPage/validContractInfo.jsp" flush="true"/>
-                <%-- include file="memberPage/validMemberInfo.jsp" --%>
-              </c:when>
-              <c:when test="${RefundIsInvalid==true}">
-                <jsp:include page="memberPage/validRefundInfo.jsp" flush="true"/>
-                <%-- include file="memberPage/validMemberInfo.jsp" --%>
-              </c:when>
-              <c:otherwise>
-                <jsp:include page="memberPage/showContractInfo.jsp" flush="true" />
+							<c:when test="${guarantorIsInvalid==true}">
+								<jsp:include page="memberPage/validContractInfo.jsp"
+									flush="true" />
+								<%-- include file="memberPage/validMemberInfo.jsp" --%>
+							</c:when>
+							<c:when test="${RefundIsInvalid==true}">
+								<jsp:include page="memberPage/validRefundInfo.jsp" flush="true" />
+								<%-- include file="memberPage/validMemberInfo.jsp" --%>
+							</c:when>
+							<c:otherwise>
+								<jsp:include page="memberPage/showContractInfo.jsp" flush="true" />
              ${checkErr}
              </c:otherwise>
-            </c:choose>
-						
+						</c:choose>
+
 					</div>
 
-
-		<!--分頁3-->
-
+					<%--分頁3--%>
 					<div class="tab-pane fade" id="contact" role="tabpanel"
-						aria-labelledby="contact-tab">
-						<%--@ include file="memberPage/editTest.jsp"--%>
-
-<%--
-						<c:choose>
-							<c:when test="${checkErr==1}">
-								<jsp:include page="memberPage/editTest.jsp" />
-
-
-							</c:when>
-							<c:otherwise>
-								<jsp:include page="memberPage/ShowTest.jsp" />
-             ${checkErr}
-             </c:otherwise>
-						</c:choose>
-
-
-						 
-						<c:choose>
-							<c:when test="${ErrMsg!=null}">
-								<%@ include file="memberPage/editTest.jsp"%>
-							</c:when>
-							<c:otherwise>
-								<%@ include file="memberPage/editTest.jsp"%>
-						 ${ErrMsg}
-						 </c:otherwise>
-						</c:choose>
-				--%>		
-					</div>
+						aria-labelledby="contact-tab"></div>
 
 				</div>
-				<!-- id="myTabContent" -->
+
 			</div>
 	</div>
 	</section>
 
-
-	<%-- 
-<!-- 魔豆 -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h4 class="modal-title" id="myModalLabel">
-          注意
-        </h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          &times;
-        </button>
-        
-      </div>
-      <div class="modal-body">
-        是否要放棄本次儲存
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="modalNO">取消放棄
-        </button>
-        <button type="button" class="btn btn-primary" id="modalOK">
-          確定放棄
-        </button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
-<!-- 魔豆 -->
---%>
-
+	<%--footer --%>
 	<jsp:include page="fragment/footer.jsp" />
 
-	<!-- .site-wrap -->
-
+	<%--.site-wrap --%>
 	<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
 
 

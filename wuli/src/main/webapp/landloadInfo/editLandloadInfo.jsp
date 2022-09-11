@@ -8,7 +8,7 @@ landloadCounty="";
 landloadDistrict="";
 
 $.getJSON('LandloadInfo.do').then(res => {    
-    //console.log(res);
+    <%--console.log(res);--%>
     $("input[name='landloadName']").val(res.resultData.name);
     $("input[name='landloadPhone']").val(res.resultData.phone);
     landloadCounty += res.resultData.county;
@@ -35,11 +35,8 @@ $(function(){
 	document.getElementById('upload_img').onchange = fileChange
 	function fileChange(){
 	     let file = document.getElementById('upload_img').files[0]
-	     // console.log(file);
-	     //let message = `${file.name}`;
 	     message = file.name
 	     document.getElementById('desc').textContent = message;
-	     //alert(message)
 	 }
 	 
 	
@@ -72,8 +69,8 @@ $(function() {
           'districtSel' : "" ,
           zipcodeIntoDistrict : true,
           css : [ "county form-control", "district form-control" ],
-          countyName : "county", // 自訂城市 select 標籤的 name 值
-          districtName : "district", // 自訂區別 select 標籤的 name 值
+          countyName : "county", 
+          districtName : "district",
           onCountySelect : changecb,
           onDistrictSelect : changecb
         });
@@ -85,42 +82,28 @@ $(function() {
         el[1].id = "inputState2";
 
         function changecb() {
-          // 取得縣市 county（返回字串）
           var county = $('#zipzip').twzipcode('get', 'county');
           var district = $('#zipzip').twzipcode('get', 'district');
-          //var result = $('#zipzip').twzipcode('get', 'county,district'); // 以 , 字串傳入
-          //console.log(county);
           $('.selectpicker').selectpicker('refresh');
-          //console.log(district);
         }
       });
      
   $(function() {
       var oldChild = document.getElementById('inputState');
-      
       var wrapper = document.createElement('div');
       wrapper.className = "col-lg-3 col-md-6 col-sm-6 col-xs-12"
-      
       var wrapper2 = document.createElement('div');
       wrapper2.className = "bootstrap-select fm-cmp-mg pt-2"
-      
       var oldParent = document.getElementById('zipzip');
-      
       oldParent.appendChild(wrapper);
       wrapper.appendChild(wrapper2);
       wrapper2.appendChild(oldChild);
       
-      
       var oldChild2 = document.getElementById('inputState2');
       var wrapper3 = document.createElement('div');
       wrapper3.className = "col-lg-3 col-md-6 col-sm-6 col-xs-12";
-      
-      
       var wrapper4 = document.createElement('div');
       wrapper4.className = "bootstrap-select fm-cmp-mg pt-2";
-      
-      
-      
       oldParent.appendChild(wrapper3);
       wrapper3.appendChild(wrapper4);
       wrapper4.appendChild(oldChild2);
@@ -158,8 +141,8 @@ $(function() {
 			</div>
 		</div>
 	</div>
-	<!-- Breadcomb area End-->
-	<!-- Form Examples area start-->
+	<%--Breadcomb area End--%>
+	<%--Form Examples area start--%>
 	<form action="<c:url value="/LandloadInfo.do"/>" method="post" class=""
 		enctype="multipart/form-data">
 		<div class="form-element-area">

@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
+package tw.edu.ntut.sce.java18.common.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +9,9 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import tw.edu.ntut.sce.java18.common.dao.AvatarDao;
 import tw.edu.ntut.sce.java18.common.model.AvatarBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.AvatarDao;
 
 public class AvatarDaoImpl implements AvatarDao {
   private DataSource ds = null;

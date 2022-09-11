@@ -74,8 +74,8 @@ $(function() {
           'districtSel' : landloadDistrict,
           zipcodeIntoDistrict : true,
           css : [ "county form-control", "district form-control" ],
-          countyName : "county", // 自訂城市 select 標籤的 name 值
-          districtName : "district", // 自訂區別 select 標籤的 name 值
+          countyName : "county", 
+          districtName : "district", 
           onCountySelect : changecb,
           onDistrictSelect : changecb
         });
@@ -87,13 +87,9 @@ $(function() {
         el[1].id = "inputState2";
 
         function changecb() {
-          // 取得縣市 county（返回字串）
           var county = $('#zipzip').twzipcode('get', 'county');
           var district = $('#zipzip').twzipcode('get', 'district');
-          //var result = $('#zipzip').twzipcode('get', 'county,district'); // 以 , 字串傳入
-          //console.log(county);
           $('.selectpicker').selectpicker('refresh');
-          //console.log(district);
         }
       });
      
@@ -133,7 +129,6 @@ $(function() {
 $(function(){
 	if(resultJson.length!=0){
 	const objErr = JSON.parse(errJson);
-	//alert(objErr)
 	arr = Object.keys(objErr)
 	for (let i=0 ; i<arr.length; i++){
 	  if(arr[i]==="errLandloadName") {
@@ -148,7 +143,6 @@ $(function(){
 	      $("#errLandloadAddress").html(objErr.errLandloadAddress);
 	  }else if (arr[i]==="errLandloadMail"){
 	      $("#errLandloadMail").prev().attr("class","nk-int-st-invalid");
-	        //alert($("#errLandloadMail").prev());
 	        $("#errLandloadMail").html(objErr.errLandloadMail);
 	    }
 	}
@@ -184,8 +178,8 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<!-- Breadcomb area End-->
-	<!-- Form Examples area start-->
+	<%-- Breadcomb area End--%>
+	<%-- Form Examples area start--%>
 	<form action="<c:url value="/LandloadInfo.do"/>" method="post" class=""
 		enctype="multipart/form-data">
 		<div class="form-element-area">
@@ -202,8 +196,8 @@ $(function(){
 									<div class="form-group">
 										<div class="nk-int-st">
 											<input type="text" name="landloadName"
-												class="form-control input-lg invalid" placeholder="請輸入公司名稱 " >
-												
+												class="form-control input-lg invalid" placeholder="請輸入公司名稱 ">
+
 										</div>
 										<div class="invalid-feedback mx-1 my-2" id="errLandloadName"></div>
 									</div>
@@ -216,7 +210,7 @@ $(function(){
 									<div class="form-group">
 										<div class="nk-int-st">
 											<input type="text" name="landloadPhone"
-												class="form-control input-lg " placeholder="請輸入公司代表手機電話" >
+												class="form-control input-lg " placeholder="請輸入公司代表手機電話">
 										</div>
 										<div class="invalid-feedback mx-1 my-2" id="errLandloadPhone"></div>
 									</div>
@@ -237,14 +231,14 @@ $(function(){
 											<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 												<div class="form-group me-5">
 													<div class="nk-int-st">
-														<input type="text" name="landloadAddress"  class="form-control input-lg "
-															placeholder="請輸入公司地址" >
+														<input type="text" name="landloadAddress"
+															class="form-control input-lg " placeholder="請輸入公司地址">
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-                  <div class="invalid-feedback mx-1 mb-4" id="errLandloadAddress"></div>
+									<div class="invalid-feedback mx-1 mb-4" id="errLandloadAddress"></div>
 
 								</div>
 							</div>
@@ -254,7 +248,8 @@ $(function(){
 									<h4 class="text-black">信箱</h4>
 									<div class="form-group ">
 										<div class="nk-int-st">
-											<input type="email" name="landloadMail" class="form-control input-lg" placeholder="請輸入信箱" >
+											<input type="email" name="landloadMail"
+												class="form-control input-lg" placeholder="請輸入信箱">
 										</div>
 										<div class="invalid-feedback mx-1 my-2" id="errLandloadMail"></div>
 									</div>
@@ -270,7 +265,7 @@ $(function(){
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 imgShow"
 													id="landlordStamp">
 													<img class="preview my-2" id="preview"
-														style="max-height: 280px; display:block; margin:auto;">
+														style="max-height: 280px; display: block; margin: auto;">
 												</div>
 											</div>
 											<div class="row mx-1 my-3">
@@ -284,7 +279,8 @@ $(function(){
 											<div class="btn-group images-cropper-pro">
 												<label class="btn btn-edit img-cropper-cp"> <input
 													id="upload_img" style="display: none;" type="file"
-													class="upl" name="file"> <i class="fa fa-photo"></i> 上傳圖片
+													class="upl" name="file"> <i class="fa fa-photo"></i>
+													上傳圖片
 												</label>
 
 											</div>
@@ -293,19 +289,20 @@ $(function(){
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="row mx-5 mt-4">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="" style="display: flex; justify-content: center;">
-                  <button class="btn btn-edit">儲存資料</button>
-                  <button class="btn btn-edit mx-5" onclick="dropForm()" id="dropIt">放棄儲存</button>
-                </div>
-              </div>
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="" style="display: flex; justify-content: center;">
+										<button class="btn btn-edit">儲存資料</button>
+										<button class="btn btn-edit mx-5" onclick="dropForm()"
+											id="dropIt">放棄儲存</button>
+									</div>
+								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 	</form>

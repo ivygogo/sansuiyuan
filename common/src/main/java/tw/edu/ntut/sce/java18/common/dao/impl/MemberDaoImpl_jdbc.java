@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
+package tw.edu.ntut.sce.java18.common.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import tw.edu.ntut.sce.java18.common.dao.MemberDao;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.MemberDao;
 
 public class MemberDaoImpl_jdbc implements MemberDao {
 
@@ -118,7 +118,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
     String errMsg = "";
     String idNumber = "";
     int countyCode = -1;
-    idNumber = formValue.replace(" ", "");
+    idNumber = formValue.replaceAll("\\s*", "");
     countyCode = (int) (idNumber.substring(0, 1).toUpperCase().charAt(0));
     List<Integer> code = new ArrayList<>();
 
@@ -165,7 +165,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
       if (sum % 10 != 0) {
         errMsg = "身分證號格式不正確";
       } else {
-        errMsg = "checkOK";
+        errMsg = null;
       }
     }
     return errMsg;

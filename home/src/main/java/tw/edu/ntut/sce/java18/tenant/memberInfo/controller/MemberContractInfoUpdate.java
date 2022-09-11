@@ -2,10 +2,8 @@ package tw.edu.ntut.sce.java18.tenant.memberInfo.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,10 +33,10 @@ import tw.edu.ntut.sce.java18.tenant.memberInfo.utils.CheckIdNumberFormat;
     maxRequestSize = 1024L * 1024 * 500 * 5)
 public class MemberContractInfoUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  MemberBean mb; // LoginOK放登入後的資料 memberInfo放修改的資料，如果沒錯誤就讓 LoginOK 會員資料 = memberInfo
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    MemberBean mb; // LoginOK放登入後的資料 memberInfo放修改的資料，如果沒錯誤就讓 LoginOK 會員資料 = memberInfo
 
     HttpSession session = request.getSession();
 
@@ -63,7 +61,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
     GuarantorBean oldbean = guarantorDao.queryGuarantorByPrimaryKey(mb.getuId());
     guarantorIsExist = guarantorDao.checkGuarantorIdExists(mb.getuId());
 
-    if (guarantorIsExist == false) {
+    if (!guarantorIsExist) {
       guarantor.setMember_id(mb.getuId());
     }
 
@@ -72,14 +70,14 @@ public class MemberContractInfoUpdate extends HttpServlet {
 
       if (parts != null) {
 
-        for (Part p : parts) {
+        /*for (Part p : parts) {
           String fldName = p.getName();
           partList.add(fldName);
         }
 
         for (int i = 0; i < partList.size(); i++) {
           System.out.println("表單名稱:" + partList.get(i));
-        }
+        }*/
 
         for (Part p : parts) {
           String fldName = p.getName();
@@ -112,7 +110,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
             else if (fldName.equals("guarantorIdNumber")) {
               String errMsg = ""; // 要來接收checkIdNumber的傳回值
               String idNumber = value;
-              idNumber = value.replace(" ", "");
+              idNumber = value.replaceAll("\\s* ", "");
               guarantor.setId_number(idNumber);
               int genderCode = -1;
               if (idNumber.length() < 10) {
@@ -128,7 +126,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
                 }
               }
 
-              if (!errMsg.equals("checkOK")) {
+              if (errMsg != null) {
                 errorMsgs.put("errIdNumber", errMsg);
               } else {
                 request.setAttribute("guarantorIdNumber", idNumber);
@@ -152,11 +150,11 @@ public class MemberContractInfoUpdate extends HttpServlet {
               }
               guarantor.setPhone(phone);
 
-              if (phone == null || phone.trim().length() == 0) {
+              if (phone.trim().length() == 0) {
                 errorMsgs.put("errPhone", "必須輸入手機電話");
               } else if (phone.length() != 10) {
                 errorMsgs.put("errPhone", "手機電話為09開頭且總數為10碼");
-              } else if (!(phone.substring(0, 2)).equals("09")) {
+              } else if (!phone.startsWith("09")) {
                 errorMsgs.put("errPhone", "請輸入以「09」為開頭的手機電話");
               } else {
                 request.setAttribute("guarantorPhone", phone);
@@ -190,7 +188,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
               String address = value;
               guarantor.setAddress(address);
               if (address == null || address.trim().length() == 0) {
-                errorMsgs.put("errAaddress", "必須輸入地址");
+                errorMsgs.put("errAddress", "必須輸入地址");
               } else {
                 request.setAttribute("guarantorAddress", address);
               }
@@ -210,10 +208,8 @@ public class MemberContractInfoUpdate extends HttpServlet {
         /*有了鍵就可以通過map集合的get方法獲取其對應的値 ( key:01, vaule: a  key: 02,vaule: b  key:03, vaule: c)*/
         String value = errorMsgs.get(key);
         // System.out.println("key: " + key + ", vaule: " + value);
-        if (value != null) {
-          errList.add(key);
-          // System.out.println(errList.get(0));
-        }
+        errList.add(key);
+        // System.out.println(errList.get(0));
       }
 
       if (!errList.isEmpty()) {
@@ -236,10 +232,10 @@ public class MemberContractInfoUpdate extends HttpServlet {
           newBean.setDistrict(guarantor.getDistrict());
           newBean.setAddress(guarantor.getAddress());
           newBean.setRelation(guarantor.getRelation());
-
-          SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-          String datetime = sdFormat.format(new Date());
-          Timestamp newtime = Timestamp.valueOf(datetime);
+          //          SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+          //          String datetime = sdFormat.format(new Date());
+          //          Timestamp newtime = Timestamp.valueOf(datetime);
+          Timestamp newtime = new Timestamp(System.currentTimeMillis());
           newBean.setCreate_time(newtime);
           newBean.setUpdate_time(newtime);
           guarantorDao.saveGuarantor(newBean); // save
@@ -261,9 +257,10 @@ public class MemberContractInfoUpdate extends HttpServlet {
           newBean.setAddress(guarantor.getAddress());
           newBean.setRelation(guarantor.getRelation());
 
-          SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-          String datetime = sdFormat.format(new Date());
-          Timestamp newtime = Timestamp.valueOf(datetime);
+          // SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+          // String datetime = sdFormat.format(new Date());
+          // Timestamp newtime = Timestamp.valueOf(datetime);
+          Timestamp newtime = new Timestamp(System.currentTimeMillis());
           newBean.setCreate_time(newtime);
           newBean.setUpdate_time(newtime);
           guarantorDao.updateGuarantorInfo(newBean);
