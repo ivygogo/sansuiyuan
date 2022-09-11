@@ -26,7 +26,8 @@ public class BookingDao {
   }
 
   private static final String SELECT_BY_ID =
-      "Select book_date, prefer_time, booker_id, booker_name, booker_phone, roomtype, prefer_floor, lead_person from bookingexample where booker_id = ?";
+      "Select book_date, prefer_time, booker_id, booker_name, booker_phone, roomtype, prefer_floor,"
+          + " lead_person from bookingexample where booker_id = ?";
 
   public BookerBean select(String bookerid) {
     BookerBean result = null;
@@ -54,7 +55,8 @@ public class BookingDao {
   }
 
   private static final String SELECT_ALL =
-      "Select book_date, prefer_time, booker_id, booker_name, booker_phone, roomtype, prefer_floor, lead_person from bookingexample order by 1 desc";
+      "Select book_date, prefer_time, booker_id, booker_name, booker_phone, roomtype, prefer_floor,"
+          + " lead_person from bookingexample order by 1 desc";
 
   public List<BookerBean> select() {
     List<BookerBean> result = null;
@@ -82,7 +84,8 @@ public class BookingDao {
   }
 
   private static final String INSERT =
-      "Insert into bookingexample (book_date, prefer_time, booker_id, booker_name, booker_phone, roomtype, prefer_floor, lead_person) values (?, ?, ?, ?, ?, ?, ?, ?)";
+      "Insert into bookingexample (book_date, prefer_time, booker_id, booker_name, booker_phone,"
+          + " roomtype, prefer_floor, lead_person) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
   public BookerBean insertBooker(BookerBean bean) throws SQLException {
     BookerBean result = null;
