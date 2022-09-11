@@ -10,27 +10,27 @@
 </head>
 <body>
 <div id="booklist">
-親愛的 ${booker.name} 同學, 您好<P/>
+親愛的 ${bookerBean.bookerName} 同學, 您好<P/>
 恭喜您成功預約<P/>
-${booker.roomType}，  
+${bookerBean.roomtype}，  
 <c:choose>
-   <c:when test="${empty booker.floor}" >
+   <c:when test="${empty bookerBean.preferFloor}" >
        您未挑選樓層
    </c:when>
    <c:otherwise >
-       <c:forEach var="fruit" items="${booker.floor}"> 
-          <c:out value="${floor}" />
+       <c:forEach var="fruit" items="${bookerBean.preferFloor}"> 
+          <c:out value="${preferFloor}" />
        </c:forEach>的房型
    </c:otherwise>
 </c:choose><P/>
-您預約的時間為${booker.date}，
+您預約的時間為${bookerBean.bookDate}，
 <c:choose>
-   <c:when test="${empty booker.time}" ><!-- for:each -->
+   <c:when test="${empty bookerBean.preferTime}" ><!-- for:each -->
        您未挑選時段
    </c:when>
    <c:otherwise >
-       <c:forEach var="fruit" items="${booker.time}"> 
-          <c:out value="${time}" />
+       <c:forEach  items="${bookerBean.preferTime}"> 
+          <c:out value="${preferTime}" />
        </c:forEach>
    </c:otherwise>
 </c:choose><P/>
@@ -41,6 +41,7 @@ ${booker.roomType}，
 2.如未能準時前往，請提前致電02-2626177或致聊聊系統取消預約。<P/>
 期待您的到訪～
 </div>
+<a href="../index.jsp">回首頁</a>
 </div>
 </body>
 </html>
