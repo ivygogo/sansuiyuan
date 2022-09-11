@@ -11,12 +11,8 @@
 <body>
 <!--todo  Refactor-->
 
-<!--todo  聊天對象的圖片位置以及資訊 ....預計從member過來-->
 <!--todo  聊天本人的相關資訊 ....預計需要登入的session-->
-<!--todo  系統通知部分 (唯讀的一個系統對話視窗 or直接放在 房東/找室友間的對話視窗 or 不做
-             1.聊天室開啟後的首則訊息(ex."您已預約X日X時看房 or 已將報修資訊通知物業")
-             2.通知需要領取電費帳單/續約 (設定固定時間自動發訊息 with mail通知???)
-             3.是否接受新的找室友對話????? -->
+<!--todo  找室友相關-->
 
 <div class="container-fluid">
   <div class="chat-main-all">
@@ -46,14 +42,15 @@
         <div>
           <div class="chat-with mb-2">
           <span class="text-center mt-1">
-          <img src="/home/images/avatarImg/boy01.png" alt="X" height="60px"
-               class="float-start m-1 chat-avatar">
-          <span class="d-inline-block border text-start m-1">
-            <div id="chat-target"></div>
-            <div class="">身分：<span id="id-type"></span></div>
+          <img src="" alt="X" height="60px"
+               class="float-start m-1 chat-avatar invisible" id="chat-avatar">
+          <span class="d-inline-block text-start m-2" id="target-block">
+            <span id="chat-target"></span>
+            <div class=""><span id="id-type"></span></div><span id="character"></span>
           </span>
-            <span class="float-end isClose-block" title="本聊天視窗關閉後訊息僅供查詢，將不再提供訊息傳遞服務"> <span
-              id="close-time"></span> </span>
+            <span class="float-end isClose-block " title="本聊天視窗關閉後訊息僅供查詢，將不再提供訊息傳遞服務"> <span
+              id="close-time" class="float-end"></span>
+            </span>
             <span class="clearfix"></span>
           </span>
           </div>

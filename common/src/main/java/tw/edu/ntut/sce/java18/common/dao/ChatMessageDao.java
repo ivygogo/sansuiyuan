@@ -13,5 +13,7 @@ public interface ChatMessageDao {
 
   int queryUnreadCount(int roomId, int user);
 
+  int queryAllUnreadCount(int user);
+
   void updateUnReadStatus(int roomId, int user);
 }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>聊聊</title>
 </head>
-<body onLoad=”javascript:decideBlockSize();”>
+<body>
 
 <%--<%@include file="header.jsp" %>--%>
 

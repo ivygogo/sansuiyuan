@@ -11,12 +11,9 @@
 </head>
 <body>
 
-<!--todo  搜尋功能 (名字 or ...?)-->
-<!--todo  Refactor-->
-<!--todo  關閉時間的讀取,以及判斷本聊天室是否關閉 => 是否物業可以強開強關???-->
-<!--todo  推播給所有 / 特定類別的住戶 ??????-->
-
-<!--todo  聊天對象的圖片位置以及資訊 ....預計從member過來-->
+<!--todo  搜尋功能 (房號)-->
+<!--todo  是否物業可以強開強關??????-->
+<!--todo  系統通知部分 .通知需要領取電費帳單/續約 (設定固定時間自動發訊息 with mail通知???)-->
 
 <div class="container-fluid">
   <div class="chat-main-all">
@@ -57,11 +54,12 @@
         <div>
           <div class="chat-with mb-2">
           <span class="text-center mt-1">
-          <img src="/wuli/images/avatarImg/boy01.png" alt="X" height="60px"
-               class="float-start m-1 chat-avatar">
-          <span class="d-inline-block border text-start m-1">
+          <img src="" alt="X" height="60px"
+               class="float-start m-1 chat-avatar invisible" id="chat-avatar">
+          <span class="d-inline-block text-start m-1">
             <div id="chat-target"></div>
-            <div class="">身分：<span id="id-type"></span></div>
+            <div class=""><span id="id-type"></span></div>
+            <span id="character"></span>
           </span>
             <span class="float-end isClose-block" title="本聊天視窗關閉後訊息僅供查詢，將不再提供訊息傳遞服務"> <span
               id="close-time"></span> </span>
@@ -80,7 +78,6 @@
           <div class="p-3 mt-2 ">
             注意：使用本聊聊功能進行聊天時，請注意於網路發言的基本禮儀。<br>
           </div>
-
         </div>
       </div>
     </div>

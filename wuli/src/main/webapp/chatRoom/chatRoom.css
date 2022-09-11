@@ -18,7 +18,7 @@ body {
   background-color: white;
   border: #9e9e9e 1px solid;
   border-radius: 10px;
-  height: 90vh;
+  height: 95vh;
   overflow: hidden;
 }
 
@@ -101,7 +101,7 @@ body {
 }
 
 .chat-target {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
 }
 

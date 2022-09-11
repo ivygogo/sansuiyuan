@@ -1,13 +1,14 @@
 $(function () {
-  decideBlockSize()
   window.onload = decideBlockSize
   window.onreset = decideBlockSize
-  window.onresize = decideBlockSize //只要發現有縮放螢幕的狀況就呼叫decideBlockSize
-  const name1 = 5 //  要發訊息的人    //TODO (從會員資料)
+  window.onresize = decideBlockSize
+  const name1 = 1 //  要發訊息的人    //TODO (從會員資料)
   let name2
 
   // 讀取chatroomList  -----------------
   loadExistChatroom(name1)
+  decideBlockSize()
+  $("#input-message").prop('disabled', true)
 
   // todo 如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
   //finish 選擇是否還可以聊聊的視窗
@@ -29,33 +30,44 @@ $(function () {
 
   $('#checklist').on('click', '.chatroom-block', e => {
 
-    //  要傳訊息的對象  //TODO 從id去抓綽號
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
     console.log('傳訊對象:' + name2)
-
-    $('.chat-avatar').text(`${name2}的照片`)  //todo
+    $('#chat-avatar').removeClass('invisible')
+    $('#chat-avatar').attr('src',
+      `/home/images/avatarImg/${$(e.target).closest('table').data(
+        'avatarpic')}`)
+    $('#character').text(" ")
 
     if (name2 !== 0) {
-      $('#chat-target').text(`${name2}的綽號`)
+
       $('#chat-target').data('memberId', name2)
-      $('#id-type').text(`${name2}的身分`)  // todo 前台顯示身分,後台顯示房號
+      $('#chat-target').text(
+        `${$(e.target).closest('table').data('targetnickname')}`)
+      $('#id-type').text(
+        `身分 ： ${$(e.target).closest('table').data('identity')}`)
+
+      if ($(e.target).closest('table').data('moreinfo') !== 'undefined') {
+        $('#character').text(
+          `個性標籤：${$(e.target).closest('table').data('moreinfo')}`)
+      }
+
     } else {
-      $('#chat-target').text("房東")
       $('#chat-target').data('memberId', 0)
+      $('#chat-target').text("房東")
       $('#id-type').text('管理員')
     }
 
     if ($(e.target).closest('table').data("open") === true) {
-      $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
+      $('.isClose-block').html('關閉時間：<span id="close-time" ></span>')
       $('#close-time').text(
         $(e.target).closest('table').data("closetime").split(',', 1))
-      $("#input-message").prop('disabled', false);
-      $(".btn-send-message").prop('disabled', false);
+      $("#input-message").prop('disabled', false).prop('placeholder', '請輸入文字')
+      $(".btn-send-message").prop('disabled', false)
 
     } else {
       $('.isClose-block').html('本聊天室已關閉')
-      $("#input-message").prop('disabled', true);
-      $(".btn-send-message").prop('disabled', true);
+      $("#input-message").prop('disabled', true).prop('placeholder', '')
+      $(".btn-send-message").prop('disabled', true)
     }
 
     $('.chat-inside-block').text("")
@@ -72,46 +84,59 @@ $(function () {
     //移動卷軸
     $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
+    ws.onopen = function () {
+      console.log('connect~')
+    }
+
     ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
       console.log(message)
       console.log(Object.keys(message).length)
       renderMessage(message)
+      decideBlockSize()
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
-      console.log($('.date-change').last().text())
-      console.log($('.message-content').last().text())
       $(e.target).closest('table').find('.chat-trim-text').text(
         $('.message-content').last().text())
     }
 
-    console.log($('.message-content').last().text())
+    ws.onclose = function (enent) {
+      console.log('close reason = ' + enent.reason)
+      console.log('close code = ' + enent.code)
+      console.log('close clean? = ' + enent.wasClean)
+    }
 
-    // $(e.target).closest('table').find('.chat-unread').text('0')
+    ws.onerror = function (e) {
+      console.log('Socket has error', e.reason)
+      ws.close()
+    }
+
     $(e.target).closest('table').find('.chat-unread').css(
       {'visibility': 'hidden'})
   })
 
   // 送出------------------
   $('.btn-send-message').click(function () {
-    const date = new Date()    //發訊息的日期
-    // 個位數的數值補零
-    const currentDate = `${date.getMonth() + 1}`.padStart(2, '0') + "/"
-      + `${date.getDate()}`.padStart(2, '0')
-    const currentTime = `${date.getHours()}`.padStart(2, '0') + ":"
-      + `${date.getMinutes()}`.padStart(2, '0')
-    // 讀入對話框內文字
-    const content = $('#input-message').val()
-    const jsonMessage = JSON.stringify({
-      'content': content,
-      'sender': name1,
-      'receiver': name2,
-      'currentDate': currentDate,
-      'currentTime': currentTime
-    })
-    ws.send(jsonMessage)
-    $('#input-message').val("")
+    if ($(`#input-message`).val().trim() !== "") {
+      const date = new Date()    //發訊息的日期
+      // 個位數的數值補零
+      const currentDate = `${date.getMonth() + 1}`.padStart(2, '0') + "/"
+        + `${date.getDate()}`.padStart(2, '0')
+      const currentTime = `${date.getHours()}`.padStart(2, '0') + ":"
+        + `${date.getMinutes()}`.padStart(2, '0')
+      // 讀入對話框內文字
+      const content = $('#input-message').val()
+      const jsonMessage = JSON.stringify({
+        'content': content,
+        'sender': name1,
+        'receiver': name2,
+        'currentDate': currentDate,
+        'currentTime': currentTime
+      })
+      ws.send(jsonMessage)
+      $('#input-message').val("")
+    }
   })
 
   $('#input-message').keypress(function (enter) {
@@ -123,7 +148,6 @@ $(function () {
   //決定block大小 ------------------
   function decideBlockSize() {
     const windowInnerWidth = window.innerWidth
-
 
     if (windowInnerWidth >= 810) {
       const leftWidth = (windowInnerWidth - 100) / 3
@@ -205,7 +229,6 @@ $(function () {
       url: '/home/ChatroomServlet?callFrom=loadChatroomList',
       data: {'Id': name1},
       success: function (resp) {
-        console.log(name1)
         renderChatroomList(resp)
       },
       err: function () {
@@ -219,20 +242,20 @@ $(function () {
     console.log(resp)
     let target
     for (let i = 0; i < resp.length; i++) {
-      //const avatar =  resp[i].avatar  //todo pic
-      //const name =  resp[i].name  //todo name
-      //const type //todo type
-      console.log('unread = ' + resp[i].unRead)
       target = resp[i].target
 
       $('#checklist').append(
-        `<table class="chatroom-block" data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen} data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
+        `<table class="chatroom-block" data-identity=${resp[i].identity}
+          data-moreInfo=${resp[i].moreInfo} data-avatarpic=${resp[i].avatarPic}
+          data-targetNickName=${resp[i].targetNickName}
+          data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen}
+          data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
           <tr>
             <td rowSpan="2" style="width: 70px">
-              <img src="/home/images/avatarImg/boy01.png" alt="X" width="60px"
+              <img src="/home/images/avatarImg/${resp[i].avatarPic}" alt="X" width="60px"
                    class="chat-avatar"></td>
-            <td class="chat-target" data-memberid=${target}>${target}</td>
-            <td class="chat-unread">${resp[i].unRead}</td>
+            <td class="chat-target" data-memberid=${target}>${resp[i].targetNickName}</td>
+            <td class="chat-unread" data-unRead=${resp[i].unRead}>${resp[i].unRead}</td>
           </tr
           <tr>
             <td colSpan="2">
@@ -242,6 +265,9 @@ $(function () {
         </table>`)
 
     }
+
+    $('*[data-unread="0"]').hide()
+
   }
 
   // -----------------
@@ -311,5 +337,8 @@ $(function () {
         console.log('changeUnreadCount() with error')
       }
     })
+  }
+
+  function connect() {
   }
 })

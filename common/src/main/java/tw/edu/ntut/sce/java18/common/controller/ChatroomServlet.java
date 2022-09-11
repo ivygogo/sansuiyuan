@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import tw.edu.ntut.sce.java18.common.controller.ChatroomServletConvert.LoadChatroom;
 import tw.edu.ntut.sce.java18.common.model.ChatMessageServiceBean;
 import tw.edu.ntut.sce.java18.common.service.ChatMessageService;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService;
@@ -36,18 +37,21 @@ public class ChatroomServlet extends HttpServlet {
         loadOldMessage(request, response);
         break;
       case ("changeReadCount"):
-        changeReadCount(request, response);
+        changeReadCount(request);
         break;
-      case ("changerClosetime"):
+      case ("changerClosetme"):
         changeCloseTime(request, response);
         break;
       case ("createChatroom"):
-        createChatroom(request, response);
+        createChatroom(request);
+        break;
+      case ("getAllUnReadCount"):
+        getAllUnReadCount(request, response);
         break;
     }
   }
 
-  private void createChatroom(HttpServletRequest request, HttpServletResponse response) {
+  private void createChatroom(HttpServletRequest request) {
     // todo
     int userId = Integer.parseInt(request.getParameter("Id"));
     int chatTarget = Integer.parseInt(request.getParameter("chatTarget"));
@@ -129,7 +133,7 @@ public class ChatroomServlet extends HttpServlet {
     // 進入畫面就load出左側頁面所需的內容
     ChatroomServletConvert convert = new ChatroomServletConvert();
     String id = request.getParameter("Id"); // from JS loadExistChatroom()  =7
-    List chatroomLastMessage = convert.getChatroomLastMessage(Integer.parseInt(id));
+    List<LoadChatroom> chatroomLastMessage = convert.getChatroomLastInfo(Integer.parseInt(id));
 
     Gson gson = new Gson();
     String chatroomList = gson.toJson(chatroomLastMessage);
@@ -150,9 +154,10 @@ public class ChatroomServlet extends HttpServlet {
     } else {
       chatroomName = target + "_" + user;
     }
-
+    System.out.println(chatroomName);
     ChatMessageService chatMessageService = new ChatMessageService();
     ArrayList<ChatMessageServiceBean> allMessageList;
+
     allMessageList = chatMessageService.getAllMessage(chatroom.getChatroomId(chatroomName));
 
     Gson gson = new Gson();
@@ -166,8 +171,7 @@ public class ChatroomServlet extends HttpServlet {
     printWriter.flush();
   }
 
-  public void changeReadCount(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
+  public void changeReadCount(HttpServletRequest request) {
     ChatMessageService chatMessageService = new ChatMessageService();
 
     int userId = Integer.parseInt(request.getParameter("userId"));
@@ -185,5 +189,17 @@ public class ChatroomServlet extends HttpServlet {
   }
 
   public void changeCloseTime(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {}
+      throws IOException {
+    int roomId = Integer.parseInt(request.getParameter("roomId"));
+    int additionalTime =
+        Integer.parseInt(
+            request.getParameter("additionalTime")); // todo 型態待確定,手動直接關閉=0  or 延長時間=n>0
+    new ChatroomService().changeCloseTime(roomId, additionalTime);
+  }
+
+  public int getAllUnReadCount(HttpServletRequest request, HttpServletResponse response) {
+    int userId = Integer.parseInt(request.getParameter("userId"));
+    return new ChatMessageService().getAllUnreadCount(userId);
+    // todo  要加到nav上
+  }
 }

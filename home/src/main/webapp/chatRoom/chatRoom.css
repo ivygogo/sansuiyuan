@@ -18,7 +18,7 @@ body {
   background-color: white;
   border: #9e9e9e 1px solid;
   border-radius: 10px;
-  height: 90vh;
+  height: 95vh;
   overflow: hidden;
 }
 
@@ -80,7 +80,7 @@ body {
 }
 
 .chat-target {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -99,6 +99,19 @@ body {
 .chat-main-block-right {
   overflow-y: scroll;
   margin-bottom: 20px
+}
+
+#target-block {
+  height: 80px;
+}
+
+#chat-avatar {
+  height: 60px;
+  width: 60px;
+}
+
+#character {
+  font-size: 14px;
 }
 
 .date-divide {

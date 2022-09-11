@@ -3,18 +3,20 @@ package tw.edu.ntut.sce.java18.common.controller;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import tw.edu.ntut.sce.java18.common.dao.impl.AvatarDaoImpl;
+import tw.edu.ntut.sce.java18.common.dao.impl.CharacterAndFavorDaoImpl;
+import tw.edu.ntut.sce.java18.common.dao.impl.MemberDaoImpl_jdbc;
 import tw.edu.ntut.sce.java18.common.service.ChatMessageService;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 
 public class ChatroomServletConvert {
-  // todo reciver or sender都要去member getname , 照片
 
-  public ArrayList<LoadChatroom> getChatroomLastMessage(int userId) {
+  public ArrayList<LoadChatroom> getChatroomLastInfo(int userId) {
 
     var chatroomService = new ChatroomService();
     var chatMessageService = new ChatMessageService();
-    var chatroomLastMessage = new ArrayList<LoadChatroom>();
-    // var memberInfoService = new MemberInfoService();
+    var chatroomListWithLastMessage = new ArrayList<LoadChatroom>();
 
     Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
@@ -23,7 +25,68 @@ public class ChatroomServletConvert {
     for (ArrayList existChatroom : existChatroomList) {
       SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
       var chatMessageBean = chatMessageService.getLastMessage((int) existChatroom.get(0));
+
       LoadChatroom loadChatroom = new LoadChatroom();
+
+      var memberInfo = new MemberDaoImpl_jdbc().queryMemberByPrimaryKey((int) existChatroom.get(3));
+
+      loadChatroom.setIdentity("????"); // todo 從contract?tenant?
+      loadChatroom.setMoreInfo("");
+
+      if ((int) existChatroom.get(3) != 0) {
+        var avatarInfo = new AvatarDaoImpl().queryAvatarByPrimaryKey(memberInfo.getPic());
+        loadChatroom.setTargetNickName(memberInfo.getNickname());
+        loadChatroom.setAvatarPic(avatarInfo.getAvatarName());
+
+        if (userId != 0) {
+          var characterInfo = new CharacterAndFavorDaoImpl();
+
+          if (memberInfo.getOpen_tag() == 1) {
+            if ((memberInfo.getFavor_1() == null)
+                && (memberInfo.getFavor_2() == null)
+                && (memberInfo.getFavor_3() == null)) {
+              loadChatroom.setMoreInfo(null);
+            } else {
+              String character = "";
+              if (memberInfo.getFavor_1() != null) {
+                character +=
+                    "  "
+                        + characterInfo.queryCharacterAndFavorNameByPrimaryKey(
+                            memberInfo.getFavor_1());
+              }
+              if (memberInfo.getFavor_2() != null) {
+                character +=
+                    "/"
+                        + characterInfo.queryCharacterAndFavorNameByPrimaryKey(
+                            memberInfo.getFavor_2());
+              }
+              if (memberInfo.getFavor_3() != null) {
+                character +=
+                    "/"
+                        + characterInfo.queryCharacterAndFavorNameByPrimaryKey(
+                            memberInfo.getFavor_3());
+              }
+              loadChatroom.setMoreInfo(character);
+            }
+          } else {
+            loadChatroom.setMoreInfo(null);
+          }
+        } else {
+          if (true) { //  判斷有沒有沒有房號的話
+            loadChatroom.setMoreInfo("roomNum"); // todo form tenant or contract
+          } else {
+            loadChatroom.setMoreInfo(null); // todo form tenant or contract
+
+            //            loadChatroom.setMoreInfo(null);
+          }
+        }
+      } else {
+        loadChatroom.setTargetNickName("房東");
+        loadChatroom.setAvatarPic("default.png");
+        loadChatroom.setIdentity("管理員");
+        loadChatroom.setMoreInfo(null);
+      }
+
       loadChatroom.setChatroomId((int) existChatroom.get(0));
       loadChatroom.setChatroomType((String) existChatroom.get(1));
       loadChatroom.setCloseTime(sdf.format(existChatroom.get(2)));
@@ -35,10 +98,17 @@ public class ChatroomServletConvert {
       loadChatroom.setOpen(currentTime.before((Timestamp) existChatroom.get(2)));
       loadChatroom.setUnRead(
           chatMessageService.getUnreadCount(loadChatroom.getChatroomId(), userId));
-      chatroomLastMessage.add(loadChatroom);
-    }
+      loadChatroom.setSendTime(chatMessageBean.getSendTime());
 
-    return chatroomLastMessage;
+      chatroomListWithLastMessage.add(loadChatroom);
+    }
+    Collections.sort(
+        chatroomListWithLastMessage,
+        (o1, o2) -> {
+          if (o1.getSendTime().before(o2.getSendTime())) return 1;
+          else return -1;
+        });
+    return chatroomListWithLastMessage;
   }
 
   class LoadChatroom {
@@ -46,12 +116,57 @@ public class ChatroomServletConvert {
     String chatroomType;
     String chatroomName;
     String closeTime;
+    Timestamp sendTime;
     int target;
     int sender;
     int receiver;
     String content;
     int unRead;
     boolean isOpen;
+    String targetNickName;
+    String avatarPic;
+    String identity;
+    String moreInfo;
+
+    public Timestamp getSendTime() {
+      return sendTime;
+    }
+
+    public void setSendTime(Timestamp sendTime) {
+      this.sendTime = sendTime;
+    }
+
+    public String getMoreInfo() {
+      return moreInfo;
+    }
+
+    public void setMoreInfo(String moreInfo) {
+      this.moreInfo = moreInfo;
+    }
+
+    public String getTargetNickName() {
+      return targetNickName;
+    }
+
+    public void setTargetNickName(String targetNickName) {
+      this.targetNickName = targetNickName;
+    }
+
+    public String getAvatarPic() {
+      return avatarPic;
+    }
+
+    public void setAvatarPic(String avatarPic) {
+      this.avatarPic = avatarPic;
+    }
+
+    public String getIdentity() {
+      return identity;
+    }
+
+    public void setIdentity(String identity) {
+      this.identity = identity;
+    }
 
     public boolean isOpen() {
       return isOpen;
