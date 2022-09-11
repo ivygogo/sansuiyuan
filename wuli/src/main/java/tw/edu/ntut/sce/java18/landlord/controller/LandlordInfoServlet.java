@@ -314,7 +314,7 @@ public class LandlordInfoServlet extends HttpServlet {
       String newFileName =
           saveImage(tampFileBase64, landlordInfoEdit.getStamp(), landlordOld.getId());
       newBean.setStamp(newFileName);
-      landlordInfoService.updateLandlordInfo(newBean);
+      landlordInfoService.updateLandlordInfo(newBean); // 儲存方法
       response.sendRedirect("memberInfo.jsp");
       return;
     }
