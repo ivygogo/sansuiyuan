@@ -93,7 +93,7 @@ $(function () {
     $('#img-slide-block').html("")
     index = (index - 1 + roomTypesCount) % roomTypesCount
     renderFeature()
-    $('#createBooking')[0].click()
+    $('#formDialogDiv').addClass('d-none')
 
   })
 
@@ -101,7 +101,9 @@ $(function () {
     $('#img-slide-block').html("")
     index = (index + 1 + roomTypesCount) % roomTypesCount
     renderFeature()
-    $('#createBooking')[0].click()
+    // $('#createBooking')[0].click()
+    $('#formDialogDiv').addClass('d-none')
+
   })
 
   $('#createBooking').click(function () {
