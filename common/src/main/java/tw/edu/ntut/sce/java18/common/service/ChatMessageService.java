@@ -65,6 +65,10 @@ public class ChatMessageService {
     return dao.queryUnreadCount(roomId, userId);
   }
 
+  public int getAllUnreadCount(int userId) {
+    return dao.queryAllUnreadCount(userId);
+  }
+
   public void changeReadStatus(int roomId, int userId) {
     dao.updateUnReadStatus(roomId, userId);
   }

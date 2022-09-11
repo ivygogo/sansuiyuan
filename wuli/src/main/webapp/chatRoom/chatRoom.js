@@ -1,14 +1,15 @@
+//todo  可直接開啟聊天室?? 可強開已關閉的聊天室??  需不需要disable??
 $(function () {
   window.onload = decideBlockSize
   window.onreset = decideBlockSize
-  window.onresize = decideBlockSize //只要發現有縮放螢幕的狀況就呼叫decideBlockSize
+  window.onresize = decideBlockSize
 
-  //todo  可直接開啟聊天室?? 可強開已關閉的聊天室??  需不需要disable??
-
-  const name1 = 0 //  要發訊息的人    //TODO (從會員資料)
-  let name2
+  const name1 = 0 //  要發訊息的人Id    //TODO (從登入資料)
+  let name2 //接收訊息的人targetId
   // finish! 讀取chatroomList  -----------------
   loadExistChatroom(name1)
+  decideBlockSize()
+  $("#input-message").prop('disabled', true)
 
   //搜尋 todo
   $('.search-icon').click(function () {
@@ -25,21 +26,19 @@ $(function () {
     }
   })
 
-  // unfinish todo 選擇分類,如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
+  // 根據選擇顯示聊天對象 -----------------
   $('.form-select').change(function () {
     showSelect()
   })
-  //finish 選擇是否還可以聊聊的視窗
+
   $('input[name=is-talk-able]').change(function () {
     showSelect()
   })
 
-  // modify $('*[data-open="true"]')
   $(`*[data-memberid="${name2}"]`).closest('table').find(
     '.chat-trim-text').text(
     $('.message-content').last().text())
 
-  // 根據選擇顯示聊天對象 -----------------
   function showSelect() {
     const chatroomBlock = $('.chatroom-block')
     const selectValue = $('.form-select').val()
@@ -63,50 +62,59 @@ $(function () {
         console.log("+++++++++++" + selectValue + "  " + "false ")
         $('*[data-open="true"]').hide()
       }
-      }
-
+    }
   }
 
-  //--------------------------------------------------
-  //finish: WebSocket連線 / 未讀歸零
-  //TODO  讀取未讀訊息量 / render新訊息在底下的trimText內
+  // 開啟對話框 ----------------- TODO 如何得到其他聊天室窗的新訊息&未讀增加
 
   $('#checklist').on('click', '.chatroom-block', e => {
 
     //  要傳訊息的對象  ------------
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
-    console.log('傳訊對象:' + name2)
+    console.log(name2)
+
+    $('#chat-avatar').removeClass('invisible')
+
     $('#chat-target').data('memberId', name2)
 
-    // todo ajax  from member ---------
-    $('#chat-target').text(`${name2}的綽號`)
-    $('.chat-avatar').text(`${name2}的照片`)
-    // todo  ajax判斷是否簽約 from roomTable ,
-    //  沒有合約的會就是一般會員,有的話是房號 -----
-    $('#id-type').text(`${name2}的房號or身分`)
+    $('#chat-avatar').attr('src',
+      `/wuli/images/avatarImg/${$(e.target).closest('table').data(
+        'avatarpic')}`)
+    $('#chat-target').text(
+      `${$(e.target).closest('table').data('targetnickname')}`)
+    $('#id-type').text(`${$(e.target).closest('table').data('identity')}`)
+
+    $('#character').html("")
+
+    if ($(e.target).closest('table').data('moreinfo') !== 'undefined') {
+      $('#character').html(
+        `<span>房號：${$(e.target).closest('table').data('moreinfo')}</span>`)
+    }
 
     if ($(e.target).closest('table').data("open") === true) {
       $('.isClose-block').html('關閉時間：<span id="close-time"></span>')
       $('#close-time').text(
         $(e.target).closest('table').data("closetime").split(',', 1))
-      $("#input-message").prop('disabled', false);
-      $(".btn-send-message").prop('disabled', false);
+      $("#input-message").prop('disabled', false).prop('placeholder', '請輸入文字')
+      $(".btn-send-message").prop('disabled', false)
 
     } else {
       $('.isClose-block').html('本聊天室已關閉') //todo 可強制開啟?????????
-      $("#input-message").prop('disabled', true);
-      $(".btn-send-message").prop('disabled', true);
+      $("#input-message").prop('disabled', true).prop('placeholder', '')
+      $(".btn-send-message").prop('disabled', true)
     }
 
     $('.chat-inside-block').text("")
     // ------------------
     loadOldChatMessage()
-    changeUnreadCount(name1, name2)
 
-    // ------------------
+    const chatType = $(e.target).closest('table').data('chattype')
+    changeUnreadCount(name1, name2, chatType)
 
+    // WebSocket連線 ----------------- TODO 如何得到其他聊天室窗的新訊息&未讀增加
     ws = new WebSocket(
       `ws://localhost:8080/home/chat/${name1}_${name2}`);
+
     //移動卷軸 ------------------
     $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
@@ -114,6 +122,7 @@ $(function () {
     ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
       renderMessage(message)
+      decideBlockSize()
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
@@ -122,15 +131,19 @@ $(function () {
       $(e.target).closest('table').find('.chat-trim-text').text(
         $('.message-content').last().text())
     }
-    //todo last message in trim-text
-    console.log($('.message-content').last().text())
+
+    ws.onclose = function (enent) {
+      console.log('close reason = ' + enent.reason)
+      console.log('close code = ' + enent.code)
+      console.log('close clean? = ' + enent.wasClean)
+    }
 
     // $(e.target).closest('table').find('.chat-unread').text('0')
     $(e.target).closest('table').find('.chat-unread').css(
       {'visibility': 'hidden'})
   })
 
-  // 送出------------------
+  // 送出 ------------------
   $('.btn-send-message').click(function () {
     const date = new Date()    //發訊息的日期
     // 個位數的數值補零
@@ -248,25 +261,24 @@ $(function () {
     })
   }
 
-  // -----------------
+  // 從回應去產出聊天列表-----------------
   function renderChatroomList(resp) {
     console.log(resp)
     let target;
     for (let i = 0; i < resp.length; i++) {
-      //const avatar =  resp[i].avatar  //todo pic
-      //const name =  resp[i].name  //todo name
-      //const type //todo type
-      console.log('unread = ' + resp[i].unRead)
       target = resp[i].target
-
       $('#checklist').append(
-        `<table class="chatroom-block" data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen} data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
+        `<table class="chatroom-block" data-identity=${resp[i].identity}
+          data-moreInfo=${resp[i].moreInfo} data-avatarpic=${resp[i].avatarPic}
+          data-targetNickName=${resp[i].targetNickName}
+          data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen}
+          data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
           <tr>
             <td rowSpan="2" style="width: 70px">
-              <img src="./images/avatarImg/boy01.png" alt="X" width="60px"
+              <img src="/wuli/images/avatarImg/${resp[i].avatarPic}" alt="X" width="60px"
                    class="chat-avatar"></td>
-            <td class="chat-target" data-memberid=${target}>${target}的名字</td>
-            <td class="chat-unread">${resp[i].unRead}</td>
+            <td class="chat-target" data-memberid=${target}>${resp[i].targetNickName}</td>
+            <td class="chat-unread" data-unRead=${resp[i].unRead}>${resp[i].unRead}</td>
           </tr>
           <tr>
             <td colSpan="2">
@@ -274,8 +286,8 @@ $(function () {
             </td>
           </tr>
         </table>`)
-
     }
+    $('*[data-unread="0"]').hide()
   }
 
   // -----------------
@@ -333,17 +345,20 @@ $(function () {
     }
   }
 
-  function changeUnreadCount(userId, targetId) {
+  // -----------------
+  function changeUnreadCount(userId, targetId, chatType) {
     $.ajax({
       type: 'POST',
       url: '/wuli/ChatroomServlet?callFrom=changeReadCount',
       data: {
         'userId': userId,
-        'targetId': targetId
+        'targetId': targetId,
+        'chatType': chatType
       },
       err: function () {
         console.log('changeUnreadCount() with error')
       }
     })
   }
+
 })

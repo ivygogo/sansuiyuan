@@ -27,8 +27,28 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
+  public int queryIdByChatroomName(String chatroomName, String chatroomType) {
+    String sql = "SELECT Id FROM chatroom WHERE CONCAT(member1,\"_\",member2) = ? And Chat_type =?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setString(1, chatroomName);
+      preparedStatement.setString(2, chatroomType);
+
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+          return resultSet.getInt("Id");
+        }
+        return -1;
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
+    }
+  }
+
+  @Override
   public int queryIdByChatroomName(String chatroomName) {
-    String sql = "SELECT Id FROM chatroom WHERE CONCAT(member1,\"_\",member2) = ? ";
+    String sql = "SELECT Id FROM chatroom WHERE CONCAT(member1,\"_\",member2) = ?";
     try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setString(1, chatroomName);
@@ -46,7 +66,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
-  public ArrayList<ArrayList> queryExistChatroomByUser(int member) {
+  public ArrayList queryExistChatroomByUser(int member) {
     String sql =
         "SELECT Id, member1, member2, Chat_type, Close_Time "
             + "FROM chatroom WHERE member1 = ? OR member2 = ?";
@@ -89,7 +109,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
     var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
     int n;
-    if (type == "B") {
+    if ("B".equals(type)) {
       n = 14;
     } else {
       n = 365;
@@ -136,6 +156,27 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
-  public void updateCloseTime(int roomId, int time) {}
-  // todo  time有正負  立刻為0
+  public void updateCloseTime(int roomId, int day) { // todo 未測試
+    var localDateTime = LocalDateTime.now();
+    var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    String newCloseTime;
+
+    if (day == 0) {
+      newCloseTime = dateTimeFormatter.format(localDateTime);
+    } else {
+      newCloseTime = dateTimeFormatter.format(localDateTime.plusDays(day));
+    }
+    String sql = "UPDATE chatroom SET Close_Time = ? WHERE Id = ? ";
+
+    try (Connection connection = ds.getConnection();
+        var preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setString(1, newCloseTime);
+      preparedStatement.setInt(2, roomId);
+      preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "ChatroomDaoImpl_JDBC類別#updateCloseTime()發生例外: " + ex.getMessage());
+    }
+  }
 }

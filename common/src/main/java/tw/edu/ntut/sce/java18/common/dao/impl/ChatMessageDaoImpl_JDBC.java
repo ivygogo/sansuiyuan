@@ -34,7 +34,7 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
 
     String sql =
         "INSERT INTO chat_message "
-            + "(Chatroom_Id,Sender,Receiver,Content,Send_time,isRead) "
+            + "(Chatroom_Id,Sender,Receiver,Content,Send_time,Is_Read) "
             + "VALUE (?,?,?,?,?,?)";
 
     var ldtCreateTime = LocalDateTime.now();
@@ -74,7 +74,7 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
           chatMessageBean.setReceiver(resultSet.getInt("Receiver"));
           chatMessageBean.setContent(resultSet.getString("Content"));
           chatMessageBean.setSendTime(resultSet.getTimestamp("Send_Time"));
-          chatMessageBean.setRead(resultSet.getBoolean("isRead"));
+          chatMessageBean.setRead(resultSet.getBoolean("Is_Read"));
           chatMessageList.add(chatMessageBean);
         }
         return chatMessageList;
@@ -85,10 +85,11 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
     }
   }
 
+  @Override
   public int queryUnreadCount(int chatroomId, int userId) {
     String sql =
         "SELECT COUNT(*) FROM chat_message WHERE chatroom_Id = ? "
-            + "AND isRead = FALSE And Receiver = ?";
+            + "AND Is_Read= FALSE And Receiver = ?";
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
@@ -108,10 +109,30 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
   }
 
   @Override
+  public int queryAllUnreadCount(int userId) {
+    String sql = "SELECT COUNT(*) FROM chat_message WHERE Is_Read= FALSE And Receiver = ?";
+
+    try (Connection connection = ds.getConnection();
+        var preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setInt(1, userId);
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+          return resultSet.getInt("COUNT(*)");
+        }
+        return 0;
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "ChatroomDaoImpl_JDBC類別#queryUnreadCount()發生例外: " + ex.getMessage());
+    }
+  }
+
+  @Override
   public void updateUnReadStatus(int roomId, int userId) {
     String sql =
-        "UPDATE chat_message SET isRead = 1 WHERE chatroom_Id = ? "
-            + "AND isRead = FALSE AND Receiver  = ?";
+        "UPDATE chat_message SET Is_Read = 1 WHERE chatroom_Id = ? "
+            + "AND Is_Read= FALSE AND Receiver  = ?";
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
