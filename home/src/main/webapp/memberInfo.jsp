@@ -2,15 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<% String editState = request.getParameter("edit");
+<% 
+
+String editState = request.getParameter("edit");
+//System.out.println("editState:::::"+editState);
 //System.out.print("editState"+editState);
 if (editState!=null&&editState.equals("drop")){
 request.setAttribute("guarantorIsInvalid", false);
 request.setAttribute("isInvalid", false);
 request.setAttribute("RefundIsInvalid", false);
-
-//System.out.print("editState:::::"+editState);
+}else if (editState!=null&&editState.equals("member")){
+  session.setAttribute("myPage", "myinfo");
+}else if (editState!=null&&editState.equals("dropIt")){
+  session.setAttribute("myPage", "profile");
 }
+
 %>
 <!-- 
 ////////////////////////////////////////////////////////////////
@@ -87,13 +93,15 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
       
       function doFirst(){
     	  checkPage = '${myPage}';
+    	  //alert('checkPage!!!'+checkPage);
+    	  
     	  //checkPage ='myinfo'
     	  checkTab ="#"+checkPage;
     	  checkTabT ="\'#"+checkPage+"\'";
     	  checkContentTab=checkTab+"-tab"
     	  checkAllTab= "#myTabs a[href=\" "+ checkTab + "\"]"
     	  checkPass ='${checkErr}';
-    	  //alert(checkPage);
+    	  //alert('checkPage!!!'+checkPage);
     	  
     	  
     	  if (checkPage ==="myinfo"||checkPage.length==0){
@@ -136,6 +144,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
       window.addEventListener('load', doFirst);
       
       $(function(){$('#profile-tab').click(function(){
+    	  
     	   var qs = document.querySelector("form");
     	   //alert(qs)
     	   if(qs!=null){
@@ -186,6 +195,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                 }
           }else{
           checkPage = "myinfo"
+          //alert(checkPage)
             $("#home-tab").attr("class", 'nav-link active')
               $("#home-tab").attr("aria-selected", 'true')
               $('#home').attr('class', "tab-pane fade active show")
@@ -244,12 +254,21 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     }
       
       
-      function dropForm(){
-    	 <%--$('#home').html("")
-        // $('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
+      function dropForm(item){
+    	  if((item.getAttribute('id'))==="memberInfo_dropIt"){
+    		
+    		 document.location.href="/home/MemberInfo.do?edit=member"
+    		 //alert("memberInfo_dropIt")
+    	  }else if((item.getAttribute('id'))==="dropIt"){
+    		  //alert("dropIt")
+    		  document.location.href="/home/MemberInfo.do?edit=dropIt"
+    	  }
+    	  
+    	 //$('#home').html("")
+       //$('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
     	  //$('#profile').html("")
-        // $('#profile').load('memberPage/showContractInfo.jsp?edit=drop');--%>
-    	  document.location.href="/home/MemberInfo.do"
+        //$('#profile').load('memberPage/showContractInfo.jsp?edit=drop');
+    	  //document.location.href="/home/MemberInfo.do"
     		<%--$("html,body").animate(
         		    {
         		      scrollTop: 0,

@@ -135,7 +135,7 @@ $(function() {
 			<div class="col-md-12 text-left">
 				<div class="" style="display: flex; justify-content: center;">
 					<button class="btn btn-edit mr-2 mb-2" type="submit">我要儲存</button>
-					<button type="button"  class="btn btn-edit mr-2 mb-2" onclick="dropForm()" id="dropIt">放棄修改</button>
+					<button type="button"  class="btn btn-edit mr-2 mb-2" onclick="dropForm(this)" id="dropIt">放棄修改</button>
 				</div>
 			</div>
 		</div>
