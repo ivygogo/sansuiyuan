@@ -33,8 +33,6 @@ public class ChatroomService {
 
   // TODO 登入時就要連到自己的聊天室???>
 
-  // TODO 預約成功,找室友配對成功,報修  傳送系統訊息?
-
   // OK 進到聊天室頁面就要對每個"聊天室"判斷是否唯讀, 並讀出最後一筆訊息 & 未讀量
   public ArrayList<ArrayList> getExistChatroom(int id) {
     return dao.queryExistChatroomByUser(id);

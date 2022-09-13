@@ -3,12 +3,14 @@ $(function () {
   window.onload = decideBlockSize
   window.onreset = decideBlockSize
   window.onresize = decideBlockSize
+  window.onbeforeunload = decideBlockSize
 
   const name1 = 0 //  要發訊息的人Id    //TODO (從登入資料)
   let name2 //接收訊息的人targetId
   // finish! 讀取chatroomList  -----------------
   loadExistChatroom(name1)
   decideBlockSize()
+
   $("#input-message").prop('disabled', true)
 
   //搜尋 todo
@@ -20,7 +22,6 @@ $(function () {
           //todo  ajax to  search房號 by targeId   from roomtable/
         }
       })
-
     } else {
       $('#search').addClass('d-none')
     }
@@ -45,21 +46,17 @@ $(function () {
     chatroomBlock.hide()
     if (selectValue === '0') {
       if ($('input[name=is-talk-able]:checked').val() === "true") {
-        console.log('all + open')
         $('*[data-open="true"]').show()
         $('*[data-open="false"]').hide()
       } else {
-        console.log('all + close')
         $('*[data-open="true"]').hide()
         $('*[data-open="false"]').show()
       }
     } else {
       $(`*[data-chattype="${selectValue}"]`).show()
       if ($('input[name=is-talk-able]:checked').val() === "true") {
-        console.log("+++++++++++" + selectValue + "  " + "true ")
         $('*[data-open="false"]').hide()
       } else if ($('input[name=is-talk-able]:checked').val() === "false") {
-        console.log("+++++++++++" + selectValue + "  " + "false ")
         $('*[data-open="true"]').hide()
       }
     }
@@ -71,7 +68,6 @@ $(function () {
 
     //  要傳訊息的對象  ------------
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
-    console.log(name2)
 
     $('#chat-avatar').removeClass('invisible')
 
@@ -113,7 +109,7 @@ $(function () {
 
     // WebSocket連線 ----------------- TODO 如何得到其他聊天室窗的新訊息&未讀增加
     ws = new WebSocket(
-      `ws://localhost:8080/home/chat/${name1}_${name2}`);
+      `ws://localhost:8080/home/chat/${name1}_${name2}/${name1}`);
 
     //移動卷軸 ------------------
     $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
@@ -126,16 +122,12 @@ $(function () {
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
-      console.log($('.date-change').last().text())
-      console.log($('.message-content').last().text())
       $(e.target).closest('table').find('.chat-trim-text').text(
         $('.message-content').last().text())
     }
 
     ws.onclose = function (enent) {
-      console.log('close reason = ' + enent.reason)
-      console.log('close code = ' + enent.code)
-      console.log('close clean? = ' + enent.wasClean)
+      console.log('close reason = ' + enent.code + " --- " + enent.reason)
     }
 
     // $(e.target).closest('table').find('.chat-unread').text('0')
@@ -146,7 +138,6 @@ $(function () {
   // 送出 ------------------
   $('.btn-send-message').click(function () {
     const date = new Date()    //發訊息的日期
-    // 個位數的數值補零
     const currentDate = `${date.getMonth() + 1}`.padStart(2, '0') + "/"
       + `${date.getDate()}`.padStart(2, '0')
     const currentTime = `${date.getHours()}`.padStart(2, '0') + ":"
@@ -215,7 +206,6 @@ $(function () {
       $('#input-message').css({width: rightWidth * 0.66})
       $('.btn-send-message').css({width: rightWidth * 0.2})
     } else {
-      // $('.chat-main-block-left').css({display :'none'})
       const leftWidth = 250
       const targetWidth = leftWidth - 140
       const textWidth = leftWidth - 130
@@ -299,7 +289,6 @@ $(function () {
         'user': name1, 'target': name2
       },
       success: function (resp) {
-        console.log(Object.keys(resp).length)
         for (let k in resp) {
           renderMessage(resp[k])
         }
@@ -316,7 +305,6 @@ $(function () {
   function renderMessage(message) {
     if (message.receiver === $('#chat-target').data('memberId')
       || message.sender === $('#chat-target').data('memberId')) {
-
       if (message.currentDate !== $('.date-change').last().text()) {
         $('.chat-inside-block').append(`
       <div class="date-divide">
@@ -324,7 +312,6 @@ $(function () {
       </div>
       `)
       }
-
       if (message.sender === name1) {
         $('.chat-inside-block').append(`
        <div class="send-message-block row m-3">

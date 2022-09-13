@@ -2,23 +2,22 @@ $(function () {
   window.onload = decideBlockSize
   window.onreset = decideBlockSize
   window.onresize = decideBlockSize
-  const name1 = 5 //  要發訊息的人    //TODO (從會員資料)
+  window.onbeforeunload = decideBlockSize
+  const name1 = 1 //  要發訊息的人    //TODO (從會員資料)
   let name2
 
   // 讀取chatroomList  -----------------
   loadExistChatroom(name1)
-  decideBlockSize()
+  decideBlockSize
   $("#input-message").prop('disabled', true)
 
   // todo 如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
   //finish 選擇是否還可以聊聊的視窗
   $('input[name=is-talk-able]').change(function () {
     if ($('input[name=is-talk-able]:checked').val() === "true") {
-      console.log('all + open')
       $('*[data-open="true"]').show()
       $('*[data-open="false"]').hide()
     } else {
-      console.log('all + close')
       $('*[data-open="true"]').hide()
       $('*[data-open="false"]').show()
     }
@@ -31,7 +30,6 @@ $(function () {
   $('#checklist').on('click', '.chatroom-block', e => {
 
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
-    console.log('傳訊對象:' + name2)
     $('#chat-avatar').removeClass('invisible')
     $('#chat-avatar').attr('src',
       `/home/images/avatarImg/${$(e.target).closest('table').data(
@@ -79,19 +77,16 @@ $(function () {
     // ------------------
 
     ws = new WebSocket(
-      `ws://localhost:8080/home/chat/${name1}_${name2}`);
+      `ws://localhost:8080/home/chat/${name1}_${name2}/${name1}`);
 
     //移動卷軸
     $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
     ws.onopen = function () {
-      console.log('connect~')
     }
 
     ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
-      console.log(message)
-      console.log(Object.keys(message).length)
       renderMessage(message)
       decideBlockSize()
 
@@ -102,9 +97,8 @@ $(function () {
     }
 
     ws.onclose = function (enent) {
-      console.log('close reason = ' + enent.reason)
-      console.log('close code = ' + enent.code)
-      console.log('close clean? = ' + enent.wasClean)
+      console.log('close reason = ' + enent.code + " ---" + enent.reason)
+
     }
 
     ws.onerror = function (e) {
@@ -168,7 +162,7 @@ $(function () {
       $('#input-message').css({width: rightWidth * 0.66})
       $('.btn-send-message').css({width: rightWidth * 0.2})
 
-    } else if (windowInnerWidth >= 720 & windowInnerWidth < 810) {
+    } else if (windowInnerWidth >= 720 && windowInnerWidth < 810) {
       const leftWidth = 250
       const rightWidth = windowInnerWidth - leftWidth - 100
       const targetWidth = leftWidth - 140
@@ -210,7 +204,6 @@ $(function () {
       $('#input-message').css({width: (windowInnerWidth - 50) * 0.66})
       $('.btn-send-message').css({width: (windowInnerWidth - 50) * 0.2})
     }
-
   }
 
   //用來改變左側bar的箭頭方向 -----------------
@@ -263,11 +256,8 @@ $(function () {
             </td>
           </tr>
         </table>`)
-
     }
-
     $('*[data-unread="0"]').hide()
-
   }
 
   // -----------------
@@ -279,7 +269,6 @@ $(function () {
         'user': name1, 'target': name2
       },
       success: function (resp) {
-        console.log(Object.keys(resp).length)
         for (let k in resp) {
           renderMessage(resp[k])
         }
@@ -293,7 +282,6 @@ $(function () {
   }
 
   function renderMessage(message) {
-
     if (message.receiver === $('#chat-target').data('memberId')
       || message.sender === $('#chat-target').data('memberId')) {
       if (message.currentDate !== $('.date-change').last().text()) {
@@ -339,6 +327,4 @@ $(function () {
     })
   }
 
-  function connect() {
-  }
 })

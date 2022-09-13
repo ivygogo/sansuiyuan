@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import tw.edu.ntut.sce.java18.common.dao.ChatroomDao;
@@ -18,7 +17,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
 
   public ChatroomDaoImpl_JDBC() {
     try {
-      Context ctx = new InitialContext();
+      var ctx = new InitialContext();
       ds = (DataSource) ctx.lookup(DBService.JNDI_DB_NAME);
     } catch (Exception ex) {
       ex.printStackTrace();
@@ -29,6 +28,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   @Override
   public int queryIdByChatroomName(String chatroomName, String chatroomType) {
     String sql = "SELECT Id FROM chatroom WHERE CONCAT(member1,\"_\",member2) = ? And Chat_type =?";
+
     try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setString(1, chatroomName);
@@ -78,7 +78,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
       preparedStatement.setInt(2, member);
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         while (resultSet.next()) {
-          ArrayList existChatroom = new ArrayList<>();
+          var existChatroom = new ArrayList<>();
           existChatroom.add(resultSet.getInt("Id"));
           existChatroom.add(resultSet.getString("Chat_type"));
           existChatroom.add(resultSet.getTimestamp("Close_Time"));
@@ -99,7 +99,6 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
 
   @Override
   public void insertChatroom(String type, int member1, int member2) {
-
     String sql =
         "INSERT INTO chatroom "
             + "(Chat_type,Member1,Member2,Create_Time,Close_Time,IsOpen) "
@@ -115,22 +114,18 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
       n = 365;
     }
     var ldtCloseTime = localDateTime.plusDays(n);
-
     var createTime = localDateTime.format(dateTimeFormatter);
     var closeTime = ldtCloseTime.format(dateTimeFormatter);
 
     try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
       preparedStatement.setString(1, type);
       preparedStatement.setInt(2, member1);
       preparedStatement.setInt(3, member2);
       preparedStatement.setString(4, createTime);
       preparedStatement.setString(5, closeTime);
       preparedStatement.setBoolean(6, true);
-
       preparedStatement.executeUpdate();
-
     } catch (SQLException ex) {
       ex.printStackTrace();
       throw new RuntimeException("ChatroomDaoImpl_JDBC類別#queryRoomType()發生例外: " + ex.getMessage());
