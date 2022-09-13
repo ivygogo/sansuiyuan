@@ -63,6 +63,7 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
   public ArrayList<ChatMessageBean> queryHistoryMessage(int chatroomId) {
     var chatMessageList = new ArrayList<ChatMessageBean>();
     String sql = "SELECT * FROM chat_message WHERE Chatroom_Id = ?";
+
     try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setInt(1, chatroomId);
@@ -149,7 +150,6 @@ public class ChatMessageDaoImpl_JDBC implements ChatMessageDao {
   @Override
   public ChatMessageBean queryLastMessage(int chatroomId) {
     ChatMessageBean chatMessageBean = new ChatMessageBean();
-
     String sql =
         "SELECT Sender, Receiver, Content, Send_Time FROM chat_message WHERE Chatroom_Id = ? "
             + "ORDER BY id DESC LIMIT 1";

@@ -25,7 +25,7 @@ public class ChatroomServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws IOException {
 
     String callFrom = request.getParameter("callFrom");
 
@@ -39,8 +39,8 @@ public class ChatroomServlet extends HttpServlet {
       case ("changeReadCount"):
         changeReadCount(request);
         break;
-      case ("changerClosetme"):
-        changeCloseTime(request, response);
+      case ("changeCloseTime"):
+        changeCloseTime(request);
         break;
       case ("createChatroom"):
         createChatroom(request);
@@ -188,8 +188,7 @@ public class ChatroomServlet extends HttpServlet {
     chatMessageService.changeReadStatus(roomId, userId);
   }
 
-  public void changeCloseTime(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
+  public void changeCloseTime(HttpServletRequest request) {
     int roomId = Integer.parseInt(request.getParameter("roomId"));
     int additionalTime =
         Integer.parseInt(

@@ -17,7 +17,7 @@ import tw.edu.ntut.sce.java18.common.utils.MessageDecoder;
 import tw.edu.ntut.sce.java18.common.utils.MessageEncoder;
 
 @ServerEndpoint(
-    value = "/chat/{chatroomName}",
+    value = "/chat/{chatroomName}/{userId}",
     decoders = MessageDecoder.class,
     encoders = MessageEncoder.class)
 public class ChatWebSocket {
@@ -26,14 +26,16 @@ public class ChatWebSocket {
   private static final Map<String, ChatWebSocket> webSocketMap = new HashMap<>();
 
   @OnOpen
-  public void onOpen(Session session, @PathParam("chatroomName") String chatroomName)
+  public void onOpen(
+      Session session,
+      @PathParam("chatroomName") String chatroomName,
+      @PathParam("userId") String userId)
       throws IOException, EncodeException {
     this.session = session;
 
     System.out.println("WebSocket is Connected!");
 
     webSocketMap.put(chatroomName.split("_")[0], this);
-    //    clients.computeIfAbsent(chatroomName, k -> new HashSet<>()).add(this);
 
     var member1 = Integer.parseInt(chatroomName.split("_")[0]);
     var member2 = Integer.parseInt(chatroomName.split("_")[1]);
@@ -49,15 +51,6 @@ public class ChatWebSocket {
     String username = memberS + "_" + memberL;
 
     clients.put(username, webSocketMap);
-    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++begin");
-    for (Map.Entry<String, Map<String, ChatWebSocket>> entry1 : clients.entrySet()) {
-      System.out.println("key1 = " + entry1.getKey() + "  || " + entry1.getValue());
-      for (Map.Entry<String, ChatWebSocket> entry2 : entry1.getValue().entrySet()) {
-        System.out.println(" key2 = " + entry2.getKey() + "  ||  session = " + entry2.getValue());
-      }
-      System.out.println("----------------");
-    }
-    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++end");
   }
 
   @OnMessage
@@ -75,16 +68,24 @@ public class ChatWebSocket {
   }
 
   @OnClose
-  public void onClose(Session session) {
+  public void onClose(
+      Session session,
+      @PathParam("chatroomName") String chatroomName,
+      @PathParam("userId") String userId) {
     this.session = session;
-    clients.remove("chatroomName");
     System.out.println("WebSocket is Closed!");
+    webSocketMap.put(userId, null);
   }
 
   @OnError
-  public void onError(Session session, Throwable throwable) {
-    System.out.println(clients.remove("chatroomName")); // TODO 似乎關不起來  但確認?
+  public void onError(
+      Session session,
+      Throwable throwable,
+      @PathParam("chatroomName") String chatroomName,
+      @PathParam("userId") String userId) {
+    this.session = session;
     System.out.println("WebSocket was disconnect with some error !!!!!!!!!!!!!!!!");
+    clients.get(chatroomName).get(userId).onClose(session, chatroomName, userId);
   }
 
   private static void sendTo(ChatMessageServiceBean message, String chatroomName) {
