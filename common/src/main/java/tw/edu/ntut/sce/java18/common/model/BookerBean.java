@@ -59,7 +59,7 @@ public class BookerBean implements Serializable {
     this.bookDate = bookDate;
   }
 
-  private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+  private static SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 
   public static Date convertDate(String temp) {
     Date result = new java.util.Date();
