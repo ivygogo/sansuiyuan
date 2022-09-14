@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteBookServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -48,12 +47,10 @@ public class DeleteBookServlet extends HttpServlet {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    //    response.sendRedirect("/booking.do");
     RequestDispatcher rd = request.getRequestDispatcher("/booking/showBookList.jsp");
     rd.forward(request, response);
   }
 
-  /** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response) */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
