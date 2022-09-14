@@ -1,8 +1,8 @@
 package tw.edu.ntut.sce.java18.common.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +39,7 @@ public class BookServletProcess extends HttpServlet {
   public void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
     request.setCharacterEncoding("UTF-8");
-    Collection<String> errorMessage = new ArrayList<String>();
+    Map<String, String> errorMessage = new HashMap<>();
     request.setAttribute("ErrorMsg", errorMessage);
 
     // NEEDFIX    自動編碼新增不進資料庫
@@ -54,21 +54,47 @@ public class BookServletProcess extends HttpServlet {
     //    }
     String bookDate = request.getParameter("bookDate");
     java.sql.Date date = null;
-
+    if (bookDate == null || bookDate.trim().length() == 0) {
+      errorMessage.put("bookDate", "請選擇日期");
+    }
     if (bookDate != null && bookDate.trim().length() > 0) {
       try {
         date = java.sql.Date.valueOf(bookDate);
       } catch (IllegalArgumentException e) {
-        ;
+        errorMessage.put("bookDate", "請選擇ISO 8601變更日期格式");
       }
     }
     String preferTime = request.getParameter("preferTime");
+    if (preferTime == null || preferTime.trim().length() == 0) {
+      errorMessage.put("preferTime", "請選擇時段");
+    }
     String bookerId = request.getParameter("bookerId");
+    if (bookerId == null || bookerId.trim().length() == 0) {
+      errorMessage.put("bookerId", "帳號欄必須輸入");
+    }
     String bookerName = request.getParameter("bookerName");
+    if (bookerName == null || bookerName.trim().length() == 0) {
+      errorMessage.put("bookerName", "姓名欄必須輸入");
+    }
     String bookerPhone = request.getParameter("bookerPhone");
+    if (bookerPhone == null || bookerPhone.trim().length() == 0) {
+      errorMessage.put("bookerPhone", "電話欄必須輸入");
+    }
     String roomtype = request.getParameter("roomtype");
+    if (roomtype == null || roomtype.trim().length() == 0) {
+      errorMessage.put("roomtype", "房型欄必須輸入");
+    }
     String preferFloor = request.getParameter("preferFloor");
+    if (preferFloor == null || preferFloor.trim().length() == 0) {
+      errorMessage.put("preferFloor", "請選擇偏好樓層");
+    }
     String leadPerson = request.getParameter("leadPerson");
+
+    if (!errorMessage.isEmpty()) {
+      RequestDispatcher rd = request.getRequestDispatcher("/booking/booking.jsp");
+      rd.forward(request, response);
+      return;
+    }
 
     BookerBean booker =
         new BookerBean(
@@ -80,6 +106,11 @@ public class BookServletProcess extends HttpServlet {
       RequestDispatcher rd = request.getRequestDispatcher("/booking/displayBookingInfo.jsp");
       rd.forward(request, response);
       return;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    try {
+      service.delete(bookerId);
     } catch (Exception e) {
       e.printStackTrace();
     }
