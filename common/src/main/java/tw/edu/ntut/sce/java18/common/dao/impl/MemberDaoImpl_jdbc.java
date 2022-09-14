@@ -17,7 +17,6 @@ import tw.edu.ntut.sce.java18.common.utils.DBService;
 public class MemberDaoImpl_jdbc implements MemberDao {
 
   private DataSource ds = null;
-  private Connection conn = null;
 
   public MemberDaoImpl_jdbc() {
     try {

@@ -84,7 +84,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
 
 
-<script>
+<script type="text/javascript">
  var editPage ;
  var showPage ;
  var checkPass;

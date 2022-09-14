@@ -24,6 +24,7 @@ request.setAttribute("page", n);
 					<ul
 						class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
 						<li><a href="#home-section" class="nav-link">關於我們</a></li>
+						
 						<li class="nav-item dropdown has-children dropdown arrow-top">
 							<a class="nav-link " href="#" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false"> 房型瀏覽 </a>
@@ -50,7 +51,17 @@ request.setAttribute("page", n);
 							<li><a href="<c:url value="/MemberInfo.do?v=${page}"/>" class="nav-link">登入/註冊</a></li>
 						</c:if>
 						<c:if test="${! empty LoginOK }">
-							<li><a href="<c:url value="/MemberInfo.do?v=${page}"/>" class="nav-link">會員專區</a></li>
+							<li class="nav-item dropdown has-children dropdown arrow-top">
+              <a class="nav-link " href="#" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">會員專區</a>
+							<ul class="dropdown ">
+                <li><a class="dropdown-item" href="<c:url value="/MemberInfo.do?v=${page}"/>"
+                  id="">會員資料</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="<c:url value="repair.jsp?v=${page}"/>">報修管理</a></li>
+                <li><hr class="dropdown-divider"></li>
+							</ul>
+							</li>
 						</c:if>
 					</ul>
 				</nav>
