@@ -4,44 +4,38 @@
 
 
 <script type="text/javascript">
-landloadCounty="";
-landloadDistrict="";
-var resultJson =`${landloadInfoJson}`;
-var errJson =`${errMsgsJson}`;
-//alert(resultJson)
+landlordCounty="";
+landlordDistrict="";
 
-$(function(){
-if(resultJson.length!=0){
-const objResult = JSON.parse(resultJson);
-$("input[name='landloadName']").val(objResult.result.name);
-$("input[name='landloadPhone']").val(objResult.result.phone);
-landloadCounty += objResult.result.county;
-landloadDistrict += objResult.result.district;
-
-$("#zipzip").twzipcode('set', {
-    'county': objResult.result.county,
-    'district': objResult.result.district,
-});
-$("input[name='landloadAddress']").val(objResult.result.address);
-
-$("input[name='landloadMail']").val(objResult.result.mail);
-let landlordStamp =`${imgSrc}`;
-$("#preview").attr("src" , landlordStamp);
-$("#desc").text(objResult.result.stamp);
-
-}
-});
+$.getJSON('LandlordInfo.do').then(res => {    
+    <%--console.log(res);--%>
+    $("input[name='landlordName']").val(res.resultData.name);
+    $("input[name='landlordPhone']").val(res.resultData.phone);
+    landlordCounty += res.resultData.county;
+    landlordDistrict += res.resultData.district;
+    
+    $("#zipzip").twzipcode('set', {
+        'county': landlordCounty,
+        'district': landlordDistrict,
+    });
+    
+    $('.selectpicker').selectpicker('refresh');
+    $("input[name='landlordAddress']").val(res.resultData.address);
+    $("input[name='landlordMail']").val(res.resultData.mail);
+   
+    $("#desc").text(res.resultData.stamp);
+    let landlordStamp = res.resultImg;
+    $('.preview').attr("src" , landlordStamp);
+   
+}) 
  
  
 $(function(){
 	document.getElementById('upload_img').onchange = fileChange
 	function fileChange(){
 	     let file = document.getElementById('upload_img').files[0]
-	     // console.log(file);
-	     //let message = `${file.name}`;
 	     message = file.name
 	     document.getElementById('desc').textContent = message;
-	     //alert(message)
 	 }
 	 
 	
@@ -70,12 +64,12 @@ $(function(){
 
 $(function() {
         $('#zipzip').twzipcode({
-          'countySel' : landloadCounty,
-          'districtSel' : landloadDistrict,
+          'countySel' : "" ,
+          'districtSel' : "" ,
           zipcodeIntoDistrict : true,
           css : [ "county form-control", "district form-control" ],
           countyName : "county", 
-          districtName : "district", 
+          districtName : "district",
           onCountySelect : changecb,
           onDistrictSelect : changecb
         });
@@ -95,30 +89,20 @@ $(function() {
      
   $(function() {
       var oldChild = document.getElementById('inputState');
-      
       var wrapper = document.createElement('div');
       wrapper.className = "col-lg-3 col-md-6 col-sm-6 col-xs-12"
-      
       var wrapper2 = document.createElement('div');
       wrapper2.className = "bootstrap-select fm-cmp-mg pt-2"
-      
       var oldParent = document.getElementById('zipzip');
-      
       oldParent.appendChild(wrapper);
       wrapper.appendChild(wrapper2);
       wrapper2.appendChild(oldChild);
       
-      
       var oldChild2 = document.getElementById('inputState2');
       var wrapper3 = document.createElement('div');
       wrapper3.className = "col-lg-3 col-md-6 col-sm-6 col-xs-12";
-      
-      
       var wrapper4 = document.createElement('div');
       wrapper4.className = "bootstrap-select fm-cmp-mg pt-2";
-      
-      
-      
       oldParent.appendChild(wrapper3);
       wrapper3.appendChild(wrapper4);
       wrapper4.appendChild(oldChild2);
@@ -126,28 +110,6 @@ $(function() {
       $('.selectpicker').selectpicker('refresh');
     })
     
-$(function(){
-	if(resultJson.length!=0){
-	const objErr = JSON.parse(errJson);
-	arr = Object.keys(objErr)
-	for (let i=0 ; i<arr.length; i++){
-	  if(arr[i]==="errLandloadName") {
-	    $("#errLandloadName").prev().attr("class","nk-int-st-invalid");
-	    $("#errLandloadName").html(objErr.errLandloadName);
-	  }else if (arr[i]==="errLandloadPhone"){
-	    $("#errLandloadPhone").prev().attr("class","nk-int-st-invalid");
-	    $("#errLandloadPhone").html(objErr.errLandloadPhone);
-	  }else if (arr[i]==="errLandloadAddress"){
-	    $("#errLandloadAddress").prev().attr("class","nk-int-st-invalid");
-	    $(".bootstrap-select>.btn-default").css("border-bottom","1px solid #dc3545");
-	      $("#errLandloadAddress").html(objErr.errLandloadAddress);
-	  }else if (arr[i]==="errLandloadMail"){
-	      $("#errLandloadMail").prev().attr("class","nk-int-st-invalid");
-	        $("#errLandloadMail").html(objErr.errLandloadMail);
-	    }
-	}
-	}
-})    
 </script>
 
 <body>
@@ -164,7 +126,7 @@ $(function(){
 										<i class="notika-icon notika-form"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										<h1>會員中心－物業資訊valid</h1>
+										<h1>會員中心－物業資訊</h1>
 										<p>
 											<span class="bread-ntd form-intro">歡迎使用山水苑管理系統，查看您的會員基本資料</span>
 										</p>
@@ -178,9 +140,9 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<%-- Breadcomb area End--%>
-	<%-- Form Examples area start--%>
-	<form action="<c:url value="/LandloadInfo.do"/>" method="post" class=""
+	<%--Breadcomb area End--%>
+	<%--Form Examples area start--%>
+	<form action="<c:url value="/LandlordInfo.do"/>" method="post" class=""
 		enctype="multipart/form-data">
 		<div class="form-element-area">
 			<div class="container">
@@ -195,11 +157,9 @@ $(function(){
 									<h4 class="text-black">物業名稱</h4>
 									<div class="form-group">
 										<div class="nk-int-st">
-											<input type="text" name="landloadName"
-												class="form-control input-lg invalid" placeholder="請輸入公司名稱 ">
-
+											<input type="text" name="landlordName"
+												class="form-control input-lg " placeholder="Input Large">
 										</div>
-										<div class="invalid-feedback mx-1 my-2" id="errLandloadName"></div>
 									</div>
 								</div>
 							</div>
@@ -209,10 +169,9 @@ $(function(){
 									<h4 class="text-black">電話</h4>
 									<div class="form-group">
 										<div class="nk-int-st">
-											<input type="text" name="landloadPhone"
-												class="form-control input-lg " placeholder="請輸入公司代表手機電話">
+											<input type="text" name="landlordPhone"
+												class="form-control input-lg " placeholder="Input Large">
 										</div>
-										<div class="invalid-feedback mx-1 my-2" id="errLandloadPhone"></div>
 									</div>
 								</div>
 							</div>
@@ -231,14 +190,15 @@ $(function(){
 											<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 												<div class="form-group me-5">
 													<div class="nk-int-st">
-														<input type="text" name="landloadAddress"
-															class="form-control input-lg " placeholder="請輸入公司地址">
+														<input type="text" name="landlordAddress"  class="form-control input-lg "
+															placeholder="Input Large">
 													</div>
 												</div>
 											</div>
 										</div>
+
 									</div>
-									<div class="invalid-feedback mx-1 mb-4" id="errLandloadAddress"></div>
+
 
 								</div>
 							</div>
@@ -246,12 +206,11 @@ $(function(){
 							<div class="row mx-5">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<h4 class="text-black">信箱</h4>
-									<div class="form-group ">
+									<div class="form-group">
 										<div class="nk-int-st">
-											<input type="email" name="landloadMail"
-												class="form-control input-lg" placeholder="請輸入信箱">
+											<input type="email" name="landlordMail"
+												class="form-control input-lg" placeholder="Input Large" required>
 										</div>
-										<div class="invalid-feedback mx-1 my-2" id="errLandloadMail"></div>
 									</div>
 								</div>
 							</div>
@@ -264,23 +223,22 @@ $(function(){
 											<div class="row mx-1 my-3">
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 imgShow"
 													id="landlordStamp">
-													<img class="preview my-2" id="preview"
-														style="max-height: 280px; display: block; margin: auto;">
+													<img class="preview my-2"
+														style="max-height: 280px; display:block; margin:auto;">
 												</div>
 											</div>
 											<div class="row mx-1 my-3">
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 													<div class="size mt-1"></div>
 													<div id="desc" class="mt-1"></div>
-													<div class="invalid-feedback mx-1 my-2" id="errStamp"></div>
+													
 												</div>
 											</div>
 
 											<div class="btn-group images-cropper-pro">
 												<label class="btn btn-edit img-cropper-cp"> <input
 													id="upload_img" style="display: none;" type="file"
-													class="upl" name="file"> <i class="fa fa-photo"></i>
-													上傳圖片
+													class="upl" name="file" accept="image/png, image/jpeg, image/jpg"> <i class="fa fa-photo"></i> 上傳圖片
 												</label>
 
 											</div>
@@ -289,20 +247,19 @@ $(function(){
 									</div>
 								</div>
 							</div>
-
+							
 							<div class="row mx-5 mt-4">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="" style="display: flex; justify-content: center;">
-										<button class="btn btn-edit">儲存資料</button>
-										<button class="btn btn-edit mx-5" onclick="dropForm()"
-											id="dropIt">放棄儲存</button>
-									</div>
-								</div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="" style="display: flex; justify-content: center;">
+                  <button class="btn btn-edit">儲存資料</button>
+                  <button class="btn btn-edit mx-5" onclick="dropForm()" id="dropIt">放棄儲存</button>
+                </div>
+              </div>
 							</div>
-
+							
 						</div>
 					</div>
 				</div>
-
+				
 			</div>
 	</form>

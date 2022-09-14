@@ -275,6 +275,25 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 	color: #fff;
 }
 
+/*----按鈕 0912-----*/
+.btn.btn-repair {
+  font-size: 16px;
+  background: #37cfa2;
+  border-color: #37cfa2;
+  color: #fff;
+}
+
+.btn.btn-repair:hover {
+  background: #343a40;
+  color: #fff;
+  border-color: #343a40;
+}
+
+.btn.btn-repair.btn-black--hover:hover {
+  background: #666666;
+  color: #fff;
+}
+
 /*----按鈕 0824-----*/
 .btntable {
   font-size: 16px;

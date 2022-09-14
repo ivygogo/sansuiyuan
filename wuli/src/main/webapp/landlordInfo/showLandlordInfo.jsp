@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script>
-$.getJSON('/wuli/LandloadInfo.do').then(res=> {
+$.getJSON('/wuli/LandlordInfo.do').then(res=> {
     console.log(res);
     $("#LandlordName >h3").text(res.resultData.name);
     $("#LandlordPhone >h3").text(res.resultData.phone);
@@ -98,7 +98,7 @@ $.getJSON('/wuli/LandloadInfo.do').then(res=> {
               </div>
             </div>
             <div class="" style="display: flex; justify-content: center;">
-              <button class="btn btn-edit" id="editLandloadinfo" onclick="updateLandloadinfo()">編輯資料</button>
+              <button class="btn btn-edit" id="editLandlordinfo" onclick="updateLandlordinfo()">編輯資料</button>
             </div>
           </div>
         </div>

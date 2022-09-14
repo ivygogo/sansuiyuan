@@ -119,7 +119,7 @@ session.setAttribute("isInvalid", false);
             ============================================ -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/style.css">
-<!-- responsive CSS
+<!-- responsive CSS 
             ============================================ -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/responsive.css">
@@ -135,19 +135,21 @@ session.setAttribute("isInvalid", false);
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/file/jquery.twzipcode.js"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
 
 
 
 </head>
 <script>
 
-function updateLandloadinfo(){
+function updateLandlordinfo(){
           innerPage = "updateRefundinfo";
           if(innerPage =="updateRefundinfo"){
                 $('#profile').html("");
-                $('#profile').load('landloadInfo/editLandloadInfo.jsp');
+                $('#profile').load('landlordInfo/editLandlordInfo.jsp');
                 }
           $("html,body").animate(
                   {
@@ -161,7 +163,7 @@ function updateLandloadinfo(){
 function dropForm(){
 
      $('#profile').html("")
-     $('#profile').load('/landloadInfo/showLandloadInfo.jsp?edit=drop');
+     $('#profile').load('/landlordInfo/showLandlordInfo.jsp?edit=drop');
         //document.location.href="/home/MemberInfo.do"
     	 document.location.href="/wuli/memberInfo.jsp?edit=drop"
 
@@ -181,11 +183,11 @@ function dropForm(){
     <%-- <h1>${isInvalid}</h1> --%>
 		<c:choose>
 			<c:when test="${isInvalid==true}">
-				<jsp:include page="landloadInfo/validLandloadInfo.jsp" />
+				<jsp:include page="landlordInfo/validLandlordInfo.jsp" />
 
 			</c:when>
 			<c:otherwise>
-				<jsp:include page="landloadInfo/showLandloadInfo.jsp" />
+				<jsp:include page="landlordInfo/showLandlordInfo.jsp" />
 
 			</c:otherwise>
 		</c:choose>

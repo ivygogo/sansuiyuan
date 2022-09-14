@@ -31,13 +31,13 @@ import tw.edu.ntut.sce.java18.common.utils.GlobalService;
 import tw.edu.ntut.sce.java18.landlord.model.LandlordInfo;
 import tw.edu.ntut.sce.java18.landlord.service.LandlordInfoService;
 
-@WebServlet("/LandloadInfo.do")
+@WebServlet("/LandlordInfo.do")
 @MultipartConfig(
     location = "",
     fileSizeThreshold = 1024 * 1024,
     maxFileSize = 1024 * 1024 * 500,
     maxRequestSize = 1024L * 1024 * 500 * 5)
-public class LandloadInfoServlet extends HttpServlet {
+public class LandlordInfoServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   private final Gson gson = new Gson();
@@ -54,29 +54,29 @@ public class LandloadInfoServlet extends HttpServlet {
     HttpSession session = request.getSession();
 
     // 1. 以房東會員ID撈出房東資料
-    var landloadInfo = new LandlordInfoService().queryLandlordInfoByPrimaryKey(1);
+    var landlordInfo = new LandlordInfoService().queryLandlordInfoByPrimaryKey(1);
     // 2. 以房東資料的公司章檔名，找到對應圖檔的路徑
-    String imgPath = System.getProperty("java.io.tmpdir") + "images//" + landloadInfo.getStamp();
+    String imgPath = System.getProperty("java.io.tmpdir") + "images//" + landlordInfo.getStamp();
 
-    // var file = new File(new File(System.getProperty("java.io.tmpdir")), landloadInfo.getStamp());
+    // var file = new File(new File(System.getProperty("java.io.tmpdir")), landlordInfo.getStamp());
     // System.out.println("!!!!imgPath!!!!" + imgPath);
 
     // 3.將圖片處理成 Data URI資料
     String imgBase64 = getImageEncoderByPath(imgPath);
-    String imgMimeType = getMimeType(landloadInfo.getStamp());
+    String imgMimeType = getMimeType(landlordInfo.getStamp());
     String myimgSrc = "data:" + imgMimeType + ";" + "base64," + imgBase64;
 
     // 4.將會員資料轉成兩個Map，一個放會員資料，一個放大小章
-    var landloadDataMap = Map.of("resultData", landloadInfo, "resultImg", myimgSrc);
+    var landlordDataMap = Map.of("resultData", landlordInfo, "resultImg", myimgSrc);
     session.setAttribute("myimgSrc", myimgSrc);
-    session.setAttribute("landloadInfo", landloadInfo);
+    session.setAttribute("landlordInfo", landlordInfo);
 
     // 5. 將Map資料轉成gson檔案，往前端送
     var printWriter = response.getWriter();
-    var landloadInfoJson = gson.toJson(landloadDataMap);
-    printWriter.print(landloadInfoJson);
+    var landlordInfoJson = gson.toJson(landlordDataMap);
+    printWriter.print(landlordInfoJson);
     printWriter.flush();
-    // System.out.println(landloadInfoJson);
+    // System.out.println(landlordInfoJson);
   }
 
   /*============== # doPost方法 # =================*/
@@ -96,7 +96,7 @@ public class LandloadInfoServlet extends HttpServlet {
     HttpSession session = request.getSession();
 
     if (!session.isNew()) {
-      landlordOld = (LandlordInfo) session.getAttribute("landloadInfo");
+      landlordOld = (LandlordInfo) session.getAttribute("landlordInfo");
     } else {
       landlordOld = new LandlordInfo();
     }
@@ -123,85 +123,85 @@ public class LandloadInfoServlet extends HttpServlet {
 
         if (p.getContentType() == null) {
 
-          /*=== <判斷 landloadName> ===*/
-          if (fldName.equals("landloadName")) {
-            var landloadName = value;
-            landlordInfoEdit.setName(landloadName);
-            if (landloadName == null || landloadName.trim().length() == 0) {
-              errorMsgs.put("errLandloadName", "必須輸入公司名稱");
+          /*=== <判斷 landlordName> ===*/
+          if (fldName.equals("landlordName")) {
+            var landlordName = value;
+            landlordInfoEdit.setName(landlordName);
+            if (landlordName == null || landlordName.trim().length() == 0) {
+              errorMsgs.put("errLandlordName", "必須輸入公司名稱");
             } else {
-              session.setAttribute("landloadName", landloadName);
+              session.setAttribute("landlordName", landlordName);
             }
           }
-          /*=== <判斷 landloadPhone> ===*/
-          else if (fldName.equals("landloadPhone")) {
-            var landloadPhone = value;
+          /*=== <判斷 landlordPhone> ===*/
+          else if (fldName.equals("landlordPhone")) {
+            var landlordPhone = value;
             Matcher matcher;
-            landloadPhone = value.replaceAll("\\s*", "");
-            landlordInfoEdit.setPhone(landloadPhone);
+            landlordPhone = value.replaceAll("\\s*", "");
+            landlordInfoEdit.setPhone(landlordPhone);
 
-            if (landloadPhone.length() != 10) {
-              errorMsgs.put("errLandloadPhone", "手機電話為09開頭且總數為10碼");
-            } else if (!landloadPhone.startsWith("09")) {
-              errorMsgs.put("errLandloadPhone", "請輸入以「09」為開頭的手機電話");
-            } else if (landloadPhone.length() > 10 && landloadPhone.startsWith("09")) {
+            if (landlordPhone.length() != 10) {
+              errorMsgs.put("errLandlordPhone", "手機電話為09開頭且總數為10碼");
+            } else if (!landlordPhone.startsWith("09")) {
+              errorMsgs.put("errLandlordPhone", "請輸入以「09」為開頭的手機電話");
+            } else if (landlordPhone.length() > 10 && landlordPhone.startsWith("09")) {
               Pattern pattern = Pattern.compile("\\d{8}");
-              matcher = pattern.matcher(landloadPhone.substring(2));
+              matcher = pattern.matcher(landlordPhone.substring(2));
               if (!matcher.matches()) {
-                errorMsgs.put("errLandloadPhone", "手機電話格式後8碼錯誤");
+                errorMsgs.put("errLandlordPhone", "手機電話格式後8碼錯誤");
                 // str.matches("[0-9]{4}-[0-9]{6}")
               }
             } else {
-              session.setAttribute("landloadPhone", landloadPhone);
+              session.setAttribute("landlordPhone", landlordPhone);
             }
           }
           /*=== <判斷 county> ===*/
           else if (fldName.equals("county")) {
-            var landloadCounty = value;
-            landlordInfoEdit.setCounty(landloadCounty);
+            var landlordCounty = value;
+            landlordInfoEdit.setCounty(landlordCounty);
 
-            if (landloadCounty == null || landloadCounty.trim().length() == 0) {
-              errorMsgs.put("errLandloadAddress", "必須輸入縣市");
+            if (landlordCounty == null || landlordCounty.trim().length() == 0) {
+              errorMsgs.put("errLandlordAddress", "必須輸入縣市");
             } else {
-              request.setAttribute("landloadCounty", landloadCounty);
+              request.setAttribute("landlordCounty", landlordCounty);
             }
           }
 
           /*=== <判斷 district> ===*/
           else if (fldName.equals("district")) {
-            var landloadDistrict = value;
-            landlordInfoEdit.setDistrict(landloadDistrict);
-            if (landloadDistrict == null || landloadDistrict.trim().length() == 0) {
-              errorMsgs.put("errLandloadAddress", "必須輸入區域");
+            var landlordDistrict = value;
+            landlordInfoEdit.setDistrict(landlordDistrict);
+            if (landlordDistrict == null || landlordDistrict.trim().length() == 0) {
+              errorMsgs.put("errLandlordAddress", "必須輸入區域");
             } else {
-              request.setAttribute("landloadDistrict", landloadDistrict);
+              request.setAttribute("landlordDistrict", landlordDistrict);
             }
           }
 
-          /*=== <判斷 landloadAddress> ===*/
-          else if (fldName.equals("landloadAddress")) {
-            var landloadAddress = value;
-            landlordInfoEdit.setAddress(landloadAddress);
-            if (landloadAddress == null || landloadAddress.trim().length() == 0) {
-              errorMsgs.put("errLandloadAddress", "必須輸入地址");
+          /*=== <判斷 landlordAddress> ===*/
+          else if (fldName.equals("landlordAddress")) {
+            var landlordAddress = value;
+            landlordInfoEdit.setAddress(landlordAddress);
+            if (landlordAddress == null || landlordAddress.trim().length() == 0) {
+              errorMsgs.put("errLandlordAddress", "必須輸入地址");
             } else {
-              request.setAttribute("landloadAddress", landloadAddress);
+              request.setAttribute("landlordAddress", landlordAddress);
             }
           }
 
-          /*=== <判斷 landloadMail> ===*/
-          else if (fldName.equals("landloadMail")) {
-            var landloadMail = value;
-            landlordInfoEdit.setMail(landloadMail);
-            if (landloadMail == null || landloadMail.trim().length() == 0) {
-              errorMsgs.put("errLandloadMail", "必須輸入eMail");
+          /*=== <判斷 landlordMail> ===*/
+          else if (fldName.equals("landlordMail")) {
+            var landlordMail = value;
+            landlordInfoEdit.setMail(landlordMail);
+            if (landlordMail == null || landlordMail.trim().length() == 0) {
+              errorMsgs.put("errLandlordMail", "必須輸入eMail");
             } else {
-              request.setAttribute("landloadMail", landloadMail);
+              request.setAttribute("landlordMail", landlordMail);
             }
           }
         } // if (p.getContentType() == null)
 
-        /*=== <判斷 landloadStamp> ===*/
+        /*=== <判斷 landlordStamp> ===*/
 
         else {
           /*透過getAttribute 來保存num、tampFilename、tampFileSrc、tampFileBase64等區域變數 */
@@ -285,15 +285,15 @@ public class LandloadInfoServlet extends HttpServlet {
 
     if (!errList.isEmpty()) {
       session.setAttribute("isInvalid", true);
-      // session.setAttribute("landloadInfoEdit", landlordInfoEdit);
+      // session.setAttribute("landlordInfoEdit", landlordInfoEdit);
       var landlordInfoResponse = Map.of("result", landlordInfoEdit);
-      var landloadInfoJson = gson.toJson(landlordInfoResponse);
+      var landlordInfoJson = gson.toJson(landlordInfoResponse);
       var errMsgsJson = gson.toJson(errorMsgs);
-      session.setAttribute("landloadInfoJson", landloadInfoJson);
+      session.setAttribute("landlordInfoJson", landlordInfoJson);
       session.setAttribute("errMsgsJson", errMsgsJson);
 
       // var printWriter = response.getWriter();
-      // printWriter.print(landloadInfoJson);
+      // printWriter.print(landlordInfoJson);
       // printWriter.flush();
       // response.sendRedirect("memberInfo.jsp");
       RequestDispatcher rd = request.getRequestDispatcher("memberInfo.jsp");
@@ -314,7 +314,7 @@ public class LandloadInfoServlet extends HttpServlet {
       String newFileName =
           saveImage(tampFileBase64, landlordInfoEdit.getStamp(), landlordOld.getId());
       newBean.setStamp(newFileName);
-      landlordInfoService.updateLandlordInfo(newBean);
+      landlordInfoService.updateLandlordInfo(newBean); // 儲存方法
       response.sendRedirect("memberInfo.jsp");
       return;
     }

@@ -4,6 +4,17 @@ public class FurniturePriceBean {
   int id;
   String name;
   int price;
+  String nameAlias;
+
+  public FurniturePriceBean() {}
+
+  public FurniturePriceBean(int id, String name, int price, String nameAlias) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.nameAlias = nameAlias;
+  }
 
   public int getId() {
     return id;
@@ -27,5 +38,13 @@ public class FurniturePriceBean {
 
   public void setPrice(int price) {
     this.price = price;
+  }
+
+  public String getNameAlias() {
+    return nameAlias;
+  }
+
+  public void setNameAlias(String nameAlias) {
+    this.nameAlias = nameAlias;
   }
 }
