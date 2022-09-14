@@ -7,12 +7,12 @@ import java.util.List;
 import tw.edu.ntut.sce.java18.common.dao.impl.AvatarDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.CharacterAndFavorDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.MemberDaoImpl_jdbc;
+import tw.edu.ntut.sce.java18.common.dao.impl.TenantDaoImpl;
 import tw.edu.ntut.sce.java18.common.model.AvatarBean;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.model.TenantBean;
 import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.GuarantorDaoImpl;
 import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.RefundAccountDaoImpl;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.TenantDaoImpl;
 import tw.edu.ntut.sce.java18.tenant.memberInfo.service.MemberInfoService;
 
 public class MemberInfoServiceImpl implements MemberInfoService {

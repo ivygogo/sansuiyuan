@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
+package tw.edu.ntut.sce.java18.common.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +9,9 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import tw.edu.ntut.sce.java18.common.dao.TenantDao;
 import tw.edu.ntut.sce.java18.common.model.TenantBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.TenantDao;
 
 public class TenantDaoImpl implements TenantDao {
   private DataSource ds = null;
@@ -135,5 +135,30 @@ public class TenantDaoImpl implements TenantDao {
       throw new RuntimeException(ex);
     }
     return tenantList;
+  }
+
+  @Override
+  public String getRoomNumberByMemberId(int memberId) {
+    String roomNumber = "";
+    String sql =
+        " SELECT room_number FROM tenant "
+            + "WHERE member_ID =? AND DATE(NOW()) BETWEEN Begin_Time AND End_Time";
+
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql); ) {
+      ps.setInt(1, memberId);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        while (rs.next()) {
+          roomNumber = rs.getString("room_number");
+        }
+        if (roomNumber.length() < 1) {
+          roomNumber = "非租客";
+        }
+      }
+    } catch (SQLException ex) {
+      roomNumber = "非租客";
+      throw new RuntimeException(ex);
+    }
+    return roomNumber;
   }
 }
