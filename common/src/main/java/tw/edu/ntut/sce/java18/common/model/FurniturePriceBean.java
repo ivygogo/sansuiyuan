@@ -6,9 +6,9 @@ public class FurniturePriceBean {
   int price;
   String nameAlias;
 
-  public FurniturePriceBeam() {}
+  public FurniturePriceBean() {}
 
-  public FurniturePriceBeam(int id, String name, int price, String nameAlias) {
+  public FurniturePriceBean(int id, String name, int price, String nameAlias) {
     super();
     this.id = id;
     this.name = name;
