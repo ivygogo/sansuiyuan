@@ -12,7 +12,7 @@ public class BookingService {
     dao = new BookingDao();
   }
 
-  public BookerBean select(String bookerId) {
+  public BookerBean select(Integer bookerId) {
     return dao.select(bookerId);
   }
 
@@ -28,7 +28,7 @@ public class BookingService {
     return dao.insertBooker(bean);
   }
 
-  public int delete(String bookerId) {
+  public int delete(Integer bookerId) {
     return dao.delete(bookerId);
   }
 }

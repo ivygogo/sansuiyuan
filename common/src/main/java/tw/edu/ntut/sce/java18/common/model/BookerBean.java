@@ -8,9 +8,9 @@ import java.util.Date;
 public class BookerBean implements Serializable {
   private static final long serialVersionUID = 1L;
   //  private Integer id;
+  private Integer bookerId;
   private Date bookDate;
   private String preferTime;
-  private String bookerId;
   private String bookerName;
   private String bookerPhone;
   private String roomtype;
@@ -23,9 +23,9 @@ public class BookerBean implements Serializable {
 
   public BookerBean(
       //      Integer id,
+      Integer bookerId,
       Date bookDate,
       String preferTime,
-      String bookerId,
       String bookerName,
       String bookerPhone,
       String roomtype,
@@ -80,11 +80,11 @@ public class BookerBean implements Serializable {
     this.preferTime = preferTime;
   }
 
-  public String getBookerId() {
+  public Integer getBookerId() {
     return bookerId;
   }
 
-  public void setBookerId(String bookerId) {
+  public void setBookerId(Integer bookerId) {
     this.bookerId = bookerId;
   }
 

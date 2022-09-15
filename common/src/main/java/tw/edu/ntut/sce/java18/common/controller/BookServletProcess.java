@@ -69,8 +69,13 @@ public class BookServletProcess extends HttpServlet {
       errorMessage.put("preferTime", "請選擇時段");
     }
     String bookerId = request.getParameter("bookerId");
-    if (bookerId == null || bookerId.trim().length() == 0) {
-      errorMessage.put("bookerId", "帳號欄必須輸入");
+    Integer bid = -1;
+    if (bookerId != null && bookerId.trim().length() > 0) {
+      try {
+        bid = Integer.parseInt(bookerId.trim());
+      } catch (NumberFormatException e) {
+        ;
+      }
     }
     String bookerName = request.getParameter("bookerName");
     if (bookerName == null || bookerName.trim().length() == 0) {
@@ -98,7 +103,7 @@ public class BookServletProcess extends HttpServlet {
 
     BookerBean booker =
         new BookerBean(
-            date, preferTime, bookerId, bookerName, bookerPhone, roomtype, preferFloor, leadPerson);
+            bid, date, preferTime, bookerName, bookerPhone, roomtype, preferFloor, leadPerson);
     BookingService service = new BookingService();
     try {
       service.insertBooker(booker);
@@ -106,11 +111,6 @@ public class BookServletProcess extends HttpServlet {
       RequestDispatcher rd = request.getRequestDispatcher("/booking/displayBookingInfo.jsp");
       rd.forward(request, response);
       return;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    try {
-      service.delete(bookerId);
     } catch (Exception e) {
       e.printStackTrace();
     }
