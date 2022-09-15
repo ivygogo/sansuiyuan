@@ -26,21 +26,21 @@ public class BookingDao {
   }
 
   private static final String SELECT_BY_ID =
-      "Select book_date, prefer_time, booker_id, booker_name, booker_phone, roomtype, prefer_floor,"
+      "Select booker_id, book_date, prefer_time, booker_name, booker_phone, roomtype, prefer_floor,"
           + " lead_person from bookingexample where booker_id = ?";
 
-  public BookerBean select(String bookerid) {
+  public BookerBean select(Integer integer) {
     BookerBean result = null;
     try (Connection conn = ds.getConnection();
         PreparedStatement stmt = conn.prepareStatement(SELECT_BY_ID); ) {
-      stmt.setString(3, bookerid);
+      stmt.setInt(1, integer);
       try (ResultSet rset = stmt.executeQuery(); ) {
         if (rset.next()) {
           result = new BookerBean();
           //          result.setId(rset.getInt("id"));
+          result.setBookerId(rset.getInt("booker_id"));
           result.setBookDate(rset.getDate("book_date"));
           result.setPreferTime(rset.getString("prefer_time"));
-          result.setBookerId(rset.getString("booker_id"));
           result.setBookerName(rset.getString("booker_name"));
           result.setBookerPhone(rset.getString("booker_phone"));
           result.setRoomtype(rset.getString("roomtype"));
@@ -55,8 +55,8 @@ public class BookingDao {
   }
 
   private static final String SELECT_ALL =
-      "Select book_date, prefer_time, booker_id, booker_name, booker_phone, roomtype, prefer_floor,"
-          + " lead_person from bookingexample order by 1 desc";
+      "Select booker_id, book_date, prefer_time, booker_name, booker_phone, roomtype, prefer_floor,"
+          + " lead_person from bookingexample order by 2 desc";
 
   public List<BookerBean> select() {
     List<BookerBean> result = null;
@@ -67,9 +67,9 @@ public class BookingDao {
       while (rset.next()) {
         BookerBean temp = new BookerBean();
         //        temp.setId(rset.getInt("id"));
+        temp.setBookerId(rset.getInt("booker_id"));
         temp.setBookDate(rset.getDate("book_date"));
         temp.setPreferTime(rset.getString("prefer_time"));
-        temp.setBookerId(rset.getString("booker_id"));
         temp.setBookerName(rset.getString("booker_name"));
         temp.setBookerPhone(rset.getString("booker_phone"));
         temp.setRoomtype(rset.getString("roomtype"));
@@ -84,22 +84,22 @@ public class BookingDao {
   }
 
   private static final String INSERT =
-      "Insert into bookingexample (book_date, prefer_time, booker_id, booker_name, booker_phone,"
+      "Insert into bookingexample (booker_id, book_date, prefer_time, booker_name, booker_phone,"
           + " roomtype, prefer_floor, lead_person) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
   public BookerBean insertBooker(BookerBean bean) throws SQLException {
     BookerBean result = null;
     try (Connection conn = ds.getConnection();
         PreparedStatement stmt = conn.prepareStatement(INSERT); ) {
+      stmt.setInt(1, bean.getBookerId());
       java.util.Date temp = bean.getBookDate();
       if (temp != null) {
         java.sql.Date someTime = new java.sql.Date(temp.getTime());
-        stmt.setDate(1, someTime);
+        stmt.setDate(2, someTime);
       } else {
-        stmt.setDate(1, null);
+        stmt.setDate(2, null);
       }
-      stmt.setString(2, bean.getPreferTime());
-      stmt.setString(3, bean.getBookerId());
+      stmt.setString(3, bean.getPreferTime());
       stmt.setString(4, bean.getBookerName());
       stmt.setString(5, bean.getBookerPhone());
       stmt.setString(6, bean.getRoomtype());
@@ -116,11 +116,11 @@ public class BookingDao {
 
   private static final String DELETE = "Delete from bookingexample where booker_id=?";
 
-  public int delete(String bookerId) {
+  public int delete(Integer bookerId) {
     int result = 0;
     try (Connection conn = ds.getConnection();
         PreparedStatement stmt = conn.prepareStatement(DELETE); ) {
-      stmt.setString(3, bookerId);
+      stmt.setInt(1, bookerId);
       result = stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
