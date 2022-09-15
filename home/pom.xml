@@ -10,14 +10,14 @@
   </parent>
   <artifactId>home</artifactId>
   <packaging>war</packaging>
-  
+
   <dependencies>
     <dependency>
       <artifactId>common</artifactId>
       <groupId>tw.edu.ntut.sce.java18</groupId>
       <version>${project.version}</version>
     </dependency>
-    
+
   </dependencies>
   <build>
     <plugins>
