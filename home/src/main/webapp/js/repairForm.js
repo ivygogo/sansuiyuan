@@ -111,18 +111,19 @@ function updateRepairForm(item) {
     }
   }
   innerPage = "editRepairForminfo";
+  loadpage = "memberPage/editRepairForm.jsp?page="+myformNumber;
   $('#repairFormPage').html("");
-  $('#repairFormPage').load('memberPage/editRepairForm.jsp',
+  $('#repairFormPage').load(loadpage,
     function(){
       $('#repairFormNumber').text(myformNumber);
       $('#repairFormStatus').text(myformStatus);
       $('#repairFormRoom').text(myformRoom);
-      $('#repairFormApplicant').text(fromApplicant);
+      $('#repairFormApplicant').attr("value",fromApplicant);
       $("input[name='repairFormPhone']").attr("value",myformPhone);
       $("input[name='repairFormProject']").val("value", myformProjectNameAlias);
-      $("input[name='repairFormCreateTime']").attr("value", myformCreatetime);
+      $("#repairFormCreateTime").text(myformCreatetime);
       $("input[name='repairFormExpectTime']").attr("value",myformExpectionTime);
-      $("input[name='repairFormNote']").attr("value",myformNote);
+      $("#repairFormNote").text(myformNote);
       
       $("#inputState").find("option:contains('"+ myformProjectNameAlias +"')").attr("selected",true);
       $('#newRepairBtn').hide();

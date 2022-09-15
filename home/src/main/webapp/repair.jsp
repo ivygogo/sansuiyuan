@@ -201,6 +201,9 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
   
   <div class="row mt-4 border-bottom">
   <div class="col" id="repairFormPage">
+    <c:choose>
+    <c:when test="${FormInvalid!=null}">
+    </c:choose>
   
             <%-- table 開始 --%>
             <div class="table-responsive">

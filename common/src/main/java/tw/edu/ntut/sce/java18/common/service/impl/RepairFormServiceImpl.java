@@ -20,7 +20,7 @@ public class RepairFormServiceImpl implements RepairFormService {
 
   @Override
   public List<RepairFormBean> getReparFormListByApplicant(int memberid) {
-    return repairFormDao.getReparFormListByApplicant(memberid);
+    return repairFormDao.getRepairFormListByApplicant(memberid);
   }
 
   @Override
@@ -58,5 +58,11 @@ public class RepairFormServiceImpl implements RepairFormService {
     }
 
     return repairFormServiceList;
+  }
+
+  @Override
+  public int checkRepairFormAmount(int memberid, String beginTime, String endTime) {
+    // TODO Auto-generated method stub
+    return repairFormDao.checkRepairFormAmount(memberid, beginTime, endTime);
   }
 }

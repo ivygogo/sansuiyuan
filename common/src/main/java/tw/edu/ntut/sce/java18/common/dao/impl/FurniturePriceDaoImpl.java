@@ -22,7 +22,7 @@ public class FurniturePriceDaoImpl implements FurniturePriceDao {
       ds = (DataSource) ctx.lookup(DBService.JNDI_DB_NAME);
     } catch (Exception ex) {
       ex.printStackTrace();
-      throw new RuntimeException("MemberDaoImpl_Jdbc類別#建構子發生例外:" + ex.getMessage());
+      throw new RuntimeException("FurniturePriceDaoImpl類別#建構子發生例外:" + ex.getMessage());
     }
   }
 
@@ -48,6 +48,8 @@ public class FurniturePriceDaoImpl implements FurniturePriceDao {
 
     } catch (SQLException ex) {
       System.out.println(ex.getMessage());
+      throw new RuntimeException(
+          "FurniturePriceDaoImpl類別#getAllFurniturePrice()發生例外: " + ex.getMessage());
     }
     return furniturePriceList;
   }
@@ -69,7 +71,30 @@ public class FurniturePriceDaoImpl implements FurniturePriceDao {
 
     } catch (SQLException ex) {
       System.out.println(ex.getMessage());
+      throw new RuntimeException(
+          "FurniturePriceDaoImpl類別#getAllFurnitureName()發生例外: " + ex.getMessage());
     }
     return nameList;
+  }
+
+  @Override
+  public int getFurnitureIdByName(String name) {
+    int id = -1;
+    String sql = " SELECT ID FROM furniture_price where alias_name = ?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.setString(1, name);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        while (rs.next()) {
+          id = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      System.out.println(ex.getMessage());
+      id = -1;
+      throw new RuntimeException(
+          "FurniturePriceDaoImpl類別#getFurnitureIdByName()發生例外: " + ex.getMessage());
+    }
+    return id;
   }
 }

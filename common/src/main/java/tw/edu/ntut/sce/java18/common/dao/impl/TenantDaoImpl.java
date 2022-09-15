@@ -95,7 +95,7 @@ public class TenantDaoImpl implements TenantDao {
 
     } catch (SQLException ex) {
       ex.printStackTrace();
-      throw new RuntimeException("TenantDaoImpl類別#queryTenant()發生例外: " + ex.getMessage());
+      throw new RuntimeException("TenantDaoImpl類別#queryTenantByMemberId()發生例外: " + ex.getMessage());
     }
     return tb;
   }
@@ -108,7 +108,6 @@ public class TenantDaoImpl implements TenantDao {
       ds = (DataSource) ctx.lookup(DBService.JNDI_DB_NAME);
     } catch (Exception ex) {
       ex.printStackTrace();
-      throw new RuntimeException("TenantDaoImpl類別#getContractInfo()發生例外: " + ex.getMessage());
     }
 
     TenantBean tb = null;
@@ -132,7 +131,7 @@ public class TenantDaoImpl implements TenantDao {
         }
       }
     } catch (SQLException ex) {
-      throw new RuntimeException(ex);
+      throw new RuntimeException("TenantDaoImpl類別#getContractInfo()發生例外: " + ex.getMessage());
     }
     return tenantList;
   }
@@ -157,7 +156,8 @@ public class TenantDaoImpl implements TenantDao {
       }
     } catch (SQLException ex) {
       roomNumber = "非租客";
-      throw new RuntimeException(ex);
+      throw new RuntimeException(
+          "TenantDaoImpl類別#getRoomNumberByMemberId()發生例外: " + ex.getMessage());
     }
     return roomNumber;
   }

@@ -22,4 +22,10 @@ public class FurniturePriceServiceImpl implements FurniturePriceService {
   public List<String> getAllFurnitureName() {
     return furniturePriceDao.getAllFurnitureName();
   }
+
+  @Override
+  public int getFurnitureIdByName(String name) {
+    // TODO Auto-generated method stub
+    return furniturePriceDao.getFurnitureIdByName(name);
+  }
 }

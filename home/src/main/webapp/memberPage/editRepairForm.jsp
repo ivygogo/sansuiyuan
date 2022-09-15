@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<% 
+ String formNumber = request.getParameter("page");
+ session.setAttribute("RepairFormNumber", formNumber);
+ session.setAttribute("page", "editForm");
+%>
 <script type="text/javascript">
 $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 	console.log(res)
@@ -11,6 +15,8 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 	}
 	$('#inputState').append(projectOption);
 });
+
+
 </script>
 
 
@@ -51,16 +57,18 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 							<h3 class="text-black-opacity-05" id="repairFormRoom"></h3>
 						</div>
 						<div class="col">
-							<h6 class="text-black-opacity-05 ">申請人</h6>
-							<h3 class="text-black-opacity-05" id="repairFormApplicant"></h3>
+						<h6 class="text-black-opacity-05">報修申請日期</h6>
+              <h3 class="text-black-opacity-05" id="repairFormCreateTime"></h3>
+							
 						</div>
 					</div>
 
 					<div class="row mt-5">
 						<div class="col">
-							<h6 class="text-black-opacity-05">連絡電話</h6>
-							<input type="text" id="fname" class="form-control col-12 px-4"
-								name="repairFormPhone" value="${LoginOK.guarantor.id_number}">
+						<h6 class="text-black-opacity-05 ">申請人</h6>
+                <input type="text" id="repairFormApplicant" class="form-control col-12 px-4 datepicker"
+                name="repairFormCreateTime" value="null">
+							
 						</div>
 						<div class="col">
 							<h6 class="text-black-opacity-05 ">項目</h6>
@@ -72,10 +80,9 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 
 					<div class="row mt-5">
 						<div class="col">
-							<h6 class="text-black-opacity-05">報修申請日期</h6>
-							<input type="text" id="repairFormCreateTime" class="form-control col-12 px-4 datepicker"
-								name="repairFormCreateTime" value="null">
-								
+							<h6 class="text-black-opacity-05">連絡電話</h6>
+              <input type="text" id="fname" class="form-control col-12 px-4"
+                name="repairFormPhone" value="${LoginOK.guarantor.id_number}">
 						</div>
 						<div class="col">
 							<h6 class="text-black-opacity-05 ">期望修繕時間</h6>
@@ -85,12 +92,12 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 					</div>
 
 					<div class="row mt-5">
-						<div class="col">
-							<h6 class="text-black-opacity-05">備註</h6>
-							<input type="text" id="fname" class="form-control col-12 px-4"
-								name="repairFormNote" value="${LoginOK.guarantor.id_number}">
-						</div>
-					</div>
+            <div class="col">
+              <h6 class="text-black-opacity-05">備註</h6>
+              <textarea  type="text" id="repairFormNote" class="form-control col-12 px-4"
+                name="repairFormNote" value=" " maxlength="15"> </textarea>
+            </div>
+          </div>
 
 
 					<div class="row mb-1 mt-5 mx-3">
@@ -132,15 +139,51 @@ $('#repairFormCreateTime').datepicker({
 $('#repairFormExpectTime').datepicker({
 	   language: 'zh-CN',
 	   format: 'yyyy/mm/dd',
+	   minDate: +0, 
+	   maxDate: "+14D",
 	   startDate: 0
-	  });
-<%--$('#repairFormExpectTime').datepicker( "setDate" , ${tempExpectTime});--%>
-<%--
-$(function(){
-  str1 =`${LoginOK.guarantor.county}`
-    str2 =`${LoginOK.guarantor.district}`
-    alert(str1 + str2)
-})
---%>
+	  }).on("change", function() {
+	        if($("#repairFormExpectTime").datepicker().val()==null){
+	            $('#repairFormExpectTime').attr("value",createdate);
+	          }else{
+	            $('#repairFormExpectTime').attr("value",$("#repairFormExpectTime").datepicker().val());
+	          }
+	          
+	        });
 
+/*
+$('#submit').click(function () {
+	const myformNumber = $("#repairFormNumber").text() 
+	const myroomNumber = $("#").
+	const myformcreateTime = $("#").
+	const myformapplicant = $("#").
+	const myformproject = $("#").
+	const myformphone = $("#").
+	const myformexpectTime = $("#").
+	const myformnote = $("#").
+
+    const selectTimePick = $('#preferTime').val()
+    const selectFloor = $('#preferFloor').val()
+    const selectDate = $('#datepicker').val()
+    const selectUserName = $('#bookerName').val()
+    const selectRoomType = $('#booking-room-type').val()
+
+    $.ajax({
+      type: 'POST',
+      url: '/wuli/ChatroomServlet?callFrom=createChatroom',
+      data: {
+        'Id': userId,
+        'chatTarget': 0,
+        'chatType': 'B',
+        'userName': selectUserName,
+        'timePick': selectTimePick,
+        'floor': selectFloor,
+        'selectDate': selectDate,
+        'roomType': selectRoomType
+      },
+      err: function () {
+        console.log('createChatroom with error')
+      }
+    })
+  })*/
 </script>

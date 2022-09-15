@@ -8,4 +8,6 @@ public interface FurniturePriceDao {
   List<FurniturePriceBean> getAllFurniturePrice();
 
   List<String> getAllFurnitureName();
+
+  int getFurnitureIdByName(String name);
 }

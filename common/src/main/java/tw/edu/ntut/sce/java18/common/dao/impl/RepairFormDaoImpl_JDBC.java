@@ -27,7 +27,7 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
   }
 
   @Override
-  public List<RepairFormBean> getReparFormListByApplicant(int memberid) {
+  public List<RepairFormBean> getRepairFormListByApplicant(int memberid) {
     List<RepairFormBean> repairFormList = new ArrayList<>();
 
     String sql =
@@ -60,8 +60,35 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
       }
     } catch (SQLException ex) {
       ex.printStackTrace();
-      throw new RuntimeException("GuarantorDaoImpl類別#queryGuarantorId()發生例外: " + ex.getMessage());
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#getRepairFormListByApplicant()發生例外: " + ex.getMessage());
     }
     return repairFormList;
+  }
+
+  @Override
+  public int checkRepairFormAmount(int memberid, String beginTime, String endTime) {
+    String sql =
+        "SELECT COUNT(*) FROM `fix` WHERE applicant =? AND create_time "
+            + "BETWEEN \" "
+            + beginTime
+            + "00:00:00\" AND \" "
+            + endTime
+            + "23:59:59\"";
+    int n = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setInt(1, memberid);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        while (rs.next()) {
+          n = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#checkRepairFormAmount()發生例外: " + ex.getMessage());
+    }
+    return n;
   }
 }
