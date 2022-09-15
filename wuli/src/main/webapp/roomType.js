@@ -89,10 +89,6 @@ $(function () {
         const roomItemSideTable = $('#room-item-sideTable')
         roomItemSideTable.html(roomType.sideTable)
         $('#room-item-chair').html(roomType.chair)
-<<<<<<< HEAD
-
-=======
->>>>>>> 32ef613 (新增)
         roomItemBed.html(roomType.bed)
         roomItemSideTable.html(roomType.sideTable)
         roomItemDesk.html(roomType.desk)
