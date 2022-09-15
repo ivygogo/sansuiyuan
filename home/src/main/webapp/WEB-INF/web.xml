@@ -17,6 +17,12 @@
       <secure>true</secure>
     </cookie-config>
   </session-config>
+<<<<<<< HEAD
+=======
+
+</web-app>
+
+>>>>>>> 32ef613 (新增)
 
   <servlet>
     <servlet-name>ChatroomServlet</servlet-name>
