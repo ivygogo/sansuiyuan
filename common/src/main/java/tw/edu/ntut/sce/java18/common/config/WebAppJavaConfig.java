@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"wuli", "home"})
+@ComponentScan({"wuli", "home", "tw.edu.ntut.sce.java18"})
 public class WebAppJavaConfig implements WebMvcConfigurer {
   @Bean
   public InternalResourceViewResolver viewResolver() {
