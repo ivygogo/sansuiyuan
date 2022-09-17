@@ -25,7 +25,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 <div class="row mb-1 mt-5 ml-3">
   <div class="col-md-12 text-left">
     <div class="" style="display: flex; justify-content: center;">
-      <h2 class="text-black mb-4">報修單</h2>
+      <h2 class="text-black mb-4">insert報修單</h2>
     </div>
   </div>
 </div>
@@ -40,7 +40,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 			
 				<div class="row mt-5">
             <div class="col">
-              <h6 class="text-black-opacity-05">房號 insert</h6>
+              <h6 class="text-black-opacity-05">房號</h6>
               <h3 class="text-black-opacity-05" id="repairFormRoom"></h3>
             </div>
             <div class="col">
@@ -53,22 +53,11 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
           <div class="row mt-5">
             <div class="col">
             <h6 class="text-black-opacity-05 ">申請人</h6>
-            <c:choose>
-            <c:when test="${ErrMsg.Aapplicant!=null}">
-              <input type="text" id="fname" name="repairFormApplicant" id="repairFormApplicant"
-                class="form-control is-invalid col-12 px-4"
-                value="${param.repairFormApplicant}" >
-              <div class="invalid-feedback mx-4">${ErrMsg.errRefundBank}</div>
-            </c:when>
-
-            <c:otherwise>
-              <input type="text" name="repairFormApplicant" id="repairFormApplicant"
-                class="form-control is-invalid col-12 px-4"
-                value="${param.repairFormApplicant}">
-            </c:otherwise>
-          </c:choose>
+               <input type="text" id="repairFormApplicant" class="form-control col-12 px-4"
+                name="repairFormApplicant" value="null">
+           
         </div>
-            </div>
+            
             <div class="col">
               <h6 class="text-black-opacity-05 ">項目</h6>
               <select name="project" class="form-control" id="inputState">

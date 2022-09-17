@@ -169,7 +169,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 		</div>
 
 		<%--選單--%>
-		<jsp:include page="fragment/menu_content.jsp" />
+		<jsp:include page="/fragment/menu_content.jsp" />
 
 
 		<%--內容開始--%>
@@ -178,7 +178,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 				<%--標題--%>
 				<div class="row mb-1 mt-5">
 					<div class="col-md-7 text-left">
-						<h2 class="section-title" id="myTitle">報修管理 ${myPage}</h2>
+						<h2 class="section-title" id="myTitle">報修管理 ${FormInvalid}</h2>
 					</div>
 
 
@@ -202,11 +202,14 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
   <div class="row mt-4 border-bottom">
   <div class="col" id="repairFormPage">
     <c:choose>
-    <c:when test="${FormInvalid!=null}">
-    </c:choose>
-  
-            <%-- table 開始 --%>
-            <div class="table-responsive">
+    <c:when test='${FormInvalid=="insertRepairForm"}'>
+    <jsp:include page="memberPage/validInsertRepairForm.jsp" />
+    </c:when>
+    <c:when test='${FormInvalid=="editRepairForm"}'>
+    <jsp:include page="memberPage/validEditRepairForm.jsp" />
+    </c:when>
+     <c:otherwise>
+     <div class="table-responsive">
             <table class="table table-striped ">
               <thead>
                 <tr>
@@ -223,7 +226,14 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
              
               </tbody>
             </table>
+            <% session.setAttribute("page", null);%>
             </div>
+     </c:otherwise>
+    
+    </c:choose>
+  
+            <%-- table 開始 --%>
+            
            
 
   </div>

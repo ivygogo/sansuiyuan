@@ -3,19 +3,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% 
  String formNumber = request.getParameter("page");
+System.out.println("!!!!!!!"+formNumber);
  session.setAttribute("RepairFormNumber", formNumber);
  session.setAttribute("page", "editForm");
 %>
 <script type="text/javascript">
-$.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
-	console.log(res)
-	let projectOption="";
-	for (let i = 0; i < res.furnitureList.length; i++) {
-		projectOption += "<option value='" + res.furnitureList[i] + "'>" + res.furnitureList[i] + "</option>";
-	}
-	$('#inputState').append(projectOption);
-});
-
 
 </script>
 
@@ -23,15 +15,15 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 <div class="row mb-1 mt-5 ml-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
-			<h2 class="text-black mb-4">報修單</h2>
+			<h2 class="text-black mb-4">EDIT報修單</h2>
 		</div>
 	</div>
 </div>
 
 <section class="site-section" id="about-section">
 	<form name="repairFormInfo"
-		action="<c:url value="/MemberContractInfoUpdate.do"/>" method="post"
-		class="bg-white" enctype="multipart/form-data">
+		action="<c:url value="/common/RepairForm.do"/>" method="POST"
+		class="bg-white" >
 		<input type="text" id="updateContractInfo" value="updateContractInfo"
 			name="profile" hidden />
 
@@ -67,12 +59,12 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 						<div class="col">
 						<h6 class="text-black-opacity-05 ">申請人</h6>
                 <input type="text" id="repairFormApplicant" class="form-control col-12 px-4 datepicker"
-                name="repairFormCreateTime" value="null">
+                name="repairFormApplicant" value="null">
 							
 						</div>
 						<div class="col">
 							<h6 class="text-black-opacity-05 ">項目</h6>
-							<select name="county" class="form-control" id="inputState">
+							<select name="project" class="form-control" id="inputState">
 							
 							</select>
 						</div>
@@ -120,70 +112,26 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
-let tempCreateTime;
-let tempExpectTime;
 
 $(document).ready(function(){
-	tempCreateTime= $('#repairFormCreateTime').attr("value");
-	tempExpectTime= $('#repairFormExpectTime').attr("value");
-})
-$('#repairFormCreateTime').datepicker({
-   language: 'zh-CN',
-   format: 'yyyy/mm/dd',
-   startDate: 0
-  });
-  
-  
-<%--$('#repairFormCreateTime').datepicker( "setDate" , ${tempCreateTime});--%>
+let expectdate = $("#repairFormExpectTime").val();
 
 $('#repairFormExpectTime').datepicker({
 	   language: 'zh-CN',
 	   format: 'yyyy/mm/dd',
-	   minDate: +0, 
-	   maxDate: "+14D",
-	   startDate: 0
+	   startDate: '+7d'
 	  }).on("change", function() {
+		  
 	        if($("#repairFormExpectTime").datepicker().val()==null){
-	            $('#repairFormExpectTime').attr("value",createdate);
+	            $('#repairFormExpectTime').attr("value",expectdate);
+	            
 	          }else{
 	            $('#repairFormExpectTime').attr("value",$("#repairFormExpectTime").datepicker().val());
 	          }
 	          
 	        });
+$('#repairFormExpectTime').datepicker( "setDate" ,expectdate);
+//alert("尾巴" + expectdate)
+})
 
-/*
-$('#submit').click(function () {
-	const myformNumber = $("#repairFormNumber").text() 
-	const myroomNumber = $("#").
-	const myformcreateTime = $("#").
-	const myformapplicant = $("#").
-	const myformproject = $("#").
-	const myformphone = $("#").
-	const myformexpectTime = $("#").
-	const myformnote = $("#").
-
-    const selectTimePick = $('#preferTime').val()
-    const selectFloor = $('#preferFloor').val()
-    const selectDate = $('#datepicker').val()
-    const selectUserName = $('#bookerName').val()
-    const selectRoomType = $('#booking-room-type').val()
-
-    $.ajax({
-      type: 'POST',
-      url: '/wuli/ChatroomServlet?callFrom=createChatroom',
-      data: {
-        'Id': userId,
-        'chatTarget': 0,
-        'chatType': 'B',
-        'userName': selectUserName,
-        'timePick': selectTimePick,
-        'floor': selectFloor,
-        'selectDate': selectDate,
-        'roomType': selectRoomType
-      },
-      err: function () {
-        console.log('createChatroom with error')
-      }
-    })
-  })*/
 </script>

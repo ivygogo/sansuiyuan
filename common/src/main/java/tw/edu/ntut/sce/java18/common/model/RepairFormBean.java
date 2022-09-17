@@ -7,7 +7,8 @@ public class RepairFormBean {
   Integer id;
   String formNumber;
   String roomNumber;
-  Integer applicant;
+  Integer memberId;
+  String applicant;
   String phone;
   Timestamp creatTime;
   Timestamp expectionTime;
@@ -28,7 +29,8 @@ public class RepairFormBean {
       Integer id,
       String formNumber,
       String roomNumber,
-      Integer applicant,
+      Integer memberId,
+      String applicant,
       String phone,
       Timestamp creatTime,
       Timestamp expectionTime,
@@ -41,10 +43,11 @@ public class RepairFormBean {
       String projectName,
       Integer projectPrice,
       String projectNameAlias) {
-
+    super();
     this.id = id;
     this.formNumber = formNumber;
     this.roomNumber = roomNumber;
+    this.memberId = memberId;
     this.applicant = applicant;
     this.phone = phone;
     this.creatTime = creatTime;
@@ -76,7 +79,11 @@ public class RepairFormBean {
     return roomNumber;
   }
 
-  public Integer getApplicant() {
+  public Integer getMemberId() {
+    return memberId;
+  }
+
+  public String getApplicant() {
     return applicant;
   }
 
@@ -140,7 +147,11 @@ public class RepairFormBean {
     this.roomNumber = roomNumber;
   }
 
-  public void setApplicant(Integer applicant) {
+  public void setMemberId(Integer memberId) {
+    this.memberId = memberId;
+  }
+
+  public void setApplicant(String applicant) {
     this.applicant = applicant;
   }
 

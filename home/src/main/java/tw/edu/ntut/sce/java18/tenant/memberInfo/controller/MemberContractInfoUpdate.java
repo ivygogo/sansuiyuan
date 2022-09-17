@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import tw.edu.ntut.sce.java18.common.dao.impl.GuarantorDaoImpl;
 import tw.edu.ntut.sce.java18.common.model.GuarantorBean;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.GuarantorDaoImpl;
 import tw.edu.ntut.sce.java18.tenant.memberInfo.utils.CheckIdNumberFormat;
 
 /** Servlet implementation class MemberContractInfoUpdate */

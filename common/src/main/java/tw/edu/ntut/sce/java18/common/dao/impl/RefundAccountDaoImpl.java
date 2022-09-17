@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
+package tw.edu.ntut.sce.java18.common.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import tw.edu.ntut.sce.java18.common.dao.RefundAccountDao;
 import tw.edu.ntut.sce.java18.common.model.RefundAccountBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.RefundAccountDao;
 
 public class RefundAccountDaoImpl implements RefundAccountDao {
   private DataSource ds = null;

@@ -36,20 +36,36 @@ public class RepairFormServiceImpl implements RepairFormService {
       repairFormServiceBean.setId(repairFormList.get(i).getId());
       repairFormServiceBean.setRepairFormNumber(repairFormList.get(i).getFormNumber());
       repairFormServiceBean.setRepairRoomNumber(repairFormList.get(i).getRoomNumber());
-      repairFormServiceBean.setApplicantName(member.getName());
+      repairFormServiceBean.setApplicantName(repairFormList.get(i).getApplicant());
       repairFormServiceBean.setApplicantPhone(repairFormList.get(i).getPhone());
 
-      dateToStr = dateFormat.format(repairFormList.get(i).getCreatTime());
-      repairFormServiceBean.setRepairFormCreatTime(dateToStr);
+      if (repairFormList.get(i).getCreatTime() != null) {
+        dateToStr = dateFormat.format(repairFormList.get(i).getCreatTime());
+        repairFormServiceBean.setRepairFormCreatTime(dateToStr);
+      } else {
+        repairFormServiceBean.setRepairFormCreatTime(null);
+      }
 
-      dateToStr = dateFormat.format(repairFormList.get(i).getExpectionTime());
-      repairFormServiceBean.setRepairFormExpectionTime(dateToStr);
+      if (repairFormList.get(i).getExpectionTime() != null) {
+        dateToStr = dateFormat.format(repairFormList.get(i).getExpectionTime());
+        repairFormServiceBean.setRepairFormExpectionTime(dateToStr);
+      } else {
+        repairFormServiceBean.setRepairFormExpectionTime(null);
+      }
 
-      dateToStr = dateFormat.format(repairFormList.get(i).getFixTime());
-      repairFormServiceBean.setRepairFormFixTime(dateToStr);
+      if (repairFormList.get(i).getFixTime() != null) {
+        dateToStr = dateFormat.format(repairFormList.get(i).getFixTime());
+        repairFormServiceBean.setRepairFormFixTime(dateToStr);
+      } else {
+        repairFormServiceBean.setRepairFormFixTime(null);
+      }
 
-      dateToStr = dateFormat.format(repairFormList.get(i).getFinishTime());
-      repairFormServiceBean.setRepairFormFinishTime(dateToStr);
+      if (repairFormList.get(i).getFinishTime() != null) {
+        dateToStr = dateFormat.format(repairFormList.get(i).getFinishTime());
+        repairFormServiceBean.setRepairFormFinishTime(dateToStr);
+      } else {
+        repairFormServiceBean.setRepairFormFinishTime(null);
+      }
 
       repairFormServiceBean.setProjectAlias(repairFormList.get(i).getProjectNameAlias());
       repairFormServiceBean.setNote(repairFormList.get(i).getNote());
@@ -62,7 +78,21 @@ public class RepairFormServiceImpl implements RepairFormService {
 
   @Override
   public int checkRepairFormAmount(int memberid, String beginTime, String endTime) {
-    // TODO Auto-generated method stub
     return repairFormDao.checkRepairFormAmount(memberid, beginTime, endTime);
+  }
+
+  @Override
+  public int saveRepairForm(RepairFormBean repairFormBean) {
+    return repairFormDao.saveRepairForm(repairFormBean);
+  }
+
+  @Override
+  public int updateRepairForm(RepairFormBean repairFormBean) {
+    return repairFormDao.updateRepairForm(repairFormBean);
+  }
+
+  @Override
+  public int deleteRepairForm(String formNumber) {
+    return repairFormDao.deleteRepairForm(formNumber);
   }
 }
