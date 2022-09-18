@@ -52,7 +52,6 @@
           <option value="15:30-16:00">15:30-16:00</option>
           <option value="16:00-16:30">16:00-16:30</option>
           <option value="16:30-17:00">16:30-17:00</option>
-
                   </select> 
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.preferTime}</div>
                   <P/>
