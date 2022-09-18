@@ -3,6 +3,7 @@ CREATE DATABASE IF NOT EXISTS `wulidb`;
 USE  wulidb;
 
 DROP TABLE IF EXISTS `BookingExample`;
+
 -- `bookingexample`
 CREATE TABLE BookingExample 
   (   Booker_Id INT ,
@@ -23,3 +24,4 @@ VALUES
 (3,STR_TO_DATE("2022-09-16","%Y-%m-%d"),'13:30-14:00','盧家輝','0930-578-456','B','低樓層','吳'),
 (4,STR_TO_DATE("2022-09-17","%Y-%m-%d"),'15:00-15:30','張家輝','0930-666-456','E','中樓層','輝'),
 (5,STR_TO_DATE("2022-09-17","%Y-%m-%d"),'15:00-15:30','梁家輝','0930-123-999','E','高樓層','輝');
+

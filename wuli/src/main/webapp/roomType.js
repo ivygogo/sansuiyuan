@@ -89,7 +89,6 @@ $(function () {
         const roomItemSideTable = $('#room-item-sideTable')
         roomItemSideTable.html(roomType.sideTable)
         $('#room-item-chair').html(roomType.chair)
-
         roomItemBed.html(roomType.bed)
         roomItemSideTable.html(roomType.sideTable)
         roomItemDesk.html(roomType.desk)
@@ -97,6 +96,8 @@ $(function () {
         $('#room-price').text(roomType.price)
         $('#room-size').text(roomType.size + '坪')
         $('#room-status').text(roomType.status)
+        $('#inputRent').text(roomType.price)
+        $('#inputDeposit').text((roomType.price)*2)
 
         if (roomItemBed.text().includes('雙人床')) {
           roomItemBed.attr('title', '5呎 * 6.2呎')
