@@ -127,7 +127,4 @@ public class BookingDao {
     }
     return result;
   }
-
- 
-
 }
