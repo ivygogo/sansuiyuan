@@ -33,7 +33,9 @@ public class UpdateServlet extends HttpServlet {
       Class.forName("com.mysql.jdbc.Driver");
       // 資料庫連線字串
       String url =
-          "jdbc:mysql://127.0.0.1/wulidb?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei&allowPublicKeyRetrieval=true";
+          "jdbc:mysql://127.0.0.1/wulidb?useUnicode=yes&"
+              + "characterEncoding=utf8&useSSL=false&serverTimezone=Asia/"
+              + "Taipei&allowPublicKeyRetrieval=true";
       // 資料庫使用者名稱
       String username = "admin";
       // 資料庫密碼
