@@ -19,7 +19,7 @@ ${bookerBean.roomtype}，
    </c:when>
    <c:otherwise >
        <c:forEach var="fruit" items="${bookerBean.preferFloor}"> 
-          <c:out value="${preferFloor}" />
+          <c:out value="${bookerBean.preferFloor}" />
        </c:forEach>的房型
    </c:otherwise>
 </c:choose><P/>
@@ -30,7 +30,7 @@ ${bookerBean.roomtype}，
    </c:when>
    <c:otherwise >
        <c:forEach  items="${bookerBean.preferTime}"> 
-          <c:out value="${preferTime}" />
+          <c:out value="${bookerBean.preferTime}" />
        </c:forEach>
    </c:otherwise>
 </c:choose><P/>

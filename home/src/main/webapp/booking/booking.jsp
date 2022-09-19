@@ -11,10 +11,11 @@
   <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
   <script>
   $(function() {
-    $( "#datepicker" ).datepicker({ minDate: +0, maxDate: "+14D" });
-    $( "#format" ).change(function() {
-      $( "#datepicker" ).datepicker( "option", "dateFormat", $( this ).val() );
-    });
+    $( "#datepicker" ).datepicker({ minDate: +0, maxDate: "+14D", dateFormat: "yy-mm-dd" });
+//     $( "#datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+//     $( "#format" ).change(function() {
+//       $( "#datepicker" ).datepicker( "option", "dateFormat", $( this ).val() );
+//     });
   });
   </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,19 +25,25 @@
 <div id="booklist">預約表單
 <Form Action="booking.do" method="POST">
       <p/>姓名: <input type="text" name="bookerName" value="系統帶入(會員登錄)">
+      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerName}</div>
       <p/>帳號: <input type="text" name="bookerId" value="系統帶入(會員登錄)">
+      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerId}</div>
       <p/>電話: <input type="text" name="bookerPhone" value="系統帶入(會員登錄)">
+      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerPhone}</div>
       <p/>房型: <input type="text" name="roomtype"  id="booking-room-type" value="系統帶入(房型瀏覽)">
+      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.roomtype}</div>
       <P/>樓層: <select name="preferFloor" size="1" id="preferFloor" onChange="change()">
-          <option value="0" selected> </option>
+          <option value="" selected> </option>
           <option value="低樓層">低樓層</option>
           <option value="中樓層">中樓層</option>
           <option value="高樓層">高樓層</option>
           <option value="無意見">無意見</option>
                   </select> <P/>
+      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.preferFloor}</div>
       <p/>日期: <input id="datepicker" type="text" name="bookDate">
+      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookDate}</div>
       <P/>時段: <select id="preferTime" name="preferTime" size="1"  onChange="change()">
-          <option value="0" selected> </option>
+          <option value="" selected> </option>
           <option value="13:00-13:30">13:00-13:30</option>
           <option value="13:30-14:00">13:30-14:00</option>
           <option value="14:00-14:30">14:00-14:30</option>
@@ -45,14 +52,14 @@
           <option value="15:30-16:00">15:30-16:00</option>
           <option value="16:00-16:30">16:00-16:30</option>
           <option value="16:30-17:00">16:30-17:00</option>
-
-                  </select> <P/>
-
+                  </select> 
+      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.preferTime}</div>
+                  <P/>
        <p>
-  <select id="format">
-   <option value="mm/dd/yy">Default - mm/dd/yy</option>
-    <option value="yy-mm-dd">ISO 8601 - yy-mm-dd</option>
-  </select>
+<!--   <select id="format"> -->
+<!--    <option value="mm/dd/yy">Default - mm/dd/yy</option> -->
+<!--     <option value="yy-mm-dd">ISO 8601 - yy-mm-dd</option> -->
+<!--   </select> -->
 </p>
 
       <P/><input id="submit" type="submit" value="提交">
