@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.service;
+package tw.edu.ntut.sce.java18.common.service;
 
 import java.util.List;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
@@ -34,6 +34,8 @@ public interface MemberInfoService {
   String checkIdNumber(String formValue, int genderId);
 
   String getAllAvatarByGender(int gender);
+
+  MemberBean queryMemberByPrimaryKey(int uId);
 
   /*===Temp方法提供修改表單使用===*/
 

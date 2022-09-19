@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.service.MemberInfoService;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.service.impl.MemberInfoServiceImpl;
+import tw.edu.ntut.sce.java18.common.service.MemberInfoService;
+import tw.edu.ntut.sce.java18.common.service.impl.MemberInfoServiceImpl;
 
 /** 會員資料儲存與驗證會使用到此程式 LoginOK放登入後的資料 memberInfo放修改的資料，如果沒錯誤就讓 LoginOK 會員資料 = memberInfo */
 @WebServlet("/MemberInfoUpdate.do")

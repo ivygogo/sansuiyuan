@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.service.impl;
+package tw.edu.ntut.sce.java18.common.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,14 +6,14 @@ import java.util.Date;
 import java.util.List;
 import tw.edu.ntut.sce.java18.common.dao.impl.AvatarDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.CharacterAndFavorDaoImpl;
+import tw.edu.ntut.sce.java18.common.dao.impl.GuarantorDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.MemberDaoImpl_jdbc;
+import tw.edu.ntut.sce.java18.common.dao.impl.RefundAccountDaoImpl;
+import tw.edu.ntut.sce.java18.common.dao.impl.TenantDaoImpl;
 import tw.edu.ntut.sce.java18.common.model.AvatarBean;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.model.TenantBean;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.GuarantorDaoImpl;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.RefundAccountDaoImpl;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl.TenantDaoImpl;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.service.MemberInfoService;
+import tw.edu.ntut.sce.java18.common.service.MemberInfoService;
 
 public class MemberInfoServiceImpl implements MemberInfoService {
   MemberDaoImpl_jdbc mbDao = new MemberDaoImpl_jdbc();
@@ -760,5 +760,10 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   public int updateMemberInfo(MemberBean bean) {
     int n = mbDao.updateMemberInfo(bean);
     return n;
+  }
+
+  @Override
+  public MemberBean queryMemberByPrimaryKey(int uId) {
+    return mbDao.queryMemberByPrimaryKey(uId);
   }
 }

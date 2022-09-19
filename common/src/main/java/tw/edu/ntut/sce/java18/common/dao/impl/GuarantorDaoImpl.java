@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.tenant.memberInfo.dao.impl;
+package tw.edu.ntut.sce.java18.common.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +9,9 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import tw.edu.ntut.sce.java18.common.dao.GuarantorDao;
 import tw.edu.ntut.sce.java18.common.model.GuarantorBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.dao.GuarantorDao;
 
 public class GuarantorDaoImpl implements GuarantorDao {
   private DataSource ds = null;
