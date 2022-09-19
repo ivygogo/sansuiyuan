@@ -1,35 +1,60 @@
 package tw.edu.ntut.sce.java18.common.config;
 
-import org.springframework.context.MessageSource;
+import javax.annotation.PostConstruct;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"wuli", "home", "tw.edu.ntut.sce.java18"})
+@EnableTransactionManagement // 本註釋必須與@Configuration出現在同一個類別
+@ComponentScan({"tw.edu.ntut.sce.java18"})
 public class WebAppJavaConfig implements WebMvcConfigurer {
+  private static Logger log = LoggerFactory.getLogger(WebAppJavaConfig.class);
+
+  private SessionFactory factory;
+
+  @Autowired private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+  @Autowired
+  public WebAppJavaConfig(SessionFactory factory) {
+    log.info("已建立WebAppConfig物件");
+    this.factory = factory;
+  }
+
+  // 取消"redirect+冒號..."時會掛上QueryString
+  //    @PostConstruct
+  public void init() {
+    requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
+  }
+
+  @PostConstruct
+  public void init2() {
+    requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
+  }
+
   @Bean
-  public InternalResourceViewResolver viewResolver() {
+  public InternalResourceViewResolver internalResourceViewResolver() {
     InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-    resolver.setPrefix("/WEB-INF/views/");
+    // resolver.setPrefix("/WEB-INF/views/");
+    resolver.setPrefix("/");
     resolver.setSuffix(".jsp");
-    resolver.setViewClass(JstlView.class);
     return resolver;
   }
-  /*
-  解決靜態資源的問題:
-  在組態檔中配置
-  <mvc:default-servlet-handler/>
-   *
-   */
+
   @Bean
   public CommonsMultipartResolver multipartResolver() {
     CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -43,12 +68,15 @@ public class WebAppJavaConfig implements WebMvcConfigurer {
     configurer.enable();
   }
 
-  @Bean
-  public MessageSource messageSource() { // 方法名不能亂打
-    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
 
-    // messageSource.setBasename("MemberMessage");
-    messageSource.setBasenames("MemberMessage", "ValidationMessages");
-    return messageSource;
+    OpenSessionInViewInterceptor openSessionInViewInterceptor = new OpenSessionInViewInterceptor();
+    // CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor();
+    // registry.addInterceptor(checkLoginInterceptor);
+    openSessionInViewInterceptor.setSessionFactory(factory);
+    registry
+        .addWebRequestInterceptor(openSessionInViewInterceptor)
+        .addPathPatterns("/_05_orderProcess/orderDetail");
   }
 }
