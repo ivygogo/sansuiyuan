@@ -3,6 +3,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script src="../../wuli/js/landlordRepairForm.js"></script>
+<script>
+function editRepairForm(){
+	  $("#pageChange").html("");
+	  $("#pageChange").load('landlordRepairForm/editRepairFormContent.jsp');
+	  }
+</script>
 
 <div class="breadcomb-area">
 	<div class="container">
@@ -67,7 +73,7 @@
 <div class="form-example-area">
 	<div class="container">
 		<div class="row mt-5 ">
-			<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="pageChange">
 				<jsp:include page="showRepairFormContent.jsp" />
 			</div>
 		</div>
@@ -175,7 +181,7 @@
 	      if(selectRows<0){
 	    	  $("#showRepairContent").hide();
 	      }else{
-	    	  $("#showRepairContent").show();
+	    	  $("#showRepairContent").attr("style","visibility: visible");
 	      }
 
 	    });
