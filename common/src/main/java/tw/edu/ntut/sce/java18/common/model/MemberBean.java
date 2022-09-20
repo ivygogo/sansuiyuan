@@ -3,11 +3,24 @@ package tw.edu.ntut.sce.java18.common.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.springframework.stereotype.Repository;
 
+@Repository
+@Entity
+@Table(name = "Member")
 public class MemberBean implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer uId;
+
   String name;
   Integer gender;
   String phone;
@@ -37,16 +50,16 @@ public class MemberBean implements Serializable {
   Timestamp create_time;
   Timestamp update_time;
   String last_IP;
-  String signatureAll;
-  String favorStrAll;
-  String avatar;
-  String level;
-  List<String> contract;
-  List<TenantBean> tenant;
-  List<GuarantorBean> guarantorList;
-  List<RefundAccountBean> refundAccountList;
-  GuarantorBean guarantor;
-  RefundAccountBean refundAccount;
+  @Transient String signatureAll;
+  @Transient String favorStrAll;
+  @Transient String avatar;
+  @Transient String level;
+  @Transient List<String> contract;
+  @Transient List<TenantBean> tenant;
+  @Transient List<GuarantorBean> guarantorList;
+  @Transient List<RefundAccountBean> refundAccountList;
+  @Transient GuarantorBean guarantor;
+  @Transient RefundAccountBean refundAccount;
   /* ====== 建構子 ======*/
   public MemberBean() {}
 

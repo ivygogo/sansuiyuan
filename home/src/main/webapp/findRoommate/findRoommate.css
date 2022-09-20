@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.person-block {
+  border-radius: 15px;
+}
+
+.person-block:hover {
+  border: white 20px solid;
+  background-color: #01c293;
+  transform: scale(1.05);
+  box-shadow: 10px 10px 10px rgba(150, 150, 150, 0.5);
+}
+
+
