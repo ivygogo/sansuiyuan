@@ -4,6 +4,10 @@
 <hibernate-configuration>
   <session-factory>
 
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.username">admin</property>
+    <property name="hibernate.connection.password">admin123</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/wulidb?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Taipei&amp;allowPublicKeyRetrieval=true</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
     <!-- 2. 其他與資料存取有關的設定 -->
@@ -13,7 +17,7 @@
     <property name="show_sql">true</property>
     <!-- 將顯示的SQL排版，方便觀看 -->
     <property name="format_sql">true</property>
-    <!--<property name="hibernate.current_session_context_class">thread</property>-->
+    <property name="hibernate.current_session_context_class">thread</property>
     <!-- 定義程式交易管理的類型，本範例使用JDBC Transaction -->
     <!-- 		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property> -->
     <property name="hibernate.transaction.coordinator_class">jdbc</property>
@@ -22,12 +26,10 @@
     <property name="connection_pool_size">8</property>
 
     <!-- 3. 宣告程式使用的Mapping檔 ，每個永續類別都需要定義一個Mapping檔 -->
-    <!--
-    <mapping class="wuli.model.LandlordInfo"></mapping>
-    
-    <mapping class="ch04.ex01.model.Category"></mapping>
-    <mapping class="ch04.ex01.model.ProductEntity"></mapping>
-    <mapping class="ch04.ex04.model.Member"></mapping>
--->
+    <mapping class="tw.edu.ntut.sce.java18.common.model.MemberBean"></mapping>
+    <mapping class="tw.edu.ntut.sce.java18.common.model.CharacterAndFavorBean"></mapping>
+    <mapping class="tw.edu.ntut.sce.java18.common.model.AvatarBean"></mapping>
+    <mapping class="tw.edu.ntut.sce.java18.common.model.MemberHibernateBean"></mapping>
+
   </session-factory>
 </hibernate-configuration>
