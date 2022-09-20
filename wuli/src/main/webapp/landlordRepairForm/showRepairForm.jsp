@@ -3,12 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script src="../../wuli/js/landlordRepairForm.js"></script>
-<script>
-function editRepairForm(){
-	  $("#pageChange").html("");
-	  $("#pageChange").load('landlordRepairForm/editRepairFormContent.jsp');
-	  }
-</script>
 
 <div class="breadcomb-area">
 	<div class="container">
@@ -73,7 +67,7 @@ function editRepairForm(){
 <div class="form-example-area">
 	<div class="container">
 		<div class="row mt-5 ">
-			<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="pageChange">
+			<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<jsp:include page="showRepairFormContent.jsp" />
 			</div>
 		</div>
@@ -101,8 +95,8 @@ function editRepairForm(){
 	var countSelect = -1;
 	$(document).ready(function() {
 		$("#showRepairContent").hide();
-		
-		
+
+
 		table = $('#example').DataTable({
 			data : data,
 			rowId : 1,
@@ -123,7 +117,7 @@ function editRepairForm(){
 					"last" : "最後一頁"
 				}
 			},
-			iDisplayLength : 10,// 每頁顯示筆數 
+			iDisplayLength : 10,// 每頁顯示筆數
 			lengthMenu : [ [ 5, 10, 25, 50, -1 ], [ 5, 10, 25, 50, "All" ] ],
 
 			columnDefs : [ {
@@ -139,7 +133,7 @@ function editRepairForm(){
 			order : [ [ 1, 'asc' ] ]
 		});
 		$('label select').attr("style","width:50px;")
-		
+
 		table.on('select', function(e, dt, type, indexes) {
 			var count = table.rows({
 				selected : true
@@ -151,21 +145,19 @@ function editRepairForm(){
 		//alert($('.selected').size())
 
 	});
-	
-	
+
+
 	$('#example tbody').on('click', 'tr td:first-child', function() {
 	      //console.log(table.cell(this).render());
 	      //console.log(table.row($(this).closest('tr')).data());
 	      // THIS LINE HERE IS NEW
 	      console.log(table.row($(this).closest('tr')).data()[1]);
 	      let number = table.row($(this).closest('tr')).data()[1];
-	      
-	      
+
+
 	      let showForm = JSON.parse(checkRepairFormNumber(number));
 
 	      $("#formNumber h3").text(showForm.formNumber);
-	      $(".landlordedit").attr("id",showForm.formNumber);
-	      $(".landlordsave").attr("id",showForm.formNumber);
 	      $("#roomNumber h3").text(showForm.roomNumber);
 	      $("#applicant h3").text(showForm.applicant);
 	      $("#applicantPhone h3").text(showForm.phone);
@@ -177,17 +169,17 @@ function editRepairForm(){
 	      $("#feedbackTime h3").text(showForm.fixTime);
 	      $("#price h3").text(showForm.projectPrice);
 	      $("#landlordNote h3").text(showForm.landlordNote);
-	      
+
 	      let selectRows = checkOnlySelect(number)
 	      //alert(selectRows)
 	      if(selectRows<0){
 	    	  $("#showRepairContent").hide();
 	      }else{
-	    	  $("#showRepairContent").attr("style","visibility: visible");
-	      }	      
-	     
+	    	  $("#showRepairContent").show();
+	      }
+
 	    });
-	
+
 	/*
 	table.on('select', function(e, dt, type, indexes) {
         var count = table.rows({

@@ -142,28 +142,25 @@ function checkTotalSelect(formNumber) {
     }
   }
   n = totalFormArr.length;
-  
+
   return n;
 }
 
 let totalFormStr="0";
 function checkOnlySelect(formNumber) {
-  
+
 
   let n = -1;
   if(totalFormStr ==="0"){
   totalFormStr = formNumber;
   n++;
-  
+
   } else if (totalFormStr ===formNumber){
   totalFormStr = "0";
   } else if (totalFormStr !==formNumber){
   totalFormStr = formNumber;
   n++;
   }
-  
+
   return n;
 }
-
-
-

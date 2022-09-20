@@ -119,7 +119,7 @@ session.setAttribute("isInvalid", false);
             ============================================ -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/style.css">
-<!-- responsive CSS 
+<!-- responsive CSS
             ============================================ -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/responsive.css">
@@ -135,7 +135,7 @@ session.setAttribute("isInvalid", false);
     ============================================-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/datatables/jquery.dataTables.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/datatables/select.dataTables.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script
@@ -150,7 +150,30 @@ session.setAttribute("isInvalid", false);
 </head>
 <script>
 
+function updateLandlordinfo(){
+          innerPage = "updateRefundinfo";
+          if(innerPage =="updateRefundinfo"){
+                $('#profile').html("");
+                $('#profile').load('landlordInfo/editLandlordInfo.jsp');
+                }
+          $("html,body").animate(
+                  {
+                    scrollTop: 0,
+                  },
+                  600
+                );
 
+    }
+
+function dropForm(){
+
+     $('#profile').html("")
+     $('#profile').load('/landlordInfo/showLandlordInfo.jsp?edit=drop');
+        //document.location.href="/home/MemberInfo.do"
+    	 document.location.href="/wuli/memberInfo.jsp?edit=drop"
+
+
+   }
 
 </script>
 <body>
@@ -161,7 +184,7 @@ session.setAttribute("isInvalid", false);
 	<!-- Breadcomb area Start-->
 	<!-- 內容 -->
 
-	<div class="" >
+	<div class="" id="profile">
     <%-- <h1>${isInvalid}</h1>
 		<c:choose>
 			<c:when test="${isInvalid==true}">--%>
