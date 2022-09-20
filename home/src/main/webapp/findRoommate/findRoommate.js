@@ -4,6 +4,7 @@ $(function () {
 
   console.log('+++++++++++++++++++++++++++++++++++' + userId)
   window.onload = checkOpen
+  window.onload = loadAllList
   console.log('------------------------------' + userId)
 
   $('input[type=radio][name=is-open]').change(function () {
@@ -53,7 +54,18 @@ $(function () {
         console.log('wrong!!!')
       }
     })
+  }
 
+  function loadAllList() {
+    $.ajax({
+      type: 'POST',
+      url: '/home/FindFriendServlet?callFrom=loadAllList',
+      data: {'userId': userId},
+      success: function (resp) {
+        console.log(resp)
+
+      }
+    })
   }
 
   function changeOpenStage(stage) {

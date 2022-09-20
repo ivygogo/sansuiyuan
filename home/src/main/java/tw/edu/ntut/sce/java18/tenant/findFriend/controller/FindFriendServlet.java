@@ -1,5 +1,6 @@
 package tw.edu.ntut.sce.java18.tenant.findFriend.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -75,30 +76,28 @@ public class FindFriendServlet extends HttpServlet {
 
   public void loadAllList(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
-    // todo
-    //    FindFriendServletConvert convert = new FindFriendServletConvert();
-    //    int userId = Integer.parseInt(request.getParameter("userId"));
-    //
-    //    Gson gson = new Gson();
-    //    String result = gson.toJson(convert.load(userId));
-    //
-    //    response.setContentType("application/json");
-    //    response.setCharacterEncoding("UTF-8");
-    //    var printWriter = response.getWriter();
-    //
-    //    printWriter.print(result);
-    //    printWriter.flush();
+
+    FindFriendServletConvert convert = new FindFriendServletConvert();
+    int userId = Integer.parseInt(request.getParameter("userId"));
+
+    Gson gson = new Gson();
+    String result = gson.toJson(convert.getFriendBeanList(userId));
+
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    var printWriter = response.getWriter();
+
+    printWriter.print(result);
+    printWriter.flush();
   }
 
   public boolean makePair(HttpServletRequest request, HttpServletResponse response) {
-
-    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
     int userId = Integer.parseInt(request.getParameter("userId"));
     int targetId = Integer.parseInt(request.getParameter("targetId"));
     FindFriendServiceImpl findFriendService = new FindFriendServiceImpl();
 
-    if (findFriendService.checkLimit(userId)) {
+    if (findFriendService.isbelowLimit(userId)) {
       findFriendService.createChatroom(userId, targetId);
       return true;
     } else {

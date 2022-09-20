@@ -8,14 +8,14 @@ public interface FindFriendService {
 
   boolean checkOpen(int userId);
 
-  boolean checkLimit(int userId);
+  boolean isbelowLimit(int userId);
 
   List<Integer> getAllFindingFriendId();
 
   // 用來隱藏已經配對的那幾個人
   ArrayList<Integer> getExistTarget(int userId);
 
-  FriendBean getFrindInfo(int userId);
+  FriendBean getPersonalFriendInfo(int userId);
 
   void closeChatroom(int roomID);
 
