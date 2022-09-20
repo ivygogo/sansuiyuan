@@ -51,6 +51,7 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
           repairForm.setFinishTime(rs.getTimestamp("Finish_Time"));
           repairForm.setProject(rs.getInt("Project"));
           repairForm.setNote(rs.getString("Note"));
+          repairForm.setLandlordNote(rs.getString("landlordNote"));
           repairForm.setStatus(rs.getInt("Status"));
           repairForm.setAmount(rs.getInt("Amount"));
           repairForm.setProjectName(rs.getString("Name"));
@@ -176,5 +177,86 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
     }
 
     return n;
+  }
+
+  @Override
+  public RepairFormBean getRepairFormByFormNumber(String formNumber) {
+    RepairFormBean repairForm = new RepairFormBean();
+    String sql =
+        " SELECT * FROM (SELECT* FROM FIX WHERE Form_Number=formNumber) AS TableA "
+            + " JOIN furniture_price AS TableB ON TableB.id=TableA.Project ";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setString(1, formNumber);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+
+          repairForm.setId(rs.getInt("id"));
+          repairForm.setFormNumber(rs.getString("Form_Number"));
+          repairForm.setRoomNumber(rs.getString("Room_Number"));
+          repairForm.setMemberId(rs.getInt("Member_ID"));
+          repairForm.setApplicant(rs.getString("Applicant"));
+          repairForm.setPhone(rs.getString("Phone"));
+          repairForm.setCreatTime(rs.getTimestamp("CREATE_Time"));
+          repairForm.setExpectionTime(rs.getTimestamp("Expection_Time"));
+          repairForm.setFixTime(rs.getTimestamp("Fix_Time"));
+          repairForm.setFinishTime(rs.getTimestamp("Finish_Time"));
+          repairForm.setProject(rs.getInt("Project"));
+          repairForm.setNote(rs.getString("Note"));
+          repairForm.setLandlordNote(rs.getString("landlordNote"));
+          repairForm.setStatus(rs.getInt("Status"));
+          repairForm.setAmount(rs.getInt("Amount"));
+          repairForm.setProjectName(rs.getString("Name"));
+          repairForm.setProjectPrice(rs.getInt("Price"));
+          repairForm.setProjectNameAlias(rs.getString("alias_name"));
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#getRepairFormListByApplicant()發生例外: " + ex.getMessage());
+    }
+    return repairForm;
+  }
+
+  @Override
+  public List<RepairFormBean> queryAllRepairForm() {
+    List<RepairFormBean> repairFormList = new ArrayList<>();
+
+    String sql =
+        " SELECT * FROM FIX AS TableA "
+            + " JOIN furniture_price AS TableB ON TableB.id=TableA.Project ";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      try (ResultSet rs = ps.executeQuery(); ) {
+        while (rs.next()) {
+          RepairFormBean repairForm = new RepairFormBean();
+          repairForm.setId(rs.getInt("id"));
+          repairForm.setFormNumber(rs.getString("Form_Number"));
+          repairForm.setRoomNumber(rs.getString("Room_Number"));
+          repairForm.setMemberId(rs.getInt("Member_ID"));
+          repairForm.setApplicant(rs.getString("Applicant"));
+          repairForm.setPhone(rs.getString("Phone"));
+          repairForm.setCreatTime(rs.getTimestamp("CREATE_Time"));
+          repairForm.setExpectionTime(rs.getTimestamp("Expection_Time"));
+          repairForm.setFixTime(rs.getTimestamp("Fix_Time"));
+          repairForm.setFinishTime(rs.getTimestamp("Finish_Time"));
+          repairForm.setProject(rs.getInt("Project"));
+          repairForm.setNote(rs.getString("Note"));
+          repairForm.setLandlordNote(rs.getString("landlordNote"));
+          repairForm.setStatus(rs.getInt("Status"));
+          repairForm.setAmount(rs.getInt("Amount"));
+          repairForm.setProjectName(rs.getString("Name"));
+          repairForm.setProjectPrice(rs.getInt("Price"));
+          repairForm.setProjectNameAlias(rs.getString("alias_name"));
+          repairFormList.add(repairForm);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#getRepairFormListByApplicant()發生例外: " + ex.getMessage());
+    }
+    return repairFormList;
   }
 }

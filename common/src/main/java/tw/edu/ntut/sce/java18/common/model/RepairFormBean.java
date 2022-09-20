@@ -15,6 +15,7 @@ public class RepairFormBean {
   Timestamp fixTime;
   Timestamp finishTime;
   Integer project;
+  String landlordNote;
   String note;
   Integer status;
   Integer amount;
@@ -38,6 +39,7 @@ public class RepairFormBean {
       Timestamp finishTime,
       Integer project,
       String note,
+      String landlordNote,
       Integer status,
       Integer amount,
       String projectName,
@@ -56,6 +58,7 @@ public class RepairFormBean {
     this.finishTime = finishTime;
     this.project = project;
     this.note = note;
+    this.note = landlordNote;
     this.status = status;
     this.amount = amount;
     this.projectName = projectName;
@@ -201,5 +204,13 @@ public class RepairFormBean {
 
   public void setProjectNameAlias(String projectNameAlias) {
     this.projectNameAlias = projectNameAlias;
+  }
+
+  public String getLandlordNote() {
+    return landlordNote;
+  }
+
+  public void setLandlordNote(String landlordNote) {
+    this.landlordNote = landlordNote;
   }
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<% String editState = request.getParameter("edit");
+<%-- String editState = request.getParameter("edit");
 //System.out.print("editState"+editState);
 if (editState!=null&&editState.equals("drop")){
 //request.setAttribute("guarantorIsInvalid", false);
@@ -11,7 +11,7 @@ session.setAttribute("isInvalid", false);
 
 //System.out.print("editState:::::"+editState);
 }
-%>
+--%>
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -131,6 +131,11 @@ session.setAttribute("isInvalid", false);
     ============================================-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/cropper/cropper.min.css">
+<!-- DataTables CSS
+    ============================================-->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datatables/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/datatables/select.dataTables.min.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script
@@ -180,17 +185,17 @@ function dropForm(){
 	<!-- 內容 -->
 
 	<div class="" id="profile">
-    <%-- <h1>${isInvalid}</h1> --%>
+    <%-- <h1>${isInvalid}</h1>
 		<c:choose>
-			<c:when test="${isInvalid==true}">
-				<jsp:include page="landlordInfo/validLandlordInfo.jsp" />
+			<c:when test="${isInvalid==true}">--%>
+				<jsp:include page="landlordRepairForm/showRepairForm.jsp" />
 
-			</c:when>
+			<%--</c:when>
 			<c:otherwise>
 				<jsp:include page="landlordInfo/showLandlordInfo.jsp" />
 
 			</c:otherwise>
-		</c:choose>
+		</c:choose>--%>
 
 	</div>
 
