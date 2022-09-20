@@ -4,14 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import org.springframework.stereotype.Repository;
 import tw.edu.ntut.sce.java18.common.dao.ChatroomDao;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 
+@Repository
 public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   private final DataSource ds;
 
@@ -78,14 +81,16 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
       preparedStatement.setInt(2, member);
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         while (resultSet.next()) {
-          var existChatroom = new ArrayList<>();
-          existChatroom.add(resultSet.getInt("Id"));
-          existChatroom.add(resultSet.getString("Chat_type"));
-          existChatroom.add(resultSet.getTimestamp("Close_Time"));
+          var existChatroom = new ExistChatroomBean();
+          existChatroom.setId(resultSet.getInt("Id"));
+          existChatroom.setChatType(resultSet.getString("Chat_type"));
+          existChatroom.setCloseTime(resultSet.getTimestamp("Close_Time"));
           if (resultSet.getInt("member1") == member) {
-            existChatroom.add(resultSet.getInt("member2"));
+            existChatroom.setUserId(resultSet.getInt("member2"));
+            existChatroom.setTargetId(resultSet.getInt("member1"));
           } else {
-            existChatroom.add(resultSet.getInt("member1"));
+            existChatroom.setUserId(resultSet.getInt("member1"));
+            existChatroom.setTargetId(resultSet.getInt("member2"));
           }
           existChatroomList.add(existChatroom);
         }
@@ -98,25 +103,12 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
-  public void insertChatroom(String type, int member1, int member2) {
+  public void insertChatroom(
+      String type, int member1, int member2, String createTime, String closeTime) {
     String sql =
         "INSERT INTO chatroom "
             + "(Chat_type,Member1,Member2,Create_Time,Close_Time,IsOpen) "
             + "VALUE (?,?,?,?,?,?)";
-
-    var localDateTime = LocalDateTime.now();
-    var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-
-    int n;
-    if ("B".equals(type)) {
-      n = 14;
-    } else {
-      n = 365;
-    }
-    var ldtCloseTime = localDateTime.plusDays(n);
-    var createTime = localDateTime.format(dateTimeFormatter);
-    var closeTime = ldtCloseTime.format(dateTimeFormatter);
-
     try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setString(1, type);
@@ -133,7 +125,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   public String queryChatroomNameById(int chatroomId) {
-    String sql = "SELECT  CONCAT(member1,\"_\",member2) chatroomName FROM chatroom WHERE Id = ?";
+    String sql = "SELECT CONCAT(member1,\"_\",member2) chatroomName FROM chatroom WHERE Id = ?";
     try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setInt(1, chatroomId);
@@ -172,6 +164,54 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
       ex.printStackTrace();
       throw new RuntimeException(
           "ChatroomDaoImpl_JDBC類別#updateCloseTime()發生例外: " + ex.getMessage());
+    }
+  }
+
+  public class ExistChatroomBean {
+    Integer id;
+    String chatType;
+    Timestamp closeTime;
+    Integer userId;
+    Integer targetId;
+
+    public Integer getId() {
+      return id;
+    }
+
+    public void setId(Integer id) {
+      this.id = id;
+    }
+
+    public String getChatType() {
+      return chatType;
+    }
+
+    public void setChatType(String chatType) {
+      this.chatType = chatType;
+    }
+
+    public Timestamp getCloseTime() {
+      return closeTime;
+    }
+
+    public void setCloseTime(Timestamp closeTime) {
+      this.closeTime = closeTime;
+    }
+
+    public Integer getUserId() {
+      return userId;
+    }
+
+    public void setUserId(Integer userId) {
+      this.userId = userId;
+    }
+
+    public Integer getTargetId() {
+      return targetId;
+    }
+
+    public void setTargetId(Integer targetId) {
+      this.targetId = targetId;
     }
   }
 }

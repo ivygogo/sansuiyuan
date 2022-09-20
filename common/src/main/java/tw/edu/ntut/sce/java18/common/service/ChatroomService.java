@@ -1,44 +1,312 @@
 package tw.edu.ntut.sce.java18.common.service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import tw.edu.ntut.sce.java18.common.dao.AvatarDao;
+import tw.edu.ntut.sce.java18.common.dao.CharacterAndFavorDao;
 import tw.edu.ntut.sce.java18.common.dao.ChatroomDao;
+import tw.edu.ntut.sce.java18.common.dao.MemberDao;
+import tw.edu.ntut.sce.java18.common.dao.impl.AvatarDaoImpl;
+import tw.edu.ntut.sce.java18.common.dao.impl.CharacterAndFavorDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.ChatroomDaoImpl_JDBC;
+import tw.edu.ntut.sce.java18.common.dao.impl.ChatroomDaoImpl_JDBC.ExistChatroomBean;
+import tw.edu.ntut.sce.java18.common.dao.impl.MemberDaoImpl_jdbc;
 
 public class ChatroomService {
-  ChatroomDao dao;
+  ChatroomDao chatroomDao;
+  MemberDao memberDao;
+  AvatarDao avatarDao;
+  CharacterAndFavorDao characterAndFavorDao;
 
   public ChatroomService() {
-    dao = new ChatroomDaoImpl_JDBC();
+    chatroomDao = new ChatroomDaoImpl_JDBC();
+    memberDao = new MemberDaoImpl_jdbc();
+    avatarDao = new AvatarDaoImpl();
+    characterAndFavorDao = new CharacterAndFavorDaoImpl();
   }
 
-  public int isExist(int member1, int member2, String chatroomType) {
-    return dao.queryIdByChatroomName(member1 + "_" + member2, chatroomType);
+  public ArrayList<LoadChatroom> getChatroomLastInfo(int userId) {
+
+    var chatMessageService = new ChatMessageService();
+    var chatroomListWithLastMessage = new ArrayList<LoadChatroom>();
+
+    var currentTime = new Timestamp(System.currentTimeMillis());
+    var existChatroomList = new ChatroomService().getExistChatroom(userId);
+
+    for (var existChatroom : existChatroomList) {
+      var sdf = new SimpleDateFormat("MM/dd");
+
+      var chatMessageBean = chatMessageService.getLastMessage(existChatroom.getId());
+      var loadChatroom = new LoadChatroom();
+      var memberInfo = memberDao.queryMemberByPrimaryKey(existChatroom.getUserId());
+
+      loadChatroom.setIdentity("????"); // todo 從contract?tenant?
+      loadChatroom.setMoreInfo(""); // todo 從contract?tenant?
+
+      if (existChatroom.getUserId() != 0) {
+        var avatarInfo = avatarDao.queryAvatarByPrimaryKey(memberInfo.getPic());
+        loadChatroom.setTargetNickName(memberInfo.getNickname());
+        loadChatroom.setAvatarPic(avatarInfo.getAvatarName());
+
+        if (userId != 0) {
+          var characterInfo = new CharacterAndFavorDaoImpl();
+
+          if (memberInfo.getOpen_tag() == 1) {
+            if ((memberInfo.getFavor_1() == null)
+                && (memberInfo.getFavor_2() == null)
+                && (memberInfo.getFavor_3() == null)) {
+              loadChatroom.setMoreInfo(null);
+            } else {
+              String character = "";
+              if (memberInfo.getFavor_1() != null) {
+                character +=
+                    "  "
+                        + characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(
+                            memberInfo.getFavor_1());
+              }
+              if (memberInfo.getFavor_2() != null) {
+                character +=
+                    "/"
+                        + characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(
+                            memberInfo.getFavor_2());
+              }
+              if (memberInfo.getFavor_3() != null) {
+                character +=
+                    "/"
+                        + characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(
+                            memberInfo.getFavor_3());
+              }
+              loadChatroom.setMoreInfo(character);
+            }
+          } else {
+            loadChatroom.setMoreInfo(null);
+          }
+        } else {
+          if (true) { // todo form tenant or contract 判斷有沒有沒有房號的話
+            loadChatroom.setMoreInfo("roomNum");
+          } else {
+            loadChatroom.setMoreInfo(null);
+          }
+        }
+      } else {
+        loadChatroom.setTargetNickName("房東");
+        loadChatroom.setAvatarPic("default.png");
+        loadChatroom.setIdentity("管理員");
+        loadChatroom.setMoreInfo(null);
+      }
+
+      loadChatroom.setChatroomId(existChatroom.getId());
+      loadChatroom.setChatroomType(existChatroom.getChatType());
+      loadChatroom.setCloseTime(sdf.format(existChatroom.getCloseTime()));
+      loadChatroom.setTarget(existChatroom.getUserId());
+      loadChatroom.setContent(chatMessageBean.getContent());
+      loadChatroom.setReceiver(chatMessageBean.getReceiver());
+      loadChatroom.setSender(chatMessageBean.getSender());
+      loadChatroom.setChatroomName(
+          new ChatroomService().getChatroomName(loadChatroom.getChatroomId()));
+      loadChatroom.setOpen(currentTime.before(existChatroom.getCloseTime()));
+      loadChatroom.setUnRead(
+          chatMessageService.getUnreadCount(loadChatroom.getChatroomId(), userId));
+      loadChatroom.setSendTime(chatMessageBean.getSendTime());
+
+      chatroomListWithLastMessage.add(loadChatroom);
+    }
+    Collections.sort(
+        chatroomListWithLastMessage,
+        (o1, o2) -> {
+          if (o1.getSendTime().before(o2.getSendTime())) return 1;
+          else return -1;
+        });
+    return chatroomListWithLastMessage;
+  }
+
+  public boolean isExist(int member1, int member2, String chatroomType) {
+    if (chatroomDao.queryIdByChatroomName(member1 + "_" + member2, chatroomType) != -1) {
+      return true;
+    }
+    return false;
   }
 
   public void createChatroom(String type, int member1, int member2) {
-    dao.insertChatroom(type, member1, member2);
+    var localDateTime = LocalDateTime.now();
+    var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
+    int n;
+    if ("B".equals(type)) {
+      n = 14;
+    } else {
+      n = 365;
+    }
+    var ldtCloseTime = localDateTime.plusDays(n);
+    var createTime = localDateTime.format(dateTimeFormatter);
+    var closeTime = ldtCloseTime.format(dateTimeFormatter);
+
+    chatroomDao.insertChatroom(type, member1, member2, createTime, closeTime);
   }
 
   public int getChatroomId(String chatroomName, String chatType) {
-    return dao.queryIdByChatroomName(chatroomName, chatType);
+    return chatroomDao.queryIdByChatroomName(chatroomName, chatType);
   }
 
   public int getChatroomId(String chatroomName) {
-    return dao.queryIdByChatroomName(chatroomName);
+    return chatroomDao.queryIdByChatroomName(chatroomName);
   }
 
   public String getChatroomName(int roomId) {
-    return dao.queryChatroomNameById(roomId);
+    return chatroomDao.queryChatroomNameById(roomId);
   }
 
   // TODO 登入時就要連到自己的聊天室???>
 
   // OK 進到聊天室頁面就要對每個"聊天室"判斷是否唯讀, 並讀出最後一筆訊息 & 未讀量
-  public ArrayList<ArrayList> getExistChatroom(int id) {
-    return dao.queryExistChatroomByUser(id);
+  public ArrayList<ExistChatroomBean> getExistChatroom(int id) {
+    System.out.println("insidetheserceice" + chatroomDao.queryExistChatroomByUser(id).size());
+    return chatroomDao.queryExistChatroomByUser(id);
   }
 
   public void changeCloseTime(int roomId, int time) {
-    dao.updateCloseTime(roomId, time);
+    chatroomDao.updateCloseTime(roomId, time);
+  }
+
+  public class LoadChatroom {
+    int chatroomId;
+    String chatroomType;
+    String chatroomName;
+    String closeTime;
+    Timestamp sendTime;
+    int target;
+    int sender;
+    int receiver;
+    String content;
+    int unRead;
+    boolean isOpen;
+    String targetNickName;
+    String avatarPic;
+    String identity;
+    String moreInfo;
+
+    public Timestamp getSendTime() {
+      return sendTime;
+    }
+
+    public void setSendTime(Timestamp sendTime) {
+      this.sendTime = sendTime;
+    }
+
+    public String getMoreInfo() {
+      return moreInfo;
+    }
+
+    public void setMoreInfo(String moreInfo) {
+      this.moreInfo = moreInfo;
+    }
+
+    public String getTargetNickName() {
+      return targetNickName;
+    }
+
+    public void setTargetNickName(String targetNickName) {
+      this.targetNickName = targetNickName;
+    }
+
+    public String getAvatarPic() {
+      return avatarPic;
+    }
+
+    public void setAvatarPic(String avatarPic) {
+      this.avatarPic = avatarPic;
+    }
+
+    public String getIdentity() {
+      return identity;
+    }
+
+    public void setIdentity(String identity) {
+      this.identity = identity;
+    }
+
+    public boolean isOpen() {
+      return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+      isOpen = open;
+    }
+
+    public int getChatroomId() {
+      return chatroomId;
+    }
+
+    public void setChatroomId(int chatroomId) {
+      this.chatroomId = chatroomId;
+    }
+
+    public String getChatroomName() {
+      return chatroomName;
+    }
+
+    public void setChatroomName(String chatroomName) {
+      this.chatroomName = chatroomName;
+    }
+
+    public String getChatroomType() {
+      return chatroomType;
+    }
+
+    public void setChatroomType(String chatroomType) {
+      this.chatroomType = chatroomType;
+    }
+
+    public String getCloseTime() {
+      return closeTime;
+    }
+
+    public void setCloseTime(String closeTime) {
+      this.closeTime = closeTime;
+    }
+
+    public int getSender() {
+      return sender;
+    }
+
+    public void setSender(int sender) {
+      this.sender = sender;
+    }
+
+    public int getReceiver() {
+      return receiver;
+    }
+
+    public void setReceiver(int receiver) {
+      this.receiver = receiver;
+    }
+
+    public int getTarget() {
+      return target;
+    }
+
+    public void setTarget(int target) {
+      this.target = target;
+    }
+
+    public String getContent() {
+      return content;
+    }
+
+    public void setContent(String content) {
+      this.content = content;
+    }
+
+    public int getUnRead() {
+      return unRead;
+    }
+
+    public void setUnRead(int unRead) {
+      this.unRead = unRead;
+    }
   }
 }
