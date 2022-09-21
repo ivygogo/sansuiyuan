@@ -4,10 +4,34 @@
 
 <script src="../../wuli/js/landlordRepairForm.js"></script>
 <script>
-function editRepairForm(){
-	  $("#pageChange").html("");
-	  $("#pageChange").load('landlordRepairForm/editRepairFormContent.jsp');
-	  }
+	function editRepairForm(item) {
+		myformNumber = item.getAttribute('value');
+		let showForm = JSON.parse(checkRepairFormNumber(myformNumber));
+		//alert(myformNumber)
+		$("#pageChange").html("");
+		$("#pageChange")
+				.load(
+						'landlordRepairForm/editRepairFormContent.jsp',
+						function() {
+							$("#formNumber h3").text(showForm.formNumber);
+							$("#roomNumber h3").text(showForm.roomNumber);
+							$("#applicant h3").text(showForm.applicant);
+							$("#applicantPhone h3").text(showForm.phone);
+							$("#project h3").text(showForm.projectNameAlias);
+							$("#repairStatus h3").text(
+									transfromStatus(showForm.status));
+							$("#createTime h3").text(
+									transfromTime(showForm.creatTime));
+							$("#expectTime h3").text(
+									transfromTime(showForm.expectionTime));
+							$("#repairNote h3").text(showForm.note);
+							$("#feedbackTime h3").text(showForm.fixTime);
+							$("#price h3").text(showForm.projectPrice);
+							$("#landlordNote h3").text(showForm.landlordNote);
+
+						});
+
+	}
 </script>
 
 <div class="breadcomb-area">
@@ -43,26 +67,27 @@ function editRepairForm(){
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="form-example-wrap">
 					<!-- 開始 -->
+					<div class="table-responsive">
+						<table id="example" class="table-bordered table display "
+							style="width: 95%">
+							<thead>
+								<tr>
+									<th></th>
+									<th>單號</th>
+									<th>申請人</th>
+									<th>房號</th>
+									<th>項目</th>
+									<th>日期</th>
+									<th>狀態</th>
+									<th>費用</th>
+								</tr>
+							</thead>
+							<tbody>
 
-					<table id="example" class="table-bordered table display "
-						style="width: 95%">
-						<thead>
-							<tr>
-								<th></th>
-								<th>單號</th>
-								<th>申請人</th>
-								<th>房號</th>
-								<th>項目</th>
-								<th>日期</th>
-								<th>狀態</th>
-								<th>費用</th>
-							</tr>
-						</thead>
-						<tbody>
+							</tbody>
 
-						</tbody>
-
-					</table>
+						</table>
+					</div>
 					<%--結束--%>
 				</div>
 			</div>
@@ -73,7 +98,8 @@ function editRepairForm(){
 <div class="form-example-area">
 	<div class="container">
 		<div class="row mt-5 ">
-			<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="pageChange">
+			<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12"
+				id="pageChange">
 				<jsp:include page="showRepairFormContent.jsp" />
 			</div>
 		</div>
@@ -90,7 +116,7 @@ function editRepairForm(){
 
 
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.js"></script>
 <script
 	src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script
@@ -101,7 +127,6 @@ function editRepairForm(){
 	var countSelect = -1;
 	$(document).ready(function() {
 		$("#showRepairContent").hide();
-
 
 		table = $('#example').DataTable({
 			data : data,
@@ -138,7 +163,7 @@ function editRepairForm(){
 			},
 			order : [ [ 1, 'asc' ] ]
 		});
-		$('label select').attr("style","width:50px;")
+		$('label select').attr("style", "width:50px;")
 
 		table.on('select', function(e, dt, type, indexes) {
 			var count = table.rows({
@@ -152,47 +177,48 @@ function editRepairForm(){
 
 	});
 
-
 	$('#example tbody').on('click', 'tr td:first-child', function() {
-	      //console.log(table.cell(this).render());
-	      //console.log(table.row($(this).closest('tr')).data());
-	      // THIS LINE HERE IS NEW
-	      console.log(table.row($(this).closest('tr')).data()[1]);
-	      let number = table.row($(this).closest('tr')).data()[1];
+		//console.log(table.cell(this).render());
+		//console.log(table.row($(this).closest('tr')).data());
+		// THIS LINE HERE IS NEW
+		//console.log(table.row($(this).closest('tr')).data()[1]);
+		let number = table.row($(this).closest('tr')).data()[1];
 
+		let showForm = JSON.parse(checkRepairFormNumber(number));
 
-	      let showForm = JSON.parse(checkRepairFormNumber(number));
+		$("#formNumber h3").text(showForm.formNumber);
+		$("#roomNumber h3").text(showForm.roomNumber);
+		$("#applicant h3").text(showForm.applicant);
+		$("#applicantPhone h3").text(showForm.phone);
+		$("#project h3").text(showForm.projectNameAlias);
+		$("#repairStatus h3").text(transfromStatus(showForm.status));
+		$("#createTime h3").text(transfromTime(showForm.creatTime));
+		$("#expectTime h3").text(transfromTime(showForm.expectionTime));
+		$("#repairNote h3").text(showForm.note);
+		$("#feedbackTime h3").text(showForm.fixTime);
+		$("#price h3").text(showForm.projectPrice);
+		$("#landlordNote h3").text(showForm.landlordNote);
+		$(".landlordedit").attr("value", showForm.formNumber);
+		$(".landlordsave").attr("value", showForm.formNumber);
 
-	      $("#formNumber h3").text(showForm.formNumber);
-	      $("#roomNumber h3").text(showForm.roomNumber);
-	      $("#applicant h3").text(showForm.applicant);
-	      $("#applicantPhone h3").text(showForm.phone);
-	      $("#project h3").text(showForm.projectNameAlias);
-	      $("#repairStatus h3").text(transfromStatus(showForm.status));
-	      $("#createTime h3").text(transfromTime(showForm.creatTime));
-	      $("#expectTime h3").text(transfromTime(showForm.expectionTime));
-	      $("#repairNote h3").text(showForm.note);
-	      $("#feedbackTime h3").text(showForm.fixTime);
-	      $("#price h3").text(showForm.projectPrice);
-	      $("#landlordNote h3").text(showForm.landlordNote);
+		let selectRows = checkOnlySelect(number)
+		//alert(selectRows)
+		if (selectRows < 0) {
+			$("#showRepairContent").hide();
+			$("#editRepairContent").hide();
+		} else {
+			$("#showRepairContent").attr("style", "visibility: visible");
+		}
 
-	      let selectRows = checkOnlySelect(number)
-	      //alert(selectRows)
-	      if(selectRows<0){
-	    	  $("#showRepairContent").hide();
-	      }else{
-	    	  $("#showRepairContent").attr("style","visibility: visible");
-	      }
-
-	    });
+	});
 
 	/*
 	table.on('select', function(e, dt, type, indexes) {
-        var count = table.rows({
-           selected : false
-         }).count()+0;
-         alert("次數" + count)
-         countSelect = Number(count)
-         alert("外次數" + countSelect)
-       });*/
+	    var count = table.rows({
+	       selected : false
+	     }).count()+0;
+	     alert("次數" + count)
+	     countSelect = Number(count)
+	     alert("外次數" + countSelect)
+	   });*/
 </script>

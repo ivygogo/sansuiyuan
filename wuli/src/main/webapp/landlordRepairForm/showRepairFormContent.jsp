@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="form-example-wrap px-5" id = "showRepairContent" style="visibility: hidden;">
 <div class = "row ">
-<div class="col-lg-10 col-md-10 col-sm-8 col-xs-8"> </div>
-<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"> </div>
+<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ms-5">
 <button class="landlordedit" type="button" style = "width : 50px" id=" "  onclick="editRepairForm(this)"><img src="${pageContext.request.contextPath}/file/icon/edit.png"></button>
 <%-- <button class="landlordsave" type="button" style = "width : 50px" id=" "><img src="${pageContext.request.contextPath}/file/icon/diskette.png"></button>--%>
 </div>
