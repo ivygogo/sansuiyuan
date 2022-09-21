@@ -13,6 +13,7 @@ public class RepairFormServiceBean {
   String repairFormFinishTime;
   String projectAlias;
   String note;
+  String landlordNote;
   Integer status;
 
   public RepairFormServiceBean() {}
@@ -29,6 +30,7 @@ public class RepairFormServiceBean {
       String repairFormFinishTime,
       String projectAlias,
       String note,
+      String landlordNote,
       Integer status) {
     super();
     this.id = id;
@@ -42,6 +44,7 @@ public class RepairFormServiceBean {
     this.repairFormFinishTime = repairFormFinishTime;
     this.projectAlias = projectAlias;
     this.note = note;
+    this.landlordNote = landlordNote;
     this.status = status;
   }
 
@@ -143,5 +146,13 @@ public class RepairFormServiceBean {
 
   public void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public String getLandlordNote() {
+    return landlordNote;
+  }
+
+  public void setLandlordNote(String landlordNote) {
+    this.landlordNote = landlordNote;
   }
 }
