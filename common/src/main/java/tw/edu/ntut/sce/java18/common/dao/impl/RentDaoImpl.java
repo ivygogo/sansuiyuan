@@ -24,8 +24,9 @@ public class RentDaoImpl implements RentDao {
   }
 
   private static final String SELECT_BY_ID =
-      "select m.name, m.Idnumber, m.phone, m.address, g.name, g.Idnumber, g.phone, g.address, m.uId"
-          + " from member m join guarantor g on m.UId = g.Memberid where m.Idnumber = ?";
+      "select m.name, m.Idnumber, m.phone, m.address, g.name, g.Idnumber, g.phone, g.address, m.uId "
+          + "from member m join guarantor g on m.UId = g.Memberid "
+          + "where m.Idnumber = ?";
 
   @Override
   public RentBean select(String string) {
