@@ -20,32 +20,6 @@ public class GuarantorBean implements Serializable {
   /* ====== 建構子 ======*/
   public GuarantorBean() {}
 
-  public GuarantorBean(
-      Integer id,
-      Integer member_id,
-      String name,
-      String id_number,
-      String phone,
-      String county,
-      String district,
-      String address,
-      String relation,
-      Timestamp create_time,
-      Timestamp update_time) {
-    super();
-    this.id = id;
-    this.member_id = member_id;
-    this.name = name;
-    this.id_number = id_number;
-    this.phone = phone;
-    this.county = county;
-    this.district = district;
-    this.address = address;
-    this.relation = relation;
-    this.create_time = create_time;
-    this.update_time = update_time;
-  }
-
   /* ====== setter & getter ======*/
   public static long getSerialversionuid() {
     return serialVersionUID;

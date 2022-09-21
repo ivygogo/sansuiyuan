@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="form-example-wrap px-5" id = "showRepairContent" style="visibility: hidden;">
 <div class = "row ">
-<div class="col-lg-10 col-md-10 col-sm-8 col-xs-8"> </div>
-<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"> </div>
+<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ms-5">
 <button class="landlordedit" type="button" style = "width : 50px" id=" "  onclick="editRepairForm(this)"><img src="${pageContext.request.contextPath}/file/icon/edit.png"></button>
 <%-- <button class="landlordsave" type="button" style = "width : 50px" id=" "><img src="${pageContext.request.contextPath}/file/icon/diskette.png"></button>--%>
 </div>
@@ -14,7 +15,7 @@
 			style="border-width: 1px; border-style: solid; border-color: #666;">
 
 			<div class="cmp-tb-hd mx-4 mt-5" style="text-align: center;">
-				
+
 				<h1>瀏覽報修單</h1>
 			</div>
 
@@ -159,7 +160,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="form-example-int mt-4">
@@ -173,7 +174,7 @@
           </div>
         </div>
       </div>
-<%-- 
+<%--
 			<div class="" style="display: flex; justify-content: center;">
 				<button class="btn btn-edit" id="editLandlordinfo"
 					onclick="updateLandlordinfo()">編輯資料</button>

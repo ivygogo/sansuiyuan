@@ -26,46 +26,6 @@ public class RepairFormBean {
 
   public RepairFormBean() {}
 
-  public RepairFormBean(
-      Integer id,
-      String formNumber,
-      String roomNumber,
-      Integer memberId,
-      String applicant,
-      String phone,
-      Timestamp creatTime,
-      Timestamp expectionTime,
-      Timestamp fixTime,
-      Timestamp finishTime,
-      Integer project,
-      String note,
-      String landlordNote,
-      Integer status,
-      Integer amount,
-      String projectName,
-      Integer projectPrice,
-      String projectNameAlias) {
-    super();
-    this.id = id;
-    this.formNumber = formNumber;
-    this.roomNumber = roomNumber;
-    this.memberId = memberId;
-    this.applicant = applicant;
-    this.phone = phone;
-    this.creatTime = creatTime;
-    this.expectionTime = expectionTime;
-    this.fixTime = fixTime;
-    this.finishTime = finishTime;
-    this.project = project;
-    this.note = note;
-    this.note = landlordNote;
-    this.status = status;
-    this.amount = amount;
-    this.projectName = projectName;
-    this.projectPrice = projectPrice;
-    this.projectNameAlias = projectNameAlias;
-  }
-
   public static long getSerialversionuid() {
     return serialVersionUID;
   }
