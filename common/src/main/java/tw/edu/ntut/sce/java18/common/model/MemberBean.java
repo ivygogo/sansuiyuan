@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -50,18 +51,51 @@ public class MemberBean implements Serializable {
   Timestamp create_time;
   Timestamp update_time;
   String last_IP;
-  @Transient String signatureAll;
-  @Transient String favorStrAll;
-  @Transient String avatar;
-  @Transient String level;
-  @Transient List<String> contract;
-  @Transient List<TenantBean> tenant;
-  @Transient List<GuarantorBean> guarantorList;
-  @Transient List<RefundAccountBean> refundAccountList;
-  @Transient GuarantorBean guarantor;
-  @Transient RefundAccountBean refundAccount;
+  @Transient
+  String signatureAll;
+  @Transient
+  String favorStrAll;
+  @Transient
+  String avatar;
+  @Transient
+  String level;
+  @Transient
+  List<String> contract;
+  @Transient
+  List<TenantBean> tenant;
+  @Transient
+  List<GuarantorBean> guarantorList;
+  @Transient
+  List<RefundAccountBean> refundAccountList;
+  @Transient
+  GuarantorBean guarantor;
+  @Transient
+  RefundAccountBean refundAccount;
+
   /* ====== 建構子 ======*/
-  public MemberBean() {}
+  public MemberBean() {
+  }
+
+  public MemberBean(String name,
+                    int gender,
+                    String phone,
+                    String idNumber,
+                    String mail,
+                    String password,
+                    String address,
+                    String nickname,
+                    Timestamp create_time) {
+    super();
+    this.name = name;
+    this.gender = gender;
+    this.phone = phone;
+    this.idNumber = idNumber;
+    this.mail = mail;
+    this.password = password;
+    this.address = address;
+    this.nickname = nickname;
+    this.create_time = create_time;
+  }
 
   /* ====== getter ======*/
 
