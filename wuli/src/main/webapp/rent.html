@@ -111,15 +111,15 @@
                         <div class="d-flex pt-5">
                             <h2 class="mx-5">租客資訊</h2>
                             <input onclick="addRent()" type="image" src="../wuli/img/add.png" alt="加入" title="加入" width="25px" class="my-auto mx-4" >
-                            <a onclick="contractRent()" href="contract.html"><img src="../wuli/img/stamp.png" alt="合約" title="合約" width="25px" class="my-auto mt-2" ></a>
+                            <a onclick="contractRent()" href="contract.jsp"><img src="../wuli/img/stamp.png" alt="合約" title="合約" width="25px" class="my-auto mt-2" ></a>
                         </div>
                         <hr>
                         <p></p>
 
-                        <form action="" class="px-5 pb-3" id="theForm">
+                        <form action="" method="" class="px-5 pb-3" id="theForm">
                             <div class="form-group d-flex" id="renter">
                                 <label for="theForm" class="control-label text-nowrap my-auto">承租人 ：</label>
-                                <input class="form-control" type="text" id="inputRenter">
+                                <input class="form-control" type="text" id="inputRenter" name="inputRenter" >
                             </div>
                             <p></p>
                             <div class="form-group d-flex">
@@ -344,8 +344,91 @@
     
 <script>
     function addRent() {
-        var idnumber = prompt("請輸入欲帶入之身分證字號:", "");
+    	const idNumber = window.prompt("請輸入身分證字號");
+    //	var idnumber = prompt("請輸入身分證字號:", "");
+         if (idNumber !== null || "") {
+        //	 console.log(idnumber);
+        //request.parameper("id",idnumber);
+        
+           $.ajax({
+        	     url:"/wuli/rent.do",
+        	     type:"POST",
+        	     data:{"id":idNumber},
+        	     success:function(response){
+        	    //	 console.log(response)
+              //   console.log(response.renterName)
+                 document.getElementById("inputRenter").value = response.renterName;
+                 document.getElementById("inputID").value = response.renterIdNumber;
+                 document.getElementById("inputPhone").value = response.renterPhone;
+                 document.getElementById("inputAddress").value = response.renterAddress;
+                 document.getElementById("inputGuarntor").value = response.guarntorName;
+                 document.getElementById("inputGuarntorID").value = response.guarntorIdNumber;
+                 document.getElementById("inputGuarntorPhone").value = response.guarntorPhone;
+                 document.getElementById("inputGuarntorAddress").value = response.guarntorAddress;
+
+        	     },
+        	  	 err: function(){
+        		   console.error("error")}
+           })
+         } 
     }
+</script>
+<script>
+function contractRent(){
+    var renter = document.getElementById("inputRenter").value;
+    var startYYYY = document.getElementById("inputStartYYYY").value;
+    var startMM = document.getElementById("inputStartMM").value;
+    var startDD = document.getElementById("inputStartDD").value;
+    var endYYYY = document.getElementById("inputEndYYYY").value;
+    var endMM = document.getElementById("inputEndMM").value;
+    var endDD = document.getElementById("inputEndDD").value;
+    var rent = document.getElementById("inputRent").innerHTML;
+    var deposit = document.getElementById("inputDeposit").innerHTML;
+    var ID = document.getElementById("inputID").value;
+    var phone = document.getElementById("inputPhone").value;
+    var address = document.getElementById("inputAddress").value;
+    var guarntor = document.getElementById("inputGuarntor").value;
+    var guarntorID = document.getElementById("inputGuarntorID").value;
+    var guarntorPhone = document.getElementById("inputGuarntorPhone").value;
+    var guarntorAddress = document.getElementById("inputGuarntorAddress").value;
+
+/* 檢查 */
+    if (!(
+        renter &&
+        startYYYY &&
+        startMM &&
+        startDD &&
+        endYYYY &&
+        endMM &&
+        endDD &&
+        rent &&
+        deposit &&
+        ID &&
+        phone &&
+        address &&
+        guarntor &&
+        guarntorID &&
+        guarntorPhone &&
+        guarntorAddress
+    )){
+        alert("請填寫完整!");
+        return false;
+    } 
+/* 檢查 */
+    var durationYYYY = endYYYY - startYYYY;
+    var durationMM = endMM - startMM;
+    if (startYYYY < endYYYY) {
+        if (startMM > endMM) {
+            durationYYYY -= 1;
+            durationMM += 12;
+        }
+    }
+    else if ( startYYYY > endYYYY || startMM >= endMM ) {
+        alert("請輸入合理的日期!");
+        return false;
+    } 
+}
+
 </script>
 
 </html>
