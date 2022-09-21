@@ -8,10 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import tw.edu.ntut.sce.java18.common.controller.ChatroomServletConvert.LoadChatroom;
 import tw.edu.ntut.sce.java18.common.model.ChatMessageServiceBean;
 import tw.edu.ntut.sce.java18.common.service.ChatMessageService;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService;
+import tw.edu.ntut.sce.java18.common.service.ChatroomService.LoadChatroom;
 
 // @WebServlet("/common/ChatroomServlet")
 public class ChatroomServlet extends HttpServlet {
@@ -66,7 +66,7 @@ public class ChatroomServlet extends HttpServlet {
     }
 
     var chatroom = new ChatroomService();
-    if (chatroom.isExist(memberS, memberL, chatType) != -1) {
+    if (chatroom.isExist(memberS, memberL, chatType)) {
       System.out.println("this chatroom is exist");
     } else {
       System.out.println("ready to create new chatroom");
@@ -80,42 +80,33 @@ public class ChatroomServlet extends HttpServlet {
 
       switch (chatType) {
         case "B":
-          {
-            String userName = request.getParameter("userName");
-            String timePick = request.getParameter("timePick");
-            String floor = request.getParameter("floor");
-            String selectDate = request.getParameter("selectDate");
-            String roomType = request.getParameter("roomType");
-
-            content =
-                userName
-                    + " 同學您好，已收到您的預約通知。\n您所預約的時段如下 : "
-                    + selectDate
-                    + "  "
-                    + timePick
-                    + " 。\n您所預約的房型為 : "
-                    + roomType
-                    + " 的 "
-                    + floor
-                    + " 。\n"
-                    + "(備註：本物業可視現場狀況進行調整所帶看房間)。";
-            break;
-          }
+          String userName = request.getParameter("userName");
+          String timePick = request.getParameter("timePick");
+          String floor = request.getParameter("floor");
+          String selectDate = request.getParameter("selectDate");
+          String roomType = request.getParameter("roomType");
+          content =
+              userName
+                  + " 同學您好，已收到您的預約通知。\n您所預約的時段如下 : "
+                  + selectDate
+                  + "  "
+                  + timePick
+                  + " 。\n您所預約的房型為 : "
+                  + roomType
+                  + " 的 "
+                  + floor
+                  + " 。\n"
+                  + "(備註：本物業可視現場狀況進行調整所帶看房間)。";
+          break;
         case "R":
-          {
-            content = "同學你好已收到您的報修通知。";
-            break;
-          }
-        case "C":
-          {
-            content = "同學A你好已為您與同學B開啟聊聊功能";
-            break;
-          }
+          content = "同學你好已收到您的報修通知。";
+          break;
+        case "F":
+          content = "同學A你好已為您與同學B開啟聊聊功能";
+          break;
         default:
-          {
-            content = "";
-            break;
-          }
+          content = "";
+          break;
       }
       message.setContent(content);
       chatMessageService.createMessage(message);
@@ -131,9 +122,10 @@ public class ChatroomServlet extends HttpServlet {
     var printWriter = response.getWriter();
 
     // 進入畫面就load出左側頁面所需的內容
-    ChatroomServletConvert convert = new ChatroomServletConvert();
+    ChatroomService chatroomService = new ChatroomService();
     String id = request.getParameter("Id"); // from JS loadExistChatroom()  =7
-    List<LoadChatroom> chatroomLastMessage = convert.getChatroomLastInfo(Integer.parseInt(id));
+    List<LoadChatroom> chatroomLastMessage =
+        chatroomService.getChatroomLastInfo(Integer.parseInt(id));
 
     Gson gson = new Gson();
     String chatroomList = gson.toJson(chatroomLastMessage);

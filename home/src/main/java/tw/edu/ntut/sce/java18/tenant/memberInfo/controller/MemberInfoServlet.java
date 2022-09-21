@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
-import tw.edu.ntut.sce.java18.tenant.memberInfo.service.impl.MemberInfoServiceImpl;
+import tw.edu.ntut.sce.java18.common.service.impl.MemberInfoServiceImpl;
 
 /** 會員資料瀏覽(show)與編輯(edit)頁面，都會用到此程式，因此在本程式需要將這兩個頁面會用到的資料和前台tag準備好 */
 @WebServlet("/MemberInfo.do")

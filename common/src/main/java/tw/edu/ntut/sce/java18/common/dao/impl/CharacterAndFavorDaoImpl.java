@@ -9,10 +9,12 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import org.springframework.stereotype.Repository;
 import tw.edu.ntut.sce.java18.common.dao.CharacterAndFavorDao;
 import tw.edu.ntut.sce.java18.common.model.CharacterAndFavorBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 
+@Repository
 public class CharacterAndFavorDaoImpl implements CharacterAndFavorDao {
   private DataSource ds = null;
 

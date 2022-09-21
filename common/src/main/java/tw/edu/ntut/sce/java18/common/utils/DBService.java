@@ -1,7 +1,7 @@
 package tw.edu.ntut.sce.java18.common.utils;
 
 public class DBService {
-
+  public static final String DB_TYPE = "MYSQL";
   public static final String host = "127.0.0.1";
   public static final String USERID = "admin";
   public static final String PSWD = "admin123";
