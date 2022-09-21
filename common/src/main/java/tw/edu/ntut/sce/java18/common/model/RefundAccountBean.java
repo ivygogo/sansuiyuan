@@ -14,31 +14,8 @@ public class RefundAccountBean implements Serializable {
   String refundName;
   Timestamp create_time;
   Timestamp update_time;
-
-  public RefundAccountBean() {
-    // TODO Auto-generated constructor stub
-  }
-
   /* ====== 建構子 ======*/
-  public RefundAccountBean(
-      Integer id,
-      Integer member_id,
-      String refundBank,
-      String bankStore,
-      String bankAccount,
-      String refundName,
-      Timestamp create_time,
-      Timestamp update_time) {
-    super();
-    this.id = id;
-    this.member_id = member_id;
-    this.refundBank = refundBank;
-    this.bankStore = bankStore;
-    this.bankAccount = bankAccount;
-    this.refundName = refundName;
-    this.create_time = create_time;
-    this.update_time = update_time;
-  }
+  public RefundAccountBean() {}
 
   /* ====== getter ======*/
   public static long getSerialversionuid() {

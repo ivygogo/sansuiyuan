@@ -17,24 +17,6 @@ public class TenantBean implements Serializable {
   /* ====== 建構子 ======*/
   public TenantBean() {}
 
-  public TenantBean(
-      Integer id,
-      Integer member_Id,
-      String contract_Number,
-      Date begin_Time,
-      Date end_Time,
-      String room_Number,
-      Integer deposit) {
-    super();
-    this.id = id;
-    Member_Id = member_Id;
-    Contract_Number = contract_Number;
-    Begin_Time = begin_Time;
-    End_Time = end_Time;
-    Room_Number = room_Number;
-    Deposit = deposit;
-  }
-
   /* ====== getter ======*/
 
   public static long getSerialversionuid() {

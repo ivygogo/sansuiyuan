@@ -25,7 +25,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 <div class="row mb-1 mt-5 ml-3">
   <div class="col-md-12 text-left">
     <div class="" style="display: flex; justify-content: center;">
-      <h2 class="text-black mb-4">insert報修單</h2>
+      <h2 class="text-black mb-4">新增報修單</h2>
     </div>
   </div>
 </div>

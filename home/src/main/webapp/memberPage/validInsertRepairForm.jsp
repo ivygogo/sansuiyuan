@@ -19,7 +19,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 <div class="row mb-1 mt-5 ml-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
-			<h2 class="text-black mb-4">valid報修單</h2>
+			<h2 class="text-black mb-4">新增報修單</h2>
 		</div>
 	</div>
 </div>
@@ -34,7 +34,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 
 				<div class="row mt-5">
 					<div class="col">
-						<h6 class="text-black-opacity-05">房號 insert</h6>
+						<h6 class="text-black-opacity-05">房號</h6>
 						<h3 class="text-black-opacity-05" id="repairFormRoom">${roomNumber}</h3>
 					</div>
 					<div class="col">

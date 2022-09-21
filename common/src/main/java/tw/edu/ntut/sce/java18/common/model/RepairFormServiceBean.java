@@ -18,36 +18,6 @@ public class RepairFormServiceBean {
 
   public RepairFormServiceBean() {}
 
-  public RepairFormServiceBean(
-      Integer id,
-      String repairFormNumber,
-      String repairRoomNumber,
-      String applicantName,
-      String applicantPhone,
-      String repairFormCreatTime,
-      String repairFormExpectionTime,
-      String repairFormFixTime,
-      String repairFormFinishTime,
-      String projectAlias,
-      String note,
-      String landlordNote,
-      Integer status) {
-    super();
-    this.id = id;
-    this.repairFormNumber = repairFormNumber;
-    this.repairRoomNumber = repairRoomNumber;
-    this.applicantName = applicantName;
-    this.applicantPhone = applicantPhone;
-    this.repairFormCreatTime = repairFormCreatTime;
-    this.repairFormExpectionTime = repairFormExpectionTime;
-    this.repairFormFixTime = repairFormFixTime;
-    this.repairFormFinishTime = repairFormFinishTime;
-    this.projectAlias = projectAlias;
-    this.note = note;
-    this.landlordNote = landlordNote;
-    this.status = status;
-  }
-
   public static long getSerialversionuid() {
     return serialVersionUID;
   }
