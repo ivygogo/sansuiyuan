@@ -1,5 +1,6 @@
 package tw.edu.ntut.sce.java18.common.dao;
 
+import tw.edu.ntut.sce.java18.common.dto.MemberRegisterRequest;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 
 public interface MemberDao {

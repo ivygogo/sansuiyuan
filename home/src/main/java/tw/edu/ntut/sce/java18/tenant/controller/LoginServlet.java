@@ -1,36 +1,38 @@
 package tw.edu.ntut.sce.java18.tenant.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import tw.edu.ntut.sce.java18.common.model.MemberBean;
+import tw.edu.ntut.sce.java18.common.service.MemberInfoService;
+import tw.edu.ntut.sce.java18.common.service.impl.MemberInfoServiceImpl;
+import tw.edu.ntut.sce.java18.common.utils.GlobalService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import tw.edu.ntut.sce.java18.common.model.MemberBean;
-import tw.edu.ntut.sce.java18.common.service.MemberInfoService;
-import tw.edu.ntut.sce.java18.common.service.impl.MemberInfoServiceImpl;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/login/login.do")
 public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
     HttpSession session = request.getSession();
     // 定義存放錯誤訊息的Map物件
-    Map<String, String> errorMsgMap = new HashMap<>();
+    Map<String,String> errorMsgMap = new HashMap<>();
 
     // 將errorMsgMap放入request物件內，識別字串為 "ErrorMsgKey"
-    request.setAttribute("ErrorMsgKey", errorMsgMap);
+    request.setAttribute("ErrorMsgKey",errorMsgMap);
 
     // 1. 讀取使用者輸入資料
-    String mail = request.getParameter("mail");
+    String mail= request.getParameter("mail");
     String password = request.getParameter("pswd");
     String rm = request.getParameter("rememberMe");
     String requestURI = (String) session.getAttribute("requestURI");
     System.out.println(mail + " " + password + " " + rm + " " + requestURI);
+
 
     // 2. 進行必要的資料轉換
     // 無
@@ -60,10 +62,10 @@ public class LoginServlet extends HttpServlet {
       cookieUser.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
       cookieUser.setPath(request.getContextPath());
 
-      //      String encodePassword = GlobalService.encryptString(password);
-      //      cookiePassword = new Cookie("password", encodePassword);
-      //      cookiePassword.setMaxAge(7 * 24 * 60 * 60);
-      //      cookiePassword.setPath(request.getContextPath());
+//      String encodePassword = GlobalService.encryptString(password);
+//      cookiePassword = new Cookie("password", encodePassword);
+//      cookiePassword.setMaxAge(7 * 24 * 60 * 60);
+//      cookiePassword.setPath(request.getContextPath());
 
       cookieRememberMe = new Cookie("rm", "true");
       cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
@@ -73,17 +75,17 @@ public class LoginServlet extends HttpServlet {
       cookieUser.setMaxAge(0); // MaxAge==0 表示要請瀏覽器刪除此Cookie
       cookieUser.setPath(request.getContextPath());
 
-      //      String encodePassword = GlobalService.encryptString(password);
-      //      cookiePassword = new Cookie("password", encodePassword);
-      //      cookiePassword.setMaxAge(0);
-      //      cookiePassword.setPath(request.getContextPath());
+//      String encodePassword = GlobalService.encryptString(password);
+//      cookiePassword = new Cookie("password", encodePassword);
+//      cookiePassword.setMaxAge(0);
+//      cookiePassword.setPath(request.getContextPath());
 
       cookieRememberMe = new Cookie("rm", "true");
       cookieRememberMe.setMaxAge(0);
       cookieRememberMe.setPath(request.getContextPath());
     }
     response.addCookie(cookieUser);
-    // response.addCookie(cookiePassword);
+    //response.addCookie(cookiePassword);
     response.addCookie(cookieRememberMe);
     // ********************************************
     // 4. 進行 Business Logic 運算
@@ -91,7 +93,7 @@ public class LoginServlet extends HttpServlet {
     MemberInfoService memberService = new MemberInfoServiceImpl();
 
     // 將密碼加密兩次，以便與存放在表格內的密碼比對
-    // password = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
+    //password = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
     MemberBean mb = null;
     try {
       // 呼叫 loginService物件的 checkIDPassword()，傳入userid與password兩個參數
@@ -124,5 +126,5 @@ public class LoginServlet extends HttpServlet {
       rd.forward(request, response);
       return;
     }
-  }
+    }
 }
