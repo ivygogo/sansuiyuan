@@ -1,5 +1,6 @@
 package tw.edu.ntut.sce.java18.common.dao;
 
+import tw.edu.ntut.sce.java18.common.dto.MemberRegisterRequest;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 
 public interface MemberDao {
@@ -15,4 +16,8 @@ public interface MemberDao {
   String checkIdNumber(String formValue, int genderId);
 
   int updateMemberInfo(MemberBean member);
+
+  Integer insertMember(MemberRegisterRequest memberRegisterRequest);
+
+  MemberBean getMemberByEmail(String email);
 }

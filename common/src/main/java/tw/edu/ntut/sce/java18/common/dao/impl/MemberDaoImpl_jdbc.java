@@ -6,17 +6,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 import tw.edu.ntut.sce.java18.common.dao.MemberDao;
+import tw.edu.ntut.sce.java18.common.dto.MemberRegisterRequest;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
+import tw.edu.ntut.sce.java18.common.rowmapper.MemberRowMapper;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 
+@Component
 public class MemberDaoImpl_jdbc implements MemberDao {
 
   private DataSource ds = null;
+
+  @Autowired(required = false)
+  private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   public MemberDaoImpl_jdbc() {
     try {
@@ -243,4 +258,49 @@ public class MemberDaoImpl_jdbc implements MemberDao {
 
     return n;
   }
+
+  // 註冊會員資料
+  @Override
+  public Integer insertMember(MemberRegisterRequest memberRegisterRequest) {
+    String sql = "INSERT INTO member" +
+        "(name,gender,phone,Id_Number,mail,password,address,nickname) " +
+        "VALUE(:memberName,:memberGender,:memberPhone,:IdNumber,:memberMail,:memberPwd,:memberAdd,:nickName)";
+
+    Map<String,Object> map = new HashMap<>();
+    map.put("memberName",memberRegisterRequest.getName());
+    map.put("memberGender",memberRegisterRequest.getGender());
+    map.put("memberPhone",memberRegisterRequest.getPhone());
+    map.put("IdNumber",memberRegisterRequest.getIdNumber());
+    map.put("memberMail",memberRegisterRequest.getMail());
+    map.put("memberPwd",memberRegisterRequest.getPassword());
+    map.put("memberAdd",memberRegisterRequest.getAddress());
+    map.put("nickName",memberRegisterRequest.getNickname());
+
+    KeyHolder keyHolder = new GeneratedKeyHolder();
+    namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
+
+    int memberId = keyHolder.getKey().intValue();
+
+    return memberId;
+
+  }
+
+  @Override
+  public MemberBean getMemberByEmail(String mail) {
+    String sql = "SELECT UId,name,gender,Id_Number,mail,password,address,nickname FROM member WHERE mail = :mail";
+
+    Map<String,Object> map = new HashMap<>();
+    map.put("mail",mail);
+
+    List<MemberBean> memberList = namedParameterJdbcTemplate.query(sql,map,new MemberRowMapper());
+
+    if (memberList.size() > 0 ){
+      return memberList.get(0);
+    }else {
+      return null;
+    }
+
+  }
+
+
 }
