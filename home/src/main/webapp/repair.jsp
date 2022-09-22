@@ -39,7 +39,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>${SYSTEM.systemName}-我要報修${isInvalid}</title>
+<title>${SYSTEM.systemName}-我要報修</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -175,7 +175,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 				<%--標題--%>
 				<div class="row mb-1 mt-5">
 					<div class="col-md-7 text-left">
-						<h2 class="section-title" id="myTitle">報修管理 ${FormInvalid}</h2>
+						<h2 class="section-title" id="myTitle">報修管理</h2>
 					</div>
 
 
@@ -246,7 +246,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	<%--.site-wrap --%>
 	<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
 
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
 	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
@@ -263,8 +263,5 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	
-	<%-- 
-	<script
-    src="${pageContext.request.contextPath}/file/bootstrap.bundle.js"></script>--%>
 </body>
 </html>

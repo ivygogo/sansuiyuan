@@ -16,22 +16,6 @@ public class AvatarBean implements Serializable {
   /* ====== 建構子 ======*/
   public AvatarBean() {}
 
-  public AvatarBean(
-      Integer id,
-      String avatarName,
-      Integer genderType,
-      Integer isShow,
-      Timestamp createtime,
-      Timestamp updatetime) {
-    super();
-    this.id = id;
-    this.avatarName = avatarName;
-    this.genderType = genderType;
-    this.isShow = isShow;
-    this.createtime = createtime;
-    this.updatetime = updatetime;
-  }
-
   /* ====== getter ======*/
   public static long getSerialversionuid() {
     return serialVersionUID;

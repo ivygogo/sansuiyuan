@@ -7,6 +7,8 @@ public interface RepairFormDao {
 
   List<RepairFormBean> getRepairFormListByApplicant(int memberid);
 
+  RepairFormBean getRepairFormByFormNumber(String formNumber);
+
   int checkRepairFormAmount(int memberid, String beginTime, String endTime);
 
   int saveRepairForm(RepairFormBean repairFormBean);
@@ -14,4 +16,6 @@ public interface RepairFormDao {
   int updateRepairForm(RepairFormBean repairFormBean);
 
   int deleteRepairForm(String formNumber);
+
+  List<RepairFormBean> queryAllRepairForm();
 }

@@ -69,6 +69,7 @@ public class RepairFormServiceImpl implements RepairFormService {
 
       repairFormServiceBean.setProjectAlias(repairFormList.get(i).getProjectNameAlias());
       repairFormServiceBean.setNote(repairFormList.get(i).getNote());
+      repairFormServiceBean.setLandlordNote(repairFormList.get(i).getLandlordNote());
       repairFormServiceBean.setStatus(repairFormList.get(i).getStatus());
       repairFormServiceList.add(repairFormServiceBean);
     }
@@ -94,5 +95,15 @@ public class RepairFormServiceImpl implements RepairFormService {
   @Override
   public int deleteRepairForm(String formNumber) {
     return repairFormDao.deleteRepairForm(formNumber);
+  }
+
+  @Override
+  public RepairFormBean getRepairFormByFormNumber(String formNumber) {
+    return repairFormDao.getRepairFormByFormNumber(formNumber);
+  }
+
+  @Override
+  public List<RepairFormBean> queryAllRepairForm() {
+    return repairFormDao.queryAllRepairForm();
   }
 }

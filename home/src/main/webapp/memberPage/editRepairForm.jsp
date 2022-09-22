@@ -15,7 +15,7 @@ System.out.println("!!!!!!!"+formNumber);
 <div class="row mb-1 mt-5 ml-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
-			<h2 class="text-black mb-4">EDIT報修單</h2>
+			<h2 class="text-black mb-4">修改報修單</h2>
 		</div>
 	</div>
 </div>
@@ -33,7 +33,7 @@ System.out.println("!!!!!!!"+formNumber);
 
 					<div class="row mt-5">
 						<div class="col">
-							<h6 class="text-black-opacity-05">單號B</h6>
+							<h6 class="text-black-opacity-05">單號</h6>
 							<h3 class="text-black-opacity-05" id="repairFormNumber"></h3>
 						</div>
 						<div class="col">
@@ -110,6 +110,7 @@ System.out.println("!!!!!!!"+formNumber);
 
 	</form>
 </section>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
 

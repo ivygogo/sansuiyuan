@@ -35,7 +35,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 
 					<div class="row mt-5">
 						<div class="col">
-							<h6 class="text-black-opacity-05">單號B</h6>
+							<h6 class="text-black-opacity-05">單號</h6>
 							<h3 class="text-black-opacity-05" id="repairFormNumber"></h3>
 						</div>
 						<div class="col">

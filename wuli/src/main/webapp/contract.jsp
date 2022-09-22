@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="zh">
 <head>
     <meta charset="UTF-8"></meta>
@@ -188,7 +189,7 @@ document.getElementById("renterClearBtn").addEventListener("click", () => {
   renterSign.jSignature('reset');
 });
 document.getElementById("renterSubmitBtn").addEventListener("click", () => {
-  var data = renterSign.jSignature('getData', 'image');
+  var data = renterSign.jSignature('getData');
 });
 //丙方簽名
 var guarantorSign = $("#guarantorSign").jSignature();
