@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import tw.edu.ntut.sce.java18.common.model.FriendBean;
+import tw.edu.ntut.sce.java18.tenant.findFriend.model.FriendBean;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.FindFriendService;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.impl.FindFriendServiceImpl;
 
@@ -25,20 +25,22 @@ public class FindFriendServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     String callFrom = request.getParameter("callFrom");
-    System.out.println("--- " + callFrom + " ---");
+    System.out.println("callFrom --- " + callFrom + " ---");
     switch (callFrom) {
       case "checkOpen":
+        System.out.println("aaaaaaaaaaaaa");
         boolean result = checkOpen(request, response);
         response.setContentType("text/plain; charset=UTF-8");
         var printWriter = response.getWriter();
         printWriter.print(result);
         printWriter.flush();
         break;
-      case "getFriendInfo":
-        getFriendInfo(request, response);
-        break;
       case "changeStage":
         changeStage(request, response);
+        break;
+      case "loadSelectedList":
+        System.out.println("++++++");
+        loadSelectedList(request, response);
         break;
       case "loadAllList":
         loadAllList(request, response);
@@ -59,10 +61,21 @@ public class FindFriendServlet extends HttpServlet {
     return findFriendService.checkOpen(userId);
   }
 
-  public FriendBean getFriendInfo(HttpServletRequest request, HttpServletResponse response) {
-    // todo
-    //        FindFriendService findFriendService = new FindFriendServiceImpl();
-    //        FriendBean friendBean = null;
+  public FriendBean loadSelectedList(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+
+    FindFriendService findFriendService = new FindFriendServiceImpl();
+
+    Gson gson = new Gson();
+    String result = gson.toJson(findFriendService.getAllSignatureAndFavor());
+
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    var printWriter = response.getWriter();
+
+    printWriter.print(result);
+    printWriter.flush();
+
     return null;
   }
 

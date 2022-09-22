@@ -1,9 +1,15 @@
 package tw.edu.ntut.sce.java18.tenant.findFriend.service.impl;
 
+import static java.util.stream.Collectors.toList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Stream;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,8 +25,8 @@ import tw.edu.ntut.sce.java18.common.dao.impl.CharacterAndFavorDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.ChatroomDaoImpl_JDBC;
 import tw.edu.ntut.sce.java18.common.dao.impl.ChatroomDaoImpl_JDBC.ExistChatroomBean;
 import tw.edu.ntut.sce.java18.common.dao.impl.MemberDaoImpl_Hibernate;
-import tw.edu.ntut.sce.java18.common.model.FriendBean;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
+import tw.edu.ntut.sce.java18.tenant.findFriend.model.FriendBean;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.FindFriendService;
 
 // @Transactional
@@ -68,6 +74,8 @@ public class FindFriendServiceImpl implements FindFriendService {
       if (tx != null) tx.rollback();
       e.printStackTrace();
       throw new RuntimeException(e.getMessage());
+    } finally {
+      session.close();
     }
     return false;
   }
@@ -85,6 +93,8 @@ public class FindFriendServiceImpl implements FindFriendService {
       if (tx != null) tx.rollback();
       e.printStackTrace();
       throw new RuntimeException(e.getMessage());
+    } finally {
+      session.close();
     }
   }
 
@@ -103,8 +113,31 @@ public class FindFriendServiceImpl implements FindFriendService {
       if (tx != null) tx.rollback();
       e.printStackTrace();
       throw new RuntimeException(e.getMessage());
+    } finally {
+      session.close();
     }
     return existID;
+  }
+
+  @Override
+  public Map<String, List<String>> getAllSignatureAndFavor() {
+    Map<String, List<String>> signatureAndFavor = new HashMap<>();
+
+    Session session = factory.getCurrentSession();
+    Transaction tx = null;
+    try {
+      tx = session.beginTransaction();
+      signatureAndFavor.put("signature", characterAndFavorDao.getAllCharacter());
+      signatureAndFavor.put("favor", characterAndFavorDao.getAllFavor());
+      tx.commit();
+      return signatureAndFavor;
+    } catch (Exception e) {
+      tx.rollback();
+      e.printStackTrace();
+      throw new RuntimeException(e.getMessage());
+    } finally {
+      session.close();
+    }
   }
 
   @Override
@@ -120,6 +153,8 @@ public class FindFriendServiceImpl implements FindFriendService {
       if (tx != null) tx.rollback();
       e.printStackTrace();
       throw new RuntimeException(e.getMessage());
+    } finally {
+      session.close();
     }
     return allFindingIdList;
   }
@@ -130,6 +165,7 @@ public class FindFriendServiceImpl implements FindFriendService {
     Session session = factory.getCurrentSession();
     Transaction tx = null;
     friendBean.setId(userId);
+
     try {
       tx = session.beginTransaction();
       MemberBean memberBean = memberDaoHibernate.queryMemberByUId(userId);
@@ -137,45 +173,30 @@ public class FindFriendServiceImpl implements FindFriendService {
       Integer signature1 = memberBean.getSignature_1();
       Integer signature2 = memberBean.getSignature_2();
       Integer signature3 = memberBean.getSignature_3();
+
       Integer favor1 = memberBean.getFavor_1();
       Integer favor2 = memberBean.getFavor_2();
       Integer favor3 = memberBean.getFavor_3();
 
+      var signatures =
+          Stream.of(signature1, signature2, signature3)
+              .filter(Objects::nonNull)
+              .map(characterAndFavorDao::queryCharacterAndFavorNameByPrimaryKey)
+              .collect(toList());
+
+      var favors =
+          Stream.of(favor1, favor2, favor3)
+              .filter(Objects::nonNull)
+              .map(characterAndFavorDao::queryCharacterAndFavorNameByPrimaryKey)
+              .collect(toList());
+
+      friendBean.setGender(memberBean.getGender());
       friendBean.setSchool("");
-      friendBean.setSignature1("");
-      friendBean.setSignature2("");
-      friendBean.setSignature3("");
-      friendBean.setFavor1("");
-      friendBean.setFavor2("");
-      friendBean.setFavor3("");
-
       friendBean.setName(memberBean.getNickname());
-      System.out.println(
-          "pic ===== "
-              + memberBean.getPic()
-              + "=====  "
-              + avatarDao.queryAvatarByPrimaryKey(memberBean.getPic())
-              + "=====  "
-              + avatarDao.queryAvatarByPrimaryKey(memberBean.getPic()).getAvatarName()
-              + "======");
       friendBean.setAvatar(avatarDao.queryAvatarByPrimaryKey(memberBean.getPic()).getAvatarName());
-
+      friendBean.setFavors(favors);
+      friendBean.setSignatures(signatures);
       if (memberBean.getSchool() != null) friendBean.setSchool(memberBean.getSchool());
-      if (signature1 != null)
-        friendBean.setSignature1(
-            characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(signature1));
-      if (signature2 != null)
-        friendBean.setSignature1(
-            characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(signature2));
-      if (signature3 != null)
-        friendBean.setSignature1(
-            characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(signature3));
-      if (favor1 != null)
-        friendBean.setFavor1(characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(favor1));
-      if (favor2 != null)
-        friendBean.setFavor1(characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(favor2));
-      if (favor3 != null)
-        friendBean.setFavor1(characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(favor3));
 
       tx.commit();
       return friendBean;
@@ -183,6 +204,8 @@ public class FindFriendServiceImpl implements FindFriendService {
       if (tx != null) tx.rollback();
       e.printStackTrace();
       throw new RuntimeException(e.getMessage());
+    } finally {
+      session.close();
     }
   }
 
@@ -219,6 +242,8 @@ public class FindFriendServiceImpl implements FindFriendService {
       if (tx != null) tx.rollback();
       e.printStackTrace();
       throw new RuntimeException(e.getMessage());
+    } finally {
+      session.close();
     }
   }
 }

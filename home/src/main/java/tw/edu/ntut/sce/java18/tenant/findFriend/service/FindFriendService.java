@@ -2,13 +2,16 @@ package tw.edu.ntut.sce.java18.tenant.findFriend.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import tw.edu.ntut.sce.java18.common.model.FriendBean;
+import java.util.Map;
+import tw.edu.ntut.sce.java18.tenant.findFriend.model.FriendBean;
 
 public interface FindFriendService {
 
   boolean checkOpen(int userId);
 
   boolean isbelowLimit(int userId);
+
+  Map<String, List<String>> getAllSignatureAndFavor();
 
   List<Integer> getAllFindingFriendId();
 
