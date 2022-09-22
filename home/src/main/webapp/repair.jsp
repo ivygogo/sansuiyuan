@@ -168,9 +168,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 			<div class="site-mobile-menu-body"></div>
 		</div>
 
-		<%--選單--%>
-		<jsp:include page="/fragment/menu_content.jsp" />
-
 
 		<%--內容開始--%>
 		<section class="login-block">
@@ -245,8 +242,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	<%--"site-wrap" --%>
 	</section>
 
-	<%--footer --%>
-	<jsp:include page="fragment/footer.jsp" />
 
 	<%--.site-wrap --%>
 	<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
