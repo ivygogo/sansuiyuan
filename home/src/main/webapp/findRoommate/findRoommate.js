@@ -2,7 +2,8 @@ $(function () {
 
   const userId = 4;  //todo
 
-  let correspond = []
+  let memberIdArray = []
+  let selectedConditionArray = []
 
   console.log('------------------------------ 我是 ' + userId)
   checkOpen()
@@ -34,7 +35,36 @@ $(function () {
     })
   })
 
-  $('')
+  $('.pick-condition').change(function () {
+    selectedConditionArray = []
+    $('.pick-condition').each(function () {
+      if ($(this).val() !== "0") {
+        selectedConditionArray.push($(this).val())
+      }
+    })
+
+    for (let i = 0; i < memberIdArray.length; i++) {
+      const personalConditionArray = []
+      $(`*[data-memberid="${memberIdArray[i]}"]`).find(
+        $('.condition-attr')).each(function () {
+        personalConditionArray.push($(this).text())
+      })
+
+      const isOpen = isContain()
+
+      function isContain() {
+        for (let j = 0; j < selectedConditionArray.length; j++) {
+          if (personalConditionArray.indexOf(selectedConditionArray[j])
+            === -1) {
+            $(`*[data-memberid="${memberIdArray[i]}"]`).hide()
+            return false
+          }
+        }
+        $(`*[data-memberid="${memberIdArray[i]}"]`).show()
+        return true
+      }
+    }
+  })
 
   function checkOpen() {
     $.ajax({
@@ -69,7 +99,8 @@ $(function () {
         for (let i = 0; i < resp.length; i++) {
           renderAllInfo(resp[i])
         }
-        console.log('correspond array = ' + correspond)
+        console.log('correspond array = ' + memberIdArray)
+        return memberIdArray
       }
     })
   }
@@ -105,7 +136,7 @@ $(function () {
   }
 
   function renderAllInfo(memberInfo) {
-    correspond.push([memberInfo.id, memberInfo.signatures])
+    memberIdArray.push(memberInfo.id)
 
     const all = document.getElementById('all-find-list')
     const infoBlock = createTag('div', {
@@ -127,9 +158,9 @@ $(function () {
 
     const info = createTag('h2', {class: 'font-size-regular'})
     const nameSchoolBlock = createTag('div',
-      {class: 'text-dark', 'data-memberId': 1})
+      {class: 'text-dark', 'data-memberId': memberInfo.id})
     const name = createTag('span',
-      {class: 'target-name', textContent: memberInfo.name})
+      {class: 'target-name'})
     name.innerText = memberInfo.name
 
     pAppendC(nameSchoolBlock, name)
@@ -150,9 +181,9 @@ $(function () {
     })
 
     const signatureBlcok = createTag('div',
-      {class: 'col-6 text-center  signature-block'})
+      {class: 'col-6 text-center signature-block'})
     const signatureTitle = createTag('div', {
-      class: 'text-center fs-5  signature-title',
+      class: 'text-center fs-5 signature-title',
     })
     signatureTitle.innerText = '個性標籤'
 
@@ -161,7 +192,7 @@ $(function () {
     for (let i = 0; i < memberInfo.signatures.length; i++) {
       const signature = createTag('div',
         {
-          class: 'text-center  signature-attr',
+          class: 'text-center signature-attr condition-attr',
         })
       signature.innerText = memberInfo.signatures[i]
       pAppendC(signatureBlcok, signature)
@@ -179,7 +210,7 @@ $(function () {
     for (let i = 0; i < memberInfo.favors.length; i++) {
       const favor = createTag('div',
         {
-          class: 'text-center favor-attr',
+          class: 'text-center favor-attr condition-attr',
         })
       favor.innerText = memberInfo.favors[i]
 
@@ -191,7 +222,7 @@ $(function () {
 
     const btnChat = createTag('div', {
       class: 'btn btn-primary px-2 py-2 mx-3 make-friend',
-      'data-memberId': 1, value: '就決定是你了'
+      'data-memberId': memberInfo.id, value: '就決定是你了'
     })
     btnChat.innerText = '就決定是你了'
 
@@ -201,6 +232,7 @@ $(function () {
     pAppendC(personBlock, btnChat)
 
     pAppendC(all, pAppendC(infoBlock, personBlock))
+    return memberIdArray
   }
 
   function renderConditionalInfo(e) {
@@ -229,5 +261,4 @@ $(function () {
     }
     return p;
   }
-
 })
