@@ -7,7 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import tw.edu.ntut.sce.java18.tenant.findFriend.model.FriendBean;
+import tw.edu.ntut.sce.java18.common.controller.ChatroomServlet;
+import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.FindFriendService;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.impl.FindFriendServiceImpl;
 
@@ -28,10 +29,9 @@ public class FindFriendServlet extends HttpServlet {
     System.out.println("callFrom --- " + callFrom + " ---");
     switch (callFrom) {
       case "checkOpen":
-        System.out.println("aaaaaaaaaaaaa");
         boolean result = checkOpen(request, response);
-        response.setContentType("text/plain; charset=UTF-8");
         var printWriter = response.getWriter();
+        response.setContentType("text/plain; charset=UTF-8");
         printWriter.print(result);
         printWriter.flush();
         break;
@@ -39,16 +39,18 @@ public class FindFriendServlet extends HttpServlet {
         changeStage(request, response);
         break;
       case "loadSelectedList":
-        System.out.println("++++++");
         loadSelectedList(request, response);
         break;
       case "loadAllList":
         loadAllList(request, response);
         break;
-      case "makePair":
-        System.out.println("inside the Make");
-        makePair(request, response);
-        break;
+        //      case "makePair":
+        //        System.out.println("inside the MakePair");
+        //        System.out.println(LocalDateTime.now());
+        //        response.setContentType("text/plain; charset=UTF-8");
+        //        response.getWriter().print(makePair(request, response));
+        //        response.getWriter().flush();
+        //        break;
     }
   }
 
@@ -61,7 +63,7 @@ public class FindFriendServlet extends HttpServlet {
     return findFriendService.checkOpen(userId);
   }
 
-  public FriendBean loadSelectedList(HttpServletRequest request, HttpServletResponse response)
+  public void loadSelectedList(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 
     FindFriendService findFriendService = new FindFriendServiceImpl();
@@ -75,8 +77,6 @@ public class FindFriendServlet extends HttpServlet {
 
     printWriter.print(result);
     printWriter.flush();
-
-    return null;
   }
 
   public void changeStage(HttpServletRequest request, HttpServletResponse response) {
@@ -95,7 +95,7 @@ public class FindFriendServlet extends HttpServlet {
 
     Gson gson = new Gson();
     String result = gson.toJson(convert.getFriendBeanList(userId));
-
+    System.out.println(result);
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     var printWriter = response.getWriter();
@@ -108,12 +108,18 @@ public class FindFriendServlet extends HttpServlet {
 
     int userId = Integer.parseInt(request.getParameter("userId"));
     int targetId = Integer.parseInt(request.getParameter("targetId"));
-    FindFriendServiceImpl findFriendService = new FindFriendServiceImpl();
+    FindFriendService findFriendService = new FindFriendServiceImpl();
 
-    if (findFriendService.isbelowLimit(userId)) {
-      findFriendService.createChatroom(userId, targetId);
+    System.out.println("the limit check is " + findFriendService.isBelowLimit(userId));
+
+    if (findFriendService.isBelowLimit(userId)) {
+      //      findFriendService.createChatroom(userId, targetId);
+      ChatroomServlet chatroomServlet = new ChatroomServlet();
+      ChatroomService chatroomService = new ChatroomService();
+
       return true;
     } else {
+      System.out.println("reach the limit");
       return false; // todo 要去call list給人刪除
     }
   }

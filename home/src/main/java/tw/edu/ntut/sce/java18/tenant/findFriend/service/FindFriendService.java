@@ -9,7 +9,7 @@ public interface FindFriendService {
 
   boolean checkOpen(int userId);
 
-  boolean isbelowLimit(int userId);
+  boolean isBelowLimit(int userId);
 
   Map<String, List<String>> getAllSignatureAndFavor();
 

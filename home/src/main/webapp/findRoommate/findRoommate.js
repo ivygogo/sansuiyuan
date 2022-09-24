@@ -3,8 +3,7 @@ $(function () {
   const userId = 4;  //todo
 
   let memberIdArray = []
-  let selectedConditionArray = []
-
+  let htmlArray = []
   console.log('------------------------------ 我是 ' + userId)
   checkOpen()
   loadSelectedList()
@@ -12,58 +11,40 @@ $(function () {
 
   $('input[type=radio][name=is-open]').change(function () {
     if (this.value === 'open') {
-      $('#not-open').addClass('d-none')
-      $('.select-block').removeClass('d-none')
-      $('.all-find-list').removeClass('d-none')
+      $('#not-open').hide()
+      $('.select-block').show()
+      $('.all-find-list').show()
+      $('#refresh-btn').removeClass('d-none')
       changeOpenStage(true)
       alert('若未填寫個人描述，請至會員資料填齊。以供其他同學能夠找的到你~')
     } else {
-      $('#not-open').removeClass('d-none')
-      $('.select-block').addClass('d-none')
-      $('.all-find-list').addClass('d-none')
+      $('#not-open').show()
+      $('.select-block').hide()
+      $('.all-find-list').hide()
+      $('#refresh-btn').addClass('d-none')
       changeOpenStage(false)
     }
   })
 
-  $('.make-friend').click(function (e) {
+  $('body').on('click', '.make-friend', function (e) {
     const targetId = e.target.getAttribute('data-memberId')
-    console.log(targetId)
     $.ajax({
       type: 'POST',
-      url: '/home/FindFriendServlet?callFrom=makePair',
-      data: {'userId': userId, 'targetId': targetId}
+      url: '/home/ChatroomServlet?callFrom=createChatroom',
+      data: {'Id': userId, 'chatTarget': targetId, 'chatType': 'F'},
+      success: function (resp) {
+        console.log(resp)
+      }
     })
-  })
+  });
 
   $('.pick-condition').change(function () {
-    selectedConditionArray = []
-    $('.pick-condition').each(function () {
-      if ($(this).val() !== "0") {
-        selectedConditionArray.push($(this).val())
-      }
-    })
+    renderCorrespondList()
+  })
 
-    for (let i = 0; i < memberIdArray.length; i++) {
-      const personalConditionArray = []
-      $(`*[data-memberid="${memberIdArray[i]}"]`).find(
-        $('.condition-attr')).each(function () {
-        personalConditionArray.push($(this).text())
-      })
-
-      const isOpen = isContain()
-
-      function isContain() {
-        for (let j = 0; j < selectedConditionArray.length; j++) {
-          if (personalConditionArray.indexOf(selectedConditionArray[j])
-            === -1) {
-            $(`*[data-memberid="${memberIdArray[i]}"]`).hide()
-            return false
-          }
-        }
-        $(`*[data-memberid="${memberIdArray[i]}"]`).show()
-        return true
-      }
-    }
+  $('#refresh-btn').click(function () {
+    randomList()
+    renderCorrespondList()
   })
 
   function checkOpen() {
@@ -73,14 +54,17 @@ $(function () {
       data: {'userId': userId},
       success: function (resp) {
         if (resp === "true") {
-          $('#not-open').addClass('d-none')
-          $('.select-block').removeClass('d-none')
-          $('.all-find-list').removeClass('d-none')
+          $('#not-open').hide()
+          $('.select-block').show()
+          $('.all-find-list').show()
+          $('#refresh-btn').removeClass('d-none')
+
           $('input[type=radio][name=is-open]')
         } else {
-          $('#not-open').removeClass('d-none')
-          $('.select-block').addClass('d-none')
-          $('.all-find-list').addClass('d-none')
+          $('#not-open').show()
+          $('.select-block').hide()
+          $('.all-find-list').hide()
+          $('#refresh-btn').addClass('d-none')
         }
       },
       err: function () {
@@ -95,11 +79,10 @@ $(function () {
       url: '/home/FindFriendServlet?callFrom=loadAllList',
       data: {'userId': userId},
       success: function (resp) {
-        console.log(resp)
         for (let i = 0; i < resp.length; i++) {
-          renderAllInfo(resp[i])
+          renderInfo(resp[i])
         }
-        console.log('correspond array = ' + memberIdArray)
+        randomList()
         return memberIdArray
       }
     })
@@ -135,12 +118,14 @@ $(function () {
     })
   }
 
-  function renderAllInfo(memberInfo) {
+  function renderInfo(memberInfo) {
     memberIdArray.push(memberInfo.id)
 
     const all = document.getElementById('all-find-list')
+    const divideBlock = createTag('div', {
+      class: 'col-md-6 col-lg-4 mb-4 mb-lg-3 p-2 divide-block',
+    });
     const infoBlock = createTag('div', {
-      class: 'col-md-6 col-lg-4 mb-4 mb-lg-3 p-2',
       'data-memberId': memberInfo.id,
       'data-selected': 'ture'
     });
@@ -220,31 +205,27 @@ $(function () {
     pAppendC(charaterFavorBlock, signatureBlcok)
     pAppendC(charaterFavorBlock, favorBlcok)
 
+    const btnlink = createTag('a', {
+      href: '/home/chatRoom.jsp',
+    })
+
     const btnChat = createTag('div', {
-      class: 'btn btn-primary px-2 py-2 mx-3 make-friend',
-      'data-memberId': memberInfo.id, value: '就決定是你了'
+      class: 'btn btn-primary px-2 py-2 mx-3 mb-5 chat make-friend',
+      id: 'make-friend',
+      'data-memberId': memberInfo.id
     })
     btnChat.innerText = '就決定是你了'
 
     pAppendC(personBlock, imgBlock)
     pAppendC(personBlock, info)
     pAppendC(personBlock, charaterFavorBlock)
-    pAppendC(personBlock, btnChat)
+    // pAppendC(personBlock, btnChat)
+    pAppendC(personBlock, pAppendC(btnlink, btnChat))
 
-    pAppendC(all, pAppendC(infoBlock, personBlock))
+    pAppendC(all, pAppendC(divideBlock, pAppendC(infoBlock, personBlock)))
+
+    htmlArray.push(divideBlock.innerHTML)
     return memberIdArray
-  }
-
-  function renderConditionalInfo(e) {
-    console.log(e.target())
-
-    // if (true){
-    //   show()
-    // }
-    // else{
-    //   hide()
-    // }
-
   }
 
   function createTag(tagName, props) {
@@ -261,4 +242,48 @@ $(function () {
     }
     return p;
   }
+
+  function randomList() {
+    for (let i = htmlArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [htmlArray[i], htmlArray[j]] = [htmlArray[j], htmlArray[i]];
+    }
+    const divideList = document.querySelectorAll('.divide-block')
+    divideList.forEach((e, i) => {
+      e.innerHTML = htmlArray[i]
+      i++
+    })
+  }
+
+  function renderCorrespondList() {
+
+    let selectedConditionArray = []
+    $('.pick-condition').each(function () {
+      if ($(this).val() !== "0") {
+        selectedConditionArray.push($(this).val())
+      }
+    })
+
+    for (let i = 0; i < memberIdArray.length; i++) {
+      const personalConditionArray = []
+      $(`*[data-memberid="${memberIdArray[i]}"]`).find(
+        $('.condition-attr')).each(function () {
+        personalConditionArray.push($(this).text())
+      })
+      isContain()
+
+      function isContain() {
+        for (let j = 0; j < selectedConditionArray.length; j++) {
+          if (personalConditionArray.indexOf(selectedConditionArray[j])
+            === -1) {
+            $(`*[data-memberid="${memberIdArray[i]}"]`).parent().hide()
+            return false
+          }
+        }
+        $(`*[data-memberid="${memberIdArray[i]}"]`).parent().show()
+        return true
+      }
+    }
+  }
+
 })

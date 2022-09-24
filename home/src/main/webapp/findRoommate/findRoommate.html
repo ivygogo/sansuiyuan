@@ -12,41 +12,59 @@
 
 <div class="container-fluid">
   <div class="mt-4 ">
-    <div class="text-center font-weight-bold fs-3 pt-5">是否開啟找室友功能：
-      <input type="radio" name="is-open" id="open-finding" value="open"> 開啟　
-      <input type="radio" name="is-open" id="close-finding" value="close" class="text-center"> 關閉　
+    <div class="text-center font-weight-bold fs-3 pt-5">是否使用本功能</div>
+    <div class="text-center mt-2 row container-fluid">
+      <span class="col-3"></span>
+      <span class="col-6 text-center">
+        <input type="radio" name="is-open" id="open-finding" value="open"> 開啟　
+        <input type="radio" name="is-open" id="close-finding" value="close" class="text-center"> 關閉　
+      </span>
+      <div class="text-end container-fluid col-2">
+        <button type="button" class="btn-outline-danger d-none" id="refresh-btn">更新列表</button>
+      </div>
+      <!--    todo alert-->
+      <!--    <div class=" text-end fs-6 mt-2 me-5">-->
+      <!--      注意：關閉同時也會將以開啟之聊聊功能關閉，僅供查詢。-->
+      <!--    </div>-->
+      <hr>
     </div>
-    <!--    todo alert-->
-    <!--    <div class=" text-end fs-6 mt-2 me-5">-->
-    <!--      注意：關閉同時也會將以開啟之聊聊功能關閉，僅供查詢。-->
-    <!--    </div>-->
   </div>
-  <hr>
   <div class="text-center mt-5 fs-1" id="not-open"> 您尚未開啟本功能</div>
 
-  <div class="p-3 fs-5 select-block">
-    <div class="text-center"> 對象個性標籤：
-      <select id="character-option1" aria-label=" select " class="signatures pick-condition">
-        <option value='0'>請選擇</option>
-      </select>
-      <select id="character-option2" aria-label=" select " class="signatures pick-condition">
-        <option value='0'>請選擇</option>
-      </select>
-      <select id="character-option3" aria-label=" select " class="signatures pick-condition">
-        <option value='0'>請選擇</option>
-      </select>
-    </div>
-    <div class="text-center"> 對象條件要求：
-      <select id="favor-option1" aria-label=" select " class="favors pick-condition">
-        <option value='0'>請選擇</option>
-      </select>
-      <select id="favor-option2" aria-label=" select " class="favors pick-condition">
-        <option value='0'>請選擇</option>
-      </select>
-      <select id="favor-option3" aria-label=" select " class="favors pick-condition">
-        <option value='0'>請選擇</option>
-      </select>
-    </div>
+  <div class="p-3 fs-5 select-block row">
+    <div class="text-end col-4"> 對象個性標籤：</div>
+    <span class="text-center col-6">
+        <select id="character-option1" aria-label=" select "
+                class="signatures pick-condition container-fluid">
+          <option value='0'>請選擇</option>
+        </select>
+        <span>
+          <select id="character-option2" aria-label=" select "
+                  class="signatures pick-condition container-fluid">
+            <option value='0'>請選擇</option>
+          </select>
+        </span>
+        <span>
+          <select id="character-option3" aria-label=" select "
+                  class="signatures pick-condition container-fluid">
+            <option value='0'>請選擇</option>
+          </select>
+        </span>
+      </span>
+    <span class="col-2"></span>
+    <div class="text-end col-4"> 對象條件要求：</div>
+    <span class="text-center col-6">
+
+    <select id="favor-option1" aria-label=" select " class="favors pick-condition container-fluid">
+      <option value='0'>請選擇</option>
+    </select>
+    <select id="favor-option2" aria-label=" select " class="favors pick-condition container-fluid">
+      <option value='0'>請選擇</option>
+    </select>
+    <select id="favor-option3" aria-label=" select " class="favors pick-condition container-fluid">
+      <option value='0'>請選擇</option>
+    </select>
+</span>
   </div>
 
   <div class="row all-find-list pe-5 ps-5" id="all-find-list">

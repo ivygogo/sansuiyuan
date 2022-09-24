@@ -26,6 +26,7 @@ import tw.edu.ntut.sce.java18.common.dao.impl.ChatroomDaoImpl_JDBC;
 import tw.edu.ntut.sce.java18.common.dao.impl.ChatroomDaoImpl_JDBC.ExistChatroomBean;
 import tw.edu.ntut.sce.java18.common.dao.impl.MemberDaoImpl_Hibernate;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
+import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.tenant.findFriend.model.FriendBean;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.FindFriendService;
 
@@ -81,13 +82,14 @@ public class FindFriendServiceImpl implements FindFriendService {
   }
 
   @Override
-  public boolean isbelowLimit(int userId) {
+  public boolean isBelowLimit(int userId) {
     Session session = factory.getCurrentSession();
     Transaction tx = null;
     try {
       tx = session.beginTransaction();
-      int result = chatroomDao.queryExistChatroomByUser(userId).size();
+      int result = chatroomDao.queryCountForMakeFriendByUserId(userId);
       tx.commit();
+      System.out.println("result = " + result);
       return result < 5;
     } catch (Exception e) {
       if (tx != null) tx.rollback();
@@ -216,6 +218,8 @@ public class FindFriendServiceImpl implements FindFriendService {
 
   @Override
   public void createChatroom(int userId, int targetId) {
+    ChatroomService chatroomService = new ChatroomService();
+
     var localDateTime = LocalDateTime.now();
     var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
@@ -223,7 +227,25 @@ public class FindFriendServiceImpl implements FindFriendService {
     var createTime = localDateTime.format(dateTimeFormatter);
     var closeTime = ldtCloseTime.format(dateTimeFormatter);
 
-    chatroomDao.insertChatroom("F", userId, targetId, createTime, closeTime);
+    boolean isExist;
+
+    int member1 = userId;
+    int member2 = targetId;
+
+    if (userId > targetId) {
+      member1 = targetId;
+      member2 = userId;
+      System.out.println(targetId + "-----------" + userId);
+      isExist = chatroomService.isExist(member1, member2, "F");
+    } else {
+      System.out.println(userId + "-------" + targetId);
+      isExist = chatroomService.isExist(member1, member2, "F");
+    }
+
+    if (!isExist) {
+      chatroomDao.insertChatroom("F", member1, member2, createTime, closeTime);
+      System.out.println("create chatroom");
+    } else System.out.println("the chatroom is exixt");
   }
 
   @Override
