@@ -10,95 +10,98 @@ let myformNote;
 let myformExpectionTime;
 let time;
 
-$.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
-  //console.log(res);
-  //console.log(res.repairFormList[1].status);
 
-  if (res.repairFormList.length > 0 && res.roomNumber!== "非租客") {
-    resData = res.repairFormList;
-    let repairTable = "";
-    let timeStatus;
+function showFirst() {
+  $.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
+    //console.log(res);
+    //console.log(res.repairFormList[1].status);
 
-    for (let i = 0; i < res.repairFormList.length; i++) {
-      let myStatus;
-      let status;
-      status = res.repairFormList[i].status;
+    if (res.repairFormList.length > 0 && res.roomNumber !== "非租客") {
+      resData = res.repairFormList;
+      let repairTable = "";
+      let timeStatus;
 
-      switch (status) {
-        case 0: {
-          myStatus = "待處理";
-          timeStatus = "待處理";
-          break;
+      for (let i = 0; i < res.repairFormList.length; i++) {
+        let myStatus;
+        let status;
+        status = res.repairFormList[i].status;
+
+        switch (status) {
+          case 0: {
+            myStatus = "待處理";
+            timeStatus = "待處理";
+            break;
+          }
+          case 1: {
+            myStatus = "管理中";
+            timeStatus = "管理中";
+            break;
+          }
+          case 2: {
+            myStatus = "處理中";
+            timeStatus = "處理中";
+            break;
+          }
+          case 3: {
+            myStatus = "已完成";
+            timeStatus = res.repairFormList[i].repairFormFinishTime;
+            break;
+          }
         }
-        case 1: {
-          myStatus = "管理中";
-          timeStatus = "管理中";
-          break;
+
+        repairTable += `
+        <tr>
+          <th scope="row"><div class="text-center">${i + 1}</div></th>
+          <td><div class="text-center">${res.repairFormList[i].repairFormNumber}</div></td>
+          <td><div class="text-center">${res.repairFormList[i].projectAlias}</div></td>
+          <td><div class="text-center">${myStatus}</div></td>
+          <td><div class="text-center">${res.repairFormList[i].repairFormCreatTime}</div></td>
+          <td><div class="text-center">${timeStatus}</div></td>
+          <td><div class="text-center">`;
+
+        if (res.repairFormList[i].status == 0) {
+          repairTable += `<button class="btntable btn-table mx-1 my-1" id="editRepairFormBtn"
+              onclick="updateRepairForm(this)" value="${res.repairFormList[i].repairFormNumber}"
+              style="width: 60px; height: 30px;">
+              <h6>修改</h6>
+            </button>
+            <button class="btntable btn-table mx-1 my-1" id="deleteRepairForm"
+              onclick="deleteRepairForm(this)" value="${res.repairFormList[i].repairFormNumber}"
+              style="width: 60px; height: 30px;">
+              <h6>刪除</h6>
+            </button>`;
+        } else {
+          repairTable += `<button class="btntable btn-table mx-1 my-1" id="editRepairFormBtn"
+              onclick="viewRepairForm(this)" value="${res.repairFormList[i].repairFormNumber}"
+              style="width: 60px; height: 30px;">
+              <h6>查看</h6>
+            </button>`;
         }
-        case 2: {
-          myStatus = "處理中";
-          timeStatus = "處理中";
-          break;
-        }
-        case 3: {
-          myStatus = "已完成";
-          timeStatus = res.repairFormList[i].finishTime;
-          break;
-        }
+
+        repairTable += `</div> </td> </tr>`;
       }
+      $('#repairForm').append(repairTable);
 
-      repairTable += `
-      <tr>
-        <th scope="row"><div class="text-center">${i + 1}</div></th>
-        <td><div class="text-center">${res.repairFormList[i].repairFormNumber}</div></td>
-        <td><div class="text-center">${res.repairFormList[i].projectAlias}</div></td>
-        <td><div class="text-center">${myStatus}</div></td>
-        <td><div class="text-center">${res.repairFormList[i].repairFormCreatTime}</div></td>
-        <td><div class="text-center">${timeStatus}</div></td>
-        <td><div class="text-center">`;
+    } else if (res.roomNumber === "非租客") {
+      let info = "<div class='my-5' style='display: flex; justify-content: center;'>" +
+        "<h3 class='text-black my-5'>非租客身分無法使用報修功能</h3>" +
+        "</div>";
 
-      if (res.repairFormList[i].status==0){
-        repairTable += `<button class="btntable btn-table mx-1 my-1" id="editRepairFormBtn"
-            onclick="updateRepairForm(this)" value="${res.repairFormList[i].repairFormNumber}"
-            style="width: 60px; height: 30px;">
-            <h6>修改</h6>
-          </button>
-          <button class="btntable btn-table mx-1 my-1" id="deleteRepairForm"
-            onclick="deleteRepairForm(this)" value="${res.repairFormList[i].repairFormNumber}"
-            style="width: 60px; height: 30px;">
-            <h6>刪除</h6>
-          </button>`;
-      } else {
-        repairTable += `<button class="btntable btn-table mx-1 my-1" id="editRepairFormBtn"
-            onclick="viewRepairForm(this)" value="${res.repairFormList[i].repairFormNumber}"
-            style="width: 60px; height: 30px;">
-            <h6>查看</h6>
-          </button>`;
-      }
-
-      repairTable += `</div> </td> </tr>`;
+      $('#repairFormPage').html("");
+      $('#repairFormPage').load('memberPage/showRepairNoInfo.jsp', function() {
+        $('#newRepairBtn').hide();
+        $('#showInfo').html("");
+        $('#showInfo').append(info);
+      });
+    } else {
+      $('#repairFormPage').html("");
+      $('#repairFormPage').load('memberPage/showRepairNoInfo.jsp', function() {
+        $('#newRepairBtn').hide();
+      });
     }
-    $('#repairForm').append(repairTable);
 
-  } else if (res.roomNumber === "非租客") {
-    let info = "<div class='my-5' style='display: flex; justify-content: center;'>" +
-      "<h3 class='text-black my-5'>非租客身分無法使用報修功能</h3>" +
-      "</div>";
-
-    $('#repairFormPage').html("");
-    $('#repairFormPage').load('memberPage/showRepairNoInfo.jsp', function() {
-      $('#newRepairBtn').hide();
-      $('#showInfo').html("");
-      $('#showInfo').append(info);
-    });
-  } else {
-    $('#repairFormPage').html("");
-    $('#repairFormPage').load('memberPage/showRepairNoInfo.jsp', function() {
-      $('#newRepairBtn').hide();
-    });
-  }
-
-});
+  });
+}
 
 
 /*列表修改按鈕*/
@@ -238,39 +241,34 @@ function transfromStatus(status) {
       myStatus = "已完成";
       break;
     }
-    
+
   }
   return myStatus;
 }
 
 function deleteRepairForm(item) {
- myformNumber = item.getAttribute('value');
+  myformNumber = item.getAttribute('value');
   var con;
-  con = confirm("你確認要刪除報修單"+myformNumber);
+  con = confirm("你確認要刪除報修單" + myformNumber);
   if (con == true) {
-   $.ajax({
-   data: {
-     id : myformNumber //帶入向伺服器傳遞的資訊
-   },
-   url: '/home/common/RepairForm.do?page=deleteRepairForm',  //目標Route
-   type: 'post', //請求方法
-   timeout: 15000, //請求限時，單位是毫秒
-  
-   dataType: 'html', //預期從伺服器回傳的資料格式
-   success: function () {
-      window.location.reload(); },
-   error: function () {
-      alert("nono")}
+    $.ajax({
+      data: {
+        id: myformNumber //帶入向伺服器傳遞的資訊
+      },
+      url: '/home/common/RepairForm.do?page=deleteRepairForm',  //目標Route
+      type: 'post', //請求方法
+      timeout: 15000, //請求限時，單位是毫秒
+
+      dataType: 'html', //預期從伺服器回傳的資料格式
+      success: function() {
+        window.location.reload();
+      },
+      error: function() {
+        alert("nono")
+      }
     });
-  
-   
   }
 }
-
-
-
-
-
 
 function getFurniture(myformProjectNameAlias) {
   $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
@@ -286,4 +284,60 @@ function getFurniture(myformProjectNameAlias) {
     $('#inputState').append(projectOption);
     //$("#inputState").find("option:contains('"+ `${Project}` +"')").attr("selected",true); 
   })
+}
+
+
+
+
+function showNewRepairForm(ridState) {
+  let myformNumber;
+  let newRoom;
+  if (ridState === "getchat") {
+    $.getJSON('/home/common/RepairForm.do?doJob=getchat').then(res => {
+      myformNumber = res.formId.repairFormNumber
+      newRoom = res.toRoom
+    });
+
+    $.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
+
+      for (let i = 0; i < res.repairFormList.length; i++) {
+        if (res.repairFormList[i].repairFormNumber === myformNumber) {
+          fromApplicant = res.repairFormList[i].applicantName;
+          myformRoom = res.repairFormList[i].repairRoomNumber;
+          myformPhone = res.repairFormList[i].applicantPhone;
+          myformCreatetime = res.repairFormList[i].repairFormCreatTime;
+          myformProjectNameAlias = res.repairFormList[i].projectAlias;
+          myformNote = res.repairFormList[i].note;
+          myformExpectionTime = res.repairFormList[i].repairFormExpectionTime;
+          myformStatus = transfromStatus(res.repairFormList[i].status);
+        }
+      }
+
+      $('#repairFormPage').html("");
+      $('#repairFormPage').load('memberPage/showRepairFormContent.jsp',
+        function() {
+          $('#repairFormNumber').text(myformNumber);
+          $('#repairFormStatus').text(myformStatus);
+          $('#repairFormRoom').text(myformRoom);
+          $('#repairFormApplicant').text(fromApplicant);
+          $("#repairFormPhone").text(myformPhone);
+          $("#repairFormProject").text(myformProjectNameAlias);
+          $("#repairFormCreateTime").text(myformCreatetime);
+          $("#repairFormExpectTime").text(myformExpectionTime);
+          $("#repairFormNote").text(myformNote);
+          $('#newRepairBtn').hide();
+        });
+    });
+    const roomId = newRoom;
+    $.ajax({
+      type: 'POST',
+      url: '/home/ChatroomServlet?callFrom=createChatroom',
+      data: {
+        'Id': roomId,
+        'chatTarget': targetId,
+        'chatType': 'R'
+      }
+    })
+
+  }
 }

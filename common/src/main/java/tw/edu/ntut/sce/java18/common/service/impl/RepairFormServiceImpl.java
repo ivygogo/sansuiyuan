@@ -119,4 +119,15 @@ public class RepairFormServiceImpl implements RepairFormService {
   public int updateRepairFormByLandload(RepairFormBean repairFormBean) {
     return repairFormDao.updateRepairFormByLandload(repairFormBean);
   }
+
+  @Override
+  public int checkRepairFormExistBytime(int memberid, String beginTime, String endTime) {
+    return repairFormDao.checkRepairFormExistBytime(memberid, beginTime, endTime);
+  }
+
+  @Override
+  public int checkUnFinishedRepairFormAmount(int memberid) {
+
+    return repairFormDao.checkUnFinishedRepairFormAmount(memberid);
+  }
 }

@@ -32,7 +32,8 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
     // 99為隱藏
     String sql =
         " SELECT * FROM (SELECT* FROM FIX WHERE Member_ID=? AND STATUS!=99) AS TableA "
-            + " JOIN furniture_price AS TableB ON TableB.id=TableA.Project ";
+            + " JOIN furniture_price AS TableB ON TableB.id=TableA.Project "
+            + " ORDER BY TableA.Create_time DESC ";
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setInt(1, memberid);
@@ -311,6 +312,55 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
           "RepairFormDaoImpl_JDBC類別#updateRepairForm()發生例外: " + ex.getMessage());
     }
 
+    return n;
+  }
+
+  @Override
+  public int checkRepairFormExistBytime(int memberid, String beginTime, String endTime) {
+    String sql =
+        " SELECT COUNT(*) FROM fix WHERE Member_ID =? AND create_time "
+            + " BETWEEN \" "
+            + beginTime
+            + " \" AND \" "
+            + endTime
+            + " \" ";
+    // System.out.println(sql);
+    int n = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setInt(1, memberid);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          n = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#checkRepairFormAmount()發生例外: " + ex.getMessage());
+    }
+    return n;
+  }
+
+  @Override
+  public int checkUnFinishedRepairFormAmount(int memberid) {
+    String sql = " SELECT COUNT(*) FROM fix WHERE Member_ID =? AND Status<3 ";
+
+    // System.out.println(sql);
+    int n = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setInt(1, memberid);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          n = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#checkRepairFormAmount()發生例外: " + ex.getMessage());
+    }
     return n;
   }
 }

@@ -42,7 +42,7 @@ public class LandlordRepairFormServlet extends HttpServlet {
 
     var reparFormListJson = gson.toJson(repairFormList);
     printWriter.print(reparFormListJson);
-    System.out.println(reparFormListJson);
+    // System.out.println(reparFormListJson);
     printWriter.flush();
   }
 
@@ -120,7 +120,7 @@ public class LandlordRepairFormServlet extends HttpServlet {
       String key = (String) it.next();
       /*有了鍵就可以通過map集合的get方法獲取其對應的値 ( key:01, vaule: a  key: 02,vaule: b  key:03, vaule: c)*/
       String value = errorMsgs.get(key);
-      System.out.println("key: " + key + ", vaule: " + value);
+      // System.out.println("key: " + key + ", vaule: " + value);
       errList.add(key);
       // System.out.println(errList.get(0));
     }
@@ -133,7 +133,7 @@ public class LandlordRepairFormServlet extends HttpServlet {
       var errMsgsJson = gson.toJson(errorMsgs);
       var printWriter = response.getWriter();
       printWriter.print(errMsgsJson);
-      System.out.println(errMsgsJson);
+      // System.out.println(errMsgsJson);
       printWriter.flush();
       session.setAttribute("errMsgsJson", errMsgsJson);
       //      RequestDispatcher rd = request.getRequestDispatcher("/lanlordRepairForm.jsp");
@@ -160,7 +160,7 @@ public class LandlordRepairFormServlet extends HttpServlet {
           errorMsgs.put("saveErr", "系統儲存資料異常");
         }
       } catch (Exception e) {
-        System.out.println("n !!!= 1");
+        // System.out.println("n !!!= 1");
         e.printStackTrace();
       }
 
@@ -169,7 +169,7 @@ public class LandlordRepairFormServlet extends HttpServlet {
       RepairFormBean sendBean =
           new RepairFormServiceImpl().getRepairFormByFormNumber(formNumberAjax);
       var sendBeanJson = gson.toJson(sendBean);
-      System.out.println(sendBeanJson);
+      // System.out.println(sendBeanJson);
       var printWriter = response.getWriter();
 
       printWriter.print(sendBeanJson);

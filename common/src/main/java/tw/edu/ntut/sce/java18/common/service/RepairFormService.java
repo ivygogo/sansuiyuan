@@ -25,4 +25,8 @@ public interface RepairFormService {
   boolean checkMemberUidExists(String formNumber);
 
   int updateRepairFormByLandload(RepairFormBean repairFormBean);
+
+  int checkRepairFormExistBytime(int memberid, String beginTime, String endTime);
+
+  int checkUnFinishedRepairFormAmount(int memberid);
 }

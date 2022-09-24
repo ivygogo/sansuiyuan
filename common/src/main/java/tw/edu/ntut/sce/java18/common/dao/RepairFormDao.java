@@ -22,4 +22,8 @@ public interface RepairFormDao {
   List<RepairFormBean> queryAllRepairForm();
 
   int updateRepairFormByLandload(RepairFormBean repairFormBean);
+
+  int checkRepairFormExistBytime(int memberid, String beginTime, String endTime);
+
+  int checkUnFinishedRepairFormAmount(int memberid);
 }

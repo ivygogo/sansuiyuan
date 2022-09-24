@@ -161,7 +161,7 @@ function transfromMounth(mounth) {
   }
 }
 
-//>>>>>
+
 function checkRepairFormNumber(number) {
   myForm = getAllTableData();
   let myformNumber = number;
