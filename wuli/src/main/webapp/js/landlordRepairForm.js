@@ -372,6 +372,7 @@ function sendForm() {
         errFixtime = result.fixTimeErr;
         errStatus = result.statusErr
         errSystem = result.systemErr
+        alert(errFixtime)
         if (errFixtime.length != 0) {
           $("#fixTimeErr").attr("style",
             "visibility: visible;");

@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.model.RepairFormBean;
 import tw.edu.ntut.sce.java18.common.model.RepairFormServiceBean;
+import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.common.service.impl.FurniturePriceServiceImpl;
 import tw.edu.ntut.sce.java18.common.service.impl.MemberInfoServiceImpl;
 import tw.edu.ntut.sce.java18.common.service.impl.RepairFormServiceImpl;
@@ -38,7 +39,7 @@ public class RepairFormServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    int memberId = 1;
+    int memberId = 2;
     final Gson gson = new Gson();
     response.setContentType("text/html; charset=UTF-8;");
     response.setCharacterEncoding("UTF-8");
@@ -151,7 +152,9 @@ public class RepairFormServlet extends HttpServlet {
 
         int formExist = new RepairFormServiceImpl().checkUnFinishedRepairFormAmount(memberId);
         if (formExist <= 0) {
-          // int getChatRoomId = new ChatroomService().g
+          ChatroomService chatroomService = new ChatroomService();
+          int getChatRoomId = chatroomService.getChatroomIdByUserId(memberId, "R");
+          chatroomService.changeCloseTime(getChatRoomId, 1);
         }
 
         response.sendRedirect("/home/repair.jsp");

@@ -86,7 +86,6 @@ public class RepairFormServiceImpl implements RepairFormService {
   @Override
   public int saveRepairForm(RepairFormBean repairFormBean) {
     ChatroomService chatroomService = new ChatroomService();
-    chatroomService.createChatroom("R", repairFormBean.getMemberId(), 0);
     return repairFormDao.saveRepairForm(repairFormBean);
   }
 
