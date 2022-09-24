@@ -3,33 +3,19 @@ let myForm;
 
 //給修改和瀏覽用的方法
 let dataForm;
-function getAllTableData(){
-$.getJSON('/wuli/LandlordRepairFormServlet.do').then(res => {
-  dataForm =res;
-/*
-  for (let i = 0; i < res.length; i++) {
-    let inners = [];
-    inners.push("");
-    inners.push(res[i].formNumber);
-    inners.push(res[i].applicant);
-    inners.push(res[i].roomNumber);
-    inners.push(res[i].projectNameAlias);
-    inners.push(transfromTime(res[i].creatTime));
-    inners.push(transfromStatus(res[i].status));
-    inners.push(res[i].projectPrice);
-    data.push(inners);
-    dataForm =res;
-  }*/
- 
-});
- return dataForm;
+function getAllTableData() {
+  $.getJSON('/wuli/LandlordRepairFormServlet.do').then(res => {
+    dataForm = res;
+
+  });
+  return dataForm;
 }
 
 //給Datatables用的方法
-res={};
+res = {};
 function getTableData(res) {
-  mydata=[];
-  dataForm =res;
+  mydata = [];
+  dataForm = res;
   for (let i = 0; i < res.length; i++) {
     let inners = [];
     inners.push("");
@@ -325,89 +311,75 @@ function dropForm(item) {
 
 //點擊送出儲存修改
 function sendForm() {
-  const selectTimePick = $('#datetimepicker1 input').val();
-  const thePrice = $('#price input').val();
-  const theNote = $('#landlordNote').val();
-  const theformNumber = $('#formNumber h3').text();
-  const theformStatus = $('#selectStatus').val();
-  
-  const selectedClass = $('#'+theformNumber).attr("class")
+    const selectTimePick = $('#datetimepicker1 input').val();
+    const thePrice = $('#price input').val();
+    const theNote = $('#landlordNote').val();
+    const theformNumber = $('#formNumber h3').text();
+    const theformStatus = $('#selectStatus').val();
+    const selectedClass = $('#' + theformNumber).attr("class");
+    $.ajax({
+        type: 'POST',
+        url: '/wuli/LandlordRepairFormServlet.do',
 
-  //alert(selectTimePick + thePrice + theNote + theformNumber
-  //+ theformStatus)
+        data: {
+            'selectTimePick': selectTimePick,
+            'thePrice': thePrice,
+            'theNote': theNote,
+            'theformNumber': theformNumber,
+            'theformStatus': theformStatus
+        },
+        
+        success: function (response) {
+            //alert(response.match("^\{(.+:.+,*){1,}\}$"));
+            myresponse = JSON.parse(response);
+            if (myresponse.id) {
+                $('#example').DataTable().ajax.reload();
+                $("#pageChange").html("");
+                $("#pageChange")
+                    .load(
+                        'landlordRepairForm/showRepairFormContent.jsp',
+                        function () {
+                            $('#' + theformNumber).attr("class", selectedClass);
+                            showCheckedRepairForm(myresponse, theformNumber);
+                            $("#showRepairContent").attr("style", "visibility: visible");
+                        });
 
-  $.ajax({
-    type: 'POST',
-    url: '/wuli/LandlordRepairFormServlet.do',
-
-    data: {
-      'selectTimePick': selectTimePick,
-      'thePrice': thePrice,
-      'theNote': theNote,
-      'theformNumber': theformNumber,
-      'theformStatus': theformStatus
-
-    },
-    success: function(response) {
-      //alert(response.match("^\{(.+:.+,*){1,}\}$"));
-      myresponse = JSON.parse(response);
-      console.log("myresponse"+myresponse.id)
-      if (myresponse.id) {
-      $('#example').DataTable().ajax.reload();
-
-        $("#pageChange").html("");
-        $("#pageChange")
-          .load(
-            'landlordRepairForm/showRepairFormContent.jsp',
-            function() {
-              $('#'+theformNumber).attr("class",selectedClass);
-              showCheckedRepairForm(myresponse, theformNumber);
-              $("#showRepairContent").attr("style", "visibility: visible");
-            });
-
-      } else {
-        result = JSON.parse(response);
-        //alert(result);
-        errAmount = result.amountErr;
-        errFixtime = result.fixTimeErr;
-        errStatus = result.statusErr
-        errSystem = result.systemErr
-        if (errFixtime.length != 0) {
-          $("#fixTimeErr").attr("style",
-            "visibility: visible;");
-          $("#fixTimeErr").text(errFixtime);
-
+            } else {
+                result = JSON.parse(response);
+                errAmount = result.amountErr;
+                errFixtime = result.fixTimeErr;
+                errStatus = result.statusErr;
+                errSystem = result.systemErr;
+                
+                if (errFixtime.length != 0) {
+                    $("#fixTimeErr").attr("style",
+                        "visibility: visible;");
+                    $("#fixTimeErr").text(errFixtime);
+                }
+                if (errAmount.length != 0) {
+                    $("#amountErr").attr("style",
+                        "visibility: visible;");
+                    $("#amountErr").text(errAmount);
+                    $("#price").attr("class",
+                        "nk-int-st-invalid mx-3 mb-2");
+                }
+                if (errStatus.length != 0) {
+                    $("#statusErr").attr("style",
+                        "visibility: visible;");
+                    $("#statusErr").text(errStatus);
+                }
+                if (systemErr.length != 0) {
+                    $("#tips").text("系統異常，請聯繫維運單位");
+                    $("#tips").attr("style", "color:red;");
+                }
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log('EditForm with error');
+            $("#tips").text("系統異常，請聯繫維運單位");
+            $("#tips").attr("style", "color:red;");
         }
-        if (errAmount.length != 0) {
-          $("#amountErr").attr("style",
-            "visibility: visible;");
-          $("#amountErr").text(errAmount);
-          $("#price").attr("class",
-            "nk-int-st-invalid mx-3 mb-2");
-
-        }
-        if (errStatus.length != 0) {
-          $("#statusErr").attr("style",
-            "visibility: visible;");
-          $("#statusErr").text(errStatus);
-
-        }
-        if (systemErr.length != 0) {
-          $("#tips").text("系統異常，請聯繫維運單位")
-          $("#tips").attr("style", "color:red;")
-        }
-      }
-    },
-
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log(jqXHR);
-      console.log(textStatus);
-      console.log(errorThrown)
-      console.log('EditForm with error')
-      $("#tips").text("系統異常，請聯繫維運單位")
-      $("#tips").attr("style", "color:red;")
-    }
-  })
+    })
 }
 
 /*點擊table時，頁面下方會show出報修單資料，如果停在修改頁面，判斷阻止事件發生*/
@@ -436,6 +408,7 @@ $(document).ready(function() {
               let showForm = JSON.parse(checkRepairFormNumber(number));
               showCheckedRepairForm(showForm, number);
               $("#showRepairContent").attr("style", "visibility: visible");
+
             });
       } else {
         //alert("不放棄")

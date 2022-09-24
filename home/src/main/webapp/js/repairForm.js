@@ -296,6 +296,7 @@ function showNewRepairForm(ridState) {
     $.getJSON('/home/common/RepairForm.do?doJob=getchat').then(res => {
       myformNumber = res.formId.repairFormNumber
       newRoom = res.toRoom
+     //alert("res.toRoom"+res.toRoom)
     });
 
     $.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
@@ -328,13 +329,13 @@ function showNewRepairForm(ridState) {
           $('#newRepairBtn').hide();
         });
     });
-    const roomId = newRoom;
+    
     $.ajax({
       type: 'POST',
       url: '/home/ChatroomServlet?callFrom=createChatroom',
       data: {
-        'Id': roomId,
-        'chatTarget': targetId,
+        'Id': newRoom,
+        'chatTarget': 0,
         'chatType': 'R'
       }
     })

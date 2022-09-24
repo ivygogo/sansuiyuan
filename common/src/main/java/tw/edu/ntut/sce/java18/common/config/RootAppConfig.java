@@ -50,7 +50,6 @@ public class RootAppConfig {
   @Bean
   public DataSource dataSource() {
     ComboPooledDataSource ds = new ComboPooledDataSource();
-    // System.out.println("!!!!!!!!!Ivy!!!!!!!");
     ds.setUser(user);
     ds.setPassword(pswd);
     try {
