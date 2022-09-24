@@ -199,9 +199,9 @@ input {
 		</div>
 		<!-- -------------------		@servelet -------------------------------->
 		<hr style="margin-top: 50px">
-		<div>++++++++++</div>
+		
 		<c:forEach var="contract" items="${allContract}">
-			<div>123235345</div>
+			
 			<div style="margin-top: 10px; border: 1px solid red; width: 1450px;" tabindex="1" id="contract${contract.CID}" class="CT">
 
 			<form style="display: inline;" >

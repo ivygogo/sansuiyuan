@@ -275,7 +275,7 @@ public class ContractDaoImple implements ContractDao {
     }
     return contract;
   }
-  // ---------------查詢隱藏合約------------------
+
   @Override
   public List<ContractBean> hideAllContract() {
 
