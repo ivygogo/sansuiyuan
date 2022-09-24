@@ -164,7 +164,7 @@ $(function(){
 										<i class="notika-icon notika-form"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										<h1>會員中心－物業資訊valid</h1>
+										<h1>會員中心－物業資訊</h1>
 										<p>
 											<span class="bread-ntd form-intro">歡迎使用山水苑管理系統，查看您的會員基本資料</span>
 										</p>

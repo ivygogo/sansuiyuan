@@ -177,6 +177,7 @@ public class RepairFormServlet extends HttpServlet {
             createTime = dateNow;
             session.setAttribute("createTime", createTime);
             break;
+
           case "editForm":
             formNumber = (String) session.getAttribute("RepairFormNumber");
             if (formNumber == null) {

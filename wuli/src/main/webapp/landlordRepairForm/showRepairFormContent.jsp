@@ -174,12 +174,7 @@
           </div>
         </div>
       </div>
-<%--
-			<div class="" style="display: flex; justify-content: center;">
-				<button class="btn btn-edit" id="editLandlordinfo"
-					onclick="updateLandlordinfo()">編輯資料</button>
-			</div>
-			--%>
+
 		</div>
 	</div>
 </div>

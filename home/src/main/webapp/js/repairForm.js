@@ -31,11 +31,16 @@ $.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
           break;
         }
         case 1: {
-          myStatus = "處理中";
-          timeStatus = "評估中";
+          myStatus = "管理中";
+          timeStatus = "管理中";
           break;
         }
         case 2: {
+          myStatus = "處理中";
+          timeStatus = "處理中";
+          break;
+        }
+        case 3: {
           myStatus = "已完成";
           timeStatus = res.repairFormList[i].finishTime;
           break;
@@ -222,13 +227,18 @@ function transfromStatus(status) {
       break;
     }
     case 1: {
-      myStatus = "處理中";
+      myStatus = "管理中";
       break;
     }
     case 2: {
+      myStatus = "處理中";
+      break;
+    }
+    case 3: {
       myStatus = "已完成";
       break;
     }
+    
   }
   return myStatus;
 }
