@@ -2,16 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%-- String editState = request.getParameter("edit");
-//System.out.print("editState"+editState);
-if (editState!=null&&editState.equals("drop")){
-//request.setAttribute("guarantorIsInvalid", false);
-session.setAttribute("isInvalid", false);
-//request.setAttribute("RefundIsInvalid", false);
-
-//System.out.print("editState:::::"+editState);
-}
---%>
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -156,6 +146,7 @@ session.setAttribute("isInvalid", false);
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/landlordRepairForm.js"></script>
 
 </head>
 <script>
@@ -356,5 +347,8 @@ session.setAttribute("isInvalid", false);
     src="${pageContext.request.contextPath}/js/cropper/cropper-actice.js"></script>
   <script
     src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
+
+
+
 
 </html>

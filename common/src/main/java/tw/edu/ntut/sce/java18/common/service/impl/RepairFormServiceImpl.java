@@ -9,6 +9,7 @@ import tw.edu.ntut.sce.java18.common.dao.impl.RepairFormDaoImpl_JDBC;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.model.RepairFormBean;
 import tw.edu.ntut.sce.java18.common.model.RepairFormServiceBean;
+import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.common.service.RepairFormService;
 
 public class RepairFormServiceImpl implements RepairFormService {
@@ -84,6 +85,8 @@ public class RepairFormServiceImpl implements RepairFormService {
 
   @Override
   public int saveRepairForm(RepairFormBean repairFormBean) {
+    ChatroomService chatroomService = new ChatroomService();
+    chatroomService.createChatroom("R", repairFormBean.getMemberId(), 0);
     return repairFormDao.saveRepairForm(repairFormBean);
   }
 
@@ -105,5 +108,26 @@ public class RepairFormServiceImpl implements RepairFormService {
   @Override
   public List<RepairFormBean> queryAllRepairForm() {
     return repairFormDao.queryAllRepairForm();
+  }
+
+  @Override
+  public boolean checkMemberUidExists(String formNumber) {
+    return repairFormDao.checkRepairFormNumberIsExist(formNumber);
+  }
+
+  @Override
+  public int updateRepairFormByLandload(RepairFormBean repairFormBean) {
+    return repairFormDao.updateRepairFormByLandload(repairFormBean);
+  }
+
+  @Override
+  public int checkRepairFormExistBytime(int memberid, String beginTime, String endTime) {
+    return repairFormDao.checkRepairFormExistBytime(memberid, beginTime, endTime);
+  }
+
+  @Override
+  public int checkUnFinishedRepairFormAmount(int memberid) {
+
+    return repairFormDao.checkUnFinishedRepairFormAmount(memberid);
   }
 }

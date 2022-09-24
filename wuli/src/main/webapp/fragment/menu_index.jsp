@@ -339,7 +339,7 @@
 									<li><a href="index-3.html">Dashboard Three</a></li>
 									<li><a href="index-4.html">Dashboard Four</a></li>
 									<li><a href="analytics.html">Analytics</a></li>
-									<li><a href="widgets.html">Widgets</a></li>
+									<li><a href="lanlordRepairForm.jsp">Widgets</a></li>
                   <li><a href="memberInfo.jsp">memberinfo</a></li>
 								</ul></li>
 							<li><a data-toggle="collapse" data-target="#demoevent"
@@ -443,7 +443,7 @@
 							<li><a href="index-3.html">Dashboard Three</a></li>
 							<li><a href="index-4.html">Dashboard Four</a></li>
 							<li><a href="analytics.html">Analytics</a></li>
-							<li><a href="memberInfo.jsp">Widgets</a></li>
+							<li><a href="lanlordRepairForm.jsp">Widgets</a></li>
               <li><a href="memberInfo.jsp">memberinfo</a></li>
 
             </ul>

@@ -51,7 +51,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 						<c:choose>
 							<c:when test="${ErrMsg.Aapplicant!=null}">
 								<input type="text" name="repairFormApplicant"
-									id="repairFormApplicant"
+									id="repairFormApplicant" maxlength="10"
 									class="form-control is-invalid col-12 px-4"
 									value="${param.repairFormApplicant}">
 								<div class="invalid-feedback col-12 px-2">${ErrMsg.Aapplicant}</div>

@@ -86,6 +86,27 @@ public class RepairFormServlet extends HttpServlet {
         printWriter.flush();
         break;
 
+      case "getchat":
+        var beforeTime = new Timestamp(System.currentTimeMillis() - (1000 * 60 * 60));
+        var afterTime = new Timestamp(System.currentTimeMillis() - (1000 * 60 * 60));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String beforeTimeStr = df.format(beforeTime);
+        String afterTimeStr = df.format(afterTime);
+        int num =
+            new RepairFormServiceImpl()
+                .checkRepairFormExistBytime(memberId, beforeTimeStr, afterTimeStr);
+
+        // MemberBean member = new MemberInfoServiceImpl().queryMemberByPrimaryKey(memberId);
+        List<RepairFormServiceBean> newRepairFormList =
+            new RepairFormServiceImpl().getReparFormConverListByApplicant(memberId);
+
+        var showNewFrom = Map.of("toRoom", memberId, "formId", newRepairFormList.get(0));
+
+        var showNewFromJson = gson.toJson(showNewFrom);
+        printWriter.print(showNewFromJson);
+        System.out.println(showNewFromJson);
+        printWriter.flush();
+        break;
       default:
         System.out.println("i got u");
         break;
@@ -127,7 +148,11 @@ public class RepairFormServlet extends HttpServlet {
           System.out.println("n !!!= 1");
           e.printStackTrace();
         }
-        session.setAttribute("FormInvalid", "ok");
+
+        int formExist = new RepairFormServiceImpl().checkUnFinishedRepairFormAmount(memberId);
+        if (formExist <= 0) {
+          // int getChatRoomId = new ChatroomService().g
+        }
 
         response.sendRedirect("/home/repair.jsp");
         return;
@@ -177,6 +202,7 @@ public class RepairFormServlet extends HttpServlet {
             createTime = dateNow;
             session.setAttribute("createTime", createTime);
             break;
+
           case "editForm":
             formNumber = (String) session.getAttribute("RepairFormNumber");
             if (formNumber == null) {
@@ -304,9 +330,11 @@ public class RepairFormServlet extends HttpServlet {
               } catch (Exception e) {
                 e.printStackTrace();
               }
-
-              session.setAttribute("FormInvalid", "ok");
-              response.sendRedirect("/home/repair.jsp");
+              // String linkStr = "/home/repair.jsp?rid=" + formNumber;
+              // request.setAttribute("FormInvalid", "ok");
+              // RequestDispatcher rd = request.getRequestDispatcher("/repair.jsp");
+              // rd.forward(request, response);
+              response.sendRedirect("/home/repair.jsp?doJob=getchat");
               break;
             case "editForm":
               RepairFormBean editBean = new RepairFormBean();
@@ -327,9 +355,9 @@ public class RepairFormServlet extends HttpServlet {
                 System.out.println("n !!!= 1");
                 e.printStackTrace();
               }
-              session.setAttribute("FormInvalid", "ok");
+
               response.sendRedirect("/home/repair.jsp");
-              System.out.println("hi");
+
               break;
           }
           break;

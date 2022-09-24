@@ -3,20 +3,15 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <% 
-
-String editState = request.getParameter("edit");
-//System.out.println("editState:::::"+editState);
-//System.out.print("editState"+editState);
-if (editState!=null&&editState.equals("drop")){
-request.setAttribute("guarantorIsInvalid", false);
-request.setAttribute("isInvalid", false);
-request.setAttribute("RefundIsInvalid", false);
-}else if (editState!=null&&editState.equals("member")){
-  session.setAttribute("myPage", "myinfo");
-}else if (editState!=null&&editState.equals("dropIt")){
-  session.setAttribute("myPage", "profile");
+String ridState = request.getParameter("doJob");
+System.out.println("ridState:::::"+ridState);
+if(ridState == null || ridState.trim().length() == 0){
+  request.setAttribute("doJob", "others");
+}else{
+  request.setAttribute("doJob", "getchat");
+  //request.setAttribute("ridId", ridState);
 }
-//
+
 %>
 
 
@@ -92,6 +87,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 <script  type="text/javascript">
 
+
       innerPage ="";
       
       function updateRepairPage(i){
@@ -112,22 +108,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                 );
   }
      
-      /*
-     function updateRepairForm(item){
-    	 
-    	  alert(item.getAttribute('value'));
-          innerPage = "editRepairForminfo";
-          if(innerPage =="updateRefundinfo"){
-               
-                }
-          $("html,body").animate(
-                  {
-                    scrollTop: 0,
-                  },
-                  600
-                );
-    }*/
-      
       
       function dropForm(item){
     	  if((item.getAttribute('id'))==="memberInfo_dropIt"){
@@ -138,19 +118,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     		  //alert("dropIt")
     		  document.location.href="/home/repair.jsp"
     	  }
-    	  
-    	 //$('#home').html("")
-       //$('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
-    	  //$('#profile').html("")
-        //$('#profile').load('memberPage/showContractInfo.jsp?edit=drop');
-    	  //document.location.href="/home/MemberInfo.do"
-    		<%--$("html,body").animate(
-        		    {
-        		      scrollTop: 0,
-        		    },
-        		    600
-        		  );
-         //location.reload();--%>
+    	 
       }
      </script>
 </head>
@@ -204,6 +172,9 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     </c:when>
     <c:when test='${FormInvalid=="editRepairForm"}'>
     <jsp:include page="memberPage/validEditRepairForm.jsp" />
+    </c:when>
+    <c:when test='${FormInvalid=="ok"}'>
+    <jsp:include page="memberPage/showRepairFormContent.jsp" />
     </c:when>
      <c:otherwise>
      <div class="table-responsive">
@@ -262,6 +233,24 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 		src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-	
+	<script>
+
+	let ridState = `${doJob}`;
+	//let ridId =`${ridId}`;
+	if (ridState ==="getchat"){
+	  
+	  alert("MMMMMMMMMMMMridState" + ridState);
+	  $('#repairFormPage').html("");
+	    $('#repairFormPage').load('memberPage/showRepairFormContent.jsp',
+	    
+	      function() {
+	      showNewRepairForm(ridState)
+	      
+	    });
+	  
+	}else{
+	  showFirst();
+	}
+	</script>
 </body>
 </html>
