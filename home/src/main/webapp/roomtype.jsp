@@ -6,14 +6,14 @@
   <title>房型瀏覽</title>
 </head>
 <body>
-<%--<%@include file="header.jsp" %>--%>
+<%@include file="fragment/menu_index.jsp" %>
 <%@include file="roomType/roomType_content.html" %>
 
 <div id="formDialogDiv" class="d-none">
   <%@include file="booking/booking.jsp" %>
 </div>
 
-<%--<%@include file="footer.jsp" %>--%>
+<%@include file="fragment/footer.jsp" %>
 
 </body>
 </html>

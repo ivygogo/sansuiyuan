@@ -16,24 +16,6 @@ public class CharacterAndFavorBean implements Serializable {
   /* ====== 建構子 ======*/
   public CharacterAndFavorBean() {}
 
-  public CharacterAndFavorBean(
-      Integer id,
-      Integer type,
-      String name,
-      Integer isShow,
-      Timestamp createtime,
-      Timestamp update_time,
-      Timestamp delete_time) {
-    super();
-    this.id = id;
-    this.type = type;
-    this.name = name;
-    this.isShow = isShow;
-    this.createtime = createtime;
-    this.update_time = update_time;
-    this.delete_time = delete_time;
-  }
-
   /* ====== getter ======*/
   public static long getSerialversionuid() {
     return serialVersionUID;

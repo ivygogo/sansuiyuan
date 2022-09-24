@@ -13,37 +13,10 @@ public class RepairFormServiceBean {
   String repairFormFinishTime;
   String projectAlias;
   String note;
+  String landlordNote;
   Integer status;
 
   public RepairFormServiceBean() {}
-
-  public RepairFormServiceBean(
-      Integer id,
-      String repairFormNumber,
-      String repairRoomNumber,
-      String applicantName,
-      String applicantPhone,
-      String repairFormCreatTime,
-      String repairFormExpectionTime,
-      String repairFormFixTime,
-      String repairFormFinishTime,
-      String projectAlias,
-      String note,
-      Integer status) {
-    super();
-    this.id = id;
-    this.repairFormNumber = repairFormNumber;
-    this.repairRoomNumber = repairRoomNumber;
-    this.applicantName = applicantName;
-    this.applicantPhone = applicantPhone;
-    this.repairFormCreatTime = repairFormCreatTime;
-    this.repairFormExpectionTime = repairFormExpectionTime;
-    this.repairFormFixTime = repairFormFixTime;
-    this.repairFormFinishTime = repairFormFinishTime;
-    this.projectAlias = projectAlias;
-    this.note = note;
-    this.status = status;
-  }
 
   public static long getSerialversionuid() {
     return serialVersionUID;
@@ -143,5 +116,13 @@ public class RepairFormServiceBean {
 
   public void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public String getLandlordNote() {
+    return landlordNote;
+  }
+
+  public void setLandlordNote(String landlordNote) {
+    this.landlordNote = landlordNote;
   }
 }

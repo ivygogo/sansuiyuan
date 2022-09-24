@@ -11,7 +11,7 @@ let myformExpectionTime;
 let time;
 
 $.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
-  console.log(res);
+  //console.log(res);
   //console.log(res.repairFormList[1].status);
 
   if (res.repairFormList.length > 0 && res.roomNumber!== "非租客") {

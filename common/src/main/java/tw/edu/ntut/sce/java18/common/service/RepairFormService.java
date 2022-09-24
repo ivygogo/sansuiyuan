@@ -8,6 +8,8 @@ public interface RepairFormService {
 
   List<RepairFormBean> getReparFormListByApplicant(int memberid);
 
+  RepairFormBean getRepairFormByFormNumber(String formNumber);
+
   List<RepairFormServiceBean> getReparFormConverListByApplicant(int memberid);
 
   int checkRepairFormAmount(int memberid, String beginTime, String endTime);
@@ -17,4 +19,6 @@ public interface RepairFormService {
   int updateRepairForm(RepairFormBean repairFormBean);
 
   int deleteRepairForm(String formNumber);
+
+  public List<RepairFormBean> queryAllRepairForm();
 }

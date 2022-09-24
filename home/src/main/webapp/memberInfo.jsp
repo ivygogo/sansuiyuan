@@ -37,7 +37,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>${SYSTEM.systemName}-會員資料${isInvalid}</title>
+<title>${SYSTEM.systemName}-會員資料</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -293,9 +293,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 			<div class="site-mobile-menu-body"></div>
 		</div>
 
-		<%--選單--%>
-		<jsp:include page="fragment/menu_content.jsp" />
-
 
 		<%--內容開始--%>
 		<section class="login-block">
@@ -369,8 +366,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	</div>
 	</section>
 
-	<%--footer --%>
-	<jsp:include page="fragment/footer.jsp" />
 
 	<%--.site-wrap --%>
 	<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
@@ -391,8 +386,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 		src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-	<%-- 
-	<script
-    src="${pageContext.request.contextPath}/file/bootstrap.bundle.js"></script>--%>
+	
 </body>
 </html>
