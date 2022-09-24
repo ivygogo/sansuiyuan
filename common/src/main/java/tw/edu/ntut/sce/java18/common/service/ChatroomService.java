@@ -115,12 +115,24 @@ public class ChatroomService {
 
       chatroomListWithLastMessage.add(loadChatroom);
     }
-    Collections.sort(
-        chatroomListWithLastMessage,
-        (o1, o2) -> {
-          if (o1.getSendTime().before(o2.getSendTime())) return 1;
-          else return -1;
-        });
+
+    System.out.println("---------------------------------------------------------------");
+    System.out.println(chatroomListWithLastMessage.isEmpty());
+    System.out.println(chatroomListWithLastMessage.size());
+
+    chatroomListWithLastMessage.forEach(e -> System.out.println(e.chatroomName));
+    chatroomListWithLastMessage.forEach(e -> System.out.println(e.content));
+
+    System.out.println("---------------------------------------------------------------");
+    if (chatroomListWithLastMessage != null || chatroomListWithLastMessage.size() > 1) {
+      Collections.sort(
+          chatroomListWithLastMessage,
+          (o1, o2) -> {
+            if (o1.getSendTime().before(o2.getSendTime())
+                || o1.getSendTime().equals(o2.getSendTime())) return 1;
+            else return -1;
+          });
+    }
     return chatroomListWithLastMessage;
   }
 
@@ -152,6 +164,11 @@ public class ChatroomService {
     return chatroomDao.queryIdByChatroomName(chatroomName, chatType);
   }
 
+  public int getChatroomIdByUserId(int userId, String chatType) {
+    String chatroomName = "0_" + userId;
+    return chatroomDao.queryIdByChatroomName(chatroomName, chatType);
+  }
+
   public int getChatroomId(String chatroomName) {
     return chatroomDao.queryIdByChatroomName(chatroomName);
   }
@@ -164,7 +181,6 @@ public class ChatroomService {
 
   // OK 進到聊天室頁面就要對每個"聊天室"判斷是否唯讀, 並讀出最後一筆訊息 & 未讀量
   public ArrayList<ExistChatroomBean> getExistChatroom(int id) {
-    System.out.println("insidetheserceice" + chatroomDao.queryExistChatroomByUser(id).size());
     return chatroomDao.queryExistChatroomByUser(id);
   }
 

@@ -5,6 +5,7 @@
 
 .person-block {
   border-radius: 15px;
+  height: 450px;
 }
 
 .person-block:hover {
@@ -14,4 +15,23 @@
   box-shadow: 10px 10px 10px rgba(150, 150, 150, 0.5);
 }
 
+.avatar {
+  height: 210px;
+}
 
+.target-school {
+  font-size: medium;
+}
+
+.favor-block {
+  height: 105px;
+}
+
+.favor-block {
+  height: 105px;
+}
+
+.character-block {
+  height: 100px;
+
+}

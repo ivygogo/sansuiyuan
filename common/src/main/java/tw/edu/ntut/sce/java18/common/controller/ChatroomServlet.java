@@ -75,11 +75,11 @@ public class ChatroomServlet extends HttpServlet {
       var chatMessageService = new ChatMessageService();
       ChatMessageServiceBean message = new ChatMessageServiceBean();
       String content;
-      message.setSender(0);
       message.setReceiver(userId);
 
       switch (chatType) {
         case "B":
+          message.setSender(0);
           String userName = request.getParameter("userName");
           String timePick = request.getParameter("timePick");
           String floor = request.getParameter("floor");
@@ -99,10 +99,12 @@ public class ChatroomServlet extends HttpServlet {
                   + "(備註：本物業可視現場狀況進行調整所帶看房間)。";
           break;
         case "R":
+          message.setSender(0);
           content = "同學你好已收到您的報修通知。";
           break;
         case "F":
-          content = "同學A你好已為您與同學B開啟聊聊功能";
+          message.setSender(chatTarget);
+          content = "系統：已為您開啟聊聊功能(僅本訊息為由系統主動發送。)";
           break;
         default:
           content = "";
@@ -185,6 +187,7 @@ public class ChatroomServlet extends HttpServlet {
     int additionalTime =
         Integer.parseInt(
             request.getParameter("additionalTime")); // todo 型態待確定,手動直接關閉=0  or 延長時間=n>0
+    System.out.println("roomId = " + roomId + ";   additionalTime = " + additionalTime);
     new ChatroomService().changeCloseTime(roomId, additionalTime);
   }
 
