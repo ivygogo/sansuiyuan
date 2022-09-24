@@ -29,9 +29,9 @@ public class ContractDaoImple implements ContractDao {
   @Override
   public int saveContract(ContractBean cb) {
     String sql =
-        "insert into contract"
-            + "(CID,Name,Room_Number,Room_Type,Payment_Status,Check_Fee,Check_Status,PDF,Signed_Date) "
-            + " values(?,?,?,?,?,?,?,?,?)";
+        "insert into"
+            + " contract(CID,Name,Room_Number,Room_Type,Payment_Status,Check_Fee,Check_Status,PDF,Signed_Date)"
+            + "  values(?,?,?,?,?,?,?,?,?)";
     int updateCount = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
