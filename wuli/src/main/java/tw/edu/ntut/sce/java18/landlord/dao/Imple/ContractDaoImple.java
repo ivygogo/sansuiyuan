@@ -128,7 +128,9 @@ public class ContractDaoImple implements ContractDao {
       String check_status,
       int cId) {
     String sql =
-        "update contract set Status = ? , Name = ?, PDF = ?, Room_Number = ?, Payment_Status = ?, Deposit = ?, Check_Fee = ? ,Check_Status = ? where CID =?";
+        "update contract set Status = ? , Name = ?, PDF = ?"
+            + ", Room_Number = ?, Payment_Status = ?, Deposit = ?"
+            + ", Check_Fee = ? ,Check_Status = ? where CID =?";
 
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
