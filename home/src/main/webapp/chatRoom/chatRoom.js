@@ -3,12 +3,15 @@ $(function () {
   window.onreset = decideBlockSize
   window.onresize = decideBlockSize
   window.onbeforeunload = decideBlockSize
-  const name1 = 1 //  要發訊息的人    //TODO (從會員資料)
-  let name2
+  decideBlockSize()
+  decideBlockSize
 
+  const name1 = 6 //  要發訊息的人    //TODO (從會員資料)
+  let name2
+  console.log(name1)
   // 讀取chatroomList  -----------------
   loadExistChatroom(name1)
-  decideBlockSize
+  decideBlockSize()
   $("#input-message").prop('disabled', true)
 
   // todo 如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
@@ -56,14 +59,21 @@ $(function () {
     }
 
     if ($(e.target).closest('table').data("open") === true) {
-      $('.isClose-block').html('關閉時間：<span id="close-time" ></span>')
+      const chatroomId = $(e.target).closest('table').data("chatroomid")
+      $('.isClose-block').html(
+        '<div>關閉時間</div><span id="close-time" ></span><div id="for-btn"></div>')
+
+      $('#for-btn').append(
+        `<button class="btn btn-primary" id="close-btn" data-roomId =${chatroomId} >封鎖</button >`
+      )
+
       $('#close-time').text(
         $(e.target).closest('table').data("closetime").split(',', 1))
       $("#input-message").prop('disabled', false).prop('placeholder', '請輸入文字')
       $(".btn-send-message").prop('disabled', false)
 
     } else {
-      $('.isClose-block').html('本聊天室已關閉')
+      $('.isClose-block').html('已關閉')
       $("#input-message").prop('disabled', true).prop('placeholder', '')
       $(".btn-send-message").prop('disabled', true)
     }
@@ -108,6 +118,7 @@ $(function () {
 
     $(e.target).closest('table').find('.chat-unread').css(
       {'visibility': 'hidden'})
+    decideBlockSize()
   })
 
   // 送出------------------
@@ -139,7 +150,32 @@ $(function () {
     }
   })
 
-  //決定block大小 ------------------
+  $('body').on('click', '#close-btn', function () {
+    // window.confirm("確認是否要關閉此聊天室")
+    if (confirm('確認是否要關閉此聊天室') === true) {
+
+      // console.log('3  ' + $(this).data('roomid'))
+      console.log('44444444444444')
+      $('#close-time').text("")
+      $('.isClose-block').html('已關閉')
+      $.ajax(
+        {
+          type: 'POST',
+          url: '/home/ChatroomServlet?callFrom=changeCloseTime',
+          data: {'roomId': $(this).data('roomid'), 'additionalTime': 0},
+          success: function () {
+            location.reload()
+          }
+        })
+      console.log('yes')
+    } else {
+      console.log('cancel'
+      )
+    }
+
+  })
+
+//決定block大小 ------------------
   function decideBlockSize() {
     const windowInnerWidth = window.innerWidth
 
@@ -162,9 +198,9 @@ $(function () {
       $('#input-message').css({width: rightWidth * 0.66})
       $('.btn-send-message').css({width: rightWidth * 0.2})
 
-    } else if (windowInnerWidth >= 720 && windowInnerWidth < 810) {
+    } else if (windowInnerWidth >= 710 && windowInnerWidth < 810) {
       const leftWidth = 250
-      const rightWidth = windowInnerWidth - leftWidth - 100
+      const rightWidth = windowInnerWidth - leftWidth - 45
       const targetWidth = leftWidth - 140
       const textWidth = leftWidth - 130
 
@@ -206,7 +242,7 @@ $(function () {
     }
   }
 
-  //用來改變左側bar的箭頭方向 -----------------
+//用來改變左側bar的箭頭方向 -----------------
   $('.side-label').click(function () {
     if ($('.side-label').hasClass('rotate-arrow')) {
       $('.side-label').removeClass('rotate-arrow')
@@ -215,7 +251,7 @@ $(function () {
     }
   })
 
-  // -----------------
+// -----------------
   function loadExistChatroom(name1) {
     $.ajax({
       type: 'POST',
@@ -230,15 +266,16 @@ $(function () {
     })
   }
 
-  // -----------------
+// -----------------
   function renderChatroomList(resp) {
     console.log(resp)
     let target
     for (let i = 0; i < resp.length; i++) {
       target = resp[i].target
-
+      console.log(resp)
       $('#checklist').append(
         `<table class="chatroom-block" data-identity=${resp[i].identity}
+          data-chatroomId=${resp[i].chatroomId}
           data-moreInfo=${resp[i].moreInfo} data-avatarpic=${resp[i].avatarPic}
           data-targetNickName=${resp[i].targetNickName}
           data-closetime=${resp[i].closeTime} data-open=${resp[i].isOpen}
@@ -260,7 +297,7 @@ $(function () {
     $('*[data-unread="0"]').hide()
   }
 
-  // -----------------
+// -----------------
   function loadOldChatMessage() {
     $.ajax({
       type: 'POST',

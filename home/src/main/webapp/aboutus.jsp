@@ -3,15 +3,12 @@
 <html>
 <head>
   <meta content="text/html" charset="UTF-8">
-  <title>房型瀏覽</title>
+  <title>關於我們</title>
 </head>
 <body>
 <%@include file="fragment/menu_index.jsp" %>
-<%@include file="roomType/roomType_content.html" %>
 
-<div id="formDialogDiv" class="d-none">
-  <%@include file="booking/booking.jsp" %>
-</div>
+<%@include file="aboutUs/aboutus.html" %>
 
 <%@include file="fragment/footer.jsp" %>
 
