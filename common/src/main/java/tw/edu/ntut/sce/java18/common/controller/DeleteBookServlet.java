@@ -21,7 +21,7 @@ public class DeleteBookServlet extends HttpServlet {
     String bookerId = request.getParameter("bookerId");
     try {
       // 載入資料庫驅動，註冊到驅動管理器
-      Class.forName("com.mysql.jdbc.Driver");
+      //      Class.forName("com.mysql.jdbc.Driver");
       // 資料庫連線字串
       String url =
           "jdbc:mysql://127.0.0.1/wulidb?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei&allowPublicKeyRetrieval=true";

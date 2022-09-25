@@ -19,9 +19,7 @@
 <script>
 data=[];
 
-
 let myForm;
-
 
 $.getJSON('/home/BookTest.do').then(res => {
   console.log(res);
@@ -38,7 +36,6 @@ $.getJSON('/home/BookTest.do').then(res => {
 	    inners.push(res[i].preferTime);
 	    inners.push(res[i].roomtype);
 	    data.push(inners);
-	    
 	  }
   console.log(data);
 	  

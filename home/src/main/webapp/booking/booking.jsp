@@ -60,7 +60,7 @@
 
       <P/><input id="submit" type="submit" value="提交">
 </Form>
-<small>&lt;&lt;<a href="index.jsp">回首頁</a>&gt;&gt;</small>
+<small >&lt;&lt;<a href="index.jsp">回首頁</a>&gt;&gt;</small>
 </div>
 </body>
 
