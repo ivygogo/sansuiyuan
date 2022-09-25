@@ -73,7 +73,7 @@ public class SearchBookServlet extends HttpServlet {
     }
 
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      //      Class.forName("com.mysql.jdbc.Driver");
       Connection conn = DriverManager.getConnection(url, userName, password);
       System.out.println("連接資料庫測試");
       //      String bookerName = request.getParameter("bookerName");

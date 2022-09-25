@@ -59,7 +59,9 @@ ArrayList booklist = (ArrayList)itr.next();
 <td><%=booklist.get(5)%></td>
 <td><%=booklist.get(6)%></td>
 <td><%=booklist.get(7)%></td>
-<td><a href="edit?id=<c:out value='<%=booklist.get(0)%>' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?bookerId=<c:out value='<%=booklist.get(0)%>' />">Delete</a></td>
+<td>
+<a href="edit?id=<c:out value='<%=booklist.get(0)%>' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+<a href="delete?bookerId=<c:out value='<%=booklist.get(0)%>' />">Delete</a></td>
 </tr>
 <%
 }
