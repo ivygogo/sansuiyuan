@@ -293,37 +293,38 @@ $(function() {
   // -----------------
   function loadOldChatMessage() {
     $.ajax({
-      type: 'POST',
-      url: '/home/ChatroomServlet?callFrom=loadOldMessage',
-      data: {
-        'user': name1, 'target': name2
-      },
-      success: function(resp) {
-        if (name2 !== 0) {
-          for (let k = 0; k < resp.length; k++) {
-            if (k == 0) {
-              $('.chat-inside-block').append(`
+        type: 'POST',
+        url: '/home/ChatroomServlet?callFrom=loadOldMessage',
+        data: {
+          'user': name1, 'target': name2
+        },
+        success: function (resp) {
+          if (name2 !== 0) {
+            for (let k = 0; k < resp.length; k++) {
+              if (k == 0) {
+                $('.chat-inside-block').append(`
                  <div class="send-message-block row m-3 bg-primary system-message">
                    <span class="send-message-content col-12 message-content">${resp[k].content}</span>
                    <span class="send-message-time col-12 text-end">${resp[k].currentTime}</span>
                  </div>`)
-            } else {
+              } else {
+                renderMessage(resp[k])
+              }
+            }
+          } else {
+            for (let k in resp) {
               renderMessage(resp[k])
             }
           }
-        } else {
-          for (let k in resp) {
-            renderMessage(resp[k])
-          }
-        }
 
-        $('.chat-inside-block').scrollTop(
-          $('.chat-inside-block')[0].scrollHeight)
-      },
-      err: function() {
-        console.log('renderChatroomList with error')
+          $('.chat-inside-block').scrollTop(
+            $('.chat-inside-block')[0].scrollHeight)
+        },
+        err: function () {
+          console.log('renderChatroomList with error')
+        }
       }
-    }
+
     )
   }
 

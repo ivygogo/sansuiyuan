@@ -31,15 +31,15 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: '/home/FindFriendServlet?callFrom=checkLimit',
-      data: { 'userId': userId },
-      success: function(resp) {
+      data: {'userId': userId},
+      success: function (resp) {
         console.log(resp)
         if (resp === 'true') {
           $.ajax({
             type: 'POST',
             url: '/home/ChatroomServlet?callFrom=createChatroom',
-            data: { 'Id': userId, 'chatTarget': targetId, 'chatType': 'F' },
-            success: function(resp) {
+            data: {'Id': userId, 'chatTarget': targetId, 'chatType': 'F'},
+            success: function (resp) {
               console.log(resp)
             }
           })
