@@ -29,7 +29,6 @@ public class FindFriendServletConvert {
                 deleteList.add(e.getUserId());
               } else deleteList.add(e.getTargetId());
             });
-    //    idList.remove(Integer.valueOf(userId));
 
     System.out.println("------------ deletelist");
     deleteList.forEach(e -> System.out.println(e));

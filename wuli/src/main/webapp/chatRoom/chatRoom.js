@@ -5,7 +5,7 @@ $(function () {
   window.onresize = decideBlockSize
   window.onbeforeunload = decideBlockSize
 
-  const name1 = 0 //  要發訊息的人Id    //TODO (從登入資料)
+  const name1 = 0 //
   let name2 //接收訊息的人targetId
   // finish! 讀取chatroomList  -----------------
   loadExistChatroom(name1)
@@ -19,7 +19,11 @@ $(function () {
       $('#search').removeClass('d-none')
       $('#search').keypress(function (enter) {
         if (enter.key === "Enter") {
-          //todo  ajax to  search房號 by targeId   from roomtable/
+          if ($('#search').val().trim() !== '') {
+            console.log($('#search').val())
+          } else {
+            console.log('nothing')
+          }
         }
       })
     } else {

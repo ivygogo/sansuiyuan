@@ -6,16 +6,14 @@ $(function () {
   decideBlockSize()
   decideBlockSize
 
-  const name1 = 5 //  要發訊息的人    //TODO (從會員資料)
+  const name1 = 4 //  要發訊息的人    //TODO (從會員資料)
   let name2
-  console.log(name1)
+  console.log('user ==' + name1)
   // 讀取chatroomList  -----------------
   loadExistChatroom(name1)
   decideBlockSize()
   $("#input-message").prop('disabled', true)
 
-  // todo 如果是找室友功能,名字旁邊要有個性簽名和室友條件,並且要有婉拒btn,還有提示訊息
-  //finish 選擇是否還可以聊聊的視窗
   $('input[name=is-talk-able]').change(function () {
     if ($('input[name=is-talk-able]:checked').val() === "true") {
       $('*[data-open="true"]').show()
@@ -46,8 +44,7 @@ $(function () {
         `${$(e.target).closest('table').data('targetnickname')}`)
       $('#id-type').text(
         `身分 ： ${$(e.target).closest('table').data('identity')}`)
-
-      if ($(e.target).closest('table').data('moreinfo') !== 'undefined') {
+      if ($(e.target).closest('table').data('moreinfo') !== 'null') {
         $('#character').text(
           `個性標籤：${$(e.target).closest('table').data('moreinfo')}`)
       }
@@ -108,7 +105,6 @@ $(function () {
 
     ws.onclose = function (enent) {
       console.log('close reason = ' + enent.code + " ---" + enent.reason)
-
     }
 
     ws.onerror = function (e) {
@@ -153,9 +149,6 @@ $(function () {
   $('body').on('click', '#close-btn', function () {
     // window.confirm("確認是否要關閉此聊天室")
     if (confirm('確認是否要關閉此聊天室') === true) {
-
-      // console.log('3  ' + $(this).data('roomid'))
-      console.log('44444444444444')
       $('#close-time').text("")
       $('.isClose-block').html('已關閉')
       $.ajax(
@@ -169,8 +162,7 @@ $(function () {
         })
       console.log('yes')
     } else {
-      console.log('cancel'
-      )
+      console.log('cancel')
     }
 
   })
@@ -268,11 +260,12 @@ $(function () {
 
 // -----------------
   function renderChatroomList(resp) {
-    console.log(resp)
     let target
     for (let i = 0; i < resp.length; i++) {
       target = resp[i].target
-      console.log(resp)
+      if (resp[i].moreInfo === 'X') {
+        resp[i].moreInfo = '無'
+      }
       $('#checklist').append(
         `<table class="chatroom-block" data-identity=${resp[i].identity}
           data-chatroomId=${resp[i].chatroomId}
@@ -294,28 +287,44 @@ $(function () {
           </tr>
         </table>`)
     }
-    $('*[data-unread="0"]').hide()
+    $('[data-unread="0"]').hide()
   }
 
 // -----------------
   function loadOldChatMessage() {
     $.ajax({
-      type: 'POST',
-      url: '/home/ChatroomServlet?callFrom=loadOldMessage',
-      data: {
-        'user': name1, 'target': name2
-      },
-      success: function (resp) {
-        for (let k in resp) {
-          renderMessage(resp[k])
+        type: 'POST',
+        url: '/home/ChatroomServlet?callFrom=loadOldMessage',
+        data: {
+          'user': name1, 'target': name2
+        },
+        success: function (resp) {
+          if (name2 !== 0) {
+            for (let k = 0; k < resp.length; k++) {
+              if (k == 0) {
+                $('.chat-inside-block').append(`
+                 <div class="send-message-block row m-3 bg-primary system-message">
+                   <span class="send-message-content col-12 message-content">${resp[k].content}</span>
+                   <span class="send-message-time col-12 text-end">${resp[k].currentTime}</span>
+                 </div>`)
+              } else {
+                renderMessage(resp[k])
+              }
+            }
+          } else {
+            for (let k in resp) {
+              renderMessage(resp[k])
+            }
+          }
+
+          $('.chat-inside-block').scrollTop(
+            $('.chat-inside-block')[0].scrollHeight)
+        },
+        err: function () {
+          console.log('renderChatroomList with error')
         }
-        $('.chat-inside-block').scrollTop(
-          $('.chat-inside-block')[0].scrollHeight)
-      },
-      err: function () {
-        console.log('renderChatroomList with error')
       }
-    })
+    )
   }
 
   function renderMessage(message) {

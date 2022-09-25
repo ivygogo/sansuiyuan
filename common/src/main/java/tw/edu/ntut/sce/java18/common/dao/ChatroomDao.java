@@ -5,7 +5,7 @@ import tw.edu.ntut.sce.java18.common.dao.impl.ChatroomDaoImpl_JDBC.ExistChatroom
 
 public interface ChatroomDao {
 
-  int queryCountForMakeFriendByUserId(int member);
+  Integer queryCountForMakeFriendByUserId(int member);
 
   void insertChatroom(String type, int member1, int member2, String createTime, String closeTime);
 
@@ -18,4 +18,6 @@ public interface ChatroomDao {
   ArrayList<ExistChatroomBean> queryExistChatroomByUser(int member);
 
   void updateCloseTime(int roomId, int time);
+
+  void updateOpenState();
 }
