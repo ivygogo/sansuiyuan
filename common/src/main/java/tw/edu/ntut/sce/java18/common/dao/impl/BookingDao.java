@@ -33,11 +33,11 @@ public class BookingDao {
           + " lead_person from bookingexample where booker_id = ?";
   private static final String DELETE = "Delete from bookingexample where booker_id=?";
   private static final String INSERT =
-      "Insert into bookingexample (booker_id, book_date, prefer_time, booker_name, booker_phone,"
-          + " roomtype, prefer_floor, lead_person) values (?, ?, ?, ?, ?, ?, ?, ?)";
+      "Insert into bookingexample (booker_id, book_date, prefer_time, booker_name, "
+          + "booker_phone, roomtype, prefer_floor, lead_person) values (?, ?, ?, ?, ?, ?, ?, ?)";
   private static final String UPDATE =
-      "update bookingexample set booker_id=?, book_date=?, prefer_time=?, booker_name=?, booker_phone=?,"
-          + "roomtype=?, prefer_floor=?, lead_person=? where booker_id = ?";
+      "update bookingexample set booker_id=?, book_date=?, prefer_time=?, booker_name=?,"
+          + " booker_phone=?,roomtype=?, prefer_floor=?, lead_person=? where booker_id = ?";
 
   public List<BookerBean> selectAllUsers() {
     List<BookerBean> bookers = new ArrayList<>();
