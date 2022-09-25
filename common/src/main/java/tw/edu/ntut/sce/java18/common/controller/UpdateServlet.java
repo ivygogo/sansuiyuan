@@ -24,10 +24,16 @@ public class UpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    request.setCharacterEncoding("utf-8");
+    response.setContentType("utf-8");
     String bookerId = request.getParameter("bookerId");
     String preferTime = request.getParameter("preferTime");
+    String leadPerson = request.getParameter("leadPerson");
+    String bookDate = request.getParameter("bookDate");
     System.out.println(bookerId);
     System.out.println(preferTime);
+    System.out.println(leadPerson);
+    System.out.println(bookDate);
     try {
       // 載入資料庫驅動，註冊到驅動管理器
       Class.forName("com.mysql.jdbc.Driver");
@@ -43,13 +49,18 @@ public class UpdateServlet extends HttpServlet {
       // 建立Connection連線
       Connection conn = DriverManager.getConnection(url, username, password);
 
-      String sql = "update bookingexample set prefer_time=? where booker_id=?";
+      String sql =
+          "update bookingexample set prefer_time=?,lead_person=?,book_date=? where booker_id=?";
       // 獲取PreparedStatement
       PreparedStatement ps = conn.prepareStatement(sql);
-
+      System.out.println(preferTime + "  " + bookerId);
       ps.setString(1, preferTime);
 
-      ps.setString(2, bookerId);
+      ps.setString(2, leadPerson);
+
+      ps.setString(3, bookDate);
+
+      ps.setString(4, bookerId);
 
       ps.executeUpdate();
 
