@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import tw.edu.ntut.sce.java18.common.model.BookerBean;
 import tw.edu.ntut.sce.java18.common.service.BookingService;
 
-@WebServlet("/booking/booking.do")
+@WebServlet("/booking.do")
 public class BookServletProcess extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
