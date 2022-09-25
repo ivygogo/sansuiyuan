@@ -11,6 +11,8 @@ public interface RepairFormDao {
 
   int checkRepairFormAmount(int memberid, String beginTime, String endTime);
 
+  boolean checkRepairFormNumberIsExist(String formNumber);
+
   int saveRepairForm(RepairFormBean repairFormBean);
 
   int updateRepairForm(RepairFormBean repairFormBean);
@@ -18,4 +20,10 @@ public interface RepairFormDao {
   int deleteRepairForm(String formNumber);
 
   List<RepairFormBean> queryAllRepairForm();
+
+  int updateRepairFormByLandload(RepairFormBean repairFormBean);
+
+  int checkRepairFormExistBytime(int memberid, String beginTime, String endTime);
+
+  int checkUnFinishedRepairFormAmount(int memberid);
 }

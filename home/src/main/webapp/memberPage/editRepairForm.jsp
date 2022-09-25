@@ -58,7 +58,7 @@ System.out.println("!!!!!!!"+formNumber);
 					<div class="row mt-5">
 						<div class="col">
 						<h6 class="text-black-opacity-05 ">申請人</h6>
-                <input type="text" id="repairFormApplicant" class="form-control col-12 px-4 datepicker"
+                <input type="text" id="repairFormApplicant" maxlength="10" class="form-control col-12 px-4 datepicker"
                 name="repairFormApplicant" value="null">
 							
 						</div>

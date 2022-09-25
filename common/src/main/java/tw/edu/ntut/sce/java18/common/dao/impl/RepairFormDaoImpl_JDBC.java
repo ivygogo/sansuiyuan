@@ -32,7 +32,8 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
     // 99為隱藏
     String sql =
         " SELECT * FROM (SELECT* FROM FIX WHERE Member_ID=? AND STATUS!=99) AS TableA "
-            + " JOIN furniture_price AS TableB ON TableB.id=TableA.Project ";
+            + " JOIN furniture_price AS TableB ON TableB.id=TableA.Project "
+            + " ORDER BY TableA.Create_time DESC ";
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setInt(1, memberid);
@@ -77,7 +78,7 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
             + " 00:00:00\" AND \" "
             + endTime
             + " 23:59:59\" ";
-    System.out.println(sql);
+    // System.out.println(sql);
     int n = -1;
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -133,6 +134,7 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
     return n;
   }
 
+  // 房客修改報修單
   @Override
   public int updateRepairForm(RepairFormBean repairFormBean) {
     String sql =
@@ -162,6 +164,7 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
     return n;
   }
 
+  // 刪除報修單
   @Override
   public int deleteRepairForm(String formNumber) {
     String sql = " UPDATE FIX SET Status = 99 " + " WHERE Form_Number = ?";
@@ -179,11 +182,12 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
     return n;
   }
 
+  // 以報修單號取得單筆報修單資料，並Join furniture_price資料
   @Override
   public RepairFormBean getRepairFormByFormNumber(String formNumber) {
     RepairFormBean repairForm = new RepairFormBean();
     String sql =
-        " SELECT * FROM (SELECT* FROM FIX WHERE Form_Number=formNumber) AS TableA "
+        " SELECT * FROM (SELECT* FROM FIX WHERE Form_Number=?) AS TableA "
             + " JOIN furniture_price AS TableB ON TableB.id=TableA.Project ";
     try (Connection connection = ds.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -219,6 +223,7 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
     return repairForm;
   }
 
+  // 取得所有報修單資料，並Join furniture_price資料
   @Override
   public List<RepairFormBean> queryAllRepairForm() {
     List<RepairFormBean> repairFormList = new ArrayList<>();
@@ -258,5 +263,104 @@ public class RepairFormDaoImpl_JDBC implements RepairFormDao {
           "RepairFormDaoImpl_JDBC類別#getRepairFormListByApplicant()發生例外: " + ex.getMessage());
     }
     return repairFormList;
+  }
+
+  // 確認報修單號是否存在
+  @Override
+  public boolean checkRepairFormNumberIsExist(String formNumber) {
+    boolean exist = false;
+    String sql = "SELECT * FROM FIX WHERE Form_Number = ?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setString(1, formNumber);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          exist = true;
+        }
+      }
+
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#checkRepairFormNumberIsExist()發生例外:" + ex.getMessage());
+    }
+    return exist;
+  }
+
+  @Override
+  public int updateRepairFormByLandload(RepairFormBean repairFormBean) {
+    String sql =
+        " UPDATE FIX SET Fix_Time = ?, Finish_Time = ?, "
+            + "Status=?, Amount=?, "
+            + " landlordNote = ? "
+            + " WHERE Form_Number = ?"; // 8
+    int n = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setTimestamp(1, repairFormBean.getFixTime());
+      ps.setTimestamp(2, repairFormBean.getFinishTime());
+      ps.setInt(3, repairFormBean.getStatus());
+      ps.setInt(4, repairFormBean.getAmount());
+      ps.setString(5, repairFormBean.getLandlordNote());
+      ps.setString(6, repairFormBean.getFormNumber());
+      // System.out.println("DAO" + repairFormBean.getFixTime());
+      n = ps.executeUpdate();
+
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#updateRepairForm()發生例外: " + ex.getMessage());
+    }
+
+    return n;
+  }
+
+  @Override
+  public int checkRepairFormExistBytime(int memberid, String beginTime, String endTime) {
+    String sql =
+        " SELECT COUNT(*) FROM fix WHERE Member_ID =? AND create_time "
+            + " BETWEEN \" "
+            + beginTime
+            + " \" AND \" "
+            + endTime
+            + " \" ";
+    // System.out.println(sql);
+    int n = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setInt(1, memberid);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          n = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#checkRepairFormAmount()發生例外: " + ex.getMessage());
+    }
+    return n;
+  }
+
+  @Override
+  public int checkUnFinishedRepairFormAmount(int memberid) {
+    String sql = " SELECT COUNT(*) FROM fix WHERE Member_ID =? AND Status<3 ";
+
+    // System.out.println(sql);
+    int n = -1;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setInt(1, memberid);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          n = rs.getInt(1);
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "RepairFormDaoImpl_JDBC類別#checkRepairFormAmount()發生例外: " + ex.getMessage());
+    }
+    return n;
   }
 }
