@@ -38,39 +38,37 @@
     </div>
 
     <div class="">
-      <div class="chat-main-block chat-main-block-right">
-        <div>
-          <div class="chat-with mb-2">
-          <span class="text-center mt-1">
-          <img src="" alt="X" height="60px"
-               class="float-start m-1 chat-avatar invisible" id="chat-avatar">
-          <span class="d-inline-block text-start m-2" id="target-block">
-            <span id="chat-target"></span>
-            <div class=""><span id="id-type"></span></div><span id="character"></span>
-          </span>
-            <span class="float-end isClose-block " title="本聊天視窗關閉後訊息僅供查詢，將不再提供訊息傳遞服務"> <span
-              id="close-time" class="float-end"></span>
+      <div class="chat-main-block chat-main-block-right container-fluid">
+
+        <div class="chat-with mb-2 text-center mt-1 row">
+          <!--            <div class="col-2 align-items-start ">-->
+          <img src="" alt="X"
+               class="chat-avatar invisible col-2 p-0" id="chat-avatar">
+          <!--            </div>-->
+          <span class="text-start  col-7" id="target-block">
+                <span id="chat-target"></span>
+                <div class=""><span id="id-type"></span></div>
+                 <span id="character"></span>
+              </span>
+          <span class="text-end isClose-block col-3 "
+                title="本聊天視窗關閉後訊息僅供查詢，將不再提供訊息傳遞服務"> <span
+            id="close-time"></span>
             </span>
-            <span class="clearfix"></span>
-          </span>
-          </div>
+        </div>
 
-          <div class="chat-inside-block">
+        <div class="chat-inside-block">
 
-          </div>
-          <div class="d-flex mt-4 input-row justify-content-around">
-            <textarea id="input-message" cols="4" rows="2" class=""></textarea>
-            <button type="button" class="btn-send-message">送出</button>
-          </div>
-          <div class="result"></div>
-          <div class="p-3 mt-2 ">
-            注意：使用本聊聊功能進行聊天時，請注意於網路發言的基本禮儀。<br>
-          </div>
-
+        </div>
+        <div class="d-flex mt-4 input-row justify-content-around">
+          <textarea id="input-message" cols="4" rows="2" class=""></textarea>
+          <button type="button" class="btn-send-message">送出</button>
+        </div>
+        <div class="result"></div>
+        <div class="p-3 mt-2 ">
+          注意：使用本聊聊功能進行聊天時，請注意於網路發言的基本禮儀。<br>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 

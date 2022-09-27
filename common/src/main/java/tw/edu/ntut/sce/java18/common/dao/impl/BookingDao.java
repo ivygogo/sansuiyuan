@@ -1,9 +1,11 @@
 package tw.edu.ntut.sce.java18.common.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.naming.Context;
@@ -25,19 +27,50 @@ public class BookingDao {
     }
   }
 
+  private static final String SELECT_ALL = "Select * from bookingexample order by 2 desc";
   private static final String SELECT_BY_ID =
       "Select booker_id, book_date, prefer_time, booker_name, booker_phone, roomtype, prefer_floor,"
           + " lead_person from bookingexample where booker_id = ?";
+  private static final String DELETE = "Delete from bookingexample where booker_id=?";
+  private static final String INSERT =
+      "Insert into bookingexample (booker_id, book_date, prefer_time, booker_name, "
+          + "booker_phone, roomtype, prefer_floor, lead_person) values (?, ?, ?, ?, ?, ?, ?, ?)";
+  private static final String UPDATE =
+      "update bookingexample set booker_id=?, book_date=?, prefer_time=?, booker_name=?,"
+          + " booker_phone=?,roomtype=?, prefer_floor=?, lead_person=? where booker_id = ?";
 
-  public BookerBean select(Integer integer) {
+  public List<BookerBean> selectAllUsers() {
+    List<BookerBean> bookers = new ArrayList<>();
+    try (Connection connection = ds.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL); ) {
+      System.out.println(preparedStatement + "----------------------------");
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+        int id = rs.getInt("booker_id");
+        Date date = rs.getDate("book_date");
+        String preferTime = rs.getString("prefer_time");
+        String name = rs.getString("booker_name");
+        String phone = rs.getString("booker_phone");
+        String roomtype = rs.getString("roomtype");
+        String preferFloor = rs.getString("prefer_floor");
+        String leadPerson = rs.getString("lead_person");
+        bookers.add(
+            new BookerBean(id, date, preferTime, name, phone, roomtype, preferFloor, leadPerson));
+      }
+    } catch (SQLException e) {
+      printSQLException(e);
+    }
+    return bookers;
+  }
+
+  public BookerBean select(Integer bookerId) {
     BookerBean result = null;
     try (Connection conn = ds.getConnection();
         PreparedStatement stmt = conn.prepareStatement(SELECT_BY_ID); ) {
-      stmt.setInt(1, integer);
+      stmt.setInt(1, bookerId);
       try (ResultSet rset = stmt.executeQuery(); ) {
         if (rset.next()) {
           result = new BookerBean();
-          //          result.setId(rset.getInt("id"));
           result.setBookerId(rset.getInt("booker_id"));
           result.setBookDate(rset.getDate("book_date"));
           result.setPreferTime(rset.getString("prefer_time"));
@@ -54,10 +87,6 @@ public class BookingDao {
     return result;
   }
 
-  private static final String SELECT_ALL =
-      "Select booker_id, book_date, prefer_time, booker_name, booker_phone, roomtype, prefer_floor,"
-          + " lead_person from bookingexample order by 2 desc";
-
   public List<BookerBean> select() {
     List<BookerBean> result = null;
     try (Connection conn = ds.getConnection();
@@ -66,7 +95,6 @@ public class BookingDao {
       result = new Vector<>();
       while (rset.next()) {
         BookerBean temp = new BookerBean();
-        //        temp.setId(rset.getInt("id"));
         temp.setBookerId(rset.getInt("booker_id"));
         temp.setBookDate(rset.getDate("book_date"));
         temp.setPreferTime(rset.getString("prefer_time"));
@@ -82,10 +110,6 @@ public class BookingDao {
     }
     return result;
   }
-
-  private static final String INSERT =
-      "Insert into bookingexample (booker_id, book_date, prefer_time, booker_name, booker_phone,"
-          + " roomtype, prefer_floor, lead_person) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
   public BookerBean insertBooker(BookerBean bean) throws SQLException {
     BookerBean result = null;
@@ -114,17 +138,55 @@ public class BookingDao {
     return result;
   }
 
-  private static final String DELETE = "Delete from bookingexample where booker_id=?";
-
-  public int delete(Integer bookerId) {
-    int result = 0;
+  public boolean delete(Integer bookerId) throws SQLException {
+    boolean rowDeleted;
     try (Connection conn = ds.getConnection();
         PreparedStatement stmt = conn.prepareStatement(DELETE); ) {
       stmt.setInt(1, bookerId);
-      result = stmt.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
+      rowDeleted = stmt.executeUpdate() > 0;
     }
-    return result;
+    return rowDeleted;
+  }
+
+  public boolean updateUser(BookerBean bean) throws SQLException {
+    boolean rowUpdated;
+    try (Connection connection = ds.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(UPDATE); ) {
+
+      java.util.Date temp = bean.getBookDate();
+      if (temp != null) {
+        java.sql.Date someTime = new java.sql.Date(temp.getTime());
+        stmt.setDate(1, someTime);
+      } else {
+        stmt.setDate(1, null);
+      }
+      stmt.setString(2, bean.getPreferTime());
+      stmt.setString(3, bean.getBookerName());
+      stmt.setString(4, bean.getBookerPhone());
+      stmt.setString(5, bean.getRoomtype());
+      stmt.setString(6, bean.getPreferFloor());
+      stmt.setString(7, bean.getLeadPerson());
+
+      stmt.setInt(8, bean.getBookerId());
+
+      rowUpdated = stmt.executeUpdate() > 0;
+    }
+    return rowUpdated;
+  }
+
+  private void printSQLException(SQLException ex) {
+    for (Throwable e : ex) {
+      if (e instanceof SQLException) {
+        e.printStackTrace(System.err);
+        System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+        System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+        System.err.println("Message: " + e.getMessage());
+        Throwable t = ex.getCause();
+        while (t != null) {
+          System.out.println("Cause: " + t);
+          t = t.getCause();
+        }
+      }
+    }
   }
 }

@@ -12,10 +12,6 @@
   <script>
   $(function() {
     $( "#datepicker" ).datepicker({ minDate: +0, maxDate: "+14D", dateFormat: "yy-mm-dd" });
-//     $( "#datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
-//     $( "#format" ).change(function() {
-//       $( "#datepicker" ).datepicker( "option", "dateFormat", $( this ).val() );
-//     });
   });
   </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -64,7 +60,7 @@
 
       <P/><input id="submit" type="submit" value="提交">
 </Form>
-<small>&lt;&lt;<a href="index.jsp">回首頁</a>&gt;&gt;</small>
+<small >&lt;&lt;<a href="index.jsp">回首頁</a>&gt;&gt;</small>
 </div>
 </body>
 

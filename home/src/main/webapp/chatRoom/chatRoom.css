@@ -69,6 +69,7 @@ body {
 .chat-avatar {
   width: 65px;
   height: 65px;
+
 }
 
 .chatroom-block {
@@ -105,13 +106,9 @@ body {
   height: 80px;
 }
 
-#chat-avatar {
-  height: 60px;
-  width: 60px;
-}
 
 #character {
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .date-divide {
@@ -134,6 +131,11 @@ body {
   border: 1px solid grey;
 }
 
+
+#close-time {
+  font-size: 1rem;
+}
+
 /*----------------------------------*/
 /*-------------文字輸入送出---------------*/
 .input-message {
@@ -147,6 +149,12 @@ body {
   color: #b3b3b3;
   font-size: 14px;
 }
+
+/*.message-border {*/
+/*  border: #16be0a 1px solid;*/
+/*  border-radius: 5px;*/
+/*  padding: 10px;*/
+/*}*/
 
 .message-content {
   border: #0a53be 1px solid;
