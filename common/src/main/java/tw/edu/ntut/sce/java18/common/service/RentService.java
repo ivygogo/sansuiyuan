@@ -1,6 +1,6 @@
 package tw.edu.ntut.sce.java18.common.service;
 
-import tw.edu.ntut.sce.java18.common.dao.impl.RentDao;
+import tw.edu.ntut.sce.java18.common.dao.RentDao;
 import tw.edu.ntut.sce.java18.common.dao.impl.RentDaoImpl;
 import tw.edu.ntut.sce.java18.common.model.RentBean;
 

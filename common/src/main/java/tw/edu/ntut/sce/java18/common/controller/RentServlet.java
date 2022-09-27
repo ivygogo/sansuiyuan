@@ -36,7 +36,6 @@ public class RentServlet extends HttpServlet {
     RentService service = new RentService();
     service.select(idString);
     var result = service.select(idString);
-    // System.out.println("檢查S--VLET" + result.getName2());
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     var printWriter = response.getWriter();
