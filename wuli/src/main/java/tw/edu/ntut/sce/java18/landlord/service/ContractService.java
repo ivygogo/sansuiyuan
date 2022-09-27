@@ -29,7 +29,9 @@ public interface ContractService {
 
   List<ContractBean> getAllContract();
 
-  List<ContractBean> hideAllContract();
+  List<ContractBean> getAllHideContract();
 
-  void changeHide(int CID);
+  void changeHide0(int CID);
+
+  void changeHide1(int CID);
 }

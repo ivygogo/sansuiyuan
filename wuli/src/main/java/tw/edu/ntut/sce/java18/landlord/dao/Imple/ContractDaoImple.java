@@ -277,9 +277,9 @@ public class ContractDaoImple implements ContractDao {
     }
     return contract;
   }
-
+  // ----------查詢隱藏合約---------------
   @Override
-  public List<ContractBean> hideAllContract() {
+  public List<ContractBean> queryAllHideContract() {
 
     String sql = "select * from contract where Hide = 0";
     List<ContractBean> contract = new ArrayList<>();
@@ -315,8 +315,22 @@ public class ContractDaoImple implements ContractDao {
   // -----------------修改隱藏值---------------------
 
   @Override
-  public void changeHide(int CID) {
+  public void changeHide0(int CID) {
     String sql = "update contract set Hide = 0  where CID = ?";
+
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql)) {
+      ps.setInt(1, CID);
+
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void changeHide1(int CID) {
+    String sql = "update contract set Hide = 1  where CID = ?";
 
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
