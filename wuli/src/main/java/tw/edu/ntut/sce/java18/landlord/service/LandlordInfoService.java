@@ -1,8 +1,8 @@
 package tw.edu.ntut.sce.java18.landlord.service;
 
+import tw.edu.ntut.sce.java18.landlord.dao.LandlordInfoDao;
+import tw.edu.ntut.sce.java18.landlord.dao.Imple.LandlordInfoDaoImpl;
 import tw.edu.ntut.sce.java18.landlord.model.LandlordInfo;
-import tw.edu.ntut.sce.java18.landlord.model.LandlordInfoDao;
-import tw.edu.ntut.sce.java18.landlord.model.impl.LandlordInfoDaoImpl;
 
 public class LandlordInfoService {
   LandlordInfoDao landlordInfoDao;

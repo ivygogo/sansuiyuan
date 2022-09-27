@@ -21,7 +21,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement // 本註釋必須與@Configuration出現在同一個類別
-@ComponentScan({"tw.edu.ntut.sce.java18"})
+@ComponentScan({"tw.edu.ntut.sce.java18.*.*.*.impl"})
+// tw.edu.ntut.sce.java18.tenant.findFriend.service.impl
 public class WebAppJavaConfig implements WebMvcConfigurer {
   private static Logger log = LoggerFactory.getLogger(WebAppJavaConfig.class);
 

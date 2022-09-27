@@ -83,7 +83,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 <script
   src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
 <script
-  src="${pageContext.request.contextPath}/js/repairForm.js"></script>
+  src="${pageContext.request.contextPath}/memberPage/repairForm.js"></script>
 
 <script  type="text/javascript">
 
@@ -242,7 +242,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	  
 	  $('#repairFormPage').html("");
 	  $('#repairFormPage').load('memberPage/listRepairForm.jsp', function() {
-          showFirst();})
+          showFirst();});
 	  //var clock = setInterval( , 200);
       
 	  //clearInterval(clock);
