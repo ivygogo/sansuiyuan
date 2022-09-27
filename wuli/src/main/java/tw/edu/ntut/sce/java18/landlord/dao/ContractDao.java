@@ -3,6 +3,7 @@ package tw.edu.ntut.sce.java18.landlord.dao;
 import java.sql.Connection;
 import java.util.List;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
+import tw.edu.ntut.sce.java18.landlord.model.ContractRoom_TypeItemsBean;
 
 public interface ContractDao {
   int saveContract(ContractBean cb);
@@ -39,4 +40,6 @@ public interface ContractDao {
   void changeHide0(int CID);
 
   void changeHide1(int CID);
+
+  List<ContractRoom_TypeItemsBean> queryRoomType();
 }

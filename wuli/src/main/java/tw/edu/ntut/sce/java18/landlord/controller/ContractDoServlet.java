@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
+import tw.edu.ntut.sce.java18.landlord.model.ContractRoom_TypeItemsBean;
 import tw.edu.ntut.sce.java18.landlord.service.ContractService;
 import tw.edu.ntut.sce.java18.landlord.service.Imple.ContractServiceImple;
 
@@ -37,6 +38,8 @@ public class ContractDoServlet extends HttpServlet {
     ContractService cs = new ContractServiceImple();
     HttpSession session = request.getSession();
     List<ContractBean> allcontract = new ArrayList<>();
+    List<ContractRoom_TypeItemsBean> allRoomType = new ArrayList<>();
+    allRoomType = cs.getRoomType();
     allcontract = cs.getAllContract();
     //   String cbs1 = cs.getStatus("租賃中");
     ContractBean cbs1 = cs.getStatus("租賃中");
@@ -57,6 +60,7 @@ public class ContractDoServlet extends HttpServlet {
     Map<String, ContractBean> map4 = new HashMap<>();
     map4.put("cbcs1", cbcs1);
     map4.put("cbcs2", cbcs2);
+    session.setAttribute("allRoomType", allRoomType);
     session.setAttribute("allContract", allcontract);
     session.setAttribute("contractS", map2);
     session.setAttribute("contractPS", map3);

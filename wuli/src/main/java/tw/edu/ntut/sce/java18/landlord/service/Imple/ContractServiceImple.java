@@ -5,11 +5,13 @@ import java.util.List;
 import tw.edu.ntut.sce.java18.landlord.dao.ContractDao;
 import tw.edu.ntut.sce.java18.landlord.dao.Imple.ContractDaoImple;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
+import tw.edu.ntut.sce.java18.landlord.model.ContractRoom_TypeItemsBean;
 import tw.edu.ntut.sce.java18.landlord.service.ContractService;
 
 public class ContractServiceImple implements ContractService {
   ContractDao cdao = new ContractDaoImple();
   ContractBean cb = null;
+  ContractRoom_TypeItemsBean ctb = null;
   List<String> allContract = null;
 
   @Override
@@ -89,5 +91,12 @@ public class ContractServiceImple implements ContractService {
   @Override
   public void changeHide1(int CID) {
     cdao.changeHide1(CID);
+  }
+
+  @Override
+  public List<ContractRoom_TypeItemsBean> getRoomType() {
+    List<ContractRoom_TypeItemsBean> ctbList = new ArrayList<>();
+    ctbList = cdao.queryRoomType();
+    return ctbList;
   }
 }
