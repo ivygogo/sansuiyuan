@@ -75,14 +75,19 @@ public class ContractServiceImple implements ContractService {
   }
 
   @Override
-  public List<ContractBean> hideAllContract() {
+  public List<ContractBean> getAllHideContract() {
     List<ContractBean> contract = new ArrayList<>();
-    contract = cdao.hideAllContract();
+    contract = cdao.queryAllHideContract();
     return contract;
   }
 
   @Override
-  public void changeHide(int CID) {
-    cdao.changeHide(CID);
+  public void changeHide0(int CID) {
+    cdao.changeHide0(CID);
+  }
+
+  @Override
+  public void changeHide1(int CID) {
+    cdao.changeHide1(CID);
   }
 }

@@ -20,7 +20,7 @@ public interface ContractDao {
 
   List<ContractBean> queryAllContract();
 
-  List<ContractBean> hideAllContract();
+  List<ContractBean> queryAllHideContract();
 
   ContractBean queryStatus(String Status);
 
@@ -36,5 +36,7 @@ public interface ContractDao {
 
   void setConnection(Connection con);
 
-  void changeHide(int CID);
+  void changeHide0(int CID);
+
+  void changeHide1(int CID);
 }
