@@ -8,6 +8,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import tw.edu.ntut.sce.java18.common.dao.RentDao;
 import tw.edu.ntut.sce.java18.common.model.RentBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 
