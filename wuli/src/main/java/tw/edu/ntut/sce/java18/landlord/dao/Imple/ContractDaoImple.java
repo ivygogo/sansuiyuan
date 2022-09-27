@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 import tw.edu.ntut.sce.java18.landlord.dao.ContractDao;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
+import tw.edu.ntut.sce.java18.landlord.model.ContractRoom_TypeItemsBean;
 
 public class ContractDaoImple implements ContractDao {
   private DataSource ds = null;
@@ -277,9 +278,9 @@ public class ContractDaoImple implements ContractDao {
     }
     return contract;
   }
-
+  // ----------查詢隱藏合約---------------
   @Override
-  public List<ContractBean> hideAllContract() {
+  public List<ContractBean> queryAllHideContract() {
 
     String sql = "select * from contract where Hide = 0";
     List<ContractBean> contract = new ArrayList<>();
@@ -315,7 +316,7 @@ public class ContractDaoImple implements ContractDao {
   // -----------------修改隱藏值---------------------
 
   @Override
-  public void changeHide(int CID) {
+  public void changeHide0(int CID) {
     String sql = "update contract set Hide = 0  where CID = ?";
 
     try (Connection con = ds.getConnection();
@@ -326,5 +327,54 @@ public class ContractDaoImple implements ContractDao {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void changeHide1(int CID) {
+    String sql = "update contract set Hide = 1  where CID = ?";
+
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql)) {
+      ps.setInt(1, CID);
+
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public List<ContractRoom_TypeItemsBean> queryRoomType() {
+    ContractRoom_TypeItemsBean ctb = null;
+    List<ContractRoom_TypeItemsBean> listCtb = new ArrayList<>();
+    String sql = "SELECT * FROM ContractRoom_TypeItems";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      try (ResultSet rs = ps.executeQuery(); ) {
+        while (rs.next()) {
+          ctb = new ContractRoom_TypeItemsBean();
+          ctb.setRoom_Type(rs.getString("Room_Type"));
+          ctb.setTV(rs.getInt("TV"));
+          ctb.setWaterHeater(rs.getInt("WaterHeater"));
+          ctb.setAirconditioner(rs.getInt("Airconditioner"));
+          ctb.setFreezer(rs.getInt("Freezer"));
+          ctb.setScreen(rs.getInt("Screen"));
+          ctb.setChair(rs.getInt("Chair"));
+          ctb.setSingleBed(rs.getInt("SingleBed"));
+          ctb.setDoubleBed(rs.getInt("DoubleBed"));
+          ctb.setSmallDesk(rs.getInt("SmallDesk"));
+          ctb.setBigDesk(rs.getInt("BigDesk"));
+          ctb.setSmallSideTable(rs.getInt("SmallSideTable"));
+          ctb.setBigSideTable(rs.getInt("BigSideTable"));
+          ctb.setWardrobe(rs.getInt("Wardrobe"));
+          listCtb.add(ctb);
+        }
+      }
+
+    } catch (SQLException e) {
+
+      e.printStackTrace();
+    }
+    return listCtb;
   }
 }

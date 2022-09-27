@@ -2,22 +2,24 @@ package tw.edu.ntut.sce.java18.common.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import tw.edu.ntut.sce.java18.common.dao.impl.BookDAO;
 import tw.edu.ntut.sce.java18.common.dao.impl.BookingDao;
 import tw.edu.ntut.sce.java18.common.model.BookerBean;
 
 public class BookingService {
   BookingDao dao = null;
+  BookDAO DAO = null;
 
   public BookingService() {
-    dao = new BookingDao();
+    DAO = new BookDAO();
   }
 
   public BookerBean select(Integer bookerId) {
-    return dao.select(bookerId);
+    return DAO.selectUser(bookerId);
   }
 
   public List<BookerBean> select() {
-    return dao.select();
+    return DAO.selectAllUsers();
   }
 
   public List<BookerBean> getAllBookers() {
@@ -28,7 +30,11 @@ public class BookingService {
     return dao.insertBooker(bean);
   }
 
-  public int delete(Integer bookerId) {
-    return dao.delete(bookerId);
+  public BookerBean insert(BookerBean bean) throws SQLException {
+    return DAO.insertUser(bean);
+  }
+
+  public boolean delete(Integer bookerId) throws SQLException {
+    return DAO.deleteUser(bookerId);
   }
 }
