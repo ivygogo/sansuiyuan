@@ -2,6 +2,7 @@ package tw.edu.ntut.sce.java18.landlord.service;
 
 import java.util.List;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
+import tw.edu.ntut.sce.java18.landlord.model.ContractRoom_TypeItemsBean;
 
 public interface ContractService {
   ContractBean getContract(int CID);
@@ -34,4 +35,6 @@ public interface ContractService {
   void changeHide0(int CID);
 
   void changeHide1(int CID);
+
+  List<ContractRoom_TypeItemsBean> getRoomType();
 }
