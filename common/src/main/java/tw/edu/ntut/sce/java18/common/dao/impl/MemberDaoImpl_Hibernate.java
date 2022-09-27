@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,8 @@ public class MemberDaoImpl_Hibernate implements Serializable, MemberDao_Hibernat
   @Override
   public MemberBean queryMemberByUId(Integer userId) {
     log.info("藉由userId搜尋memberBean");
-    MemberBean memberBean;
     Session session = factory.getCurrentSession();
+    MemberBean memberBean;
     String hql = "FROM MemberBean mb WHERE mb.uId = :uId";
 
     memberBean =
@@ -56,13 +55,13 @@ public class MemberDaoImpl_Hibernate implements Serializable, MemberDao_Hibernat
 
   @Override
   public List<Integer> queryFindingUIdList() {
-    List<Integer> friendList;
+    System.out.println("MemberDaoImpl_Hibernate . queryFindingUIdList  ");
+    List friendList;
     Session session = factory.getCurrentSession();
-    Transaction tx = null;
-
     String hql = "SELECT uId FROM MemberBean WHERE open_tag = 1";
-
     friendList = session.createQuery(hql).getResultList();
+    System.out.println("MemberDaoImpl_Hibernate . queryFindingUIdList");
+
     log.info("取得開啟標籤的list");
     return friendList;
   }

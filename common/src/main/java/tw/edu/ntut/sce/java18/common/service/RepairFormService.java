@@ -21,4 +21,12 @@ public interface RepairFormService {
   int deleteRepairForm(String formNumber);
 
   public List<RepairFormBean> queryAllRepairForm();
+
+  boolean checkMemberUidExists(String formNumber);
+
+  int updateRepairFormByLandload(RepairFormBean repairFormBean);
+
+  int checkRepairFormExistBytime(int memberid, String beginTime, String endTime);
+
+  int checkUnFinishedRepairFormAmount(int memberid);
 }

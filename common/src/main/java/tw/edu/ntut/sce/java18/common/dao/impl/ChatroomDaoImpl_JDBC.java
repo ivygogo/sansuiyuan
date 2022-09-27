@@ -103,6 +103,29 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
+  public int queryCountForMakeFriendByUserId(int member) {
+    String sql =
+        "SELECT COUNT(Id) " + "FROM chatroom WHERE (member1 = ? OR member2 = ?) AND member1 != 0";
+
+    try (Connection connection = ds.getConnection();
+        var preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setInt(1, member);
+      preparedStatement.setInt(2, member);
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+          System.out.println("counttttttttttt" + resultSet.getInt("COUNT(Id)"));
+          return resultSet.getInt("COUNT(Id)");
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "ChatroomDaoImpl_JDBC類別#queryCountForMakeFriendByUserId()發生例外: " + ex.getMessage());
+    }
+    return 0;
+  }
+
+  @Override
   public void insertChatroom(
       String type, int member1, int member2, String createTime, String closeTime) {
     String sql =
@@ -143,17 +166,14 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
-  public void updateCloseTime(int roomId, int day) { // todo 未測試
+  public void updateCloseTime(int roomId, int day) {
     var localDateTime = LocalDateTime.now();
     var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
     String newCloseTime;
-
-    if (day == 0) {
-      newCloseTime = dateTimeFormatter.format(localDateTime);
-    } else {
-      newCloseTime = dateTimeFormatter.format(localDateTime.plusDays(day));
-    }
-    String sql = "UPDATE chatroom SET Close_Time = ? WHERE Id = ? ";
+    System.out.println("day ==== " + day);
+    newCloseTime = dateTimeFormatter.format(localDateTime.plusDays(day));
+    System.out.println(newCloseTime);
+    String sql = "UPDATE chatroom SET Close_Time = ?,IsOpen = 0 WHERE Id = ? ";
 
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {

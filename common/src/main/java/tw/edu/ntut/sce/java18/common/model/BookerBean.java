@@ -1,13 +1,12 @@
 package tw.edu.ntut.sce.java18.common.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class BookerBean implements Serializable {
   private static final long serialVersionUID = 1L;
-  //  private Integer id;
   private Integer bookerId;
   private Date bookDate;
   private String preferTime;
@@ -22,7 +21,6 @@ public class BookerBean implements Serializable {
   }
 
   public BookerBean(
-      //      Integer id,
       Integer bookerId,
       Date bookDate,
       String preferTime,
@@ -32,7 +30,6 @@ public class BookerBean implements Serializable {
       String preferFloor,
       String leadPerson) {
     super();
-    //    this.id = id;
     this.bookDate = bookDate;
     this.preferTime = preferTime;
     this.bookerId = bookerId;
@@ -42,14 +39,6 @@ public class BookerBean implements Serializable {
     this.preferFloor = preferFloor;
     this.leadPerson = leadPerson;
   }
-
-  //  public Integer getId() {
-  //    return id;
-  //  }
-  //
-  //  public void setId(Integer id) {
-  //    this.id = id;
-  //  }
 
   public Date getBookDate() {
     return bookDate;
@@ -62,9 +51,9 @@ public class BookerBean implements Serializable {
   private static SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 
   public static Date convertDate(String temp) {
-    Date result = new java.util.Date();
+    Date result = (Date) new java.util.Date();
     try {
-      result = sdf.parse(temp);
+      result = (Date) sdf.parse(temp);
     } catch (ParseException e) {
       result = null;
       e.printStackTrace();
