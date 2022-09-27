@@ -57,13 +57,13 @@ input {
 </head>
 <body>
 	<div style="position: relative;">
-		<img src='<c:url value="/images/contract/icon.jpg" ></c:url>'
+		<img src='<c:url value="/images/contractQueryImg/icon.jpg" ></c:url>'
 			width="100" height="50">
 		<div style="position: absolute; display: inline-block; right: 150px;">
 
 		</div>
 		<div style="position: absolute; right: 0; top: 0;">
-			<img src='<c:url value="/images/contract/user.png" ></c:url>'
+			<img src='<c:url value="/images/contractQueryImg/user.png" ></c:url>'
 				width="40" height="40">
 			<p style="display: inline-block; letter-spacing: 1px;">山水苑 aaa111
 				登出</p>
@@ -91,12 +91,12 @@ input {
 		
 		<div class="d-flex justify-content-center">
 			
-				<div class="p-4"><img src='<c:url value="/images/contract/refresh.png" ></c:url>' width="30" height="30" style="cursor: pointer; display: inline; top: 200px;" onclick="window.location.reload();"> Refresh </div>
-				<div class="p-4"><a href="ContractHide"><img src='<c:url value="/images/contract/undo.png" ></c:url>' width="30" height="30" style="top: 200px;"></a></div>
+				<div class="p-4"><img src='<c:url value="/images/contractQueryImg/refresh.png" ></c:url>' width="30" height="30" style="cursor: pointer; display: inline; top: 200px;" onclick="window.location.reload();"> Refresh </div>
+				<div class="p-4"><a href="ContractHide"><img src='<c:url value="/images/contractQueryImg/undo.png" ></c:url>' width="30" height="30" style="top: 200px;"></a></div>
 	 <div class="p-4">
         <form action="Update" method="post" name="delete">
           <input type="image"
-            src='<c:url value="/images/contract/trash.png" ></c:url>'
+            src='<c:url value="/images/contractQueryImg/trash.png" ></c:url>'
             style="top: 200px; cursor: pointer; width: 30px; height: 30px;"
             id="hide"> <input type="hidden" name="selects" value=""
             id="formUpdate">
@@ -104,7 +104,7 @@ input {
       </div>
   <div class="p-4 mr-3">  
    <span style="display: inline; font-weight: bold; font-size: 20px">關鍵字</span><input style="width: 250px; height: 30px;" type="text">
-  <img src='<c:url value="/images/contract/search.png" ></c:url>' width="30" height="30">
+  <img src='<c:url value="/images/contractQueryImg/search.png" ></c:url>' width="30" height="30">
   </div> 
         </div> 
        
@@ -202,10 +202,10 @@ input {
 						class="status" onclick="return false;">已退租 <input
 						type="checkbox" id="cks3" value="${contractS.cbs3.status}"
 						class="status" onclick="return false;">租約到期 <img
-						src='<c:url value="/images/contract/edit.png" ></c:url>'
+						src='<c:url value="/images/contractQueryImg/edit.png" ></c:url>'
 						style="width: 30px; height: 30px; display: inline; margin-left: 800px; margin-bottom: 17px; cursor: pointer;"
 						id="edit"> <input type="image" id="save"
-						src='<c:url value="/images/contract/save.png" ></c:url>'
+						src='<c:url value="/images/contractQueryImg/save.png" ></c:url>'
 						style="width: 30px; height: 30px; cursor: pointer; display: inline; margin-left: 50px;">
 				</div>
 
