@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <title>${SYSTEM.systemName}-房型瀏覽</title>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -76,5 +77,16 @@
   <script src="${pageContext.request.contextPath}/js/main.js"></script>
   
 </body>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $("#datepicker").datepicker({
+      minDate : +0,
+      maxDate : "+14D",
+      dateFormat : "yy-mm-dd"
+    });
+  });
+</script>
 </html>
 

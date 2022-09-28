@@ -58,38 +58,39 @@ input {
 </head>
 
 <body>
-  <div style="position: relative;">
-    <img src='<c:url value="/images/contractQueryImg/icon.jpg" ></c:url>'
-      width="100" height="50">
-    <div style="position: absolute; display: inline-block; right: 150px;">
+<!-- ---------------------header------------------------------ -->
+<!--   <div style="position: relative;"> -->
+<%--     <img src='<c:url value="/images/contractQueryImg/icon.jpg" ></c:url>' --%>
+<!--       width="100" height="50"> -->
+<!--     <div style="position: absolute; display: inline-block; right: 150px;"> -->
 
-    </div>
-    <div style="position: absolute; right: 0; top: 0;">
-      <img src='<c:url value="/images/contractQueryImg/user.png" ></c:url>'
-        width="40" height="40">
-      <p style="display: inline-block; letter-spacing: 1px;">山水苑 aaa111
-        登出</p>
-    </div>
-  </div>
+<!--     </div> -->
+<!--     <div style="position: absolute; right: 0; top: 0;"> -->
+<%--       <img src='<c:url value="/images/contractQueryImg/user.png" ></c:url>' --%>
+<!--         width="40" height="40"> -->
+<!--       <p style="display: inline-block; letter-spacing: 1px;">山水苑 aaa111 -->
+<!--         登出</p> -->
+<!--     </div> -->
+<!--   </div> -->
 
-  <div style="position: relative;">
-    <table class="bkground">
-      <tr>
-        <td class="font">房契管理</td>
-        <td>合約查詢</td>
-        <td class="font">看房預約</td>
-        <td class="font">報修管理</td>
-        <td class="font">討論區</td>
-        <td class="font">聊天室</td>
-        <td class="font">廣告管理</td>
-        <td class="font">行事曆</td>
+<!--   <div style="position: relative;"> -->
+<!--     <table class="bkground"> -->
+<!--       <tr> -->
+<!--         <td class="font">房契管理</td> -->
+<!--         <td>合約查詢</td> -->
+<!--         <td class="font">看房預約</td> -->
+<!--         <td class="font">報修管理</td> -->
+<!--         <td class="font">討論區</td> -->
+<!--         <td class="font">聊天室</td> -->
+<!--         <td class="font">廣告管理</td> -->
+<!--         <td class="font">行事曆</td> -->
 
-      </tr>
+<!--       </tr> -->
 
-    </table>
-  </div>
+<!--     </table> -->
+<!--   </div> -->
 
-
+<!-- -------------- ------body------------------------------------------>
 
   <div class="d-flex justify-content-center">
 
@@ -121,19 +122,6 @@ input {
         width="30" height="30">
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   <hr style="margin-top: 20px;">
@@ -330,12 +318,12 @@ input {
               });
         </script>
       </form>
-
+<!-- -------------- ------------------------------------------------>
 
       
       
-      <div class="d-flex m-5 justify-content-center">
-        <div class=" room-type-main-side-block col-md-6 col-12">
+      <div class="d-flex m-5 justify-content-center" >
+        <div class=" room-type-main-side-block col-md-6 col-12" id="RoomItems" style="display: none;">
           <div class="p-3 room-type-side-regin"
             style="border: 1px solid green;">
             <h3>房間設備：</h3>
@@ -549,8 +537,8 @@ input {
   let Desk = document.getElementById("Desk")
   let SideTable = document.getElementById("SideTable")
   let Wardrobe = document.getElementById("Wardrobe")
+  let RoomItems = document.getElementById("RoomItems")
   function doFirst() {
-
     allCK.addEventListener('click', selectAll)
     edit.addEventListener('click', alter)
     save.addEventListener('click', change)
@@ -628,12 +616,9 @@ input {
       let status = document.getElementById("status" + ck[i].value)
       let CID = document.getElementById("CID" + ck[i].value)
       let name = document.getElementById("name" + ck[i].value)
-      let room_Number = document.getElementById("room_Number"
-          + ck[i].value)
-      let payment_Status = document.getElementById("payment_Status"
-          + ck[i].value)
-      let check_Status = document.getElementById("check_Status"
-          + ck[i].value)
+      let room_Number = document.getElementById("room_Number"+ ck[i].value)
+      let payment_Status = document.getElementById("payment_Status"+ ck[i].value)
+      let check_Status = document.getElementById("check_Status"+ ck[i].value)
       let check_Fee = document.getElementById("check_Fee" + ck[i].value)
       let PDF = document.getElementById("PDF" + ck[i].value)
       let deposit = document.getElementById("deposit" + ck[i].value)
@@ -648,6 +633,7 @@ input {
                 ContractStatus.value = status.value
                 ContractPayment_status.value = payment_Status.value
                 ContractCheck_status.value = check_Status.value
+                RoomItems.removeAttribute('style');
                 // --------合約狀態判斷式----------
                 if (status.value === renting) {
                   cks1.checked = true;
@@ -680,6 +666,7 @@ input {
                   ckcs2.checked = true;
                 }
 //                 
+
 //                   ------------  // 房型判斷式------------
                 if (room_Type.value == "單人房A"  ) {
                  TV.value = `*${allRoomType.get(0).TV}`
@@ -749,9 +736,10 @@ input {
                  Wardrobe.value = `*${allRoomType.get(5).wardrobe}`
                 }
               })
-
     }
   }
+
+
 
   function test() {
     let selectsArray = []
@@ -785,9 +773,11 @@ input {
   function deliver() {
     document.forms['delete'].submit();
   }
+
   function change() {
     document.forms['formModify'].submit();
   }
+  
   function selectAll() {
     let selectsArray = []
     for (i = 0; i < ck.length; i++) {

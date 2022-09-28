@@ -6,7 +6,7 @@ $(function () {
   decideBlockSize()
   decideBlockSize
 
-  const name1 = 6 //  要發訊息的人    //TODO (從會員資料)
+  const name1 = 5 //  要發訊息的人    //TODO (從會員資料)
   let name2
   console.log(name1)
   // 讀取chatroomList  -----------------
