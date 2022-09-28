@@ -12,7 +12,7 @@
           <li><a data-toggle="tab" href="#Tables"><i
               class="notika-icon notika-edit"></i>行事曆</a></li>
           <li><a data-toggle="tab" href="#Charts"><i
-              class="notika-icon notika-mail"></i>看房預約</a></li>
+              class="notika-icon notika-mail"></i>預約管理</a></li>
           <li><a data-toggle="tab" href="#Forms"><i
               class="notika-icon notika-form"></i>報修管理</a></li>
           <li><a data-toggle="tab" href="#Page"><i
