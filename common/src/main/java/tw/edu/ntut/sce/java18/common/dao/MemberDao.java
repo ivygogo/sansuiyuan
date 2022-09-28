@@ -12,7 +12,5 @@ public interface MemberDao {
 
   boolean checkMemberUidExists(int uId); // 此uId不是帳號，而是PK
 
-  String checkIdNumber(String formValue, int genderId);
-
   int updateMemberInfo(MemberBean member);
 }

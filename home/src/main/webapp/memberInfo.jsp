@@ -2,7 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<% 
+<%
 
 String editState = request.getParameter("edit");
 //System.out.println("editState:::::"+editState);
@@ -18,7 +18,7 @@ request.setAttribute("RefundIsInvalid", false);
 }
 
 %>
-<!-- 
+<!--
 ////////////////////////////////////////////////////////////////
 
 Author: Free-Template.co
@@ -26,7 +26,7 @@ Author URL: http://free-template.co.
 License: https://creativecommons.org/licenses/by/3.0/
 License URL: https://creativecommons.org/licenses/by/3.0/
 Site License URL: https://free-template.co/template-license/
-  
+
 Website:  https://free-template.co
 Facebook: https://www.facebook.com/FreeDashTemplate.co
 Twitter:  https://twitter.com/Free_Templateco
@@ -53,15 +53,12 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
   rel="stylesheet">
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
-
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/jquery-ui.css">
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
 
@@ -73,10 +70,8 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
-
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/aos.css">
-
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/style.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
@@ -90,11 +85,11 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
  var checkPass;
  var tabId;
  var innerPage ="";
-      
+
       function doFirst(){
         checkPage = '${myPage}';
         //alert('checkPage!!!'+checkPage);
-        
+
         //checkPage ='myinfo'
         checkTab ="#"+checkPage;
         checkTabT ="\'#"+checkPage+"\'";
@@ -102,8 +97,8 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
         checkAllTab= "#myTabs a[href=\" "+ checkTab + "\"]"
         checkPass ='${checkErr}';
         //alert('checkPage!!!'+checkPage);
-        
-        
+
+
         if (checkPage ==="myinfo"||checkPage.length==0){
           $("#home-tab").attr("class", 'nav-link active')
               $("#home-tab").attr("aria-selected", 'true')
@@ -112,7 +107,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
               $('#profile').attr('class', "tab-pane fade")
               $("#profile-tab").attr("aria-selected", 'false')
             }
-        
+
         if (checkPage ==="profile"){
              // $('#contact').show()
               $('#profile').attr('class', "tab-pane fade active show")
@@ -122,8 +117,8 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
               $("#profile-tab").attr("class", 'nav-link active')
               //$("#contact-tab").attr('class', "nav-link active")
             }
-        
-        
+
+
           function updateMemberinfo(){
                   innerPage = "editMemberinfo";
                   //alert("editMemberinfo")
@@ -132,7 +127,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                      $('#myinfo').load('memberPage/editMemberInfo.jsp');
                   }
           }
-          
+
           function updateContractinfo(){
             innerPage = "editContractinfo";
             if(innerPage =="editContractinfo"){
@@ -142,9 +137,9 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
       }
       }
       window.addEventListener('load', doFirst);
-      
+
       $(function(){$('#profile-tab').click(function(){
-        
+
          var qs = document.querySelector("form");
          //alert(qs)
          if(qs!=null){
@@ -170,11 +165,11 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                     $("#home-tab").attr("class", 'nav-link')
                     $('#home').attr('class', "tab-pane fade")
                     $("#home-tab").attr("aria-selected", 'false')
-                    
+
               }
          })
       })
-      
+
       $(function(){$('#home-tab').click(function(){
         var qs = document.querySelector("form");
           //alert(qs)
@@ -203,10 +198,10 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
               $('#profile').attr('class', "tab-pane fade")
               $("#profile-tab").attr("aria-selected", 'false')
               }
-          
+
         })
       })
-      
+
       innerPage ="";
       function updateMemberinfo(){
               innerPage = "editMemberinfo";
@@ -223,7 +218,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                       600
                     );
       }
-      
+
       function updateContractinfo(){
         innerPage = "editContractinfo";
         if(innerPage =="editContractinfo"){
@@ -237,8 +232,8 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                   600
                 );
   }
-      
-      
+
+
      function updateRefundinfo(){
           innerPage = "updateRefundinfo";
           if(innerPage =="updateRefundinfo"){
@@ -252,30 +247,16 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
                   600
                 );
     }
-      
-      
+
       function dropForm(item){
         if((item.getAttribute('id'))==="memberInfo_dropIt"){
-        
          document.location.href="/home/MemberInfo.do?edit=member"
          //alert("memberInfo_dropIt")
         }else if((item.getAttribute('id'))==="dropIt"){
           //alert("dropIt")
           document.location.href="/home/MemberInfo.do?edit=dropIt"
         }
-        
-       //$('#home').html("")
-       //$('#home').load('memberPage/showMemberInfo.jsp?edit=drop');
-        //$('#profile').html("")
-        //$('#profile').load('memberPage/showContractInfo.jsp?edit=drop');
-        //document.location.href="/home/MemberInfo.do"
-        <%--$("html,body").animate(
-                {
-                  scrollTop: 0,
-                },
-                600
-              );
-         //location.reload();--%>
+
       }
      </script>
 </head>
@@ -366,7 +347,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
         </div>
 
       </div>
-  </div>
+
   </section>
 
   <%--footer --%>
@@ -374,7 +355,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
   <%--.site-wrap --%>
   <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
-
 
   <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
   <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
@@ -391,6 +371,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
   <script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
   <script src="${pageContext.request.contextPath}/js/main.js"></script>
-  
+
 </body>
 </html>
