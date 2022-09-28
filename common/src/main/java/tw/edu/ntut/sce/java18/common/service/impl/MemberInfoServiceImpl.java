@@ -745,6 +745,12 @@ public class MemberInfoServiceImpl implements MemberInfoService {
   }
 
   @Override
+  public MemberBean checkIdPassword(String mail, String password) {
+    MemberBean mb = mbDao.checkIdPassword(mail, password);
+    return mb;
+  }
+
+  @Override
   public int getSignatureId(String name) {
     int signatureId = cfDao.getSignatureId(name);
     return signatureId;

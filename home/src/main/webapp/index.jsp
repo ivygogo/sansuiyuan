@@ -10,7 +10,7 @@ Author URL: http://free-template.co.
 License: https://creativecommons.org/licenses/by/3.0/
 License URL: https://creativecommons.org/licenses/by/3.0/
 Site License URL: https://free-template.co/template-license/
-  
+
 Website:  https://free-template.co
 Facebook: https://www.facebook.com/FreeDashTemplate.co
 Twitter:  https://twitter.com/Free_Templateco
@@ -84,7 +84,8 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 						<div class="row align-items-center justify-content-center">
 							<div class="col-md-6 mt-lg-5 text-center">
 								<h1 class="text-shadow">山水苑-租房首選</h1>
-								<p class="mb-5 text-shadow">
+
+                  <p class="mb-5 text-shadow">
 									淡江大學推薦之住宿之親善業者，提供學子優質租屋環境。<br> 座落地靈人傑的淡江大學周邊，步行5分鐘即可到達
 								</p>
 								<p>
@@ -98,7 +99,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 
 				</div>
-		
+
 
 			</div>
 		</div>
@@ -579,7 +580,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 				</div>
 			</div>
-			
+
 		</div>
 
 	</section>

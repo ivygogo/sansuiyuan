@@ -147,6 +147,27 @@ public class MemberBean implements Serializable {
     this.refundAccount = refundAccount;
   }
 
+  public MemberBean(String name,
+                    int gender,
+                    String phone,
+                    String idNumber,
+                    String mail,
+                    String password,
+                    String address,
+                    String nickname,
+                    Timestamp create_time){
+    super();
+    this.name = name;
+    this.gender = gender;
+    this.phone = phone;
+    this.idNumber = idNumber;
+    this.mail = mail;
+    this.password = password;
+    this.address = address;
+    this.nickname = nickname;
+    this.create_time = create_time;
+  }
+
   /* ====== getter ======*/
 
   public static long getSerialversionuid() {

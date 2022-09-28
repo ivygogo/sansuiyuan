@@ -17,7 +17,11 @@ public interface MemberDao {
 
   int updateMemberInfo(MemberBean member);
 
-  Integer insertMember(MemberRegisterRequest memberRegisterRequest);
+  boolean mailExists(String mail);
 
-  MemberBean getMemberByEmail(String email);
+  MemberBean checkIdPassword(String mail, String password);
+
+  Integer insertMemberS(MemberRegisterRequest memberRegisterRequest); // springboot
+
+  MemberBean getMemberByEmail(String email); // springboot
 }

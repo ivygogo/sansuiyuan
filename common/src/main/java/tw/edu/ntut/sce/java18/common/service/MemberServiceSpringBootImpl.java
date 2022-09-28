@@ -12,9 +12,9 @@ import tw.edu.ntut.sce.java18.common.dto.MemberRegisterRequest;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceSpringBootImpl implements MemberServiceSpringBoot {
 
-  private final static Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
+  private final static Logger log = LoggerFactory.getLogger(MemberServiceSpringBootImpl.class);
 
   @Autowired
   private MemberDao memberDao;
@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
     memberRegisterRequest.setPassword(hashedPassword);
 
     // 創建帳號
-    return memberDao.insertMember(memberRegisterRequest);
+    return memberDao.insertMemberS(memberRegisterRequest);
   }
 
   @Override

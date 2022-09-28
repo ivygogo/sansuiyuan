@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tw.edu.ntut.sce.java18.common.dto.MemberRegisterRequest;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
-import tw.edu.ntut.sce.java18.common.service.MemberService;
+import tw.edu.ntut.sce.java18.common.service.MemberServiceSpringBoot;
 
 import javax.validation.Valid;
 
@@ -16,13 +16,13 @@ import javax.validation.Valid;
 public class MemberRestController {
 
   @Autowired
-  private MemberService memberService;
+  private MemberServiceSpringBoot memberServiceSpringBoot;
 
   @PostMapping("member/register")
   public ResponseEntity<MemberBean> register(@RequestBody @Valid MemberRegisterRequest memberRegisterRequest){
-      Integer memberId = memberService.register(memberRegisterRequest);
+      Integer memberId = memberServiceSpringBoot.register(memberRegisterRequest);
 
-      MemberBean memberBean = memberService.getMemberById(memberId);
+      MemberBean memberBean = memberServiceSpringBoot.getMemberById(memberId);
       return ResponseEntity.status(HttpStatus.CREATED).body(memberBean);
   }
 

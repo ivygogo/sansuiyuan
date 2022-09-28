@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<% int n = (int) (Math.random() * 10) + 1; 
+<% int n = (int) (Math.random() * 10) + 1;
 request.setAttribute("page", n);
 %>
 
@@ -24,7 +24,7 @@ request.setAttribute("page", n);
 					<ul
 						class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
 						<li><a href="#home-section" class="nav-link">關於我們</a></li>
-						
+
 						<li class="nav-item dropdown has-children dropdown arrow-top">
 							<a class="nav-link " href="#" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false"> 房型瀏覽 </a>
@@ -62,11 +62,12 @@ request.setAttribute("page", n);
                 <li><hr class="dropdown-divider"></li>
 							</ul>
 							</li>
+              <li><a href="<c:url value='/login/logout1.jsp' /> " class="nav-link">登出</a></li>
 						</c:if>
 					</ul>
 				</nav>
 			</div>
-			
+
 
 
 			<div class="col-6 d-inline-block d-xl-none ml-md-0 py-3">
