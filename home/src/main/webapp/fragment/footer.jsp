@@ -47,9 +47,10 @@
           <div class="col-md-3 mx-auto">
             <h2 class="footer-heading mb-4">相關連結</h2>
             <ul class="list-unstyled">
-              <li><a href="#">關於我們</a></li>
-              <li><a href="#">房型瀏覽</a></li>
-              <li><a href="#">找室友</a></li>
+              <li><a href="aboutus.jsp">關於我們</a></li>
+              <li><a href="roomtype.jsp">房型瀏覽</a></li>
+              <li><a href="findRoommate.jsp">找室友</a></li>
+              <li><a href="login.html">登入/註冊</a></li>
             </ul>
           </div>
 
