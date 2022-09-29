@@ -31,7 +31,7 @@
             ============================================ -->
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/owl.carousel.css">
-<link rel="stylesheet"
+<link rel="stylesheet"[]
   href="${pageContext.request.contextPath}/css/owl.theme.css">
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/owl.transitions.css">
@@ -146,7 +146,7 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/landlordRepairForm.js"></script>
+<script src="${pageContext.request.contextPath}/landlordRepairForm/landlordRepairForm.js"></script>
 
 </head>
 <script>

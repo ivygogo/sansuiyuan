@@ -12,7 +12,7 @@ let time;
 
 
 function showFirst() {
-  $.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
+  $.getJSON('/home/RepairForm.do?doJob=repairFormInfo').then(res => {
     //console.log(res);
     //console.log(res.repairFormList[1].status);
 
@@ -81,6 +81,8 @@ function showFirst() {
         repairTable += `</div> </td> </tr>`;
       }
       $('#repairForm').append(repairTable);
+      $('#newRepairBtn').attr("style","visibility:visible")
+     
 
     } else if (res.roomNumber === "非租客") {
       let info = "<div class='my-5' style='display: flex; justify-content: center;'>" +
@@ -255,7 +257,7 @@ function deleteRepairForm(item) {
       data: {
         id: myformNumber //帶入向伺服器傳遞的資訊
       },
-      url: '/home/common/RepairForm.do?page=deleteRepairForm',  //目標Route
+      url: '/home/RepairForm.do?page=deleteRepairForm',  //目標Route
       type: 'post', //請求方法
       timeout: 15000, //請求限時，單位是毫秒
 
@@ -271,7 +273,7 @@ function deleteRepairForm(item) {
 }
 
 function getFurniture(myformProjectNameAlias) {
-  $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
+  $.getJSON('/home/RepairForm.do?doJob=getProject').then(res => {
     //console.log(res)
     let projectOption = "";
     for (let i = 0; i < res.furnitureList.length; i++) {
@@ -293,13 +295,23 @@ function showNewRepairForm(ridState) {
   let myformNumber;
   let newRoom;
   if (ridState === "getchat") {
-    $.getJSON('/home/common/RepairForm.do?doJob=getchat').then(res => {
-      myformNumber = res.formId.repairFormNumber
-      newRoom = res.toRoom
-     //alert("res.toRoom"+res.toRoom)
+    $.getJSON('/home/RepairForm.do?doJob=getchat').then(res => {
+      myformNumber = res.formId.repairFormNumber;
+     newRoom = Number(res.toRoom);
+     //alert(newRoom)
+      $.ajax({
+        type: 'POST',
+        url: '/home/ChatroomServlet?callFrom=createChatroom',
+        data: {
+          'Id': newRoom,
+          'chatTarget': 0,
+          'chatType': 'R'
+        }
+      })
+
     });
 
-    $.getJSON('/home/common/RepairForm.do?doJob=repairFormInfo').then(res => {
+    $.getJSON('/home/RepairForm.do?doJob=repairFormInfo').then(res => {
 
       for (let i = 0; i < res.repairFormList.length; i++) {
         if (res.repairFormList[i].repairFormNumber === myformNumber) {
@@ -330,15 +342,7 @@ function showNewRepairForm(ridState) {
         });
     });
     
-    $.ajax({
-      type: 'POST',
-      url: '/home/ChatroomServlet?callFrom=createChatroom',
-      data: {
-        'Id': newRoom,
-        'chatTarget': 0,
-        'chatType': 'R'
-      }
-    })
+
 
   }
 }

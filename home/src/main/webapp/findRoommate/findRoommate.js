@@ -30,12 +30,25 @@ $(function () {
     const targetId = e.target.getAttribute('data-memberId')
     $.ajax({
       type: 'POST',
-      url: '/home/ChatroomServlet?callFrom=createChatroom',
-      data: {'Id': userId, 'chatTarget': targetId, 'chatType': 'F'},
+      url: '/home/FindFriendServlet?callFrom=checkLimit',
+      data: {'userId': userId},
       success: function (resp) {
         console.log(resp)
+        if (resp === 'true') {
+          $.ajax({
+            type: 'POST',
+            url: '/home/ChatroomServlet?callFrom=createChatroom',
+            data: {'Id': userId, 'chatTarget': targetId, 'chatType': 'F'},
+            success: function (resp) {
+              console.log(resp)
+            }
+          })
+        } else {
+          alert('你已達找室友功能的上限（５人），請將無願意成為室友的聊天室刪除（封鎖）。')
+        }
       }
     })
+
   });
 
   $('.pick-condition').change(function () {
@@ -54,13 +67,14 @@ $(function () {
       data: {'userId': userId},
       success: function (resp) {
         if (resp === "true") {
+          $("#open-finding").prop("checked", true);
           $('#not-open').hide()
           $('.select-block').show()
           $('.all-find-list').show()
           $('#refresh-btn').removeClass('d-none')
 
-          $('input[type=radio][name=is-open]')
         } else {
+          $("#close-finding").prop("checked", true);
           $('#not-open').show()
           $('.select-block').hide()
           $('.all-find-list').hide()
@@ -266,7 +280,7 @@ $(function () {
 
     for (let i = 0; i < memberIdArray.length; i++) {
       const personalConditionArray = []
-      $(`*[data-memberid="${memberIdArray[i]}"]`).find(
+      $(`[data-memberid="${memberIdArray[i]}"]`).find(
         $('.condition-attr')).each(function () {
         personalConditionArray.push($(this).text())
       })
@@ -277,11 +291,11 @@ $(function () {
           if (personalConditionArray.indexOf(selectedConditionArray[j])
             === -1) {
             $(`*[data-memberid="${memberIdArray[i]}"]`).parent().hide()
-            return false
+            return
           }
         }
-        $(`*[data-memberid="${memberIdArray[i]}"]`).parent().show()
-        return true
+        $(`[data-memberid="${memberIdArray[i]}"]`).parent().show()
+        return
       }
     }
   }

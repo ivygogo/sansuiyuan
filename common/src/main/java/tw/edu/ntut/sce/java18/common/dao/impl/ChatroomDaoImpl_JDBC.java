@@ -71,7 +71,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   @Override
   public ArrayList queryExistChatroomByUser(int member) {
     String sql =
-        "SELECT Id, member1, member2, Chat_type, Close_Time "
+        "SELECT Id, member1, member2, Chat_type, Close_Time, IsOpen "
             + "FROM chatroom WHERE member1 = ? OR member2 = ?";
     var existChatroomList = new ArrayList();
 
@@ -85,6 +85,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
           existChatroom.setId(resultSet.getInt("Id"));
           existChatroom.setChatType(resultSet.getString("Chat_type"));
           existChatroom.setCloseTime(resultSet.getTimestamp("Close_Time"));
+          existChatroom.setIsOpen(resultSet.getInt("IsOpen"));
           if (resultSet.getInt("member1") == member) {
             existChatroom.setUserId(resultSet.getInt("member2"));
             existChatroom.setTargetId(resultSet.getInt("member1"));
@@ -103,26 +104,25 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
   }
 
   @Override
-  public int queryCountForMakeFriendByUserId(int member) {
+  public Integer queryCountForMakeFriendByUserId(int member) {
     String sql =
-        "SELECT COUNT(Id) " + "FROM chatroom WHERE (member1 = ? OR member2 = ?) AND member1 != 0";
-
+        "SELECT COUNT(Id) FROM chatroom WHERE (member1 = ? OR member2 = ?)"
+            + " AND member1 != 0 AND IsOpen = 1";
     try (Connection connection = ds.getConnection();
         var preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setInt(1, member);
       preparedStatement.setInt(2, member);
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         if (resultSet.next()) {
-          System.out.println("counttttttttttt" + resultSet.getInt("COUNT(Id)"));
           return resultSet.getInt("COUNT(Id)");
         }
+        return 0;
       }
     } catch (SQLException ex) {
       ex.printStackTrace();
       throw new RuntimeException(
           "ChatroomDaoImpl_JDBC類別#queryCountForMakeFriendByUserId()發生例外: " + ex.getMessage());
     }
-    return 0;
   }
 
   @Override
@@ -170,9 +170,7 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
     var localDateTime = LocalDateTime.now();
     var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
     String newCloseTime;
-    System.out.println("day ==== " + day);
     newCloseTime = dateTimeFormatter.format(localDateTime.plusDays(day));
-    System.out.println(newCloseTime);
     String sql = "UPDATE chatroom SET Close_Time = ?,IsOpen = 0 WHERE Id = ? ";
 
     try (Connection connection = ds.getConnection();
@@ -187,12 +185,31 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
     }
   }
 
+  @Override
+  public void updateOpenState() {
+    var localDateTime = LocalDateTime.now();
+    var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    String forCheckTime = dateTimeFormatter.format(localDateTime);
+    String sql = "UPDATE chatroom SET IsOpen = 0 WHERE IsOpen = 1 AND Close_Time <=  ? ";
+
+    try (Connection connection = ds.getConnection();
+        var preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setString(1, forCheckTime);
+      preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "ChatroomDaoImpl_JDBC類別#updateOpenState()發生例外: " + ex.getMessage());
+    }
+  }
+
   public class ExistChatroomBean {
     Integer id;
     String chatType;
     Timestamp closeTime;
     Integer userId;
     Integer targetId;
+    Integer IsOpen;
 
     public Integer getId() {
       return id;
@@ -232,6 +249,14 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
 
     public void setTargetId(Integer targetId) {
       this.targetId = targetId;
+    }
+
+    public Integer getIsOpen() {
+      return IsOpen;
+    }
+
+    public void setIsOpen(Integer isOpen) {
+      IsOpen = isOpen;
     }
   }
 }

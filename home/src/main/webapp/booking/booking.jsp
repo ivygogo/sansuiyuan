@@ -20,9 +20,9 @@
 <body>
 <div id="booklist">預約表單
 <Form Action="booking.do" method="POST">
-      <p/>姓名: <input type="text" name="bookerName" value="系統帶入(會員登錄)">
+      <p/>姓名: <input type="text" id="bookerName" name="bookerName" value="系統帶入(會員登錄)">
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerName}</div>
-      <p/>帳號: <input type="text" name="bookerId" value="系統帶入(會員登錄)">
+      <p/>帳號: <input type="text" name="bookerId" value="3">
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerId}</div>
       <p/>電話: <input type="text" name="bookerPhone" value="系統帶入(會員登錄)">
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerPhone}</div>
@@ -72,7 +72,7 @@
     $("#datepicker").datepicker({minDate: +0, maxDate: "+14D", dateFormat: 'yy-mm-dd'});
   });
 
-  const userId = 5 // todo from登入資訊 $('')???
+  const userId = 3 // todo from登入資訊 $('')???
 
   $('#submit').click(function () {
 
@@ -81,7 +81,6 @@
     const selectDate = $('#datepicker').val()
     const selectUserName = $('#bookerName').val()
     const selectRoomType = $('#booking-room-type').val()
-
     $.ajax({
       type: 'POST',
       url: '/wuli/ChatroomServlet?callFrom=createChatroom',

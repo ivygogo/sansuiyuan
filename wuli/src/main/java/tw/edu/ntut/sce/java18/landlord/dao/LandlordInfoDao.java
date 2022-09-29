@@ -1,4 +1,6 @@
-package tw.edu.ntut.sce.java18.landlord.model;
+package tw.edu.ntut.sce.java18.landlord.dao;
+
+import tw.edu.ntut.sce.java18.landlord.model.LandlordInfo;
 
 public interface LandlordInfoDao {
 

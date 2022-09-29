@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.landlord.model.impl;
+package tw.edu.ntut.sce.java18.landlord.dao.Imple;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
+import tw.edu.ntut.sce.java18.landlord.dao.LandlordInfoDao;
 import tw.edu.ntut.sce.java18.landlord.model.LandlordInfo;
-import tw.edu.ntut.sce.java18.landlord.model.LandlordInfoDao;
 
 public class LandlordInfoDaoImpl implements LandlordInfoDao {
   private DataSource ds = null;

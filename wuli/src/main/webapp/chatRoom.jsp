@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<%--<%@include file="header.jsp" %>--%>
+<%-- <%@include file="menu_index1.jsp" %> --%>
 
 <%@include file="chatRoom/chatRoom.html" %>
 

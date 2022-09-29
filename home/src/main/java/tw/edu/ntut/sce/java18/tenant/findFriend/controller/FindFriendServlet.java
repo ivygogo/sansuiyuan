@@ -44,6 +44,9 @@ public class FindFriendServlet extends HttpServlet {
       case "loadAllList":
         loadAllList(request, response);
         break;
+      case "checkLimit":
+        checkLimit(request, response);
+        break;
         //      case "makePair":
         //        System.out.println("inside the MakePair");
         //        System.out.println(LocalDateTime.now());
@@ -52,6 +55,19 @@ public class FindFriendServlet extends HttpServlet {
         //        response.getWriter().flush();
         //        break;
     }
+  }
+
+  private void checkLimit(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+    int userId = Integer.parseInt(request.getParameter("userId"));
+    System.out.println(userId);
+    FindFriendService findFriendService = new FindFriendServiceImpl();
+    var printWriter = response.getWriter();
+    response.setContentType("text/plain; charset=UTF-8");
+    System.out.println(
+        "--- findfriendservlet --- checkLimit  ===" + findFriendService.isBelowLimit(userId));
+    printWriter.print(findFriendService.isBelowLimit(userId));
+    printWriter.flush();
   }
 
   public boolean checkOpen(HttpServletRequest request, HttpServletResponse response) {
