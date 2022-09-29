@@ -112,20 +112,22 @@ public class ChatroomServlet extends HttpServlet {
       }
       message.setContent(content);
       chatMessageService.createMessage(message);
-      System.out.println("new chatroom " + memberS + "_" + memberL + " is created");
+      System.out.println("new chatroom  : " + memberS + "_" + memberL + " is created");
     }
   }
 
   public void loadChatroomList(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 
+    // todo 將房號寫到bean裡面
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     var printWriter = response.getWriter();
 
     // 進入畫面就load出左側頁面所需的內容
     ChatroomService chatroomService = new ChatroomService();
-    String id = request.getParameter("Id"); // from JS loadExistChatroom()  =7
+    chatroomService.checkOpenState();
+    String id = request.getParameter("Id");
     List<LoadChatroom> chatroomLastMessage =
         chatroomService.getChatroomLastInfo(Integer.parseInt(id));
 

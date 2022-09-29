@@ -31,7 +31,7 @@
             ============================================ -->
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/owl.carousel.css">
-<link rel="stylesheet"
+<link rel="stylesheet"[]
   href="${pageContext.request.contextPath}/css/owl.theme.css">
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/owl.transitions.css">

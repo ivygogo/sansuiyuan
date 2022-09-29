@@ -53,28 +53,26 @@ public class ChatroomService {
         loadChatroom.setAvatarPic(avatarInfo.getAvatarName());
 
         if (userId != 0) {
-          var characterInfo = new CharacterAndFavorDaoImpl();
-
           if (memberInfo.getOpen_tag() == 1) {
-            if ((memberInfo.getFavor_1() == null)
-                && (memberInfo.getFavor_2() == null)
-                && (memberInfo.getFavor_3() == null)) {
-              loadChatroom.setMoreInfo(null);
+            if ((memberInfo.getFavor_1() == 0)
+                && (memberInfo.getFavor_2() == 0)
+                && (memberInfo.getFavor_3() == 0)) {
+              loadChatroom.setMoreInfo("X");
             } else {
               String character = "";
-              if (memberInfo.getFavor_1() != null) {
+              if (memberInfo.getFavor_1() != 0) {
                 character +=
                     "  "
                         + characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(
                             memberInfo.getFavor_1());
               }
-              if (memberInfo.getFavor_2() != null) {
+              if (memberInfo.getFavor_2() != 0) {
                 character +=
                     "/"
                         + characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(
                             memberInfo.getFavor_2());
               }
-              if (memberInfo.getFavor_3() != null) {
+              if (memberInfo.getFavor_3() != 0) {
                 character +=
                     "/"
                         + characterAndFavorDao.queryCharacterAndFavorNameByPrimaryKey(
@@ -83,13 +81,13 @@ public class ChatroomService {
               loadChatroom.setMoreInfo(character);
             }
           } else {
-            loadChatroom.setMoreInfo(null);
+            loadChatroom.setMoreInfo("");
           }
         } else {
           if (true) { // todo form tenant or contract 判斷有沒有沒有房號的話
             loadChatroom.setMoreInfo("roomNum");
           } else {
-            loadChatroom.setMoreInfo(null);
+            loadChatroom.setMoreInfo("尚未簽約");
           }
         }
       } else {
@@ -113,6 +111,7 @@ public class ChatroomService {
           chatMessageService.getUnreadCount(loadChatroom.getChatroomId(), userId));
       loadChatroom.setSendTime(chatMessageBean.getSendTime());
 
+      System.out.println("+++++++++++++" + loadChatroom.getMoreInfo());
       chatroomListWithLastMessage.add(loadChatroom);
     }
 
@@ -179,13 +178,16 @@ public class ChatroomService {
 
   // TODO 登入時就要連到自己的聊天室???>
 
-  // OK 進到聊天室頁面就要對每個"聊天室"判斷是否唯讀, 並讀出最後一筆訊息 & 未讀量
   public ArrayList<ExistChatroomBean> getExistChatroom(int id) {
     return chatroomDao.queryExistChatroomByUser(id);
   }
 
   public void changeCloseTime(int roomId, int time) {
     chatroomDao.updateCloseTime(roomId, time);
+  }
+
+  public void checkOpenState() {
+    chatroomDao.updateOpenState();
   }
 
   public class LoadChatroom {

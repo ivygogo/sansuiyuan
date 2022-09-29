@@ -245,7 +245,7 @@ public class FindFriendServiceImpl implements FindFriendService {
     if (!isExist) {
       chatroomDao.insertChatroom("F", member1, member2, createTime, closeTime);
       System.out.println("create chatroom");
-    } else System.out.println("the chatroom is exixt");
+    } else System.out.println("the chatroom is exist");
   }
 
   @Override
