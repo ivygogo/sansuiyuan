@@ -3,21 +3,21 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <% 
+//session.setAttribute("FormInvalid", null);
+
 String ridState = request.getParameter("doJob");
+
 System.out.println("ridState:::::"+ridState);
 if(ridState == null || ridState.trim().length() == 0){
   request.setAttribute("doJob", "others");
-}else{
+}else if(ridState.equals("getchat")){
   request.setAttribute("doJob", "getchat");
-  //request.setAttribute("ridId", ridState);
 }
-
 %>
 
 
 <!-- 
 ////////////////////////////////////////////////////////////////
-
 Author: Free-Template.co
 Author URL: http://free-template.co.
 License: https://creativecommons.org/licenses/by/3.0/
@@ -28,7 +28,6 @@ Website:  https://free-template.co
 Facebook: https://www.facebook.com/FreeDashTemplate.co
 Twitter:  https://twitter.com/Free_Templateco
 RSS Feed: https://feeds.feedburner.com/Free-templateco
-
 ////////////////////////////////////////////////////////////////
 -->
 <!DOCTYPE html>
@@ -86,8 +85,6 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
   src="${pageContext.request.contextPath}/memberPage/repairForm.js"></script>
 
 <script  type="text/javascript">
-
-
       innerPage ="";
       
       function updateRepairPage(i){
@@ -110,11 +107,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
      
       
       function dropForm(item){
-        if((item.getAttribute('id'))==="memberInfo_dropIt"){
-        
-         document.location.href="/home/MemberInfo.do?edit=member"
-         //alert("memberInfo_dropIt")
-        }else if((item.getAttribute('id'))==="dropIt"){
+       if((item.getAttribute('id'))==="dropIt"){
           //alert("dropIt")
           document.location.href="/home/repair.jsp"
         }
@@ -157,8 +150,8 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
           </div>
           
           
-          <div class="col-md-2 text-left ">
-            <button class="btn btn-repair" id="newRepairBtn"
+          <div class="col-md-2 text-left " id="newRepairBtn" style="visibility:hidden">
+            <button class="btn btn-repair" 
               onclick="updateRepairPage(0)">新增維修單資訊</button>
           </div>
           
@@ -169,7 +162,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
   
   <div class="row mt-4 border-bottom">
   <div class="col" id="repairFormPage">
-    <c:choose>
+    <%-- <c:choose>
     <c:when test='${FormInvalid=="insertRepairForm"}'>
     <jsp:include page="memberPage/validInsertRepairForm.jsp" />
     </c:when>
@@ -183,12 +176,12 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
     <c:when test='${doJob=="other"}'>
     <jsp:include page="memberPage/listRepairForm.jsp" />
     </c:when>
-    <%-- 
+    
      <c:otherwise>
      <jsp:include page="memberPage/listRepairForm.jsp" />
      </c:otherwise>
-    --%>
-    </c:choose>
+    
+    </c:choose>--%>
   
             <%-- table 開始 --%>
             
@@ -226,27 +219,43 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
   <script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
   <script src="${pageContext.request.contextPath}/js/main.js"></script>
   <script>
-
-  let ridState = `${doJob}`;
+  let ridState;
+  let valid;
+  ridState = `${doJob}`;
   //let ridId =`${ridId}`;
+  valid =`${FormInvalid}`
+	//alert("valid    " + valid);
+  //alert("ridState    " + ridState);
   
   
-
-  if (ridState ==="getchat"){
-    //alert("ridState" + ridState);
+  
+  
+  if(valid ==="editRepairForm"&&ridState ==="others"){
+	    $('#repairFormPage').html("");
+	    $('#repairFormPage').load('memberPage/validEditRepairForm.jsp');
+	 }else if(valid ==="insertRepairForm"&&ridState ==="others"){
+	      $('#repairFormPage').html("");
+	      $('#repairFormPage').load('memberPage/validInsertRepairForm.jsp');
+	   }
+  else if (valid==="OK" && ridState ==="getchat"){
+	    //alert("ridState" + ridState);
+	    $('#repairFormPage').html("");
+	      $('#repairFormPage').load('memberPage/showRepairFormContent.jsp', function() {
+	        showNewRepairForm(ridState);});
+  }
+  else if (valid==="OK" && ridState ==="others"){
     $('#repairFormPage').html("");
-      $('#repairFormPage').load('memberPage/showRepairFormContent.jsp', function() {
-        showNewRepairForm(ridState);});
-    
-  }else{
-	  
+   $('#repairFormPage').load('memberPage/listRepairForm.jsp', function() {
+          showFirst();});
+  }else if (ridState ==="others"){
 	  $('#repairFormPage').html("");
 	  $('#repairFormPage').load('memberPage/listRepairForm.jsp', function() {
-          showFirst();});
-	  //var clock = setInterval( , 200);
-      
-	  //clearInterval(clock);
+	          showFirst();});
   }
+  
+  
+  
+
   </script>
 </body>
 </html>

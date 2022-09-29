@@ -7,7 +7,7 @@
  session.setAttribute("page", "editForm");
 %>
 <script type="text/javascript">
-$.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
+$.getJSON('/home/RepairForm.do?doJob=getProject').then(res => {
 	console.log(res)
 	let projectOption="";
 	for (let i = 0; i < res.furnitureList.length; i++) {
@@ -24,14 +24,14 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 <div class="row mb-1 mt-5 ml-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
-			<h2 class="text-black mb-4">修改報修單</h2>
+			<h2 class="text-black mb-4">修改報修單valid</h2>
 		</div>
 	</div>
 </div>
 
 <section class="site-section" id="about-section">
 	<form name="repairFormInfo"
-		action="<c:url value="/common/RepairForm.do"/>" method="POST"
+		action="<c:url value="/RepairForm.do"/>" method="POST"
 		class="bg-white">
 		<input type="text" id="updateContractInfo" value="updateContractInfo"
 			name="profile" hidden />
