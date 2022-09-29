@@ -1,25 +1,23 @@
 package tw.edu.ntut.sce.java18.common.filiter;
 
-import tw.edu.ntut.sce.java18.common.utils.GlobalService;
-
+import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import tw.edu.ntut.sce.java18.common.utils.GlobalService;
 
 @WebFilter("/login/login.jsp")
 public class FindUserPassword implements Filter {
   String requestURI;
-  public FindUserPassword() {
 
-  }
-  public void doFilter(ServletRequest request, ServletResponse response,
-                       FilterChain chain) throws IOException, ServletException {
+  public FindUserPassword() {}
+
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
     // 容器會在遠方客戶端提出請求、要求容器執行login/login.jsp前，先執行本程式
-    if (request instanceof HttpServletRequest
-        && response instanceof HttpServletResponse) {
+    if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
       HttpServletRequest req = (HttpServletRequest) request;
       // **********Remember Me****************
       String cookieName = "";
@@ -28,23 +26,21 @@ public class FindUserPassword implements Filter {
       String rememberMe = "";
       // 取出瀏覽器送來的Cookie
       Cookie[] cookies = req.getCookies();
-      if (cookies != null) {   						// 如果含有Cookie
-        for (int i = 0; i < cookies.length; i++) {	// 檢視每個Cookie
+      if (cookies != null) { // 如果含有Cookie
+        for (int i = 0; i < cookies.length; i++) { // 檢視每個Cookie
           cookieName = cookies[i].getName();
           if (cookieName.equals("mail")) {
-            //找到user這個Cookie
+            // 找到user這個Cookie
             user = cookies[i].getValue();
           } else if (cookieName.equals("password")) {
-            //找到password這個Cookie
-            String tmp  = cookies[i].getValue();
+            // 找到password這個Cookie
+            String tmp = cookies[i].getValue();
             // 將密碼解密
-            if (tmp!= null){
-              password = 	GlobalService.decryptString(
-                  GlobalService.KEY, tmp);
+            if (tmp != null) {
+              password = GlobalService.decryptString(GlobalService.KEY, tmp);
             }
-          }
-          else if (cookieName.equals("rm")) {
-            //找到rm這個Cookie(rm: rememberMe)
+          } else if (cookieName.equals("rm")) {
+            // 找到rm這個Cookie(rm: rememberMe)
             rememberMe = cookies[i].getValue();
           }
         }
@@ -56,12 +52,11 @@ public class FindUserPassword implements Filter {
       request.setAttribute("user", user);
       request.setAttribute("password", password);
     }
-    chain.doFilter(request, response);   // 請容器執行下一棒程式
-  }
-  public void init(FilterConfig fConfig) throws ServletException {
-  }
-  @Override
-  public void destroy() {
+    chain.doFilter(request, response); // 請容器執行下一棒程式
   }
 
+  public void init(FilterConfig fConfig) throws ServletException {}
+
+  @Override
+  public void destroy() {}
 }

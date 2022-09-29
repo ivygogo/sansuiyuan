@@ -15,10 +15,11 @@ import javax.servlet.http.HttpSession;
 public class ProessMemberServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     HttpSession session = request.getSession();
 
-    Map<String,String> errorMessage = new HashMap<>();
+    Map<String, String> errorMessage = new HashMap<>();
 
     request.setCharacterEncoding("UTF-8");
 
@@ -26,13 +27,13 @@ public class ProessMemberServlet extends HttpServlet {
     String mail = request.getParameter("mail");
     // 檢查使用者所輸入的帳號
     if (mail == null || mail.trim().length() == 0) {
-      errorMessage.put("mail","信箱欄必須輸入");
+      errorMessage.put("mail", "信箱欄必須輸入");
     }
     // 讀取使用者所輸入，由瀏覽器送來的 pswd 欄位內的資料
     String password = request.getParameter("pswd");
     // 檢查使用者所輸入的密碼
-    if (password == null || password.trim().length() == 0){
-      errorMessage.put("password","密碼欄必須輸入");
+    if (password == null || password.trim().length() == 0) {
+      errorMessage.put("password", "密碼欄必須輸入");
     }
     // 讀取使用者所輸入，由瀏覽器送來的 mName 欄位內的資料
     String name = request.getParameter("mName");
@@ -81,23 +82,23 @@ public class ProessMemberServlet extends HttpServlet {
 
     // MemberBean 扮演封裝輸入資料的角色
     //    MemberBean mb = new MemberBean(name,gender,phone,idNumber,mail,password,address,nickName);
-//    try {
-//      MemberService service = new MemberService();
-//      service.insertMember(mb);
-//      session.setAttribute("memberBean",mb);
-//      response.sendRedirect(
-//          response.encodeRedirectURL(""));
-//      return;
-//    } catch (SQLException e) {
-//      if (e.getMessage().indexOf("重複的索引鍵") != -1
-//          || e.getMessage().indexOf("Duplicate entry") != -1) {
-//        errorMessage.put("id", "帳號重複，請重新輸入帳號");
-//      } else {
-//        errorMessage.put("exception", "資料庫存取錯誤:" + e.getMessage());
-//      }
-//      RequestDispatcher rd = request.getRequestDispatcher("/ch06_02/InsertMemberForm.jsp");
-//      rd.forward(request, response);
-//      return;
-//    }
+    //    try {
+    //      MemberService service = new MemberService();
+    //      service.insertMember(mb);
+    //      session.setAttribute("memberBean",mb);
+    //      response.sendRedirect(
+    //          response.encodeRedirectURL(""));
+    //      return;
+    //    } catch (SQLException e) {
+    //      if (e.getMessage().indexOf("重複的索引鍵") != -1
+    //          || e.getMessage().indexOf("Duplicate entry") != -1) {
+    //        errorMessage.put("id", "帳號重複，請重新輸入帳號");
+    //      } else {
+    //        errorMessage.put("exception", "資料庫存取錯誤:" + e.getMessage());
+    //      }
+    //      RequestDispatcher rd = request.getRequestDispatcher("/ch06_02/InsertMemberForm.jsp");
+    //      rd.forward(request, response);
+    //      return;
+    //    }
   }
 }
