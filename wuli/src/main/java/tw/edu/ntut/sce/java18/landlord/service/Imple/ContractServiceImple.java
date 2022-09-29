@@ -3,7 +3,7 @@ package tw.edu.ntut.sce.java18.landlord.service.Imple;
 import java.util.ArrayList;
 import java.util.List;
 import tw.edu.ntut.sce.java18.landlord.dao.ContractDao;
-import tw.edu.ntut.sce.java18.landlord.dao.Imple.ContractDaoImple;
+import tw.edu.ntut.sce.java18.landlord.dao.impl.ContractDaoImple;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
 import tw.edu.ntut.sce.java18.landlord.model.ContractRoom_TypeItemsBean;
 import tw.edu.ntut.sce.java18.landlord.service.ContractService;
