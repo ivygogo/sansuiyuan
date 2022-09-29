@@ -13,8 +13,8 @@
               class="notika-icon notika-house"></i>房契管理</a></li>
           <li><a href="http://localhost:8080/wuli/Contract.do"><i
               class="notika-icon notika-mail"></i>合約查詢</a></li>
-          <!-- <li><a data-toggle="tab" href="#Interface"><i
-              class="notika-icon notika-edit"></i>行事曆</a></li> -->
+          <li><a data-toggle="tab" href="#Interface"><i
+              class="notika-icon notika-edit"></i>行事曆</a></li>
           <li><a href="http://localhost:8080/wuli/bookinglist.jsp"><i
               class="notika-icon notika-bar-chart"></i>預約管理</a></li>
           <li><a href="http://localhost:8080/wuli/lanlordRepairForm.jsp"><i
@@ -24,7 +24,7 @@
           <li><a href="http://localhost:8080/wuli/memberInfo.jsp"><i
               class="notika-icon notika-support"></i>物業資訊</a></li>
           <li><a href="http://localhost:8080/home/login/login.jsp"><i
-              class="notika-icon notika-app"></i>管理員登入</a></li>
+              class="notika-icon notika-app"></i>登入</a></li>
         </ul>
       </div>
     </div>
