@@ -58,8 +58,12 @@ public class LandlordInfoServlet extends HttpServlet {
     // 2. 以房東資料的公司章檔名，找到對應圖檔的路徑
     String imgPath = System.getProperty("java.io.tmpdir") + "images//" + landlordInfo.getStamp();
 
+    // 測試
+    String k = System.getenv("HOME_PWD");
+    System.out.println(k);
+
     // var file = new File(new File(System.getProperty("java.io.tmpdir")), landlordInfo.getStamp());
-    // System.out.println("!!!!imgPath!!!!" + imgPath);
+    System.out.println("!!!!imgPath!!!!" + imgPath);
 
     // 3.將圖片處理成 Data URI資料
     String imgBase64 = getImageEncoderByPath(imgPath);
