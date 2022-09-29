@@ -8,10 +8,10 @@
 
 	<div>
 		<p>
-			自中華民國<span id="start_top"></span><br>
+			自中華民國<span id="start_top" style="text-decoration: underline;"> START_YYYY 年 START_MM 月 START_DD 日 </span><br>
 		</p>
 		<p>
-			至中華民國<span id="end_top"></span>
+			至中華民國<span id="end_top" style="text-decoration: underline;"> END_YYYY 年 END_MM 月 END_DD 日 </span>
 		</p>
 		<p>
 			<br></br>
@@ -44,10 +44,10 @@
 		<p style="font-size: 20px;">立店房租賃契約租賃契約</p>
 		<p style="font-size: 20px;">出租人 中村建設股份有限公司 ( 以下簡稱為甲方 )</p>
 		<p style="font-size: 20px;">
-			承租人 <span id="renter_top"></span> ( 以下簡稱為乙方 )
+			承租人 <span id="renter_top" style="text-decoration: underline;">INPUT_RENTER</span> ( 以下簡稱為乙方 )
 		</p>
 		<p style="font-size: 20px;">
-			乙方連帶保證人 <span id="guarntor_top"></span> ( 以下簡稱為丙方 )
+			乙方連帶保證人 <span id="guarntor_top" style="text-decoration: underline;">INPUT_GUARNTOR</span> ( 以下簡稱為丙方 )
 		</p>
 		<p>茲經雙方協議訂立房屋</p>
 		<p></p>
@@ -55,10 +55,10 @@
 		<p>第&nbsp;&nbsp;&nbsp;一&nbsp;&nbsp;條:甲方店房所在地及使用範圍</p>
 		<p>
 			第&nbsp;&nbsp;&nbsp;二&nbsp;&nbsp;條:租賃期限經甲乙雙方洽訂為 民國 <span
-				id="start_mid"></span> 起至民國 <span id="end_mid"></span> 止
+				id="start_mid" style="text-decoration: underline;"> START_YYYY 年 START_MM 月 START_DD 日 </span> 起至民國 <span id="end_mid" style="text-decoration: underline;"> END_YYYY 年 END_MM 月 END_DD 日 </span> 止
 		</p>
 		<p>
-			第&nbsp;&nbsp;&nbsp;三&nbsp;&nbsp;條:租金每個月新台幣 <span id="rent"></span> 元正
+			第&nbsp;&nbsp;&nbsp;三&nbsp;&nbsp;條:租金每個月新台幣 <span style="color: red;" id="rent">RENT_FEE</span> 元正
 			( 收款付據 ) 乙方不得藉任何理由拖延或拒納，且不得由保證金中抵扣作為租金。
 		</p>
 		<p>
@@ -66,7 +66,7 @@
 				style="color: red;">陸</span>&nbsp; 個月份乙方不得藉詞拖延。
 		</p>
 		<p>
-			第&nbsp;&nbsp;&nbsp;五&nbsp;&nbsp;條:乙方應於訂約時，交於甲方新台幣 <span id="deposit"></span>
+			第&nbsp;&nbsp;&nbsp;五&nbsp;&nbsp;條:乙方應於訂約時，交於甲方新台幣 <span style="color: red;" id="deposit">DEPOSIT_FEE</span>
 			元作為押租保證金。
 		</p>
 		<p>第&nbsp;&nbsp;&nbsp;六&nbsp;&nbsp;條:乙方若不能續約承租時，甲方應於乙方遷空交還店房屋後無息退還押租保證金。</p>
@@ -98,7 +98,7 @@
 					&nbsp; &nbsp;契 &nbsp; &nbsp;約 &nbsp; &nbsp;人 &nbsp; &nbsp;( 甲方 )
 					&nbsp;中村建設股份有限公司 </span>
 			</strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 簽名蓋章 <img
-				src="../img/Nakamura.png" alt="印章" width="50px"
+				src="/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/img/Nakamura.png" alt="印章" width="50px"
 				style="vertical-align: middle" id="stamp"></img>
 		</p>
 		<p>統一編號: 24402692&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -112,18 +112,18 @@
 				<p>
 					<strong> <span style="font-size: 18px;">&nbsp;立
 							&nbsp; &nbsp;契 &nbsp; &nbsp;約 &nbsp; &nbsp;人 &nbsp; &nbsp;( 乙方 )<span
-							id="renter_mid" name="inputRenter"></span>&nbsp; &nbsp; &nbsp;
+							id="renter_mid" name="inputRenter" style="text-decoration: underline;"> INPUT_RENTER </span>&nbsp; &nbsp; &nbsp;
 							&nbsp; &nbsp; 簽名蓋章 <span id="renterSign"><img
-								src="/Users/afra/Downloads/renterSign.png" alt="renterSign"
+								src="RENTER_SIGN" alt="renterSign"
 								width="200px" style="vertical-align: middle"></img></span>
 					</span>
 					</strong>
 				</p>
 				<p>
-					身分證號碼: <span id="ID_mid"></span>電話: <span id="phone"></span>
+					身分證號碼: <span id="ID_mid" style="text-decoration: underline;"> RENTER_ID </span>電話: <span id="phone" style="text-decoration: underline;"> RENTER_PHONE </span>
 				</p>
 				<p>
-					住址: <span id="address"></span>
+					住址: <span id="address" style="text-decoration: underline;"> RENTER_ADDRESS </span>
 				</p>
 			</div>
 
@@ -134,28 +134,28 @@
 			<div class="col-md-4">
 				<p>
 					<strong> <span style="font-size: 18px;">&nbsp;乙 方 連
-							帶 保 證 人 ( 丙方 )<span id="guarntor_mid"></span>&nbsp; &nbsp; &nbsp;
+							帶 保 證 人 ( 丙方 )<span id="guarntor_mid" style="text-decoration: underline;"> INPUT_GUARNTOR </span>&nbsp; &nbsp; &nbsp;
 							&nbsp; &nbsp; 簽名蓋章 <span id="guarantorSign"><img
-								src="/Users/afra/Downloads/guarantorSign.png"
+								src="GUARANTOR_SIGN"
 								alt="guarantorSign" width="200px" style="vertical-align: middle"></img></span>
 					</span>
 					</strong>
 				</p>
 				<p>
-					身分證號碼: <span id="guarntorID"></span>電話: <span id="guarntorPhone"></span>
+					身分證號碼: <span id="guarntorID" style="text-decoration: underline;"> GUARNTOR_ID </span>電話: <span id="guarntorPhone" style="text-decoration: underline;"> GUARNTOR_PHONE </span>
 				</p>
 				<p>
-					住址: <span id="guarntorAddress"></span>
+					住址: <span id="guarntorAddress" style="text-decoration: underline;"> GUARNTOR_ADDRESS </span>
 				</p>
 			</div>
 
 		</div>
 		<p>
-			<br></br>中華民國 <span id="cur_mid"></span>
+			<br></br>中華民國 <span id="cur_mid" style="text-decoration: underline;"> TODAY </span>
 		</p>
 		<p>
 			<br></br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-			&nbsp;承諾書 &nbsp; &nbsp;立承諾書人: <span id="renter_btm"></span> (下稱承諾人)
+			&nbsp;承諾書 &nbsp; &nbsp;立承諾書人: <span id="renter_btm" style="text-decoration: underline;"> INPUT_RENTER </span> (下稱承諾人)
 		</p>
 		<p></p>
 		<p>為確認租賃雙方彼此間權利義務關係，杜絕日後爭議，承諾人願出具承諾書，同意承諾下列事項，以資信守:</p>
@@ -182,17 +182,17 @@
 			<div class="col-md-3 col-6" style="padding: 8px; height: auto;">
 				立承諾書人:(簽章)
 				<div id="confirmSign">
-					<img src="/Users/afra/Downloads/confirmSign.png" alt="confirmSign"
+					<img src="CONFIRM_SIGN" alt="confirmSign"
 						width="200px" style="vertical-align: middle"></img>
 				</div>
 			</div>
 		</div>
 		<p>
-			身份證字號:<span id="ID_btm"></span>
+			身份證字號:<span id="ID_btm" style="text-decoration: underline;"> RENTER_ID </span>
 		</p>
 		<br></br>
 		<p>
-			中華民國 <span id="cur_btm"></span>
+			中華民國 <span id="cur_btm" style="text-decoration: underline;"> TODAY </span>
 		</p>
 	</div>
 
