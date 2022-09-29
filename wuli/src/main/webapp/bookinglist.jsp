@@ -19,6 +19,11 @@
   width: 100%;
   margin: auto;
 }
+.bluebutton:hover {
+    color: blue;
+    border: 2px solid blue;
+    background-color: white;
+}
 </style>
 <body>
 	<%--<%@include file="header.jsp" %>--%>
@@ -115,9 +120,9 @@
 								<td style="width:8%"><c:out value="${user.preferFloor}" /></td>
 								<td style="width:8%"><c:out value="${user.leadPerson}" /></td>
 								<td style="width:15%"><a
-									href="book.do?action=edit&id=<c:out value='${user.bookerId}'/>">Edit</a>
+									href="book.do?action=edit&id=<c:out value='${user.bookerId}'/>" class="bluebutton">Edit</a>
 									&nbsp;&nbsp;&nbsp;&nbsp; <a
-									href="book.do?action=delete&id=<c:out value='${user.bookerId}' />">Delete</a></td>
+									href="book.do?action=delete&id=<c:out value='${user.bookerId}' />" class="bluebutton">Delete</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -168,9 +173,9 @@
 						<td><%=booklist.get(5)%></td>
 						<td><%=booklist.get(6)%></td>
 						<td><%=booklist.get(7)%></td>
-						<td><a
+						<td><a class="bluebutton"
 							href="book.do?action=edit&id=<c:out value='<%=booklist.get(0)%>'/>">Edit</a>
-							&nbsp;&nbsp;&nbsp;&nbsp; <a
+							&nbsp;&nbsp;&nbsp;&nbsp; <a 
 							href="book.do?action=delete&id=<c:out value='<%=booklist.get(0)%>' />">Delete</a></td>
 					</tr>
 					<%
@@ -181,15 +186,16 @@
 			</table>
 		</div>
 	</div>
-	<footer class="fixed-bottom">
-		<div class="container" align="center">
-			<a href="index.jsp">回首頁</a>
-		</div>
-	</footer>
+<!-- 	<footer class="fixed-bottom"> -->
+<!-- 		<div class="container" align="center"> -->
+<!-- 			<a href="index.jsp">回首頁</a> -->
+<!-- 		</div> -->
+<!-- 	</footer> -->
 
 	<!--  -------------------------------放footer-------------------------------------------------->
 
 	<%--<%@include file="footer.jsp" %>--%>
 
 </body>
+
 </html>

@@ -109,7 +109,7 @@
                 <div class="col-md-8 col-12"> 
                     <div class="border tenant-information"> 
                         <div class="d-flex pt-5">
-                            <h2 class="mx-5">租客資訊</h2>
+                            <h2 class="mx-5">租客資訊</h2> <span id="renterUid" style=""></span>
                             <input onclick="addRent()" type="image" src="../wuli/img/add.png" alt="加入" title="加入" width="25px" class="my-auto mx-4" >
                             <input onclick="contractRent()" type="image" src="../wuli/img/stamp.png" alt="合約" title="合約" width="25px" class="my-auto mt-2" >
                         </div>
@@ -365,6 +365,7 @@
                  document.getElementById("inputGuarntorID").value = response.guarntorIdNumber;
                  document.getElementById("inputGuarntorPhone").value = response.guarntorPhone;
                  document.getElementById("inputGuarntorAddress").value = response.guarntorAddress;
+                 document.getElementById("renterUid").value = response.uId;
         	     },
         	  	 err: function(){
         		   console.error("error")}
@@ -394,7 +395,13 @@ function contractRent(){
     var roomBuilding = document.getElementById("room-building").value;
     var roomPosition = document.getElementById("room-position").value;
     var roomFloor = document.getElementById("room-floor").value;
-    var roomType = document.getElementById("room-type").value;  
+    var roomType = document.getElementById("room-type").value;
+    var roomNumber = roomBuilding + roomPosition + roomFloor + roomType ;
+    var pdfName = startYYYY + roomBuilding + roomPosition + roomFloor + roomType ;
+    var rentUid = document.getElementById("renterUid").value;
+    var startY = parseInt(startYYYY)+1911;
+    var endY = parseInt(endYYYY)+1911;
+
 
 /* 檢查 */
     if (!(
@@ -422,15 +429,44 @@ function contractRent(){
     var durationYYYY = endYYYY - startYYYY;
     var durationMM = endMM - startMM;
     if (startYYYY < endYYYY) {
-        if (startMM > endMM) {
-            durationYYYY -= 1;
-            durationMM += 12;
+        if (durationYYYY < 0 ) {
+            alert("請輸入合理的日期!");
+            return false;            
         }
     }
     else if ( startYYYY > endYYYY || startMM >= endMM ) {
         alert("請輸入合理的日期!");
         return false;
     } 
+    
+    const contract = {
+    		  renter,
+    		  startYYYY,
+    		  startMM,
+    		  startDD,
+    		  endYYYY,
+    		  endMM,
+    		  endDD,
+    		  rent,
+    		  deposit,
+    		  ID,
+    		  phone,
+    		  address,
+    		  guarntor,
+    		  guarntorID,
+    		  guarntorPhone,
+    		  guarntorAddress,
+    		  roomBuilding,
+    		  roomPosition,
+    		  roomFloor,
+    		  roomType,
+    		  roomNumber,
+    		  pdfName,
+    		  rentUid,
+    		  startY,
+    		  endY
+    		}
+    		storage.setItem("contract", JSON.stringify(contract))
     
     storage.setItem("renter",renter)
     storage.setItem("startYYYY",startYYYY)
@@ -452,6 +488,10 @@ function contractRent(){
     storage.setItem("roomPosition",roomPosition)
     storage.setItem("roomFloor",roomFloor)
     storage.setItem("roomType",roomType)
+    storage.setItem("pdfName",pdfName)
+    storage.setItem("rentUid",rentUid)
+    storage.setItem("startY",startY)
+    storage.setItem("endY",endY)
 
     window.location.href='/wuli/rent/contract.jsp';    
 }
