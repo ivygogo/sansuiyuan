@@ -2,20 +2,25 @@ package tw.edu.ntut.sce.java18.common.dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import tw.edu.ntut.sce.java18.common.model.BookerBean;
+import tw.edu.ntut.sce.java18.common.utils.DBService;
 
 public class BookDAO {
-  private String jdbcURL =
-      "jdbc:mysql://127.0.0.1/wulidb"
-          + "?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei&allowPublicKeyRetrieval=true";
-  private String jdbcUsername = "admin";
-  private String jdbcPassword = "admin123";
+  private DataSource ds = null;
+  //  private String jdbcURL =
+  //      "jdbc:mysql://127.0.0.1/wulidb"
+  //          +
+  // "?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei&allowPublicKeyRetrieval=true";
+  //  private String jdbcUsername = "admin";
+  //  private String jdbcPassword = "admin123";
 
   private static final String SELECT_ALL = "Select * from bookingexample order by 2 desc";
   private static final String SELECT_BY_ID =
@@ -29,35 +34,43 @@ public class BookDAO {
       "update bookingexample set booker_id=?, book_date=?, prefer_time=?,booker_name=?,"
           + "booker_phone=?, roomtype=?, prefer_floor=?, lead_person=? where booker_id = ?";
 
-  public BookDAO() {}
-
-  protected Connection getConnection() {
-    Connection connection = null;
+  public BookDAO() {
     try {
-      Class.forName("com.mysql.jdbc.Driver");
-      connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+      Context ctx = new InitialContext();
+      ds = (DataSource) ctx.lookup(DBService.JNDI_DB_NAME);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("AvatarDaoImpl類別#建構子發生例外: " + ex.getMessage());
     }
-    return connection;
   }
+
+  //  protected Connection getConnection() {
+  //    Connection connection = null;
+  //    try {
+  //      Class.forName("com.mysql.jdbc.Driver");
+  //      connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+  //    } catch (SQLException e) {
+  //      e.printStackTrace();
+  //    } catch (ClassNotFoundException e) {
+  //      e.printStackTrace();
+  //    }
+  //    return connection;
+  //  }
 
   public BookerBean insertUser(BookerBean bean) throws SQLException {
     System.out.println(INSERT + "-----------------------");
-    try (Connection connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
-      preparedStatement.setInt(1, bean.getBookerId());
-      preparedStatement.setDate(2, bean.getBookDate());
-      preparedStatement.setString(3, bean.getPreferTime());
-      preparedStatement.setString(4, bean.getBookerName());
-      preparedStatement.setString(5, bean.getBookerPhone());
-      preparedStatement.setString(6, bean.getRoomtype());
-      preparedStatement.setString(7, bean.getPreferFloor());
-      preparedStatement.setString(8, bean.getLeadPerson());
-      System.out.println(preparedStatement + "-----------------------");
-      preparedStatement.executeUpdate();
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(INSERT)) {
+      ps.setInt(1, bean.getBookerId());
+      ps.setDate(2, bean.getBookDate());
+      ps.setString(3, bean.getPreferTime());
+      ps.setString(4, bean.getBookerName());
+      ps.setString(5, bean.getBookerPhone());
+      ps.setString(6, bean.getRoomtype());
+      ps.setString(7, bean.getPreferFloor());
+      ps.setString(8, bean.getLeadPerson());
+      System.out.println(ps + "-----------------------");
+      ps.executeUpdate();
     } catch (SQLException e) {
       printSQLException(e);
     }
@@ -66,7 +79,7 @@ public class BookDAO {
 
   public BookerBean selectUser(int id) {
     BookerBean booker = null;
-    try (Connection connection = getConnection();
+    try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID); ) {
       preparedStatement.setInt(1, id);
       System.out.println(preparedStatement + "-----------------------");
@@ -98,7 +111,7 @@ public class BookDAO {
 
   public List<BookerBean> selectAllUsers() {
     List<BookerBean> result = null;
-    try (Connection connection = getConnection();
+    try (Connection connection = ds.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
         ResultSet rs = preparedStatement.executeQuery(); ) {
       System.out.println(preparedStatement + "-----------------------");
@@ -123,7 +136,7 @@ public class BookDAO {
 
   public boolean deleteUser(Integer id) throws SQLException {
     boolean rowDeleted;
-    try (Connection connection = getConnection();
+    try (Connection connection = ds.getConnection();
         PreparedStatement statement = connection.prepareStatement(DELETE); ) {
       statement.setInt(1, id);
       rowDeleted = statement.executeUpdate() > 0;
@@ -133,7 +146,7 @@ public class BookDAO {
 
   public boolean updateUser(BookerBean booker) throws SQLException {
     boolean rowUpdated;
-    try (Connection connection = getConnection();
+    try (Connection connection = ds.getConnection();
         PreparedStatement statement = connection.prepareStatement(UPDATE); ) {
       statement.setInt(1, booker.getBookerId());
       statement.setDate(2, booker.getBookDate());
