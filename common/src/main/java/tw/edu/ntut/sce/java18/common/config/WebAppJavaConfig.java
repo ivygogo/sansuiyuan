@@ -1,33 +1,28 @@
 package tw.edu.ntut.sce.java18.common.config;
 
 import javax.annotation.PostConstruct;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-//@EnableTransactionManagement
+// @EnableTransactionManagement
 // 本註釋必須與@Configuration出現在同一個類別
-//@ComponentScan({"tw.edu.ntut.sce.java18.*.*.impl"})
+// @ComponentScan({"tw.edu.ntut.sce.java18.*.*.impl"})
 // tw.edu.ntut.sce.java18.tenant.findFriend.service.impl
 public class WebAppJavaConfig implements WebMvcConfigurer {
   private static Logger log = LoggerFactory.getLogger(WebAppJavaConfig.class);
 
-  //private SessionFactory factory;
+  // private SessionFactory factory;
 
   @Autowired private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
