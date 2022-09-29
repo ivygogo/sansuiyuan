@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
-  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+   <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style>
 
@@ -28,29 +28,28 @@
 </style>
 
 <div class="header-top-area">
-  <div class="container">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
-          <li><img src='<c:url value="/images/contractQueryImg/icon.jpg" ></c:url>'
-              ></li>
-              
-       <div>       
-          <li class="active"><a data-toggle="tab" href="#Home"><i
-              class="notika-icon notika-house"></i>房契管理</a></li>
-          <li><a data-toggle="tab" href="#Tables"><i
+   <div class="container">
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <img src='<c:url value="/images/contractQueryImg/icon.jpg" ></c:url>'
+          width="100" height="50">
+         <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">           
+           <li class="active"><a data-toggle="tab" href="#Home"><i
+               class="notika-icon notika-house"></i>房契管理</a></li>
+           <li><a data-toggle="tab" href="#Tables"><i
               class="notika-icon notika-windows"></i>合約查詢</a></li>
-          <li><a data-toggle="tab" href="#Tables"><i
-              class="notika-icon notika-edit"></i>行事曆</a></li>
-          <li><a data-toggle="tab" href="#Charts"><i
+          <li><a data-toggle="tab" href="#Interface"><i
+               class="notika-icon notika-edit"></i>行事曆</a></li>
+           <li><a data-toggle="tab" href="#Charts"><i
               class="notika-icon notika-mail"></i>看房預約</a></li>
-          <li><a data-toggle="tab" href="#Forms"><i
+           <li><a data-toggle="tab" href="#Forms"><i
               class="notika-icon notika-form"></i>報修管理</a></li>
           <li><a data-toggle="tab" href="#Page"><i
               class="notika-icon notika-support"></i>聊天室</a></li>
-          <li><a data-toggle="tab" href="#App"><i
-              class="notika-icon notika-app"></i>管理員登入</a></li>
-        </div>
-        </ul>
-      </div>
-  </div>
+          <li><a data-toggle="tab" href="#Page"><i
+              class="notika-icon notika-support"></i>物業資訊</a></li>
+          <li><a data-toggle="tab" href="#Appviews"><i
+               class="notika-icon notika-app"></i>管理員登入</a></li>
+         </ul>
+   </div>
+</div>
 </div>

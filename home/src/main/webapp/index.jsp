@@ -97,14 +97,14 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="property-room1.html" class="d-inline-block mb-4"><img
+              <a href="http://localhost:8080/home/roomtype.jsp?type=A" class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
               <div class="ftco-media-details">
                 <h3>單人Ａ</h3>
                 <p>無陽台｜單衣櫃</p>
-                <strong>7800元／月</strong>
+                <strong>$7,800元／月</strong>
               </div>
             </div>
           </div>
@@ -112,14 +112,14 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="property-single.html" class="d-inline-block mb-4"><img
+              <a href="http://localhost:8080/home/roomtype.jsp?type=B" class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
               <div class="ftco-media-details">
                 <h3>單人B</h3>
-                <p>無陽台｜單衣櫃</p>
-                <strong>7800元／月</strong>
+                <p>小陽台｜單衣櫃</p>
+                <strong>$8,300元／月</strong>
               </div>
             </div>
           </div>
@@ -127,14 +127,14 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="property-single.html" class="d-inline-block mb-4"><img
+              <a href="http://localhost:8080/home/roomtype.jsp?type=C" class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
               <div class="ftco-media-details">
                 <h3>單人Ｃ</h3>
-                <p>無陽台｜單衣櫃</p>
-                <strong>7800元／月</strong>
+                <p>大陽台｜單衣櫃</p>
+                <strong>$8,500元／月</strong>
               </div>
             </div>
           </div>
@@ -142,14 +142,14 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="property-single.html" class="d-inline-block mb-4"><img
+              <a href="http://localhost:8080/home/roomtype.jsp?type=D" class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
               <div class="ftco-media-details">
                 <h3>雙人A</h3>
-                <p>無陽台｜單衣櫃</p>
-                <strong>7800元／月</strong>
+                <p>無陽台｜雙衣櫃</p>
+                <strong>$9,500元／月</strong>
               </div>
             </div>
           </div>
@@ -157,14 +157,14 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="property-single.html" class="d-inline-block mb-4"><img
+              <a href="http://localhost:8080/home/roomtype.jsp?type=E" class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
               <div class="ftco-media-details">
                 <h3>雙人B</h3>
-                <p>無陽台｜單衣櫃</p>
-                <strong>7800元／月</strong>
+                <p>小陽台｜雙衣櫃</p>
+                <strong>$10,000元／月</strong>
               </div>
             </div>
           </div>
@@ -172,14 +172,14 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="property-single.html" class="d-inline-block mb-4"><img
+              <a href="http://localhost:8080/home/roomtype.jsp?type=F" class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
               <div class="ftco-media-details">
-                <h3>HD17 19 Utica Ave.</h3>
-                <p>New York - USA</p>
-                <strong>$20,000,000</strong>
+                <h3>雙人C</h3>
+                <p>大陽台｜雙衣櫃</p>
+                <strong>$10,500／月</strong>
               </div>
             </div>
           </div>
@@ -204,7 +204,7 @@
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
               <h2 class="font-size-regular">
-                <a href="single.html" class="text-dark">鸚鵡/淡大</a>
+                <a href="single.html" class="text-dark">小新/淡大</a>
               </h2>
             </center>
             <div class="meta mb-4">
@@ -218,7 +218,6 @@
                 <li>限女性</li>
                 <li>公費均分</li>
                 <li>無寵物</li>
-                <li>同校或同系</li>
               </ul>
             </div>
             <center>
@@ -253,7 +252,6 @@
                 <li>限女性</li>
                 <li>公費均分</li>
                 <li>無寵物</li>
-                <li>同校或同系</li>
               </ul>
             </div>
             <center>
@@ -288,7 +286,6 @@
                 <li>限女性</li>
                 <li>公費均分</li>
                 <li>無寵物</li>
-                <li>同校或同系</li>
               </ul>
             </div>
             <center>
@@ -323,7 +320,6 @@
                 <li>限女性</li>
                 <li>公費均分</li>
                 <li>無寵物</li>
-                <li>同校或同系</li>
               </ul>
             </div>
             <center>
@@ -353,7 +349,12 @@
                   不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
                 </font>
               </center>
-              <a href="single.html"> 希望室友條件： </a><br>限女性、公費均分、無寵物
+             <font style="color: black"> 希望室友條件： </font>
+              <ul style="list-style-type: decimal;">
+                <li>限女性</li>
+                <li>公費均分</li>
+                <li>無寵物</li>
+              </ul>
             </div>
             <center>
               <p>
@@ -382,7 +383,12 @@
                   不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
                 </font>
               </center>
-              <a href="single.html"> 希望室友條件： </a><br>限女性、公費均分、無寵物
+              <font style="color: black"> 希望室友條件： </font>
+              <ul style="list-style-type: decimal;">
+                <li>限女性</li>
+                <li>公費均分</li>
+                <li>無寵物</li>
+              </ul>
             </div>
             <center>
               <p>
@@ -411,7 +417,12 @@
                   不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
                 </font>
               </center>
-              <a href="single.html"> 希望室友條件： </a><br>限女性、公費均分、無寵物
+              <font style="color: black"> 希望室友條件： </font>
+              <ul style="list-style-type: decimal;">
+                <li>限女性</li>
+                <li>公費均分</li>
+                <li>無寵物</li>
+              </ul>
             </div>
             <center>
               <p>
@@ -440,7 +451,12 @@
                   不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
                 </font>
               </center>
-              <a href="single.html"> 希望室友條件： </a><br>限女性、公費均分、無寵物
+              <font style="color: black"> 希望室友條件： </font>
+              <ul style="list-style-type: decimal;">
+                <li>限女性</li>
+                <li>公費均分</li>
+                <li>無寵物</li>
+              </ul>
             </div>
             <center>
               <p>

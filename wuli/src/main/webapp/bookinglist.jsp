@@ -7,7 +7,7 @@
 <html>
 
 <head>
-<title>預約後台管理</title>
+<title>預約管理</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -21,7 +21,7 @@
 }
 </style>
 <body>
-	<%--<%@include file="header.jsp" %>--%>
+<%-- <%@include file="fragment/menu_index.jsp" %> --%>
 
 	<!--  -------------------------------放header-------------------------------------------------->
 
@@ -189,7 +189,7 @@
 
 	<!--  -------------------------------放footer-------------------------------------------------->
 
-	<%--<%@include file="footer.jsp" %>--%>
+	<%-- <%@include file="fragment/footer.jsp" %> --%>
 
 </body>
 </html>
