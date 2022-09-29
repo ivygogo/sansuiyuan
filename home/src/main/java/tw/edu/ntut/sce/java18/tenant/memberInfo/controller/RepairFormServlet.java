@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.common.controller;
+package tw.edu.ntut.sce.java18.tenant.memberInfo.controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +32,7 @@ import tw.edu.ntut.sce.java18.common.service.impl.MemberInfoServiceImpl;
 import tw.edu.ntut.sce.java18.common.service.impl.RepairFormServiceImpl;
 import tw.edu.ntut.sce.java18.common.service.impl.TenantServiceImpl;
 
-@WebServlet("/common/RepairForm.do")
+@WebServlet("/RepairForm.do")
 public class RepairFormServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -39,7 +40,7 @@ public class RepairFormServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    int memberId = 2;
+    int memberId = 1;
     final Gson gson = new Gson();
     response.setContentType("text/html; charset=UTF-8;");
     response.setCharacterEncoding("UTF-8");
@@ -101,8 +102,14 @@ public class RepairFormServlet extends HttpServlet {
         List<RepairFormServiceBean> newRepairFormList =
             new RepairFormServiceImpl().getReparFormConverListByApplicant(memberId);
 
-        var showNewFrom = Map.of("toRoom", memberId, "formId", newRepairFormList.get(0));
+        RepairFormServiceBean repairForm = new RepairFormServiceBean();
+        if (Optional.ofNullable(newRepairFormList.get(0)).isPresent()) {
+          repairForm = newRepairFormList.get(0);
 
+        } else {
+          memberId = -1;
+        }
+        var showNewFrom = Map.of("toRoom", memberId, "formId", repairForm);
         var showNewFromJson = gson.toJson(showNewFrom);
         printWriter.print(showNewFromJson);
         System.out.println(showNewFromJson);
@@ -123,7 +130,7 @@ public class RepairFormServlet extends HttpServlet {
     response.setContentType("text/html; charset=UTF-8;");
 
     Map<String, String> errorMsgs = new HashMap<String, String>();
-    request.setAttribute("ErrMsg", errorMsgs);
+    session.setAttribute("ErrMsg", errorMsgs);
     MemberBean member = (MemberBean) session.getAttribute("member");
     int memberId = member.getuId();
 
@@ -169,7 +176,7 @@ public class RepairFormServlet extends HttpServlet {
         String project = request.getParameter("project");
         String phone = request.getParameter("repairFormPhone");
         String note = request.getParameter("repairFormNote");
-
+        session.setAttribute("note", note);
         String createTime = request.getParameter("formCreateTime");
         String expectTime = request.getParameter("repairFormExpectTime");
 
@@ -242,7 +249,7 @@ public class RepairFormServlet extends HttpServlet {
         } else if (!phone.startsWith("09")) {
           errorMsgs.put("errPhone", "請輸入以「09」為開頭的手機電話");
         } else {
-          request.setAttribute("Phone", myPhone);
+          session.setAttribute("Phone", myPhone);
         }
 
         // 判斷project不得為空
@@ -295,7 +302,8 @@ public class RepairFormServlet extends HttpServlet {
         if (!errorMsgs.isEmpty()) {
           switch (job) {
             case "newForm":
-              request.setAttribute("FormInvalid", "insertRepairForm");
+              session.setAttribute("FormInvalid", "insertRepairForm");
+              session.setAttribute("doJob", "getVaildIn");
               // session.setAttribute("myPage", "profile");
               // System.out.println(errList.get(0));
               RequestDispatcher rd = request.getRequestDispatcher("/repair.jsp");
@@ -303,8 +311,9 @@ public class RepairFormServlet extends HttpServlet {
               break;
 
             case "editForm":
-              request.setAttribute("FormStatus", "待處理");
-              request.setAttribute("FormInvalid", "editRepairForm");
+              session.setAttribute("FormStatus", "待處理");
+              session.setAttribute("FormInvalid", "editRepairForm");
+              session.setAttribute("doJob", "getVaildEd");
               rd = request.getRequestDispatcher("/repair.jsp");
               rd.forward(request, response);
               break;
@@ -337,6 +346,7 @@ public class RepairFormServlet extends HttpServlet {
               // request.setAttribute("FormInvalid", "ok");
               // RequestDispatcher rd = request.getRequestDispatcher("/repair.jsp");
               // rd.forward(request, response);
+              session.setAttribute("FormInvalid", "OK");
               response.sendRedirect("/home/repair.jsp?doJob=getchat");
               break;
             case "editForm":
@@ -358,8 +368,8 @@ public class RepairFormServlet extends HttpServlet {
                 System.out.println("n !!!= 1");
                 e.printStackTrace();
               }
-
-              response.sendRedirect("/home/repair.jsp");
+              session.setAttribute("FormInvalid", "OK");
+              response.sendRedirect("/home/repair.jsp?doJob=getchat");
 
               break;
           }

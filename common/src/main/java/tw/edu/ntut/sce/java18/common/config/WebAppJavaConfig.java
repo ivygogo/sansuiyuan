@@ -38,12 +38,9 @@ public class WebAppJavaConfig implements WebMvcConfigurer {
 
   // 取消"redirect+冒號..."時會掛上QueryString
   //    @PostConstruct
-  public void init() {
-    requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
-  }
 
   @PostConstruct
-  public void init2() {
+  public void init() {
     requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
   }
 

@@ -22,7 +22,7 @@ System.out.println("!!!!!!!"+formNumber);
 
 <section class="site-section" id="about-section">
 	<form name="repairFormInfo"
-		action="<c:url value="/common/RepairForm.do"/>" method="POST"
+		action="<c:url value="/RepairForm.do"/>" method="POST"
 		class="bg-white" >
 		<input type="text" id="updateContractInfo" value="updateContractInfo"
 			name="profile" hidden />

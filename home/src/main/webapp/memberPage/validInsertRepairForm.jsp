@@ -4,7 +4,7 @@
 <% session.setAttribute("page", "newForm"); %>
 <script type="text/javascript">
 $('#newRepairBtn').hide();
-$.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
+$.getJSON('/home/RepairForm.do?doJob=getProject').then(res => {
 	  console.log(res)
 	  let projectOption="";
 	  projectOption +="<option value='0'>請選擇報修項目</option>";
@@ -24,7 +24,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 	</div>
 </div>
 
-<form name='formType' action="<c:url value="/common/RepairForm.do"/>"
+<form name='formType' action="<c:url value="/RepairForm.do"/>"
 	method="POST" class="bg-white">
 
 
@@ -119,7 +119,7 @@ $.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
 						<h6 class="text-black-opacity-05">備註</h6>
 						<textarea type="text" id="repairFormNote"
 							class="form-control col-12 px-4" name="repairFormNote" value=" "
-							maxlength="15"> </textarea>
+							maxlength="15">${note}</textarea>
 					</div>
 				</div>
 
