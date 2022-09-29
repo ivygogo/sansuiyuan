@@ -4,8 +4,6 @@ import java.sql.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-
 import tw.edu.ntut.sce.java18.common.dao.MemberDao;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
@@ -28,7 +26,6 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   public boolean checkMemberAccountExists(String mail) {
     return false;
   }
-
 
   /*用UID查詢會員資料用*/
   @Override
@@ -182,17 +179,15 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   public boolean mailExists(String mail) {
     boolean exist = false;
     String sql = "SELECT * FROM Member WHERE mail = ?";
-    try (
-        Connection connection = ds.getConnection();
-        PreparedStatement ps = connection.prepareStatement(sql);
-    ){
-      ps.setString(1,mail);
-      try (ResultSet rs = ps.executeQuery()){
-        if (rs.next()){
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.setString(1, mail);
+      try (ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
           exist = true;
         }
       }
-    }catch (SQLException ex){
+    } catch (SQLException ex) {
       ex.printStackTrace();
       throw new RuntimeException("MemberDaoImpl_Jdbc類別#idExists()發生例外: " + ex.getMessage());
     }
@@ -202,26 +197,25 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   // 儲存MemberBean物件，將參數mb新增到Member表格內。
   @Override
   public int saveMember(MemberBean mb) {
-    String sql = "Insert into member (UId, name, gender, phone, Id_Number, mail, password, address, nickname) " +
-        "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    String sql =
+        "Insert into member (UId, name, gender, phone, Id_Number, mail, password, address,"
+            + " nickname) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     int n = 0;
-    try (
-        Connection con = ds.getConnection();
-        PreparedStatement ps = con.prepareStatement(sql);
-    ){
-      ps.setInt(1,mb.getuId());
-      ps.setString(2,mb.getName());
-      ps.setInt(3,mb.getGender());
-      ps.setString(4,mb.getPhone());
-      ps.setString(5,mb.getIdNumber());
-      ps.setString(6,mb.getMail());
-      ps.setString(7,mb.getPassword());
-      ps.setString(8,mb.getAddress());
-      ps.setString(9,mb.getNickname());
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql); ) {
+      ps.setInt(1, mb.getuId());
+      ps.setString(2, mb.getName());
+      ps.setInt(3, mb.getGender());
+      ps.setString(4, mb.getPhone());
+      ps.setString(5, mb.getIdNumber());
+      ps.setString(6, mb.getMail());
+      ps.setString(7, mb.getPassword());
+      ps.setString(8, mb.getAddress());
+      ps.setString(9, mb.getNickname());
       n = ps.executeUpdate();
-    }catch (Exception ex){
+    } catch (Exception ex) {
       ex.printStackTrace();
-      throw new RuntimeException("MemberDaoImpl_Jdbc類別#saveMember()發生例外: "+ ex.getMessage());
+      throw new RuntimeException("MemberDaoImpl_Jdbc類別#saveMember()發生例外: " + ex.getMessage());
     }
     return n;
   }
@@ -232,13 +226,11 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   public MemberBean checkIdPassword(String mail, String password) {
     MemberBean mb = null;
     String sql = "SELECT * FROM member m WHERE m.mail = ? and m.password = ?";
-    try (
-        Connection con = ds.getConnection();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ){
-        ps.setString(1, mail);
-        ps.setString(2, password);
-      try (ResultSet rs = ps.executeQuery();) {
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql); ) {
+      ps.setString(1, mail);
+      ps.setString(2, password);
+      try (ResultSet rs = ps.executeQuery(); ) {
         if (rs.next()) {
           mb = new MemberBean();
           mb.setuId(rs.getInt("uId"));
@@ -273,13 +265,11 @@ public class MemberDaoImpl_jdbc implements MemberDao {
           mb.setLast_IP(rs.getString("last_IP"));
         }
       }
-    }catch (SQLException ex) {
+    } catch (SQLException ex) {
       ex.printStackTrace();
-      throw new RuntimeException("MemberDaoImpl_Jdbc類別#checkIDPassword()發生SQL例外: "
-          + ex.getMessage());
+      throw new RuntimeException(
+          "MemberDaoImpl_Jdbc類別#checkIDPassword()發生SQL例外: " + ex.getMessage());
     }
     return mb;
   }
-
-
 }

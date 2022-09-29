@@ -1,6 +1,5 @@
 package tw.edu.ntut.sce.java18.common.dao;
 
-import tw.edu.ntut.sce.java18.common.dto.MemberRegisterRequest;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 
 public interface MemberDao {
@@ -18,5 +17,4 @@ public interface MemberDao {
   boolean mailExists(String mail);
 
   MemberBean checkIdPassword(String mail, String password);
-
 }

@@ -1,13 +1,12 @@
 package tw.edu.ntut.sce.java18.common.filiter;
-import tw.edu.ntut.sce.java18.common.model.MemberBean;
 
 import java.io.*;
 import java.util.*;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.*;
+import tw.edu.ntut.sce.java18.common.model.MemberBean;
 
 // 每個請求送達Server端時，都由本過濾器來檢查該請求所要求的資源是否需要登入才能使用。
 // 檢查的邏輯為：
@@ -22,9 +21,9 @@ import javax.servlet.http.*;
 // 所有需要登入才能使用的資源都以『前置路徑的對應關係』定義在本過濾器的起始參數。經由過濾器的init()
 // 方法讀入，放入List型別的實例變數 url 內。
 @WebFilter(
-    urlPatterns = { "/*" },
+    urlPatterns = {"/*"},
     initParams = {
-        @WebInitParam(name = "", value = ""),
+      @WebInitParam(name = "", value = ""),
     })
 public class LoginCheckingFilter implements Filter {
   List<String> url = new ArrayList<String>();
@@ -40,16 +39,15 @@ public class LoginCheckingFilter implements Filter {
     }
   }
 
-  public void doFilter(ServletRequest request, ServletResponse response,
-                       FilterChain chain) throws IOException, ServletException {
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
     boolean isRequestedSessionIdValid = false;
-    if (request instanceof HttpServletRequest
-        && response instanceof HttpServletResponse) {
+    if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
       HttpServletRequest req = (HttpServletRequest) request;
       HttpServletResponse resp = (HttpServletResponse) response;
       servletPath = req.getServletPath();
       contextPath = req.getContextPath();
-      requestURI  = req.getRequestURI();
+      requestURI = req.getRequestURI();
       isRequestedSessionIdValid = req.isRequestedSessionIdValid();
 
       if (mustLogin()) {
@@ -60,8 +58,7 @@ public class LoginCheckingFilter implements Filter {
           //  需要登入，尚未登入，所以送回登入畫面
           HttpSession session = req.getSession();
 
-
-          if ( ! isRequestedSessionIdValid ) {
+          if (!isRequestedSessionIdValid) {
             session.setAttribute("timeOut", "使用逾時，請重新登入");
           } else {
             // 記住原本的"requestURI"，稍後如果登入成功，系統可以自動轉入
@@ -71,7 +68,7 @@ public class LoginCheckingFilter implements Filter {
           resp.sendRedirect(contextPath + "/_02_login/login.jsp");
           return;
         }
-      } else {   //不需要登入，直接去執行他要執行的程式
+      } else { // 不需要登入，直接去執行他要執行的程式
         chain.doFilter(request, response);
       }
     } else {
@@ -109,7 +106,7 @@ public class LoginCheckingFilter implements Filter {
     }
     return login;
   }
+
   @Override
-  public void destroy() {
-  }
+  public void destroy() {}
 }

@@ -15,10 +15,8 @@ public class LogoutBean {
   }
 
   // logout
-  public Integer getLogout(){
+  public Integer getLogout() {
     session.invalidate();
     return 0;
   }
-
-
 }

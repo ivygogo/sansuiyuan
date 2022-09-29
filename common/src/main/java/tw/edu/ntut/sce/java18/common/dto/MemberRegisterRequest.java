@@ -5,12 +5,9 @@ import javax.validation.constraints.NotBlank;
 
 public class MemberRegisterRequest {
 
-  @Email
-  @NotBlank
-  private String mail;
+  @Email @NotBlank private String mail;
 
-  @NotBlank
-  private String password;
+  @NotBlank private String password;
 
   private String name;
   private Integer gender;

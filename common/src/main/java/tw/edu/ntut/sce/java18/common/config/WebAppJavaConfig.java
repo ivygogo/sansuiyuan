@@ -28,8 +28,7 @@ public class WebAppJavaConfig implements WebMvcConfigurer {
 
   private SessionFactory factory;
 
-  @Autowired
-  private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+  @Autowired private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
   @Autowired
   public WebAppJavaConfig(SessionFactory factory) {

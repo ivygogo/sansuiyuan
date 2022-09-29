@@ -1,24 +1,21 @@
 package tw.edu.ntut.sce.java18.tenant.controller;
 
-
-import tw.edu.ntut.sce.java18.common.model.MemberBean;
-import tw.edu.ntut.sce.java18.common.service.MemberService;
-import tw.edu.ntut.sce.java18.common.service.impl.MemberServiceImpl;
-import tw.edu.ntut.sce.java18.common.utils.GlobalService;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import tw.edu.ntut.sce.java18.common.model.MemberBean;
+import tw.edu.ntut.sce.java18.common.service.MemberService;
+import tw.edu.ntut.sce.java18.common.service.impl.MemberServiceImpl;
+import tw.edu.ntut.sce.java18.common.utils.GlobalService;
 
 @WebServlet("/register/register.do")
 public class RegisterServlet extends HttpServlet {
@@ -27,11 +24,13 @@ public class RegisterServlet extends HttpServlet {
   //
   // 設定密碼欄位必須由大寫字母、小寫字母、數字與 !@#$%!^'" 等四組資料組合而成，且長度不能小於八個字元
   //
-  private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%!^'\"]).{8,})";
+  private static final String PASSWORD_PATTERN =
+      "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%!^'\"]).{8,})";
   private Pattern pattern = null;
   private Matcher matcher = null;
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
     // 準備存放錯誤訊息的Map物件
     Map<String, String> errorMsg = new HashMap<>();
@@ -60,7 +59,7 @@ public class RegisterServlet extends HttpServlet {
     Collection<Part> parts = request.getParts();
     // GlobalService.exploreParts(parts, request);
     // 由parts != null來判斷此上傳資料是否為HTTP multipart request
-    if (parts != null) {  // 如果這是一個上傳資料的表單
+    if (parts != null) { // 如果這是一個上傳資料的表單
       for (Part p : parts) {
         String fldName = p.getName();
         String value = request.getParameter(fldName);
@@ -136,15 +135,15 @@ public class RegisterServlet extends HttpServlet {
     if (errorMsg.isEmpty()) {
       pattern = Pattern.compile(PASSWORD_PATTERN);
       matcher = pattern.matcher(password);
-      if ( !matcher.matches() ) {
+      if (!matcher.matches()) {
         errorMsg.put("passwordError", "密碼至少含有一個大寫字母、小寫字母、數字與!@#$%!^'\"等四組資料組合而成，且長度不能小於八個字元");
       }
     }
     if (!errorMsg.isEmpty()) {
-//			Set<String> set = errorMsg.keySet();
-//			for(String s : set) {
-//				System.out.println(s);
-//			}
+      //			Set<String> set = errorMsg.keySet();
+      //			for(String s : set) {
+      //				System.out.println(s);
+      //			}
       // 導向原來輸入資料的畫面，這次會顯示錯誤訊息
       RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
       rd.forward(request, response);
@@ -160,14 +159,14 @@ public class RegisterServlet extends HttpServlet {
         errorMsg.put("errorMailDup", "此信箱已註冊過");
       } else {
         // 要在此加密，不要在 dao.saveMember(mem)進行加密
-        password = GlobalService.getMD5Endocing(
-            GlobalService.encryptString(password));
+        password = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
         Timestamp ts = new Timestamp(System.currentTimeMillis());
-//      Blob blob = null;
-//      if (is != null) {
-//        blob = GlobalService.fileToBlob(is, sizeInBytes);
-//      }
-        MemberBean mem = new MemberBean(name,gender,mail,phone,Id_Number,password,address,nickname,ts);
+        //      Blob blob = null;
+        //      if (is != null) {
+        //        blob = GlobalService.fileToBlob(is, sizeInBytes);
+        //      }
+        MemberBean mem =
+            new MemberBean(name, gender, mail, phone, Id_Number, password, address, nickname, ts);
 
         // 呼叫MemberDao的saveMember方法
         int n = service.saveMember(mem);
