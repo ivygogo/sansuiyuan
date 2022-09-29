@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.landlord.dao.Imple;
+package tw.edu.ntut.sce.java18.landlord.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
