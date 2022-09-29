@@ -54,4 +54,6 @@ public interface MemberInfoService {
   int getFavorId(String name);
 
   int getCharacterOrFavorIdByNameAndType(String name, int type); // 此方法合併getSignatureId和getFavorId方法
+
+  MemberBean checkIdPassword(String mail, String password);
 }
