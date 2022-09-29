@@ -341,6 +341,6 @@ public class MemberDaoImpl_jdbc implements MemberDao {
     }
     return mb;
   }
-
+// 123
 
 }
