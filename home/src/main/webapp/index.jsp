@@ -79,7 +79,7 @@
             </div>
           </div>
         </div>
-    
+
       </div>
     </div>
   </div>
@@ -471,7 +471,7 @@
       </div>
     </div>
   </section>
- 
+
   <section class="py-5 bg-primary site-section how-it-works"
     id="howitworks-section">
     <div class="container">
@@ -483,7 +483,7 @@
           </h3>
         </div>
       </div>
-      
+
     </div>
   </section>
 
@@ -492,7 +492,7 @@
 
   <%--.site-wrap --%>
   <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
-  
+
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-ui.js"></script>
   <script src="js/popper.min.js"></script>

@@ -145,8 +145,8 @@
 				<div style="padding: 10px; height: 40px;">
 					<button type="button" class="pull-left" id="renterClearBtn"
 						style="color: #ffffff; background: #28a39d; border-radius: 6px; margin-right: 20px;">重寫</button>
-					<button type="button" class="pull-right" id="renterSubmitBtn"
-						style="color: #ffffff; background: #28a39d; border-radius: 6px;">確認</button>
+<!-- 					<button type="button" class="pull-right" id="renterSubmitBtn"
+						style="color: #ffffff; background: #28a39d; border-radius: 6px;">確認</button> -->
 				</div>
 			</div>
 		</div>
@@ -175,8 +175,8 @@
 				<div style="padding: 10px; height: 40px;">
 					<button type="button" class="pull-left" id="guarantorClearBtn"
 						style="color: #ffffff; background: #28a39d; border-radius: 6px; margin-right: 20px;">重寫</button>
-					<button type="button" class="pull-right" id="guarantorSubmitBtn"
-						style="color: #ffffff; background: #28a39d; border-radius: 6px;">確認</button>
+<!-- 					<button type="button" class="pull-right" id="guarantorSubmitBtn"
+						style="color: #ffffff; background: #28a39d; border-radius: 6px;">確認</button> -->
 				</div>
 			</div>
 		</div>
@@ -221,8 +221,8 @@
 				<div style="padding: 10px; height: 40px;">
 					<button type="button" class="pull-left" id="confirmClearBtn"
 						style="color: #ffffff; background: #28a39d; border-radius: 6px; margin-right: 20px;">重寫</button>
-					<button type="button" class="pull-right" id="confirmSubmitBtn"
-						style="color: #ffffff; background: #28a39d; border-radius: 6px;">確認</button>
+<!-- 					<button type="button" class="pull-right" id="confirmSubmitBtn"
+						style="color: #ffffff; background: #28a39d; border-radius: 6px;">確認</button> -->
 				</div>
 			</div>
 		</div>
@@ -239,7 +239,7 @@
 	</div>
 	<hr></hr>
 
-	<button id="showStamp" onclick="showStamp()">用印</button>
+<!-- 	<button id="showStamp" onclick="showStamp()">用印</button> -->
 	<button id="toPDF" onclick="toPDF()">產生pdf</button>
 
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"
@@ -247,7 +247,6 @@
 		crossorigin="anonymous"></script>
 	<script src="/wuli/rent/flashcanvas.js"></script>
 	<script src="/wuli/rent/jSignature.min.js"></script>
-	<script src="http://danml.com/js/download2.js"></script>
 
 	<script>
 function showStamp(){
@@ -256,20 +255,38 @@ function showStamp(){
 </script>
 	<script>
 function toPDF(){
-	  document.getElementById("showStamp").style.display = "none";
+	 /*  document.getElementById("showStamp").style.display = "none"; */
 	  document.getElementById("toPDF").style.display = "none";
-	  
+	  const contract = Object.assign(
+			  JSON.parse(localStorage.getItem('contract')),
+			  { renterSign: renterSign.jSignature('getData'),
+				  guarantorSign: guarantorSign.jSignature('getData'),
+				  confirmSign: confirmSign.jSignature('getData')
+			  });
 	     $.ajax({
     	  url:"/wuli/pdf.do",
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify(""),
+        data: JSON.stringify(contract),
         success: function (data) {
         },
         err: function(){
             console.error("error")}
     }); 
+	     
+	      $.ajax({
+	          url:"/wuli/rentContractServlet.do",
+	          type: "POST",
+	          contentType: "application/json",
+	          data: JSON.stringify(contract),
+	          success: function (data) {
+	          },
+	          err: function(){
+	              console.error("error")}
+	      }); 
+	     
 	     window.location.href='/wuli/rent.jsp'; 
+	     
 }
 </script>
 
@@ -310,34 +327,28 @@ var renterSign = $("#renterSign").jSignature();
 document.getElementById("renterClearBtn").addEventListener("click", () => {
   renterSign.jSignature('reset');
 });
-document.getElementById("renterSubmitBtn").addEventListener("click", () => {
-  var data = renterSign.jSignature('getData');
-  console.log(data);
-  download(data, "renterSign.png", "image/png");
-
-});
+/* document.getElementById("renterSubmitBtn").addEventListener("click", () => {
+  var renterSignData = renterSign.jSignature('getData');
+  console.log(renterSignData);
+}); */
 //丙方簽名
 var guarantorSign = $("#guarantorSign").jSignature();
 document.getElementById("guarantorClearBtn").addEventListener("click", () => {
   guarantorSign.jSignature('reset');
 });
-document.getElementById("guarantorSubmitBtn").addEventListener("click", () => {
+/* document.getElementById("guarantorSubmitBtn").addEventListener("click", () => {
   var data = guarantorSign.jSignature('getData');
   console.log(data);
-  download(data, "guarantorSign.png", "image/png");
-
-});
+}); */
 //事項確認簽名
 var confirmSign = $("#confirmSign").jSignature();
 document.getElementById("confirmClearBtn").addEventListener("click", () => {
   confirmSign.jSignature('reset');
 });
-document.getElementById("confirmSubmitBtn").addEventListener("click", (e) => {
+/* document.getElementById("confirmSubmitBtn").addEventListener("click", () => {
   var data = confirmSign.jSignature('getData');
   console.log(data);
-  download(data, "confirmSign.png", "image/png");
-
-});
+}); */
 </script>
 
 </body>
