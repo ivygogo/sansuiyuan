@@ -21,7 +21,4 @@ public interface MemberDao {
 
   MemberBean checkIdPassword(String mail, String password);
 
-  Integer insertMemberS(MemberRegisterRequest memberRegisterRequest); // springboot
-
-  MemberBean getMemberByEmail(String email); // springboot
 }
