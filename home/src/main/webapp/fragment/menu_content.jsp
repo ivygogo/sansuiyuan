@@ -50,7 +50,7 @@
               <a class="nav-link " href="login.html" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">登入/註冊</a>
               <ul class="dropdown ">
-                <li><a class="dropdown-item" href="memberInfo.jsp">會員專區</a></li>
+                <li><a class="dropdown-item" href="/home/MemberInfo.do">會員專區</a></li>
                 <li><a class="dropdown-item" href="repair.jsp">我要報修</a></li>
               </ul>
                         
