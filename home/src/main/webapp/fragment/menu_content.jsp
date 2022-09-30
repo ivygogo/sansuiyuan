@@ -7,33 +7,33 @@
         <div class="row align-items-center mt-1">
 
           <div class="col-6 col-xl-2">
-            <h1 class="mb-0 site-logo m-0 p-0"><a href="index.jsp" class="mb-0">${SYSTEM.systemName}</a></h1>
+            <h1 class="mb-0 site-logo m-0 p-0"><a href="http://localhost:8080/home/index.jsp" class="mb-0">${SYSTEM.systemName}</a></h1>
           </div>
 
       <div class="col-12 col-md-10 d-none d-xl-block">
         <nav class="site-navigation position-relative text-right"
           role="navigation">
           <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-            <li><a href="aboutus.jsp" class="nav-link">關於我們</a></li>
+            <li><a href="http://localhost:8080/home/aboutus.jsp" class="nav-link">關於我們</a></li>
             <li class="nav-item dropdown has-children dropdown arrow-top">
-              <a class="nav-link " href="roomtype.jsp" role="button"
+              <a class="nav-link " href="http://localhost:8080/home/roomtype.jsp" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">房型瀏覽</a>
               <ul class="dropdown ">
-                <li><a class="dropdown-item" href="roomtype.jsp?type=A">單人A</a></li>
-                <li><a class="dropdown-item" href="roomtype.jsp?type=B">單人B</a></li>
-                <li><a class="dropdown-item" href="roomtype.jsp?type=C">單人C</a></li>
-                <li><a class="dropdown-item" href="roomtype.jsp?type=D">雙人A</a></li>
-                <li><a class="dropdown-item" href="roomtype.jsp?type=E">雙人B</a></li>
-                <li><a class="dropdown-item" href="roomtype.jsp?type=F">雙人C</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/roomtype.jsp?type=A">單人A</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/roomtype.jsp?type=B">單人B</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/roomtype.jsp?type=C">單人C</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/roomtype.jsp?type=D">雙人A</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/roomtype.jsp?type=E">雙人B</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/roomtype.jsp?type=F">雙人C</a></li>
               </ul>
 
             </li>
             
             <li class="nav-item dropdown has-children dropdown arrow-top">
-              <a class="nav-link " href="findRoommate.jsp" role="button"
+              <a class="nav-link " href="http://localhost:8080/home/findRoommate.jsp" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">找室友</a>
               <ul class="dropdown ">
-                <li><a class="dropdown-item" href="chatRoom.jsp">聊聊</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/chatRoom.jsp">聊聊</a></li>
               </ul>
             
             </li>
@@ -47,11 +47,11 @@
             </c:if> --%>
             
             <li class="nav-item dropdown has-children dropdown arrow-top">
-              <a class="nav-link " href="login.html" role="button"
+              <a class="nav-link " href="http://localhost:8080/home/login/login.jsp" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">登入/註冊</a>
               <ul class="dropdown ">
-                <li><a class="dropdown-item" href="/home/MemberInfo.do">會員專區</a></li>
-                <li><a class="dropdown-item" href="repair.jsp">我要報修</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/MemberInfo.do">會員專區</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/home/repair.jsp">我要報修</a></li>
               </ul>
                         
             <!-- <li><a href="login.html" class="nav-link">登入/註冊</a></li>

@@ -47,10 +47,10 @@
           <div class="col-md-3 mx-auto">
             <h2 class="footer-heading mb-4">相關連結</h2>
             <ul class="list-unstyled">
-              <li><a href="aboutus.jsp">關於我們</a></li>
-              <li><a href="roomtype.jsp">房型瀏覽</a></li>
-              <li><a href="findRoommate.jsp">找室友</a></li>
-              <li><a href="login.html">登入/註冊</a></li>
+              <li><a href="http://localhost:8080/home/aboutus.jsp">關於我們</a></li>
+              <li><a href="http://localhost:8080/home/roomtype.jsp">房型瀏覽</a></li>
+              <li><a href="http://localhost:8080/home/findRoommate.jsp">找室友</a></li>
+              <li><a href="http://localhost:8080/home/login/login.jsp">登入/註冊</a></li>
             </ul>
           </div>
 
@@ -59,12 +59,12 @@
       <div class="col-md-4">
         <div class="mb-4">
           <h2 class="footer-heading mb-4">山水苑─聯繫方式</h2>
-          <h3 class="footer-heading mb-4">聯絡電話<br>(02)2626-1777</h3>
-          <h3 class="footer-heading mb-4"></h3>
+          <h3 class="footer-heading mb-4">聯絡電話</h3>
+          <h3 class="footer-heading mb-4">(02)2626-1777</h3>
         </div>
 
         <div class="">
-          <h2 class="footer-heading mb-4">聯絡地址</h2>
+          <h3 class="footer-heading mb-4">聯絡地址</h3>
           <h3 class="footer-heading mb-4">新北市淡水區水源街二段177巷45號</h3>
         </div>
 

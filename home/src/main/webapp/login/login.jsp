@@ -30,7 +30,7 @@
 <%--  <c:set var="msg" value="<font color='red'>${sessionScope.timeOut}</font>" />--%>
 <%--</c:if>--%>
 <%--<!-- 引入共同的頁首 -->--%>
-<%--&lt;%&ndash;<jsp:include page="" />&ndash;%&gt;--%>
+<%-- <%@include file="/fragment/menu_content.jsp" %> --%>
 
 <Form action="/home/login/login.do" method="POST" name="loginForm">
   <div id='content'>
