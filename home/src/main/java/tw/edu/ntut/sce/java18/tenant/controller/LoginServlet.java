@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.service.MemberInfoService;
 import tw.edu.ntut.sce.java18.common.service.impl.MemberInfoServiceImpl;
+import tw.edu.ntut.sce.java18.common.utils.GlobalService;
 
 @WebServlet("/login/login.do")
 public class LoginServlet extends HttpServlet {
@@ -60,10 +61,10 @@ public class LoginServlet extends HttpServlet {
       cookieUser.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
       cookieUser.setPath(request.getContextPath());
 
-      //      String encodePassword = GlobalService.encryptString(password);
-      //      cookiePassword = new Cookie("password", encodePassword);
-      //      cookiePassword.setMaxAge(7 * 24 * 60 * 60);
-      //      cookiePassword.setPath(request.getContextPath());
+            String encodePassword = GlobalService.encryptString(password);
+            cookiePassword = new Cookie("password", encodePassword);
+            cookiePassword.setMaxAge(7 * 24 * 60 * 60);
+            cookiePassword.setPath(request.getContextPath());
 
       cookieRememberMe = new Cookie("rm", "true");
       cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
@@ -73,17 +74,17 @@ public class LoginServlet extends HttpServlet {
       cookieUser.setMaxAge(0); // MaxAge==0 表示要請瀏覽器刪除此Cookie
       cookieUser.setPath(request.getContextPath());
 
-      //      String encodePassword = GlobalService.encryptString(password);
-      //      cookiePassword = new Cookie("password", encodePassword);
-      //      cookiePassword.setMaxAge(0);
-      //      cookiePassword.setPath(request.getContextPath());
+            String encodePassword = GlobalService.encryptString(password);
+            cookiePassword = new Cookie("password", encodePassword);
+            cookiePassword.setMaxAge(0);
+            cookiePassword.setPath(request.getContextPath());
 
       cookieRememberMe = new Cookie("rm", "true");
       cookieRememberMe.setMaxAge(0);
       cookieRememberMe.setPath(request.getContextPath());
     }
     response.addCookie(cookieUser);
-    // response.addCookie(cookiePassword);
+    response.addCookie(cookiePassword);
     response.addCookie(cookieRememberMe);
     // ********************************************
     // 4. 進行 Business Logic 運算
@@ -91,7 +92,7 @@ public class LoginServlet extends HttpServlet {
     MemberInfoService memberService = new MemberInfoServiceImpl();
 
     // 將密碼加密兩次，以便與存放在表格內的密碼比對
-    // password = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
+    password = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
     MemberBean mb = null;
     try {
       // 呼叫 loginService物件的 checkIDPassword()，傳入userid與password兩個參數

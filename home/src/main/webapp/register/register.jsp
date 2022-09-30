@@ -12,213 +12,142 @@
 <head>
   <meta charset="UTF-8">
   <title>加入會員</title>
-  <style type="text/css">
-    span.error {
-      color: red;
-      display: inline-block;
-      font-size: 10pt;
-    }
-
-    .error {
-      color: red;
-      display: inline-block;
-      font-size: 10pt;
-    }
-
-    input[type=text]{
-      font-size: 12pt;
-    }
-
-    body {
-      background-attachment: fixed;
-      background-color: #EBFFEB;
-      background-repeat: no-repeat;
-      background-position: 20px 50px;
-    }
-
-    h1 {
-      font-family: "標楷體", "新細明體", sans-serif;
-      font-size: 24px;
-    }
-    .formBkgnd {
-      color: #FFFFFF;
-      background-color: #666666;
-    }
-    label {
-      float:left;
-      width:8em;
-      font-weight:bold;
-      color:#000000;
-      margin-top:10px;
-      margin-bottom:2px;
-      margin-right:10px;
-      text-align: right;
-    }
-
-    br {
-      clear:both;
-    }
-    .fieldWidth {
-      margin-top:10px;
-      margin-bottom: 2px;
-      width: 200px;
-      background:#F6E497;
-      font-size:1.1em;
-    }
-    /* 設定字體大小 */
-    .fontSize {
-      font-size:1.1em;
-    }
-
-    #main {
-      position:relative;
-      left:70px;
-      width:600px;
-      height:543px;
-      top: 0px;
-      z-index:2;
-      font-size:0.9em;
-    }
-    /* 設定傳送鈕的樣式 */
-    #submit {
-      width:64px;
-      height:30px;
-      font-size:1.2em;
-      color:#FFFFFF;
-      margin-right:1.5em;
-      border-width:2px;
-      border-color: #FFEDAF #B2A268 #B2A268 #FFEDAF;
-      background:#A9A9A9;
-    }
-    /* 設定取消鈕的樣式 */
-    #cancel {
-      width:64px;
-      height:30px;
-      font-size:1.2em;
-      color:#ffffff;
-      border-width:2px;
-      border-color: #FFEDAF #B2A268 #B2A268 #FFEDAF;
-      background:#a9a9a9;
-    }
-
-    /* #errorMsg { */
-    /*     position:relative; */
-    /*     top:0px;  */
-    /*     left:0px;     */
-    /* 	color:#FF0000; */
-    /* 	font-size:0.8em; */
-    /* } */
-
-  </style>
-  <script type="text/javascript">
-    //由<body>的onLoad事件處理函數觸發此函數
-    function setFocusToUserId(){
-      document.forms[0].mid.focus();   // 將游標放在mid欄位內
-    }
-  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
-<body onLoad="setFocusToUserId()" >
+<body onLoad="setFocusToUserId()" style="background:#37cfa2;">
 <c:set var="funcName" value="REG" scope="session"/>
 <!-- 引入共同的頁首 -->
 <%--<jsp:include page="" />--%>
-<div align='center' id="content">
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">會員註冊</h3>
 
-  <form method="POST" action="<c:url value='/register/register.do' />" enctype='multipart/form-data'>
+            <form method="POST" action="<c:url value='/register/register.do' />" >
 
-    <Table  style="width:900px ;background-color: #E7CDFF; cellspacing:0; border:2px solid black; " >
-      <tr height="40" >
-        <td colspan='4' style="text-align: center; vertical-align: middle;">
-          <Font color="#006600" size='6' face="標楷體">${AppName}</Font>
-        </td>
-      </tr>
-      <tr height="36" >
+              <div class="row">
+                <div class="col-md-6 mb-4">
 
-        <td colspan='4' style="text-align: center; vertical-align: middle;">
-          <Font color="#006600" size='5' face="標楷體">加入會員</Font>
-        </td>
-      </tr>
-      <tr height="16" >
-        <td colspan='4'  style="text-align: center; vertical-align: middle;">
-          <div class="error">${errorSaveData}<br>
+                  <div class="form-outline">
+                    <label class="form-label">帳號(信箱):</label>
+                    <input type="email" name='mail' value="${param.mail}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorMailDup}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label class="form-label">姓名:</label>
+                    <input type="text" name='name' value="${param.name}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorName}</font>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                  <div class="form-outline datepicker w-100">
+                    <label class="form-label">密碼:</label>
+                    <input type="password" name='password'  class="form-control form-control-lg"/>
+                    <font color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline datepicker w-100">
+                    <label class="form-label">密碼確認:</label>
+                    <input type="password" name='password1'  class="form-control form-control-lg"/>
+                    <font color="red" size="-1">${MsgMap.errorPassword1Empty}</font>
+                  </div>
+
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <h6 class="mb-2 pb-1">性別:</h6>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name='gender' value="0" checked />
+                      <label class="form-check-label">男</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name='gender' value="0" />
+                      <label class="form-check-label">女</label>
+                    </div>
+
+                    <font color="red" size="-1">${MsgMap.errorGender}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <label class="form-label">電話:</label>
+                    <input type="text" name='phone' value="${param.tel}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorTel}</font>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <label class="form-label">匿名:</label>
+                    <input type="text" name='nickname' value="${param.nickName}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorNickName}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <label class="form-label">身分證字號：</label>
+                    <input type="text" name='Id_Number' value="${param.Id_Number}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorId_Number}</font>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label">地址:</label>
+                  <input type="text" name='address' value="${param.address}" class="form-control form-control-lg" />
+                  <font color="red" size="-1">${MsgMap.errorAddr}</font>
+
+                </div>
+              </div>
+
+              <div class="mt-4 pt-2" align="center">
+                <input class="btn btn-primary btn-lg" type="submit" name="submit" id="submit" value="註冊" />
+                <input class="btn btn-primary btn-lg" type="reset" name="cancel" id="cancel" value="重填" />
+              </div>
+
+            </form>
+
           </div>
-        </td>
-      </tr>
-
-      <tr height="52">
-        <td style="width: 90px;">
-          <label class="fontSize" >帳號(信箱)：</label><br>&nbsp;
-        </td>
-        <td style="width: 290px;">
-          <input type='email' name='memberId' value="${param.mail}" class="fieldWidth" style="width: 200px;"/><br>&nbsp;
-          <font color="red" size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font>
-        </td>
-        <td>
-          <label class="fontSize" >姓名：</label><br>&nbsp;
-        </td>
-        <td>
-          <input type='text' name='name'  value="${param.name}" class="fieldWidth" style="width: 200px;"/><br>&nbsp;
-          <font color="red" size="-1">${MsgMap.errorName}</font>
-        </td>
-      <tr height="52">
-        <td>
-          <label class="fontSize" >密碼：</label><br>&nbsp;
-        </td>
-        <td>
-          <input type='text' name='password' class="fieldWidth" style="width: 200px;"/><br>&nbsp;
-          <font color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
-        </td>
-        <td>
-          <label class="fontSize" >密碼確認：</label><br>&nbsp;
-        </td>
-        <td>
-          <input type='text' name='password1' class="fieldWidth" style="width: 200px;"/><br>&nbsp;
-          <font color="red" size="-1">${MsgMap.errorPassword1Empty}</font>
-        </td>
-
-      </tr>
-      <tr height="52">
-        <td>
-          <label class="fontSize" >地址：</label><br>&nbsp;
-        </td>
-        <td>
-          <input type='text' name='address' value="${param.address}"  class="fieldWidth" style="width: 200px;"/><br>&nbsp;
-          <font color="red" size="-1">${MsgMap.errorAddr}</font>
-        </td>
-        <td>
-          <label class="fontSize" >電話：</label><br>&nbsp;
-        </td>
-        <td>
-          <input type='text' name='tel' value="${param.tel}" class="fieldWidth" style="width: 200px;"/><br>&nbsp;
-          <font color="red" size="-1">${MsgMap.errorTel}</font>
-        </td>
-      </tr>
-      <tr height="52">
-        <td>
-          <label class="fontSize" >匿名：</label><br>&nbsp;
-        </td>
-        <td>
-          <input type='text' name='nickname' value="${param.email}"  class="fieldWidth" style="width: 200px;"/><br>&nbsp;
-          <font color="red" size="-1">${MsgMap.errorEmail}</font>
-        </td>
-        <td>
-          <label class="fontSize" >性別：</label><br>&nbsp;
-        </td>
-        <td>
-          <input type='radio' name='nickname' value="${param.gender}"  class="fieldWidth" style="width: 200px;"/>男
-          <input type='radio' name='nickname' value="${param.gender}"  class="fieldWidth" style="width: 200px;"/>女
-          <font color="red" size="-1">${MsgMap.errorGender}</font>
-        </td>
-      </tr>
-      <tr height="42">
-        <td colspan='4'>
-          <div id="btnArea" align="center">
-            <input type="submit" name="submit" id="submit" value="儲存"/>
-            <input type="reset" name="cancel" id="cancel" value="重填">
-          </div>
-        </td>
-      </tr>
-    </Table>
-  </form>
-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </body>
+<script type="text/javascript">
+  //由<body>的onLoad事件處理函數觸發此函數
+  function setFocusToUserId(){
+    document.forms[0].mid.focus();   // 將游標放在mid欄位內
+  }
+</script>
 </html>
