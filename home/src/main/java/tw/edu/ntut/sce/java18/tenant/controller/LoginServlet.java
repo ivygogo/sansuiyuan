@@ -61,10 +61,10 @@ public class LoginServlet extends HttpServlet {
       cookieUser.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
       cookieUser.setPath(request.getContextPath());
 
-            String encodePassword = GlobalService.encryptString(password);
-            cookiePassword = new Cookie("password", encodePassword);
-            cookiePassword.setMaxAge(7 * 24 * 60 * 60);
-            cookiePassword.setPath(request.getContextPath());
+      String encodePassword = GlobalService.encryptString(password);
+      cookiePassword = new Cookie("password", encodePassword);
+      cookiePassword.setMaxAge(7 * 24 * 60 * 60);
+      cookiePassword.setPath(request.getContextPath());
 
       cookieRememberMe = new Cookie("rm", "true");
       cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
@@ -74,10 +74,10 @@ public class LoginServlet extends HttpServlet {
       cookieUser.setMaxAge(0); // MaxAge==0 表示要請瀏覽器刪除此Cookie
       cookieUser.setPath(request.getContextPath());
 
-            String encodePassword = GlobalService.encryptString(password);
-            cookiePassword = new Cookie("password", encodePassword);
-            cookiePassword.setMaxAge(0);
-            cookiePassword.setPath(request.getContextPath());
+      String encodePassword = GlobalService.encryptString(password);
+      cookiePassword = new Cookie("password", encodePassword);
+      cookiePassword.setMaxAge(0);
+      cookiePassword.setPath(request.getContextPath());
 
       cookieRememberMe = new Cookie("rm", "true");
       cookieRememberMe.setMaxAge(0);

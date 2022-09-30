@@ -203,9 +203,9 @@ public class MemberDaoImpl_jdbc implements MemberDao {
     int n = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql); ) {
-//      if (null != mb.getuId()){
-//        ps.setInt(1, mb.getuId());
-//      }
+      //      if (null != mb.getuId()){
+      //        ps.setInt(1, mb.getuId());
+      //      }
       ps.setString(1, mb.getName());
       ps.setInt(2, mb.getGender());
       ps.setString(3, mb.getPhone());

@@ -1,9 +1,7 @@
 package tw.edu.ntut.sce.java18.tenant.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -52,87 +50,88 @@ public class RegisterServlet extends HttpServlet {
     String password1 = request.getParameter("password1");
     String address = request.getParameter("address");
     String nickname = request.getParameter("nickname");
-//    String fileName = "";
-//    long sizeInBytes = 0;
-//    InputStream is = null;
+    //    String fileName = "";
+    //    long sizeInBytes = 0;
+    //    InputStream is = null;
 
     // 取出HTTP multipart request內所有的parts
-    //Collection<Part> parts = request.getParts();
+    // Collection<Part> parts = request.getParts();
     // GlobalService.exploreParts(parts, request);
     // 由parts != null來判斷此上傳資料是否為HTTP multipart request
-    //if (parts != null) { // 如果這是一個上傳資料的表單
-//      for (Part p : parts) {
-//        String fldName = p.getName();
-//        String value = request.getParameter(fldName);
-//
-//        // 1. 讀取使用者輸入資料
-//        if (p.getContentType() == null) {
-//          if (fldName.equals("mail")) {
-//            mail = value;
-//          } else if (fldName.equals("name")) {
-//            name = value;
-//          } else if (fldName.equals("gender")) {
-//            gender = Integer.parseInt(value);
-//          } else if (fldName.equals("phone")) {
-//            phone = value;
-//          } else if (fldName.equals("Id_Number")) {
-//            Id_Number = value;
-//          } else if (fldName.equals("password")) {
-//            password = value;
-//          } else if (fldName.equals("nickname")) {
-//            nickname = value;
-//          }
-//
-//        } else {
-//          // 取出圖片檔的檔名
-//          fileName = GlobalService.getFileName(p);
-//          // 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
-//          fileName = GlobalService.adjustFileName(fileName, GlobalService.IMAGE_FILENAME_LENGTH);
-//          if (fileName != null && fileName.trim().length() > 0) {
-//            sizeInBytes = p.getSize();
-//            is = p.getInputStream();
-//          }
-//        }
-//      }
-//      System.out.println(request.getParameter("mail"));
+    // if (parts != null) { // 如果這是一個上傳資料的表單
+    //      for (Part p : parts) {
+    //        String fldName = p.getName();
+    //        String value = request.getParameter(fldName);
+    //
+    //        // 1. 讀取使用者輸入資料
+    //        if (p.getContentType() == null) {
+    //          if (fldName.equals("mail")) {
+    //            mail = value;
+    //          } else if (fldName.equals("name")) {
+    //            name = value;
+    //          } else if (fldName.equals("gender")) {
+    //            gender = Integer.parseInt(value);
+    //          } else if (fldName.equals("phone")) {
+    //            phone = value;
+    //          } else if (fldName.equals("Id_Number")) {
+    //            Id_Number = value;
+    //          } else if (fldName.equals("password")) {
+    //            password = value;
+    //          } else if (fldName.equals("nickname")) {
+    //            nickname = value;
+    //          }
+    //
+    //        } else {
+    //          // 取出圖片檔的檔名
+    //          fileName = GlobalService.getFileName(p);
+    //          // 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
+    //          fileName = GlobalService.adjustFileName(fileName,
+    // GlobalService.IMAGE_FILENAME_LENGTH);
+    //          if (fileName != null && fileName.trim().length() > 0) {
+    //            sizeInBytes = p.getSize();
+    //            is = p.getInputStream();
+    //          }
+    //        }
+    //      }
+    //      System.out.println(request.getParameter("mail"));
 
-      // 2. 進行必要的資料轉換
-      // (無)
-      // 3. 檢查使用者輸入資料
-      if (mail == null || mail.trim().length() == 0) {
-        errorMsg.put("errorIdEmpty", "帳號欄必須輸入");
+    // 2. 進行必要的資料轉換
+    // (無)
+    // 3. 檢查使用者輸入資料
+    if (mail == null || mail.trim().length() == 0) {
+      errorMsg.put("errorIdEmpty", "帳號欄必須輸入");
+    }
+    if (password == null || password.trim().length() == 0) {
+      errorMsg.put("errorPasswordEmpty", "密碼欄必須輸入");
+    }
+    if (password1 == null || password1.trim().length() == 0) {
+      errorMsg.put("errorPassword1Empty", "密碼確認欄必須輸入");
+    }
+    if (password.trim().length() > 0 && password1.trim().length() > 0) {
+      if (!password.trim().equals(password1.trim())) {
+        errorMsg.put("errorPassword1Empty", "密碼欄必須與確認欄一致");
+        errorMsg.put("errorPasswordEmpty", "*");
       }
-      if (password == null || password.trim().length() == 0) {
-        errorMsg.put("errorPasswordEmpty", "密碼欄必須輸入");
-      }
-      if (password1 == null || password1.trim().length() == 0) {
-        errorMsg.put("errorPassword1Empty", "密碼確認欄必須輸入");
-      }
-      if (password.trim().length() > 0 && password1.trim().length() > 0) {
-        if (!password.trim().equals(password1.trim())) {
-          errorMsg.put("errorPassword1Empty", "密碼欄必須與確認欄一致");
-          errorMsg.put("errorPasswordEmpty", "*");
-        }
-      }
-      if (name == null || name.trim().length() == 0) {
-        errorMsg.put("errorName", "姓名欄必須輸入");
-      }
-      if (address == null || address.trim().length() == 0) {
-        errorMsg.put("errorAddr", "地址欄必須輸入");
-      }
-      if (phone == null || phone.trim().length() == 0) {
-        errorMsg.put("errorTel", "電話號碼欄必須輸入");
-      }
-      if (Id_Number == null || Id_Number.trim().length() == 0) {
-        errorMsg.put("errorId_Number", "身分證欄必須輸入");
-      }
-      if (nickname == null || nickname.trim().length() == 0) {
-        errorMsg.put("errorNickName", "匿名欄必須輸入");
-      }
+    }
+    if (name == null || name.trim().length() == 0) {
+      errorMsg.put("errorName", "姓名欄必須輸入");
+    }
+    if (address == null || address.trim().length() == 0) {
+      errorMsg.put("errorAddr", "地址欄必須輸入");
+    }
+    if (phone == null || phone.trim().length() == 0) {
+      errorMsg.put("errorTel", "電話號碼欄必須輸入");
+    }
+    if (Id_Number == null || Id_Number.trim().length() == 0) {
+      errorMsg.put("errorId_Number", "身分證欄必須輸入");
+    }
+    if (nickname == null || nickname.trim().length() == 0) {
+      errorMsg.put("errorNickName", "匿名欄必須輸入");
+    }
 
-//    } else {
-//      errorMsg.put("errTitle", "此表單不是上傳檔案的表單");
-//    }
+    //    } else {
+    //      errorMsg.put("errTitle", "此表單不是上傳檔案的表單");
+    //    }
     // 如果有錯誤
     if (errorMsg.isEmpty()) {
       pattern = Pattern.compile(PASSWORD_PATTERN);

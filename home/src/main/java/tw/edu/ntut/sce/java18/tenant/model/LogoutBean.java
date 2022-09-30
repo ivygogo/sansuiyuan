@@ -19,5 +19,4 @@ public class LogoutBean {
     session.invalidate();
     return 0;
   }
-
 }
