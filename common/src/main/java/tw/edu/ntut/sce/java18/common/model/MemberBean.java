@@ -60,7 +60,6 @@ public class MemberBean implements Serializable {
   @Transient List<RefundAccountBean> refundAccountList;
   @Transient GuarantorBean guarantor;
   @Transient RefundAccountBean refundAccount;
-
   /* ====== 建構子 ======*/
   public MemberBean() {}
 
@@ -85,7 +84,6 @@ public class MemberBean implements Serializable {
     this.nickname = nickname;
     this.create_time = create_time;
   }
-
   /* ====== getter ======*/
 
   public static long getSerialversionuid() {

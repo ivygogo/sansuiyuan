@@ -7,6 +7,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>登入</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <style type="text/css">
     #main {
       position:relative;
@@ -32,74 +34,57 @@
 <%--<!-- 引入共同的頁首 -->--%>
 <%-- <%@include file="/fragment/menu_content.jsp" %> --%>
 
-<Form action="/home/login/login.do" method="POST" name="loginForm">
-  <div id='content'>
-    <Table  style="border-width:2px; background:#E0E0E0; width: 500px;
-                        border-style:inset; border-color:#EF02A4;">
-      <TR>
-        <TH width="180">&nbsp;</TH>
-        <TH width="180">&nbsp;</TH>
-      </TR>
-      <TR>
-        <TD colspan='2' align="CENTER" style="font-size:0.6cm;font-weight: 300;">
-          <Font color="#006600" face="標楷體">
-            ${AppName}
-          </Font>
-        </TD>
-      </TR>
-      <TR>
-        <TD height='50' colspan='2' align="CENTER" style="font-size:0.5cm;font-weight: 300;">
-          <Font color="#006600"  face="標楷體">
-            ${msg}
-          </Font>
-        </TD>
-      </TR>
-      <TR height='10'>
-        <TD align="CENTER" colspan='2'>&nbsp;</TD>
-      </TR>
-      <TR>
-        <TD width="180" align="right">帳號：　</TD>
-        <TD width="180" colspan='2' align="LEFT">
-          <input  type="text" name="mail" size="10"
-                  value="${requestScope.user}${param.userId}">
+<section class="vh-100" style="background-color: #37cfa2;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
 
-          &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.AccountEmptyError}
-        </Font></small></TD>
-      </TR>
-      <TR>
-        <TD width="180" align="right">密碼：　</TD>
-        <TD width="180" colspan='2' align="LEFT" >
-          <input  type="password" name="pswd"  size="10"
-                  value="${requestScope.password}${param.pswd}">
+            <h3 class="mb-5">山水苑</h3>
 
-          &nbsp;<small><Font color='red'  size="-3">${ErrorMsgKey.PasswordEmptyError}
-        </Font></small></TD>
+            <form action="/home/login/login.do" method="POST" name="loginForm">
+              <div class="form-outline mb-4">
+                <label class="form-label">帳號:</label>
+                <input type="email" name="mail" class="form-control form-control-lg" size="10" value="${requestScope.user}${param.userId}">
+                <small><Font color='red' size="-3">${ErrorMsgKey.AccountEmptyError}</Font></small>
+              </div>
 
-      </TR>
-      <tr>
-        <TD width="180" align="right" >
-          <input type="checkbox" name="rememberMe"
-          <c:if test='${requestScope.rememberMe==true}'>
+              <div class="form-outline mb-4">
+                <label class="form-label">密碼:</label>
+                <input  type="password" name="pswd" class="form-control form-control-lg" size="10" value="${requestScope.password}${param.pswd}">
+                <small><Font color='red'  size="-3">${ErrorMsgKey.PasswordEmptyError}</Font></small>
+              </div>
 
-                 checked='checked'
-          </c:if>
-                 value="true">
-        </TD>
-        <TD width="180"  colspan='2' align="left"><small>記住密碼</small></TD>
-      </tr>
-      <TR height='10'>
-        <TD align="CENTER" colspan='2'>&nbsp;<Font color='red' size="-1">
-          ${ErrorMsgKey.LoginError}&nbsp;</Font></TD>
-      </TR>
-      <TR>
-        <TD colspan="2" align="center"><input type="submit" value="登入"> </TD>
-      </TR>
-      <TR height='10'>
-        <TD align="CENTER" colspan='2'>&nbsp;</TD>
-      </TR>
-    </Table>
+              <div class="form-check d-flex justify-content-start mb-4">
+                <input type="checkbox" class="form-check-input" name="rememberMe"
+                <c:if test='${requestScope.rememberMe==true}'>
+                       checked='checked'
+                </c:if>
+                       value="true">
+                <label class="form-check-label"> <small>記住密碼</small> </label>
+              </div>
+
+              <div><Font color='red' size="-1">
+                ${ErrorMsgKey.LoginError}&nbsp;</Font></div>
+
+              <input type="submit" value="登入" class="btn btn-primary btn-lg btn-block">
+            </form>
+
+
+            <hr class="my-4">
+
+            <div>
+              <p class="mb-0">還沒有會員嗎? <a href="../register/register.jsp" class="text-blue-50 fw-bold">點此加入</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</Form>
+</section>
 </body>
 <script type="text/javascript">
   //由<body>的onLoad事件處理函數觸發此函數

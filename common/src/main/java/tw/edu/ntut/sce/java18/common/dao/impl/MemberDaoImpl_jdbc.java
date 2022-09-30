@@ -198,20 +198,22 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   @Override
   public int saveMember(MemberBean mb) {
     String sql =
-        "Insert into member (UId, name, gender, phone, Id_Number, mail, password, address,"
-            + " nickname) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        "Insert into member (name, gender, phone, Id_Number, mail, password, address,"
+            + " nickname) values ( ?, ?, ?, ?, ?, ?, ?, ?)";
     int n = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql); ) {
-      ps.setInt(1, mb.getuId());
-      ps.setString(2, mb.getName());
-      ps.setInt(3, mb.getGender());
-      ps.setString(4, mb.getPhone());
-      ps.setString(5, mb.getIdNumber());
-      ps.setString(6, mb.getMail());
-      ps.setString(7, mb.getPassword());
-      ps.setString(8, mb.getAddress());
-      ps.setString(9, mb.getNickname());
+      //      if (null != mb.getuId()){
+      //        ps.setInt(1, mb.getuId());
+      //      }
+      ps.setString(1, mb.getName());
+      ps.setInt(2, mb.getGender());
+      ps.setString(3, mb.getPhone());
+      ps.setString(4, mb.getIdNumber());
+      ps.setString(5, mb.getMail());
+      ps.setString(6, mb.getPassword());
+      ps.setString(7, mb.getAddress());
+      ps.setString(8, mb.getNickname());
       n = ps.executeUpdate();
     } catch (Exception ex) {
       ex.printStackTrace();
