@@ -62,12 +62,7 @@
             link += ".png";
             $("#avatarImg img").attr('src', link);
             $("#avaName").html(avatarClick);
-            <%--
-            alert(event.target.id);
-            //$("input[name='avatarIcon']").get(0).checked = false;
-            //alert(startAvatar);
-            //alert($("#avaName").text);
-            --%>
+            
           });
   }
   window.addEventListener('load', doFirstp());
@@ -75,16 +70,13 @@
 		
 		$(function(){
 		    $("input[name='myGender']").click(function(){
-		      alert(event.target.value);
 		      ans = " ";
 		      
 		      /*====如果是女生====*/
 		      if(event.target.value==="female"){
 		        str =('${femaleAvatar}')
 		        str = str.substr(0, str.length-1)
-		        alert(str.split(','));
 		        female = str.split(',');
-		        alert(female[0]);
 		        $("#avatarBlock").html("");
 		        colNum = female.length / 3;
 		        col = 0;
@@ -140,9 +132,7 @@
 		          if(event.target.value==="male"){
 		            str =('${maleAvatar}')
 		            str = str.substr(0, str.length-1)
-		            alert(str.split(','));
 		            male = str.split(',');
-		            alert(male[0]);
 		            $("#avatarBlock").html("");
 		            colNum = male.length / 3;
 		            col = 0;
@@ -199,9 +189,7 @@
 		            if(event.target.value==="nogender"){
 		              str =('${otherAvatar}')
 		              str = str.substr(0, str.length-1)
-		              alert(str.split(','));
 		              nogender = str.split(',');
-		              alert(nogender[0]);
 		              $("#avatarBlock").html("");
 		              colNum = nogender.length / 3;
 		              col = 0;
@@ -263,7 +251,7 @@
 			avatarResetLink += ".png";
 			$("#avaName").html(startAvatar);
 			$("#avatarImg img").attr('src', avatarResetLink);
-			//alert(startAvatar);
+			
 		})
 	</script>
 
@@ -272,7 +260,7 @@
 <div class="row mb-1 mt-5 mx-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
-			<h2 class="text-black mb-4">會員基本資料editmember</h2>
+			<h2 class="text-black mb-4">會員基本資料</h2>
 			</br>
 
 		</div>

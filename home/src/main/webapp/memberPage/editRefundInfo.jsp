@@ -65,7 +65,7 @@ $(function() {
 			<div class="row lg-mx-5">
 				<div class="col lg-mx-5 ">
 					<div class="" style="display: flex; justify-content: center;">
-						<h4 class="text-black mt-5">退款帳戶資訊Edit</h4>
+						<h4 class="text-black mt-5">退款帳戶資訊</h4>
 					</div>
 					<div class="" style="display: flex; justify-content: center;">
 						<font class="text-black lg-ml-2"> 以下欄位皆為非必填資訊</font>

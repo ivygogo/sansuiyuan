@@ -42,9 +42,9 @@ public class LandlordInfoServlet extends HttpServlet {
 
   private final Gson gson = new Gson();
   // int num = 0;
-  //  String tampFilename;
-  //  String tampFileSrc;
-  //  String tampFileBase64;
+  //  String tempFilename;
+  //  String tempFileSrc;
+  //  String tempFileBase64;
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -93,9 +93,9 @@ public class LandlordInfoServlet extends HttpServlet {
     LandlordInfoService landlordInfoService = new LandlordInfoService();
     Map<String, String> errorMsgs = new HashMap<String, String>();
     int num = -1;
-    String tampFilename = "";
-    String tampFileSrc = "";
-    String tampFileBase64 = "";
+    String tempFilename = "";
+    String tempFileSrc = "";
+    String tempFileBase64 = "";
 
     HttpSession session = request.getSession();
 
@@ -208,7 +208,7 @@ public class LandlordInfoServlet extends HttpServlet {
         /*=== <判斷 landlordStamp> ===*/
 
         else {
-          /*透過getAttribute 來保存num、tampFilename、tampFileSrc、tampFileBase64等區域變數 */
+          /*透過getAttribute 來保存num、tempFilename、tempFileSrc、tempFileBase64等區域變數 */
           if (session.getAttribute("num") == null) {
             num = 0;
           } else {
@@ -221,27 +221,27 @@ public class LandlordInfoServlet extends HttpServlet {
           // System.out.println("fileName:  --->" + fileName);
 
           if (num == 0) {
-            tampFilename = landlordOld.getStamp();
+            tempFilename = landlordOld.getStamp();
             sizeInBytes = -1;
-            landlordInfoEdit.setStamp(tampFilename);
-            String imgPath = System.getProperty("java.io.tmpdir") + "images//" + tampFilename;
+            landlordInfoEdit.setStamp(tempFilename);
+            String imgPath = System.getProperty("java.io.tmpdir") + "images//" + tempFilename;
             // "C:\\_SpringBoot\\workspace\\sansuiyuan\\wuli\\src\\main\\webapp\\file\\temp\\"
-            //   + tampFilename;
+            //   + tempFilename;
             String img64 = getImageEncoderByPath(imgPath);
-            String imgMimeType = getMimeType(tampFilename);
+            String imgMimeType = getMimeType(tempFilename);
             String imgSrc = "data:" + imgMimeType + ";" + "base64," + img64;
             session.setAttribute("imgSrc", imgSrc);
-            tampFileSrc = imgSrc;
-            tampFileBase64 = img64;
-            session.setAttribute("tampFilename", tampFilename);
-            session.setAttribute("tampFileSrc", tampFileSrc);
-            session.setAttribute("tampFileBase64", tampFileBase64);
+            tempFileSrc = imgSrc;
+            tempFileBase64 = img64;
+            session.setAttribute("tempFilename", tempFilename);
+            session.setAttribute("tempFileSrc", tempFileSrc);
+            session.setAttribute("tempFileBase64", tempFileBase64);
 
           } else if (num > 0 && fileName.length() == 0) {
-            tampFilename = (String) session.getAttribute("tampFilename");
-            landlordInfoEdit.setStamp(tampFilename);
-            tampFileSrc = (String) session.getAttribute("tampFileSrc");
-            session.setAttribute("imgSrc", tampFileSrc);
+            tempFilename = (String) session.getAttribute("tempFilename");
+            landlordInfoEdit.setStamp(tempFilename);
+            tempFileSrc = (String) session.getAttribute("tempFileSrc");
+            session.setAttribute("imgSrc", tempFileSrc);
 
             // System.out.println("沒傳圖檔");
           }
@@ -256,14 +256,14 @@ public class LandlordInfoServlet extends HttpServlet {
             String img64 = getImageEncoderByPart(p);
             String imgSrc = "data:" + imgMimeType + ";" + "base64," + img64;
             // System.out.println(img64);
-            tampFilename = fileName;
-            tampFileSrc = imgSrc;
-            tampFileBase64 = img64;
-            session.setAttribute("tampFilename", tampFilename);
-            session.setAttribute("tampFileSrc", tampFileSrc);
-            session.setAttribute("tampFileBase64", tampFileBase64);
-            landlordInfoEdit.setStamp(tampFilename);
-            session.setAttribute("imgSrc", tampFileSrc);
+            tempFilename = fileName;
+            tempFileSrc = imgSrc;
+            tempFileBase64 = img64;
+            session.setAttribute("tempFilename", tempFilename);
+            session.setAttribute("tempFileSrc", tempFileSrc);
+            session.setAttribute("tempFileBase64", tempFileBase64);
+            landlordInfoEdit.setStamp(tempFilename);
+            session.setAttribute("imgSrc", tempFileSrc);
           }
         }
         // =============== else end ===============
@@ -314,9 +314,9 @@ public class LandlordInfoServlet extends HttpServlet {
       newBean.setAddress(landlordInfoEdit.getAddress());
       newBean.setMail(landlordInfoEdit.getMail());
       newBean.setPhone(landlordInfoEdit.getPhone());
-      tampFileBase64 = (String) session.getAttribute("tampFileBase64"); // 這裡要把區域變數提出來，不然會沒有資料
+      tempFileBase64 = (String) session.getAttribute("tempFileBase64"); // 這裡要把區域變數提出來，不然會沒有資料
       String newFileName =
-          saveImage(tampFileBase64, landlordInfoEdit.getStamp(), landlordOld.getId());
+          saveImage(tempFileBase64, landlordInfoEdit.getStamp(), landlordOld.getId());
       newBean.setStamp(newFileName);
       landlordInfoService.updateLandlordInfo(newBean); // 儲存方法
       response.sendRedirect("memberInfo.jsp");
@@ -402,7 +402,7 @@ public class LandlordInfoServlet extends HttpServlet {
     return imageString;
   }
 
-  public String saveImage(final String tampFileBase64, final String fileName, int uid)
+  public String saveImage(final String tempFileBase64, final String fileName, int uid)
       throws IOException {
     String fileNewName = "";
 
@@ -414,11 +414,11 @@ public class LandlordInfoServlet extends HttpServlet {
     //      filePath.mkdir();
     //    }
 
-    if (tampFileBase64 == null) { // 影象資料為空
+    if (tempFileBase64 == null) { // 影象資料為空
       // System.out.println("img64為空值");
     } else {
       try {
-        byte[] decodeImg = Base64.getDecoder().decode(tampFileBase64); // Base64解碼
+        byte[] decodeImg = Base64.getDecoder().decode(tempFileBase64); // Base64解碼
 
         String fileType = fileName.substring(fileName.lastIndexOf("."), fileName.length());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
