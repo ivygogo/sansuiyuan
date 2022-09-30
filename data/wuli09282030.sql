@@ -862,7 +862,7 @@ DROP TABLE IF EXISTS `tenant`;
 
 CREATE TABLE `tenant`
 (
-  `id`              int NOT NULL AUTO_INCREMENT                                  DEFAULT '1',
+  `id`              int NOT NULL AUTO_INCREMENT,
   `Member_Id`       int NOT NULL COMMENT 'FK',
   `Contract_Number` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'FK',
   `Begin_Time`      date                                                         DEFAULT NULL,
