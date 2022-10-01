@@ -1,4 +1,4 @@
-package tw.edu.ntut.sce.java18.landlord.service.Imple;
+package tw.edu.ntut.sce.java18.landlord.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +98,12 @@ public class ContractServiceImple implements ContractService {
     List<ContractRoom_TypeItemsBean> ctbList = new ArrayList<>();
     ctbList = cdao.queryRoomType();
     return ctbList;
+  }
+
+  @Override
+  public List<ContractBean> nameSearch(String name) {
+    List<ContractBean> nameList = new ArrayList<>();
+    nameList = cdao.nameSearch(name);
+    return nameList;
   }
 }
