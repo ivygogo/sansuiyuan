@@ -99,7 +99,7 @@
 <script>
 
   $(document).ready(function() {
-    console.log("start");
+    //console.log("start");
     
     $("#showRepairContent").hide();
     table = $('#example').DataTable({

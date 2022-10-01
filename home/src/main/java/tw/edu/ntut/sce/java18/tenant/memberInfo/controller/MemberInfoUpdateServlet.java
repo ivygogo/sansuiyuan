@@ -114,8 +114,8 @@ public class MemberInfoUpdateServlet extends HttpServlet {
             && partList.get(i).substring(0, 7).equals("myFavor")) {
           hadFavor = true;
         }
-        System.out.println("hadCharacter:" + hadCharacter);
-        System.out.println("hadFavor:" + hadFavor);
+        // System.out.println("hadCharacter:" + hadCharacter);
+        // System.out.println("hadFavor:" + hadFavor);
         // System.out.println("表單名稱:" + partList.get(i));
       }
     }
@@ -130,7 +130,7 @@ public class MemberInfoUpdateServlet extends HttpServlet {
         // ======判斷頭貼======
         if (fldName.equals("avatarIcon")) {
           avatar = value;
-          System.out.println("myAvata:" + avatar);
+          // System.out.println("myAvata:" + avatar);
           // mb.setAvatar(avatar + ".png");
           if (value == null || avatar.trim().length() == 0) {
             errorMsgs.put("avatarIcon", "必須選擇頭貼");

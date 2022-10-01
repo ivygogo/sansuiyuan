@@ -59,7 +59,7 @@ request.setAttribute("RefundIsInvalid", false);
 								<br>
 								<ul>
 									<c:forEach var="contract" items="${LoginOK.contract}">
-										<li><a href="https://tw.yahoo.com"><font
+										<li><a href=" http://localhost:8080/wuli/rent/${contract}.pdf"><font
 												style="font-size: 20px; color: #37cfa2;">${contract}.pdf</font></a>
 										</li>
 									</c:forEach>
