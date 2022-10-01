@@ -136,7 +136,6 @@
 	src="${pageContext.request.contextPath}/landlordRepairForm/landlordRepairForm.js"></script>
 </head>
 <style>
-
 .bkground {
 	background-color: #01c293;
 	width: 100%;
@@ -146,47 +145,68 @@
 .bluebutton:hover {
 	color: blue;
 	border: 2px solid blue;
-	background-color: white;
+	background-color: blue;
 }
 
 .btn-success {
-  color: #fff;
-  background-color: #37cfa2;
-  border-color: #37cfa2;
+	color: blue;
+	background-color: #37cfa2;
+	border-color: #37cfa2;
+}
+
+.bkground {
+	background-color: #01c293;
+	width: 100%;
+	margin: auto;
+}
+
+.bluebutton {
+	padding: 2px;
+	background-color: #01c293;
+	color: white;
+}
+
+.bluebutton:hover {
+	color: blue;
+	border: 2px solid blue;
+	background-color: white;
 }
 </style>
 <body>
-	<%@include file="fragment/menu_index.jsp"%>
-
+	<header>
+		<%@include file="fragment/menu_index.jsp"%>
+	</header>
 	<!--  -------------------------------放header-------------------------------------------------->
 
 	<form action="book.do" method="post">
 
 		<div class="row">
 			<div class="container">
-			  <hr>
 				<h4 class="text-center">預約表單</h4>
 				<hr>
-				<div class="container text-right">
+				<div class="container text-left">
 
-					<a href="book.do?action=new" class="btn btn-success">新增預約</a>
+					<a href="book.do?action=new" class="btn btn-success"
+						style="background-color: #01c293;">新增預約 </a>
+					<hr>
 
 				</div>
 
 				<br>
-				<div>
+				<div
+					style="border: 1px solid #01c293; border-radius: 20px; border-width: 2px; overflow: hidden;">
 					<table class="table table-bordered">
 						<tbody>
 							<tr>
-								<th style="width: 12%">預約日期</th>
-								<th style="width: 12%">時段</th>
-								<th style="width: 13%">帳號</th>
-								<th style="width: 8%">姓名</th>
-								<th style="width: 15%">電話</th>
-								<th style="width: 10%">房型</th>
-								<th style="width: 8%">樓層</th>
+								<th style="width: 11%">預約日期</th>
+								<th style="width: 11%">時段</th>
+								<th style="width: 8%">帳號</th>
+								<th style="width: 7%">姓名</th>
+								<th style="width: 10%">電話</th>
+								<th style="width: 8%">房型</th>
+								<th style="width: 7%">樓層</th>
 								<th style="width: 8%">負責人</th>
-								<th align="center" style="width: 15%">編輯/刪除</th>
+								<th align="center" style="width: 14%">編輯/刪除</th>
 							</tr>
 						</tbody>
 					</table>
@@ -196,23 +216,24 @@
 								<c:forEach var="user" items="${bookingService.allBookers}">
 									<tr>
 										<td style="width: 12%"><c:out value="${user.bookDate}" /></td>
-										<td style="width: 13%"><c:out value="${user.preferTime}" /></td>
-										<td style="width: 13%"><c:out value="${user.bookerId}" /></td>
-										<td style="width: 8%"><c:out value="${user.bookerName}" /></td>
-										<td style="width: 15%"><c:out value="${user.bookerPhone}" /></td>
+										<td style="width: 12%"><c:out value="${user.preferTime}" /></td>
+										<td style="width: 8%"><c:out value="${user.bookerId}" /></td>
+										<td style="width: 7%"><c:out value="${user.bookerName}" /></td>
+										<td style="width: 11%"><c:out value="${user.bookerPhone}" /></td>
 										<td style="width: 10%"><c:out value="${user.roomtype}" /></td>
 										<td style="width: 8%"><c:out value="${user.preferFloor}" /></td>
 										<td style="width: 8%"><c:out value="${user.leadPerson}" /></td>
 										<td style="width: 15%"><a
 											href="book.do?action=edit&id=<c:out value='${user.bookerId}'/>"
-											class="bluebutton">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
+											class="btn btn-primary btn-sm"
+											style="background-color: #01c293;">編輯</a>
+											&nbsp;&nbsp;&nbsp;&nbsp; <a
 											href="book.do?action=delete&id=<c:out value='${user.bookerId}' />"
-											class="bluebutton">Delete</a></td>
+											onClick="return confirm('確定刪除?');"
+											class="btn btn-secondary btn-sm">刪除</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
-
-
 						</table>
 					</div>
 				</div>
@@ -221,16 +242,14 @@
 	</form>
 
 
-	<!-- 	-------------------------------搜尋ＢＡＲ----------------------------------------------- -->
+	<!--  -------------------------------搜尋ＢＡＲ----------------------------------------------- -->
 	<div class="container">
 		<hr>
 		<jsp:include page="/booking/searchBooking.jsp"></jsp:include>
-		<hr>
 	</div>
-	
-	<h4 class="text-center">搜尋結果</h4>
-	 <hr>
 
+	<!--   -----------------------------------顯示搜尋結果------------------------------------------- -->
+	<h5 class="text-center">搜尋結果</h5>
 	<div class="row">
 		<div class="container">
 			<table class="table table-bordered">
@@ -262,10 +281,13 @@
 						<td><%=booklist.get(5)%></td>
 						<td><%=booklist.get(6)%></td>
 						<td><%=booklist.get(7)%></td>
-						<td><a class="bluebutton"
-							href="book.do?action=edit&id=<c:out value='<%=booklist.get(0)%>'/>">Edit</a>
+						<td><a class="btn btn-primary btn-sm"
+							style="background-color: #01c293;"
+							href="book.do?action=edit&id=<c:out value='<%=booklist.get(0)%>'/>">編輯</a>
 							&nbsp;&nbsp;&nbsp;&nbsp; <a
-							href="book.do?action=delete&id=<c:out value='<%=booklist.get(0)%>' />">Delete</a></td>
+							href="book.do?action=delete&id=<c:out value='<%=booklist.get(0)%>'/>"
+							onClick="return confirm('確定刪除?');"
+							class="btn btn-secondary btn-sm">刪除</a></td>
 					</tr>
 					<%
 					}
@@ -275,11 +297,11 @@
 			</table>
 		</div>
 	</div>
-	<!-- 	<footer class="fixed-bottom"> -->
-	<!-- 		<div class="container" align="center"> -->
-	<!-- 			<a href="index.jsp">回首頁</a> -->
-	<!-- 		</div> -->
-	<!-- 	</footer> -->
+	<!--  <footer class="fixed-bottom"> -->
+	<!--    <div class="container" align="center"> -->
+	<!--      <a href="index.jsp">回首頁</a> -->
+	<!--    </div> -->
+	<!--  </footer> -->
 
 	<!--  -------------------------------放footer-------------------------------------------------->
 

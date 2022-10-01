@@ -1,22 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
-
 String editState = request.getParameter("edit");
 //System.out.println("editState:::::"+editState);
 //System.out.print("editState"+editState);
-if (editState!=null&&editState.equals("drop")){
-request.setAttribute("guarantorIsInvalid", false);
-request.setAttribute("isInvalid", false);
-request.setAttribute("RefundIsInvalid", false);
-}else if (editState!=null&&editState.equals("member")){
-  session.setAttribute("myPage", "myinfo");
-}else if (editState!=null&&editState.equals("dropIt")){
-  session.setAttribute("myPage", "profile");
+if (editState != null && editState.equals("drop")) {
+	request.setAttribute("guarantorIsInvalid", false);
+	request.setAttribute("isInvalid", false);
+	request.setAttribute("RefundIsInvalid", false);
+} else if (editState != null && editState.equals("member")) {
+	session.setAttribute("myPage", "myinfo");
+} else if (editState != null && editState.equals("dropIt")) {
+	session.setAttribute("myPage", "profile");
 }
-
 %>
 <!--
 ////////////////////////////////////////////////////////////////
@@ -40,7 +38,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 <title>${SYSTEM.systemName}-會員資料</title>
 <meta charset="utf-8">
 <meta name="viewport"
-  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -49,236 +47,237 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 <link rel="shortcut icon" href="ftco-32x32.png">
 
 <link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700"
-  rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700"
+	rel="stylesheet">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
+	href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/jquery-ui.css">
+	href="${pageContext.request.contextPath}/css/jquery-ui.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/jquery.fancybox.min.css">
+	href="${pageContext.request.contextPath}/css/jquery.fancybox.min.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
+	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/aos.css">
+	href="${pageContext.request.contextPath}/css/aos.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/style.css">
+	href="${pageContext.request.contextPath}/css/style.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <script
-  src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
+	src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
 
 
 <script type="text/javascript">
- var editPage ;
- var showPage ;
- var checkPass;
- var tabId;
- var innerPage ="";
+	var editPage;
+	var showPage;
+	var checkPass;
+	var tabId;
+	var innerPage = "";
 
-      function doFirst(){
-        checkPage = '${myPage}';
-        //alert('checkPage!!!'+checkPage);
+	function doFirst() {
+		checkPage = '${myPage}';
+		//alert('checkPage!!!'+checkPage);
 
-        //checkPage ='myinfo'
-        checkTab ="#"+checkPage;
-        checkTabT ="\'#"+checkPage+"\'";
-        checkContentTab=checkTab+"-tab"
-        checkAllTab= "#myTabs a[href=\" "+ checkTab + "\"]"
-        checkPass ='${checkErr}';
-        //alert('checkPage!!!'+checkPage);
+		//checkPage ='myinfo'
+		checkTab = "#" + checkPage;
+		checkTabT = "\'#" + checkPage + "\'";
+		checkContentTab = checkTab + "-tab"
+		checkAllTab = "#myTabs a[href=\" " + checkTab + "\"]"
+		checkPass = '${checkErr}';
+		//alert('checkPage!!!'+checkPage);
 
+		if (checkPage === "myinfo" || checkPage.length == 0) {
+			$("#home-tab").attr("class", 'nav-link active')
+			$("#home-tab").attr("aria-selected", 'true')
+			$('#home').attr('class', "tab-pane fade active show")
+			$("#profile-tab").attr("class", 'nav-link')
+			$('#profile').attr('class', "tab-pane fade")
+			$("#profile-tab").attr("aria-selected", 'false')
+		}
 
-        if (checkPage ==="myinfo"||checkPage.length==0){
-          $("#home-tab").attr("class", 'nav-link active')
-              $("#home-tab").attr("aria-selected", 'true')
-              $('#home').attr('class', "tab-pane fade active show")
-              $("#profile-tab").attr("class", 'nav-link')
-              $('#profile').attr('class', "tab-pane fade")
-              $("#profile-tab").attr("aria-selected", 'false')
-            }
+		if (checkPage === "profile") {
+			// $('#contact').show()
+			$('#profile').attr('class', "tab-pane fade active show")
+			$('#myTabs a[href="#profile"]').tab('show')
+			$("#contact-tab").attr('class', "nav-link")
+			$("#home-tab").attr("class", 'nav-link')
+			$("#profile-tab").attr("class", 'nav-link active')
+			//$("#contact-tab").attr('class', "nav-link active")
+		}
 
-        if (checkPage ==="profile"){
-             // $('#contact').show()
-              $('#profile').attr('class', "tab-pane fade active show")
-              $('#myTabs a[href="#profile"]').tab('show')
-              $("#contact-tab").attr('class', "nav-link")
-              $("#home-tab").attr("class", 'nav-link')
-              $("#profile-tab").attr("class", 'nav-link active')
-              //$("#contact-tab").attr('class', "nav-link active")
-            }
+		function updateMemberinfo() {
+			innerPage = "editMemberinfo";
+			//alert("editMemberinfo")
+			if (innerPage == "editMemberinfo") {
+				$('#myinfo').html("");
+				$('#myinfo').load('memberPage/editMemberInfo.jsp');
+			}
+		}
 
+		function updateContractinfo() {
+			innerPage = "editContractinfo";
+			if (innerPage == "editContractinfo") {
+				$('#profile').html("");
+				$('#profile').load('memberPage/editContractInfo.jsp');
+			}
+		}
+	}
+	window.addEventListener('load', doFirst);
 
-          function updateMemberinfo(){
-                  innerPage = "editMemberinfo";
-                  //alert("editMemberinfo")
-                  if(innerPage =="editMemberinfo"){
-                     $('#myinfo').html("");
-                     $('#myinfo').load('memberPage/editMemberInfo.jsp');
-                  }
-          }
+	$(function() {
+		$('#profile-tab').click(function() {
 
-          function updateContractinfo(){
-            innerPage = "editContractinfo";
-            if(innerPage =="editContractinfo"){
-                  $('#profile').html("");
-                  $('#profile').load('memberPage/editContractInfo.jsp');
-                  }
-      }
-      }
-      window.addEventListener('load', doFirst);
+			var qs = document.querySelector("form");
+			//alert(qs)
+			if (qs != null) {
+				//alert(qs)
+				var con;
+				con = confirm("你確認要放棄未填寫完成的表單嗎?");
+				if (con == true) {
+					checkPage = "profile"
+					$("#profile-tab").attr("class", 'nav-link active')
+					$("#profile-tab").attr("aria-selected", 'true')
+					$('#profile').attr('class', "tab-pane fade active show")
+					$("#home-tab").attr("class", 'nav-link')
+					$('#home').attr('class', "tab-pane fade")
+					$("#home-tab").attr("aria-selected", 'false')
+					$('#home').html("")
+					$('#home').load('memberPage/showMemberInfo.jsp?edit=drop')
+				}
+			} else {
+				checkPage = "profile"
+				$("#profile-tab").attr("class", 'nav-link active')
+				$("#profile-tab").attr("aria-selected", 'true')
+				$('#profile').attr('class', "tab-pane fade active show")
+				$("#home-tab").attr("class", 'nav-link')
+				$('#home').attr('class', "tab-pane fade")
+				$("#home-tab").attr("aria-selected", 'false')
 
-      $(function(){$('#profile-tab').click(function(){
+			}
+		})
+	})
 
-         var qs = document.querySelector("form");
-         //alert(qs)
-         if(qs!=null){
-           //alert(qs)
-           var con;
-           con=confirm("你確認要放棄未填寫完成的表單嗎?");
-           if(con==true){
-             checkPage = "profile"
-                   $("#profile-tab").attr("class", 'nav-link active')
-                     $("#profile-tab").attr("aria-selected", 'true')
-                     $('#profile').attr('class', "tab-pane fade active show")
-                     $("#home-tab").attr("class", 'nav-link')
-                     $('#home').attr('class', "tab-pane fade")
-                     $("#home-tab").attr("aria-selected", 'false')
-                     $('#home').html("")
-                    $('#home').load('memberPage/showMemberInfo.jsp?edit=drop')
-               }
-         }else{
-           checkPage = "profile"
-                  $("#profile-tab").attr("class", 'nav-link active')
-                    $("#profile-tab").attr("aria-selected", 'true')
-                    $('#profile').attr('class', "tab-pane fade active show")
-                    $("#home-tab").attr("class", 'nav-link')
-                    $('#home').attr('class', "tab-pane fade")
-                    $("#home-tab").attr("aria-selected", 'false')
+	$(function() {
+		$('#home-tab')
+				.click(
+						function() {
+							var qs = document.querySelector("form");
+							//alert(qs)
+							if (qs != null) {
+								//alert(qs)
+								var con;
+								con = confirm("你確認要放棄未填寫完成的表單嗎?");
+								if (con == true) {
+									checkPage = "myinfo"
+									$("#home-tab").attr("class",
+											'nav-link active')
+									$("#home-tab")
+											.attr("aria-selected", 'true')
+									$('#home').attr('class',
+											"tab-pane fade active show")
+									$("#profile-tab").attr("class", 'nav-link')
+									$('#profile')
+											.attr('class', "tab-pane fade")
+									$("#profile-tab").attr("aria-selected",
+											'false')
+									$('#profile').html("")
+									$('#profile')
+											.load(
+													'memberPage/showContractInfo.jsp?edit=drop')
+								}
+							} else {
+								checkPage = "myinfo"
+								//alert(checkPage)
+								$("#home-tab").attr("class", 'nav-link active')
+								$("#home-tab").attr("aria-selected", 'true')
+								$('#home').attr('class',
+										"tab-pane fade active show")
+								$("#profile-tab").attr("class", 'nav-link')
+								$('#profile').attr('class', "tab-pane fade")
+								$("#profile-tab")
+										.attr("aria-selected", 'false')
+							}
 
-              }
-         })
-      })
+						})
+	})
 
-      $(function(){$('#home-tab').click(function(){
-        var qs = document.querySelector("form");
-          //alert(qs)
-          if(qs!=null){
-            //alert(qs)
-            var con;
-            con=confirm("你確認要放棄未填寫完成的表單嗎?");
-            if(con==true){
-              checkPage = "myinfo"
-                $("#home-tab").attr("class", 'nav-link active')
-                  $("#home-tab").attr("aria-selected", 'true')
-                  $('#home').attr('class', "tab-pane fade active show")
-                  $("#profile-tab").attr("class", 'nav-link')
-                  $('#profile').attr('class', "tab-pane fade")
-                  $("#profile-tab").attr("aria-selected", 'false')
-                      $('#profile').html("")
-                     $('#profile').load('memberPage/showContractInfo.jsp?edit=drop')
-                }
-          }else{
-          checkPage = "myinfo"
-          //alert(checkPage)
-            $("#home-tab").attr("class", 'nav-link active')
-              $("#home-tab").attr("aria-selected", 'true')
-              $('#home').attr('class', "tab-pane fade active show")
-              $("#profile-tab").attr("class", 'nav-link')
-              $('#profile').attr('class', "tab-pane fade")
-              $("#profile-tab").attr("aria-selected", 'false')
-              }
+	innerPage = "";
+	function updateMemberinfo() {
+		innerPage = "editMemberinfo";
+		//alert("editMemberinfo")
+		if (innerPage == "editMemberinfo") {
+			$('#home').html("");
+			$('#home').load('memberPage/editMemberInfo.jsp');
+			$("#myName").focus()
+		}
+		$("html,body").animate({
+			scrollTop : 0,
+		}, 600);
+	}
 
-        })
-      })
+	function updateContractinfo() {
+		innerPage = "editContractinfo";
+		if (innerPage == "editContractinfo") {
+			$('#profile').html("");
+			$('#profile').load('memberPage/editContractInfo.jsp');
+		}
+		$("html,body").animate({
+			scrollTop : 0,
+		}, 600);
+	}
 
-      innerPage ="";
-      function updateMemberinfo(){
-              innerPage = "editMemberinfo";
-              //alert("editMemberinfo")
-              if(innerPage =="editMemberinfo"){
-                 $('#home').html("");
-                 $('#home').load('memberPage/editMemberInfo.jsp');
-                 $("#myName").focus()
-              }
-              $("html,body").animate(
-                      {
-                        scrollTop: 0,
-                      },
-                      600
-                    );
-      }
+	function updateRefundinfo() {
+		innerPage = "updateRefundinfo";
+		if (innerPage == "updateRefundinfo") {
+			$('#profile').html("");
+			$('#profile').load('memberPage/editRefundInfo.jsp');
+		}
+		$("html,body").animate({
+			scrollTop : 0,
+		}, 600);
+	}
 
-      function updateContractinfo(){
-        innerPage = "editContractinfo";
-        if(innerPage =="editContractinfo"){
-              $('#profile').html("");
-              $('#profile').load('memberPage/editContractInfo.jsp');
-              }
-        $("html,body").animate(
-                  {
-                    scrollTop: 0,
-                  },
-                  600
-                );
-  }
+	function dropForm(item) {
+		if ((item.getAttribute('id')) === "memberInfo_dropIt") {
+			document.location.href = "/home/MemberInfo.do?edit=member"
+			//alert("memberInfo_dropIt")
+		} else if ((item.getAttribute('id')) === "dropIt") {
+			//alert("dropIt")
+			document.location.href = "/home/MemberInfo.do?edit=dropIt"
+		}
 
-
-     function updateRefundinfo(){
-          innerPage = "updateRefundinfo";
-          if(innerPage =="updateRefundinfo"){
-                $('#profile').html("");
-                $('#profile').load('memberPage/editRefundInfo.jsp');
-                }
-          $("html,body").animate(
-                  {
-                    scrollTop: 0,
-                  },
-                  600
-                );
-    }
-
-      function dropForm(item){
-        if((item.getAttribute('id'))==="memberInfo_dropIt"){
-         document.location.href="/home/MemberInfo.do?edit=member"
-         //alert("memberInfo_dropIt")
-        }else if((item.getAttribute('id'))==="dropIt"){
-          //alert("dropIt")
-          document.location.href="/home/MemberInfo.do?edit=dropIt"
-        }
-
-      }
-     </script>
+	}
+</script>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target"
-  data-offset="300" data-editpage="" data-isPass="${checkErr}">
-  <div class="site-wrap">
+	data-offset="300" data-editpage="" data-isPass="${checkErr}">
+	<div class="site-wrap">
 
-    <div class="site-mobile-menu site-navbar-target">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div>
+		<div class="site-mobile-menu site-navbar-target">
+			<div class="site-mobile-menu-header">
+				<div class="site-mobile-menu-close mt-3">
+					<span class="icon-close2 js-menu-toggle"></span>
+				</div>
+			</div>
+			<div class="site-mobile-menu-body"></div>
+		</div>
 
-    <%--選單--%>
-    <jsp:include page="fragment/menu_content.jsp" />
+		<%--選單--%>
+		<jsp:include page="fragment/menu_content.jsp" />
 
 
-    <%--內容開始--%>
+		<%--內容開始--%>
 		<section class="login-block">
 			<div class="container mt-5 mb-5">
 				<%--標題--%>
@@ -351,26 +350,26 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 		</section>
 
 		<%--footer --%>
-  <jsp:include page="fragment/footer.jsp" />
+		<jsp:include page="fragment/footer.jsp" />
 
-  <%--.site-wrap --%>
-  <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
+		<%--.site-wrap --%>
+		<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
 
-  <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
-  <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
-  <script src="${pageContext.request.contextPath}/js/aos.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
-  <script src="${pageContext.request.contextPath}/js/main.js"></script>
-
+		<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
+		<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+		<script src="${pageContext.request.contextPath}/js/aos.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
+		<script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html>
