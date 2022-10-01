@@ -15,12 +15,6 @@ import tw.edu.ntut.sce.java18.common.utils.DBService;
 
 public class BookDAO {
   private DataSource ds = null;
-  //  private String jdbcURL =
-  //      "jdbc:mysql://127.0.0.1/wulidb"
-  //          +
-  // "?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei&allowPublicKeyRetrieval=true";
-  //  private String jdbcUsername = "admin";
-  //  private String jdbcPassword = "admin123";
 
   private static final String SELECT_ALL = "Select * from bookingexample order by 2 desc";
   private static final String SELECT_BY_ID =
@@ -43,19 +37,6 @@ public class BookDAO {
       throw new RuntimeException("AvatarDaoImpl類別#建構子發生例外: " + ex.getMessage());
     }
   }
-
-  //  protected Connection getConnection() {
-  //    Connection connection = null;
-  //    try {
-  //      Class.forName("com.mysql.jdbc.Driver");
-  //      connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-  //    } catch (SQLException e) {
-  //      e.printStackTrace();
-  //    } catch (ClassNotFoundException e) {
-  //      e.printStackTrace();
-  //    }
-  //    return connection;
-  //  }
 
   public BookerBean insertUser(BookerBean bean) throws SQLException {
     System.out.println(INSERT + "-----------------------");
