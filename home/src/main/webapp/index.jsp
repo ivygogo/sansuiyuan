@@ -55,7 +55,6 @@
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/repairForm.js"></script>
 </head>
 
 <%--選單--%>
@@ -101,7 +100,7 @@
 					<div class="ftco-media-1">
 						<div class="ftco-media-1-inner">
 							<a href='<c:url value="/roomtype.jsp?type=A"/>'
-								class="d-inline-block mb-4"><img src="images/pp1.webp"
+								class="d-inline-block mb-4"><img src="images/roomtype/SingleA2.jpg"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<div class="ftco-media-details">
@@ -116,7 +115,7 @@
 					<div class="ftco-media-1">
 						<div class="ftco-media-1-inner">
 							<a href='<c:url value="/roomtype.jsp?type=B"/>'
-								class="d-inline-block mb-4"><img src="images/pp1.webp"
+								class="d-inline-block mb-4"><img src="images/roomtype/SingleB1.jpg"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<div class="ftco-media-details">
@@ -131,7 +130,7 @@
 					<div class="ftco-media-1">
 						<div class="ftco-media-1-inner">
 							<a href='<c:url value="/roomtype.jsp?type=C"/>'
-								class="d-inline-block mb-4"><img src="images/pp1.webp"
+								class="d-inline-block mb-4"><img src="images/roomtype/SingleC1.jpg"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<div class="ftco-media-details">
@@ -146,7 +145,7 @@
 					<div class="ftco-media-1">
 						<div class="ftco-media-1-inner">
 							<a href='<c:url value="/roomtype.jsp?type=D"/>'
-								class="d-inline-block mb-4"><img src="images/pp1.webp"
+								class="d-inline-block mb-4"><img src="images/roomtype/DoubleA1.jpg"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<div class="ftco-media-details">
@@ -161,7 +160,7 @@
 					<div class="ftco-media-1">
 						<div class="ftco-media-1-inner">
 							<a href='<c:url value="/roomtype.jsp?type=E"/>'
-								class="d-inline-block mb-4"><img src="images/pp1.webp"
+								class="d-inline-block mb-4"><img src="images/roomtype/DoubleB2.jpg"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<div class="ftco-media-details">
@@ -176,7 +175,7 @@
 					<div class="ftco-media-1">
 						<div class="ftco-media-1-inner">
 							<a href='<c:url value="/roomtype.jsp?type=F"/>'
-								class="d-inline-block mb-4"><img src="images/pp1.webp"
+								class="d-inline-block mb-4"><img src="images/roomtype/DoubleC2.jpg"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<div class="ftco-media-details">
@@ -203,7 +202,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/mother.webp"
+							<a href="single.html"><img src="images/avatarImg/girl01.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -237,7 +236,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/girl-2.webp"
+							<a href="single.html"><img src="images/avatarImg/girl02.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -271,7 +270,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/mother.webp"
+							<a href="single.html"><img src="images/avatarImg/girl03.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -305,7 +304,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/girl-2.webp"
+							<a href="single.html"><img src="images/avatarImg/boy01.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -320,7 +319,7 @@
 							</center>
 							<font style="color: black"> 希望室友條件： </font>
 							<ul style="list-style-type: decimal;">
-								<li>限女性</li>
+								<li>限男性</li>
 								<li>公費均分</li>
 								<li>無寵物</li>
 							</ul>
@@ -339,7 +338,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/girl-2.webp"
+							<a href="single.html"><img src="images/avatarImg/boy02.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -354,7 +353,7 @@
 							</center>
 							<font style="color: black"> 希望室友條件： </font>
 							<ul style="list-style-type: decimal;">
-								<li>限女性</li>
+								<li>限男性</li>
 								<li>公費均分</li>
 								<li>無寵物</li>
 							</ul>
@@ -373,7 +372,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/girl.webp"
+							<a href="single.html"><img src="images/avatarImg/boy03.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -388,7 +387,7 @@
 							</center>
 							<font style="color: black"> 希望室友條件： </font>
 							<ul style="list-style-type: decimal;">
-								<li>限女性</li>
+								<li>限男性</li>
 								<li>公費均分</li>
 								<li>無寵物</li>
 							</ul>
@@ -407,7 +406,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/girl-2.webp"
+							<a href="single.html"><img src="images/avatarImg/girl04.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -441,7 +440,7 @@
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
 					<div class="h-entry">
 						<center>
-							<a href="single.html"><img src="images/girl.webp"
+							<a href="single.html"><img src="images/avatarImg/boy04.png"
 								alt="Free website template by Free-Template.co"
 								class="img-fluid"></a>
 							<h2 class="font-size-regular">
@@ -456,7 +455,7 @@
 							</center>
 							<font style="color: black"> 希望室友條件： </font>
 							<ul style="list-style-type: decimal;">
-								<li>限女性</li>
+								<li>限男性</li>
 								<li>公費均分</li>
 								<li>無寵物</li>
 							</ul>
