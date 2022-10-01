@@ -7,7 +7,9 @@ import java.text.SimpleDateFormat;
 
 public class BookerBean implements Serializable {
   private static final long serialVersionUID = 1L;
+
   private Integer bookerId;
+
   private Date bookDate;
   private String preferTime;
   private String bookerName;

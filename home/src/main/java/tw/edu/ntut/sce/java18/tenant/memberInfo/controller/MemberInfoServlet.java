@@ -31,7 +31,8 @@ public class MemberInfoServlet extends HttpServlet {
 
     // 1.依照 MEMBER Uid讀取會員資料
     // 測試資料可以在這邊測試，透過session並運用LoginOK傳遞存進資料庫的會員資料
-    MemberBean mb = misi.getMemberInfo(2);
+    MemberBean member = (MemberBean) session.getAttribute("LoginOK");
+    MemberBean mb = misi.getMemberInfo(member.getuId());
 
     // 2.將讀取到的會員資料，以EL方式傳送至瀏覽(show)與編輯(edit)頁面
     session.setAttribute("LoginOK", mb);

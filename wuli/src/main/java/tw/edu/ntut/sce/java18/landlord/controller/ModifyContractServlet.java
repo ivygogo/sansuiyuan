@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import tw.edu.ntut.sce.java18.landlord.service.ContractService;
-import tw.edu.ntut.sce.java18.landlord.service.Imple.ContractServiceImple;
+import tw.edu.ntut.sce.java18.landlord.service.impl.ContractServiceImple;
 
 @WebServlet("/modify")
 public class ModifyContractServlet extends HttpServlet {
@@ -39,7 +39,7 @@ public class ModifyContractServlet extends HttpServlet {
     int CID = Integer.parseInt(request.getParameter("CID").trim());
     cs.modifyContract(
         status, name, PDF, room_Number, payment_Status, deposit, check_Fee, check_Status, CID);
-    System.out.println(payment_Status);
+    System.out.println(name);
 
     response.sendRedirect("Contract.do");
   }

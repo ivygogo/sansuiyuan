@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
 import tw.edu.ntut.sce.java18.landlord.model.ContractRoom_TypeItemsBean;
 import tw.edu.ntut.sce.java18.landlord.service.ContractService;
-import tw.edu.ntut.sce.java18.landlord.service.Imple.ContractServiceImple;
+import tw.edu.ntut.sce.java18.landlord.service.impl.ContractServiceImple;
 
 @WebServlet("/Contract.do")
 public class ContractDoServlet extends HttpServlet {
@@ -41,7 +41,6 @@ public class ContractDoServlet extends HttpServlet {
     List<ContractRoom_TypeItemsBean> allRoomType = new ArrayList<>();
     allRoomType = cs.getRoomType();
     allcontract = cs.getAllContract();
-    //   String cbs1 = cs.getStatus("租賃中");
     ContractBean cbs1 = cs.getStatus("租賃中");
     ContractBean cbs2 = cs.getStatus("已退租");
     ContractBean cbs3 = cs.getStatus("租約到期");
@@ -53,7 +52,6 @@ public class ContractDoServlet extends HttpServlet {
     map2.put("cbs1", cbs1);
     map2.put("cbs2", cbs2);
     map2.put("cbs3", cbs3);
-    System.out.println(map2.get("cbs1").getStatus());
     Map<String, ContractBean> map3 = new HashMap<>();
     map3.put("cbps1", cbps1);
     map3.put("cbps2", cbps2);
@@ -65,10 +63,6 @@ public class ContractDoServlet extends HttpServlet {
     session.setAttribute("contractS", map2);
     session.setAttribute("contractPS", map3);
     session.setAttribute("contractCS", map4);
-    //    request.setAttribute("allContract", Allcontract);
-    // request.setAttribute("contractS", map2);
-    // request.setAttribute("contractPS", map3);
-    // request.setAttribute("contractCS", map4);
 
     RequestDispatcher rd = request.getRequestDispatcher("/contractQuery.jsp");
 

@@ -15,7 +15,7 @@ request.setAttribute("RefundIsInvalid", false);
 <div class="row mb-1 mt-5 mx-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
-			<h2 class="text-black mb-4">會員基本資料${isInvalid}</h2>
+			<h2 class="text-black mb-4">會員基本資料</h2>
 		</div>
 	</div>
 </div>

@@ -457,23 +457,23 @@ insert into `member`(`UId`, `Name`, `Gender`, `Phone`, `Id_Number`, `Mail`, `Pas
                      `Signature_1`, `Signature_2`, `Signature_3`, `Favor_1`, `Favor_2`, `Favor_3`,
                      `Pair_1`, `Pair_2`, `Pair_3`, `Pair_4`, `Pair_5`, `Open_Tag`, `CREATE_Time`,
                      `Update_Time`, `Last_IP`, `idNumber`)
-values (1, '蘇酥酥', 1, '0923154653', 'A123123123', 'ggg.gg.ggg@gmail.com', '123456', '高雄市', '新興區',
-        '中正路100號', '小酥1', 1, '1234', '淡江大學', 10, 1, 3, 10, 23, 25, 27, NULL, NULL, NULL, NULL, NULL,
+values (1, '蘇酥酥', 1, '0923154653', 'A272977393', 'ggg.gg.ggg@gmail.com', '123456', '高雄市', '新興區',
+        '中正路100號', '小酥1', 1, '1234', '淡江大學', 1, 1, 3, 10, 23, 25, 27, NULL, NULL, NULL, NULL, NULL,
         1, '2022-08-08 00:55:29', '2022-08-26 23:56:04', '0:0:0:0:0:0:0:1', NULL),
-       (2, '盧啊輝', 0, '0915263563', 'A123123124', 'ooo.ooo.oooo1@gmail.com', '123456', '台北市', '中山區',
-        '台北市中山區中正路100號', '小輝2', 1, '1234', '淡江大學', 3, 3, 7, 9, 22, 26, 24, NULL, NULL, NULL, NULL,
+       (2, '盧啊輝', 0, '0915263563', 'A166627157', 'ooo.ooo.oooo1@gmail.com', '123456', '台北市', '中山區',
+        '台北市中山區中正路100號', '小輝2', 1, '1234', '淡江大學', 9, 3, 7, 9, 22, 26, 24, NULL, NULL, NULL, NULL,
         NULL, 1, '2022-08-10 23:03:33', '2022-08-10 23:03:33', '127.0.0.1', NULL),
-       (3, '林威', 0, '0951236523', 'A123456789', 'linw@gmail.com', '123456', '台北市', NULL,
+       (3, '林威', 0, '0951236523', 'A116725199', 'linw@gmail.com', '123456', '台北市', NULL,
         '台北市新生南路565號', '小威3', 1, '1234', '海洋科大', 8, 4, 6, 8, 22, 23, 26, NULL, NULL, NULL, NULL,
         NULL, 1, '2022-09-10 13:00:43', NULL, NULL, NULL),
-       (4, '蔡英文', 1, '0956326627', 'A222222222', '1023@mail.com', '213456', '新北市', '三重區',
-        '新北市三重區三水路8863號', '小英4', 1, '1234', '聖約翰大學', 5, 2, 3, 8, 27, 21, 23, NULL, NULL, NULL, NULL,
+       (4, '蔡英文', 1, '0956326627', 'A288436054', '1023@mail.com', '213456', '新北市', '三重區',
+        '新北市三重區三水路8863號', '小英4', 1, '1234', '聖約翰大學', 2, 2, 3, 8, 27, 21, 23, NULL, NULL, NULL, NULL,
         NULL, 1, '2022-09-10 13:02:28', NULL, NULL, NULL),
-       (5, '連勝文', 0, '0956385656', 'A122345678', '4563@gmail.com', '1235456', '台南市', '安平區',
-        '台南市安平區鯤鯓路41號', '小文5', 1, '1024', '真理大學', 9, 4, 6, 8, 21, 26, 22, NULL, NULL, NULL, NULL,
-        NULL, 1, '2022-09-10 13:03:42', NULL, NULL, NULL),
+       (5, '連勝文', 0, '0956385656', 'A122883611', '4563@gmail.com', '1235456', '台南市', '安平區',
+        '台南市安平區鯤鯓路41號', '小文5', 1, '1024', '真理大學', 10, 4, 6, 8, 21, 26, 22, NULL, NULL, NULL, NULL,
+        NULL, 1, '2022-09-10 13:03:42', NULL, NULL, NULL), 
        (6, '馬英九', 0, '0945616256', 'A123456789', 'ma@gmail.com', '333', '台北市', NULL, '台北市', '小馬6',
-        1, '1234', '真理大學', 11, 5, 2, 1, 25, 24, 25, NULL, NULL, NULL, NULL, NULL, 1,
+        1, '1234', '真理大學', 12, 5, 2, 1, 25, 24, 25, NULL, NULL, NULL, NULL, NULL, 1,
         '2022-09-24 20:56:00', NULL, NULL, NULL);
 
 /*Table structure for table `memberhibernatebean` */
@@ -862,7 +862,7 @@ DROP TABLE IF EXISTS `tenant`;
 
 CREATE TABLE `tenant`
 (
-  `id`              int NOT NULL                                                 DEFAULT '1',
+  `id`              int NOT NULL AUTO_INCREMENT ,
   `Member_Id`       int NOT NULL COMMENT 'FK',
   `Contract_Number` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'FK',
   `Begin_Time`      date                                                         DEFAULT NULL,

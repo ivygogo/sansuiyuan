@@ -40,11 +40,12 @@ public class RepairFormServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    int memberId = 1;
     final Gson gson = new Gson();
     response.setContentType("text/html; charset=UTF-8;");
     response.setCharacterEncoding("UTF-8");
     HttpSession session = request.getSession();
+    MemberBean memberLogin = (MemberBean) session.getAttribute("LoginOK");
+    int memberId = memberLogin.getuId();
 
     String job = request.getParameter("doJob");
 

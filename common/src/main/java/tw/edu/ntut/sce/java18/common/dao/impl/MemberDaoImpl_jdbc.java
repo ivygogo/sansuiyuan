@@ -1,10 +1,6 @@
 package tw.edu.ntut.sce.java18.common.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -29,12 +25,6 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   @Override
   public boolean checkMemberAccountExists(String mail) {
     return false;
-  }
-
-  @Override
-  public int saveMember(MemberBean mb) {
-    // TODO Auto-generated method stub
-    return 0;
   }
 
   /*用UID查詢會員資料用*/
@@ -181,5 +171,107 @@ public class MemberDaoImpl_jdbc implements MemberDao {
     }
 
     return n;
+  }
+
+  // 判斷參數mail(會員信箱)是否已經被現有客戶使用，如果是，傳回true，表示此mail不能使用，
+  // 否則傳回false，表示此mail可使用。
+  @Override
+  public boolean mailExists(String mail) {
+    boolean exist = false;
+    String sql = "SELECT * FROM Member WHERE mail = ?";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql); ) {
+      ps.setString(1, mail);
+      try (ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+          exist = true;
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("MemberDaoImpl_Jdbc類別#idExists()發生例外: " + ex.getMessage());
+    }
+    return exist;
+  }
+
+  // 儲存MemberBean物件，將參數mb新增到Member表格內。
+  @Override
+  public int saveMember(MemberBean mb) {
+    String sql =
+        "Insert into member (name, gender, phone, Id_Number, mail, password, address,"
+            + " nickname) values ( ?, ?, ?, ?, ?, ?, ?, ?)";
+    int n = 0;
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql); ) {
+      //      if (null != mb.getuId()){
+      //        ps.setInt(1, mb.getuId());
+      //      }
+      ps.setString(1, mb.getName());
+      ps.setInt(2, mb.getGender());
+      ps.setString(3, mb.getPhone());
+      ps.setString(4, mb.getIdNumber());
+      ps.setString(5, mb.getMail());
+      ps.setString(6, mb.getPassword());
+      ps.setString(7, mb.getAddress());
+      ps.setString(8, mb.getNickname());
+      n = ps.executeUpdate();
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      throw new RuntimeException("MemberDaoImpl_Jdbc類別#saveMember()發生例外: " + ex.getMessage());
+    }
+    return n;
+  }
+
+  // 檢查使用者在登入時輸入的帳號與密碼是否正確。如果正確，傳回該帳號所對應的MemberBean物件，
+  // 否則傳回 null。
+  @Override
+  public MemberBean checkIdPassword(String mail, String password) {
+    MemberBean mb = null;
+    String sql = "SELECT * FROM member m WHERE m.mail = ? and m.password = ?";
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql); ) {
+      ps.setString(1, mail);
+      ps.setString(2, password);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          mb = new MemberBean();
+          mb.setuId(rs.getInt("uId"));
+          mb.setName(rs.getString("name"));
+          mb.setGender(rs.getInt("gender"));
+          mb.setPhone(rs.getString("phone"));
+          mb.setIdNumber(rs.getString("id_Number"));
+          mb.setMail(rs.getString("mail"));
+          mb.setPassword(rs.getString("password"));
+          mb.setCounty(rs.getString("county"));
+          mb.setDistrict(rs.getString("district"));
+          mb.setAddress(rs.getString("address"));
+          mb.setNickname(rs.getString("nickname"));
+          mb.setState(rs.getInt("state"));
+          mb.setCode(rs.getString("code"));
+          mb.setSchool(rs.getString("school"));
+          mb.setPic(rs.getInt("pic"));
+          mb.setSignature_1(rs.getInt("signature_1"));
+          mb.setSignature_2(rs.getInt("signature_2"));
+          mb.setSignature_3(rs.getInt("signature_3"));
+          mb.setFavor_1(rs.getInt("favor_1"));
+          mb.setFavor_2(rs.getInt("favor_2"));
+          mb.setFavor_3(rs.getInt("favor_3"));
+          mb.setPair_1(rs.getInt("pair_1"));
+          mb.setPair_2(rs.getInt("pair_2"));
+          mb.setPair_3(rs.getInt("pair_3"));
+          mb.setPair_4(rs.getInt("pair_4"));
+          mb.setPair_5(rs.getInt("pair_5"));
+          mb.setOpen_tag(rs.getInt("open_tag"));
+          mb.setCreate_time(rs.getTimestamp("create_time"));
+          mb.setUpdate_time(rs.getTimestamp("update_time"));
+          mb.setLast_IP(rs.getString("last_IP"));
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "MemberDaoImpl_Jdbc類別#checkIDPassword()發生SQL例外: " + ex.getMessage());
+    }
+    return mb;
   }
 }

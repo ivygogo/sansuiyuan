@@ -1,0 +1,153 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: pan
+  Date: 2022/9/28
+  Time: 上午 03:25
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>加入會員</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body onLoad="setFocusToUserId()" style="background:#37cfa2;">
+<c:set var="funcName" value="REG" scope="session"/>
+<!-- 引入共同的頁首 -->
+<%--<jsp:include page="" />--%>
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">會員註冊</h3>
+
+            <form method="POST" action="<c:url value='/register/register.do' />" >
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label class="form-label">帳號(信箱):</label>
+                    <input type="email" name='mail' value="${param.mail}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorMailDup}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label class="form-label">姓名:</label>
+                    <input type="text" name='name' value="${param.name}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorName}</font>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                  <div class="form-outline datepicker w-100">
+                    <label class="form-label">密碼:</label>
+                    <input type="password" name='password'  class="form-control form-control-lg"/>
+                    <font color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline datepicker w-100">
+                    <label class="form-label">密碼確認:</label>
+                    <input type="password" name='password1'  class="form-control form-control-lg"/>
+                    <font color="red" size="-1">${MsgMap.errorPassword1Empty}</font>
+                  </div>
+
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <h6 class="mb-2 pb-1">性別:</h6>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name='gender' value="0" checked />
+                      <label class="form-check-label">男</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name='gender' value="0" />
+                      <label class="form-check-label">女</label>
+                    </div>
+
+                    <font color="red" size="-1">${MsgMap.errorGender}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <label class="form-label">電話:</label>
+                    <input type="text" name='phone' value="${param.tel}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorTel}</font>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <label class="form-label">匿名:</label>
+                    <input type="text" name='nickname' value="${param.nickName}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorNickName}</font>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <label class="form-label">身分證字號：</label>
+                    <input type="text" name='Id_Number' value="${param.Id_Number}" class="form-control form-control-lg" />
+                    <font color="red" size="-1">${MsgMap.errorId_Number}</font>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label">地址:</label>
+                  <input type="text" name='address' value="${param.address}" class="form-control form-control-lg" />
+                  <font color="red" size="-1">${MsgMap.errorAddr}</font>
+
+                </div>
+              </div>
+
+              <div class="mt-4 pt-2" align="center">
+                <input class="btn btn-primary btn-lg" type="submit" name="submit" id="submit" value="註冊" />
+                <input class="btn btn-primary btn-lg" type="reset" name="cancel" id="cancel" value="重填" />
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+<script type="text/javascript">
+  //由<body>的onLoad事件處理函數觸發此函數
+  function setFocusToUserId(){
+    document.forms[0].mid.focus();   // 將游標放在mid欄位內
+  }
+</script>
+</html>

@@ -2,8 +2,7 @@
   pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.*"%>
-<jsp:useBean id="ContractServiceImple"
-  class="tw.edu.ntut.sce.java18.landlord.service.Imple.ContractServiceImple" />
+
 
 
 <!DOCTYPE html>
@@ -36,9 +35,16 @@ tr:focus {
   background-color: #DAFFCC;
 }
 
-#status {
-  border: 1px solid green;
+#status1 {
+  border: 3px solid  #01c293;
   height: 280px;
+  width: 1300px;
+  margin: auto;
+  position: relative;
+}
+#status2 {
+  border: 3px solid  #01c293;
+  height: 180px;
   width: 1300px;
   margin: auto;
   position: relative;
@@ -59,47 +65,18 @@ input {
 
 <body>
 <!-- ---------------------header------------------------------ -->
-<!--   <div style="position: relative;"> -->
-<%--     <img src='<c:url value="/images/contractQueryImg/icon.jpg" ></c:url>' --%>
-<!--       width="100" height="50"> -->
-<!--     <div style="position: absolute; display: inline-block; right: 150px;"> -->
-
-<!--     </div> -->
-<!--     <div style="position: absolute; right: 0; top: 0;"> -->
-<%--       <img src='<c:url value="/images/contractQueryImg/user.png" ></c:url>' --%>
-<!--         width="40" height="40"> -->
-<!--       <p style="display: inline-block; letter-spacing: 1px;">山水苑 aaa111 -->
-<!--         登出</p> -->
-<!--     </div> -->
-<!--   </div> -->
-
-<!--   <div style="position: relative;"> -->
-<!--     <table class="bkground"> -->
-<!--       <tr> -->
-<!--         <td class="font">房契管理</td> -->
-<!--         <td>合約查詢</td> -->
-<!--         <td class="font">看房預約</td> -->
-<!--         <td class="font">報修管理</td> -->
-<!--         <td class="font">討論區</td> -->
-<!--         <td class="font">聊天室</td> -->
-<!--         <td class="font">廣告管理</td> -->
-<!--         <td class="font">行事曆</td> -->
-
-<!--       </tr> -->
-
-<!--     </table> -->
-<!--   </div> -->
-
+   
 <!-- -------------- ------body------------------------------------------>
 
   <div class="d-flex justify-content-center">
-
+   
     <div class="p-4">
+      
       <img
         src='<c:url value="/images/contractQueryImg/refresh.png" ></c:url>'
         width="30" height="30"
         style="cursor: pointer; display: inline; top: 200px;"
-        onclick="window.location.reload();"> Refresh
+        onclick="window.location.assign('/wuli/Contract.do');"> Refresh
     </div>
     <div class="p-4">
       <a href="ContractHide"><img
@@ -108,25 +85,18 @@ input {
     </div>
     <div class="p-4">
       <form action="Update" method="post" name="delete">
-        <input type="image"
-          src='<c:url value="/images/contractQueryImg/trash.png" ></c:url>'
-          style="top: 200px; cursor: pointer; width: 30px; height: 30px;"
-          id="hide"> <input type="hidden" name="selects" value=""
-          id="formUpdate">
+        <img  src='<c:url value="/images/contractQueryImg/trash.png" ></c:url>' style="cursor: pointer; top: 200px;  width: 30px; height: 30px;" id="trashcan" onclick="deliver()">
+        <input type="hidden" name="selects" value="" id="formUpdate">
       </form>
     </div>
-    <div class="p-4 mr-3">
-      <span style="display: inline; font-weight: bold; font-size: 20px">關鍵字</span><input
-        style="width: 250px; height: 30px;" type="text"> <img
-        src='<c:url value="/images/contractQueryImg/search.png" ></c:url>'
-        width="30" height="30">
+    <div class="p-4">
+    <span  style="color:red; font: normal 1.2em bold monospace;"  id="errorMsg">${ErrMsg.CIDError}</span>
     </div>
   </div>
 
 
-  <hr style="margin-top: 20px;">
-  <div id="status" class="overflow-auto"
-    style="margin-top: 20px; border-radius: 40px;">
+
+  <div id="status1" class="overflow-auto" style="margin-top: 1px; border-radius: 40px;">
     <table class="table">
       <thead>
         <tr style="background-color: #01c293;">
@@ -145,87 +115,121 @@ input {
         </tr>
       </thead>
 
+
+
+
+
+<!-- -------------------------allContract---------------------------------- -->
+
+
       <c:forEach items="${allContract}" var="contract">
 
         <tbody>
           <tr tabindex="1" id="contract${contract.CID}" class="CT">
             <th>
               <form style="display: inline;">
-                <input type="checkbox" class="ck" id="delete${contract.CID}"
-                  value="${contract.CID}">
+                <input type="checkbox" class="ck" id="delete${contract.CID}" value="${contract.CID}">
               </form>
             </th>
-            <td><input type="text" value="${contract.status}"
-              id="status${contract.CID}" style="display: none;" class="ST">${contract.status}</td>
-            <td><input type="hidden" value="${contract.CID}"
-              id="CID${contract.CID}">${contract.CID}</td>
-            <td><input type="text" value="${contract.name}"
-              id="name${contract.CID}" style="display: none;" class="nickName">${contract.name}</td>
-            <td><input type="hidden" value="${contract.room_Number}"
-              id="room_Number${contract.CID}" class="roomNumber">${contract.room_Number}
-            </td>
-            <td>${contract.room_Type}<input type="hidden"
-              value="${contract.room_Type}" id="room_Type${contract.CID}"
-              class="room_Type">
-            </td>
-            <td><input type="hidden" value="${contract.payment_Status}"
-              id="payment_Status${contract.CID}" class="PS">${contract.payment_Status}
-            </td>
-            <td><input type="hidden" value="${contract.check_Fee}"
-              id="check_Fee${contract.CID}" class="CheckFee">${contract.check_Fee}</td>
-            <td><input type="hidden" value="${contract.check_Status}"
-              id="check_Status${contract.CID}" class="CS">${contract.check_Status}</td>
-            <input type="hidden" value="${contract.deposit}"
-              id="deposit${contract.CID}" class="Deposit">
-            <td><input type="hidden" value="${contract.PDF}"
-              id="PDF${contract.CID}" class="pdf">${contract.PDF}</td>
-            <td><input type="hidden" value="${contract.signed_Date}">${contract.signed_Date}
-            </td>
+            <td><input type="text" value="${contract.status}" id="status${contract.CID}" style="display: none;" class="ST">${contract.status}</td>
+            <td><input type="hidden" value="${contract.CID}" id="CID${contract.CID}">${contract.CID}</td>
+            <td><input type="text" value="${contract.name}" id="name${contract.CID}" style="display: none;" class="nickName">${contract.name}</td>
+            <td><input type="hidden" value="${contract.room_Number}" id="room_Number${contract.CID}" class="roomNumber">${contract.room_Number}</td>
+            <td>${contract.room_Type}<input type="hidden" value="${contract.room_Type}" id="room_Type${contract.CID}"class="room_Type"></td>
+            <td><input type="hidden" value="${contract.payment_Status}"id="payment_Status${contract.CID}" class="PS">${contract.payment_Status} </td>
+            <td><input type="hidden" value="${contract.check_Fee}" id="check_Fee${contract.CID}" class="CheckFee">${contract.check_Fee}</td>
+            <td><input type="hidden" value="${contract.check_Status}" id="check_Status${contract.CID}" class="CS">${contract.check_Status}</td>
+            <input type="hidden" value="${contract.deposit}" id="deposit${contract.CID}" class="Deposit"> <td>
+            <input type="hidden" value="${contract.PDF}" id="PDF${contract.CID}" class="pdf">${contract.PDF}</td>
+            <td><input type="hidden" value="${contract.signed_Date}">${contract.signed_Date} </td>
           </tr>
         </tbody>
-
       </c:forEach>
     </table>
   </div>
+      
+      
+<!-- 搜尋bar -->
+   <div class="d-flex justify-content-center">
+    <div class="p-4">
+      <form action="ContractNameSearchServlet" method="post" name="searchForm">
+        <span style="display: inline; font-weight: bold; font-size: 20px">姓名:</span>
+        <input style="width: 250px; height: 30px;" type="text" value="" name="SearchResult"> 
+        <img src='<c:url value="/images/contractQueryImg/search.png" ></c:url>' width="30" height="30" style="cursor: pointer;" id="searchBar">
+      </form>
+    </div>
+  </div>
+      
+<!-- -------------------------searchContract---------------------------------- -->
+      
 
 
+  <div id="status2" class="overflow-auto"style="margin-top: 1px; border-radius: 40px;">
+    <table class="table">
+      <thead>
+        <tr style="background-color: #01c293;">
+          <th></th>
+          <th>合約狀態</th>
+          <th>合約編號</th>
+          <th>租客姓名</th>
+          <th>房號</th>
+          <th>房型</th>
+          <th>繳費</th>
+          <th>費用</th>
+          <th>點交</th>
+          <th>合約</th>
+          <th>簽約日期</th>
 
+        </tr>
+      </thead>
+      <div id="forTesting">
+  <c:forEach items="${searchResult}" var="searchResult">
+      <tbody>
+        <tr tabindex="1" id="searchContract${searchResult.CID}" class="searchCT" >
+          <th>
+            <form style="display: inline;">
+              <input type="checkbox" class="searchCheckBox" id="searchCheckBoxs${searchResult.CID}"  value="${searchResult.CID}">
+            </form>
+          </th>
+          <td><input type="text" value="${searchResult.status}" id="searchStatus${searchResult.CID}"style="display: none;">${searchResult.status}</td>
+          <td><input type="hidden" value="${searchResult.CID}" id="searchCID${searchResult.CID}">${searchResult.CID}</td>
+          <td><input type="text" value="${searchResult.name}" id="searchName${searchResult.CID}"style="display: none;">${searchResult.name}</td>
+          <td><input type="hidden" value="${searchResult.room_Number}"id="searchRoom_Number${searchResult.CID}">${searchResult.room_Number}</td>
+          <td><input type="hidden" value="${searchResult.room_Type}"id="searchRoom_Type${searchResult.CID}">${searchResult.room_Type}</td>
+          <td><input type="hidden" value="${searchResult.payment_Status}" id="searchPayment_Status${searchResult.CID}">${searchResult.payment_Status}</td>
+          <td><input type="hidden" value="${searchResult.check_Fee}" id="searchCheck_Fee${searchResult.CID}">${searchResult.check_Fee}</td>
+          <td><input type="hidden" value="${searchResult.check_Status}" id="searchCheck_Status${searchResult.CID}">${searchResult.check_Status}</td>
+          <input type="hidden" value="${searchResult.deposit}" id="searchDeposit${searchResult.CID}">
+          <td><input type="hidden" value="${searchResult.PDF}" id="searchPDF${searchResult.CID}">${searchResult.PDF}</td>
+          <td><input type="hidden" value="${searchResult.signed_Date}" id="searchSigned_Date${searchResult.CID}">${searchResult.signed_Date}</td>
+          <input type="hidden" value="${searchResult.hide}" id="searchHide${searchResult.CID}">
+        </tr>
+      </tbody>
+     </c:forEach>
+     </div>
+    </table>
+    
+  </div>
   <br>
 
+
+
   <!-- -------------- ------------------------------------------------>
-
-
-
-  <div
-    style="position: relative; border: 1px solid green; height: 800px; width: 1300px; border-radius: 50px;"
-    class="container-fluid">
-
-
+  <div style="position: relative; border: 1px solid green; height: 800px; width: 1300px; border-radius: 50px;"  class="container-fluid">
     <div style="margin: 0px 0 0 1200px"></div>
-
     <div style="position: relative; padding: 30px;">
 
 
-      <form action="modify" style="display: inline;" method="post"
-        name="formModify">
+      <form action="modify" style="display: inline;" method="post" name="formModify">
         <div id="checkboxgroup1">
 
           <p style="display: inline;">合約狀態 :</p>
-          <input type="hidden" name="status" id="ContractStatus" value="">
-
-
-
-          <input type="checkbox" id="cks1" value="${contractS.cbs2.status}"
-            class="status" onclick="return false;">租賃中 <input
-            type="checkbox" id="cks2" value="${contractS.cbs2.status}"
-            class="status" onclick="return false;">已退租 <input
-            type="checkbox" id="cks3" value="${contractS.cbs3.status}"
-            class="status" onclick="return false;">租約到期 <img
-            src='<c:url value="/images/contractQueryImg/edit.png" ></c:url>'
-            style="width: 30px; height: 30px; display: inline; margin-left: 800px; margin-bottom: 17px; cursor: pointer;"
-            id="edit"> <input type="image" id="save"
-            src='<c:url value="/images/contractQueryImg/save.png" ></c:url>'
-            style="width: 30px; height: 30px; cursor: pointer; display: inline; margin-left: 50px;">
+          <input type="hidden"  id="ContractStatus" name="status" value="">
+          <input type="checkbox" id="cks1" value="${contractS.cbs2.status}"class="statusClass" onclick="return false;">租賃中 
+          <input type="checkbox" id="cks2" value="${contractS.cbs2.status}"class="statusClass" onclick="return false;">已退租
+           <input type="checkbox" id="cks3" value="${contractS.cbs3.status}"class="statusClass" onclick="return false;">租約到期 
+           <img src='<c:url value="/images/contractQueryImg/edit.png" ></c:url>' style="width: 30px; height: 30px; display: inline; margin-left: 800px; margin-bottom: 17px; cursor: pointer;"id="edit"> 
+           <input type="image" id="save" src='<c:url value="/images/contractQueryImg/save.png" ></c:url>' style="width: 30px; height: 30px; cursor: pointer; display: inline; margin-left: 50px;">
         </div>
 
         <script>
@@ -238,32 +242,28 @@ input {
                 }
               });
         </script>
+
         <input type="hidden" id="input6" value="" name="CID">
 
 
         <div>
           <p style="display: inline; margin-top: 15px; margin-bottom: 10px;">租客名字:</p>
-          <input type="text" id="input1" disabled="disabled" name="name"
-            value=""
-            style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
+          <input type="text" id="input1" disabled="disabled" name="name" value="" style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
         </div>
 
         <p style="display: inline;">合約 :</p>
-        <input type="text" id="input2" disabled="disabled" value=""
-          name="PDF"
-          style="border: none; width: 130px; height: 30px; background-color: white; display: inline;">
+        <input type="text" id="input2" disabled="disabled" value="" name="PDF"style="border: none; width: 90px; height: 30px; background-color: white; display: inline;">
 
 
         <div>
           <p style="display: inline; margin-top: 15px; margin-bottom: 10px;">房號:</p>
           <input type="text" id="input3" disabled="disabled"
             name="room_Number" value=""
-            style="border: none; width: 100px; height: 30px; background-color: white; display: inline;">
+            style="border: none; width: 60px; height: 30px; background-color: white; display: inline;">
         </div>
         <div id="checkboxgroup2">
           <p style="display: inline;">繳費狀態 :</p>
-          <input type="checkbox" id="ckps1" class="payment_status"
-            value="${contractPS.cbps1.payment_Status}" onclick="return false;">
+          <input type="checkbox" id="ckps1" class="payment_status"value="${contractPS.cbps1.payment_Status}" onclick="return false;">
           已繳 <input type="checkbox" id="ckps2" class="payment_status"
             value="${contractPS.cbps2.payment_Status}" onclick="return false;">
           未繳 <input type="hidden" id="ContractPayment_status"
@@ -283,7 +283,7 @@ input {
           <p style="display: inline; margin-top: 10px; margin-bottom: 10px;">押金:</p>
           <input type="text" id="input4" disabled="disabled" value=""
             name="deposit"
-            style="border: none; width: 100px; height: 20px; background-color: white; display: inline;">
+            style="border: none; width: 80px; height: 30px; background-color: white; display: inline;">
         </div>
 
         <div>
@@ -292,20 +292,17 @@ input {
           <input type="text" id="input5" disabled="disabled" name="check_Fee"
             value=""
             style="border: none; width: 65px; height: 30px; background-color: white; display: inline;">
-          <input type="checkbox"> 電費 <input type="checkbox"
-            style="margin-left: 10px;">其他
+          <!-- <input type="checkbox"> 電費 
+          <input type="checkbox"style="margin-left: 10px;">其他 -->
         </div>
 
 
         <div style="position: absolute; display: block; margin-top: 5px;"
           id="checkboxgroup3">
           <p style="display: inline;">退租點交:</p>
-          <input type="checkbox" id="ckcs1" class="check_status"
-            value="${contractCS.cbcs1.check_Status}" onclick="return false;">
-          未點交 <input type="checkbox" id="ckcs2" class="check_status"
-            value="${contractCS.cbcs2.check_Status}" onclick="return false;">
-          已點交 <input type="hidden" id="ContractCheck_status"
-            name="check_Status" value="">
+          <input type="checkbox" id="ckcs1" class="check_status" value="${contractCS.cbcs1.check_Status}" onclick="return false;">未點交 
+          <input type="checkbox" id="ckcs2" class="check_status" value="${contractCS.cbcs2.check_Status}" onclick="return false;"> 已點交
+          <input type="hidden" id="ContractCheck_status" name="check_Status" value="">
         </div>
         <script>
           $('#checkboxgroup3 input').click(
@@ -477,9 +474,11 @@ input {
 </body>
 <!-- ----------------------------------------------- -->
 <script>
+
   window.addEventListener('load', doFirst);
-  console.log(`-----------123-----------------`)
-  console.log(`${Room_Type.room_Type}`)
+  let searchCheckBox =  document.querySelectorAll(".searchCheckBox")
+  let searchCT = document.querySelectorAll(".searchCT")
+  let searchBar = document.getElementById("searchBar")
   let input1 = document.getElementById("input1")
   let input2 = document.getElementById("input2")
   let input3 = document.getElementById("input3")
@@ -492,7 +491,7 @@ input {
   let cks1 = document.getElementById("cks1")
   let cks2 = document.getElementById("cks2")
   let cks3 = document.getElementById("cks3")
-  let hide = document.getElementById("hide")
+  let trashcan = document.getElementById("trashcan")
   let edit = document.getElementById("edit")
   let ckps1 = document.getElementById("ckps1")
   let ckps2 = document.getElementById("ckps2")
@@ -522,7 +521,7 @@ input {
   let CT = document.querySelectorAll(".CT")
   console.log(CT.length)
   let cover = document.querySelectorAll(".cover")
-  let status = document.querySelectorAll(".status")
+  let statusClass = document.querySelectorAll(".statusClass")
   let payment_status = document.querySelectorAll(".payment_status")
   let check_status = document.querySelectorAll(".check_status")
   let save = document.getElementById("save")
@@ -538,32 +537,36 @@ input {
   let SideTable = document.getElementById("SideTable")
   let Wardrobe = document.getElementById("Wardrobe")
   let RoomItems = document.getElementById("RoomItems")
+  
   function doFirst() {
+    window.history.replaceState(null,null,window.location.href);
+    window.reload
     allCK.addEventListener('click', selectAll)
     edit.addEventListener('click', alter)
     save.addEventListener('click', change)
-    hide.addEventListener('click', deliver)
+    trashcan.addEventListener('click', deliver)
+    searchBar.addEventListener('click',searchContent)
     showAll()
-    test()
+   deleteContractMethod()
+   deleteSearchContractMethod()
     statusCheckbox()
     payment_StatusCheckbox()
     check_StatusCheckbox()
+    searchAllContract()
+    
 
     // <!-- ---------------預先讀取資料 --------------->
-    for (let i = 0; i < CT.length; i++) {
-      let contract = document.getElementById("contract" + ck[i].value)
-      let status = document.getElementById("status" + ck[i].value)
-      let CID = document.getElementById("CID" + ck[i].value)
-      let name = document.getElementById("name" + ck[i].value)
-      let room_Number = document.getElementById("room_Number"
-          + ck[i].value)
-      let payment_Status = document.getElementById("payment_Status"
-          + ck[i].value)
-      let check_Status = document.getElementById("check_Status"
-          + ck[i].value)
-      let check_Fee = document.getElementById("check_Fee" + ck[i].value)
-      let PDF = document.getElementById("PDF" + ck[i].value)
-      let deposit = document.getElementById("deposit" + ck[i].value)
+    
+      let contract = document.getElementById("contract" + ck[0].value)
+      let status = document.getElementById("status" + ck[0].value)
+      let CID = document.getElementById("CID" + ck[0].value)
+      let name = document.getElementById("name" + ck[0].value)
+      let room_Number = document.getElementById("room_Number" + ck[0].value)
+      let payment_Status = document.getElementById("payment_Status" + ck[0].value)
+      let check_Status = document.getElementById("check_Status" + ck[0].value)
+      let check_Fee = document.getElementById("check_Fee" + ck[0].value)
+      let PDF = document.getElementById("PDF" + ck[0].value)
+      let deposit = document.getElementById("deposit" + ck[0].value)
       input1.value = name.value
       input2.value = PDF.value
       input3.value = room_Number.value
@@ -605,7 +608,7 @@ input {
         ckcs2.checked = true;
       }
 
-    }
+    
 
   }
 
@@ -665,10 +668,8 @@ input {
                   ckcs1.checked = false;
                   ckcs2.checked = true;
                 }
-//                 
-
-//                   ------------  // 房型判斷式------------
-                if (room_Type.value == "單人房A"  ) {
+           //                   ------------  // 房型判斷式------------
+    if (room_Type.value == "單人房A"  ) {
                  TV.value = `*${allRoomType.get(0).TV}`
                  WaterHeater.value = `*${allRoomType.get(0).waterHeater}`
                  Airconditioner.value = `*${allRoomType.get(0).airconditioner}`
@@ -735,22 +736,21 @@ input {
                  SideTable.value = `(大)*${allRoomType.get(5).bigSideTable}`
                  Wardrobe.value = `*${allRoomType.get(5).wardrobe}`
                 }
+
+
               })
     }
   }
-
-
-
-  function test() {
+ 
+  function deleteContractMethod() {
     let selectsArray = []
     let ck = document.querySelectorAll(".ck");
+    
     console.log(ck)
     console.log("--------------------------------------")
+  
     for (let i = 0; i < ck.length; i++) {
-
-      console.log(ck[i].className)
-      console.log(ck[i].className.replace(/[^0-9]/ig, ""))
-      checkbox = document.getElementById("delete" + ck[i].value)
+     let checkbox = document.getElementById("delete" + ck[i].value)
 
       checkbox.addEventListener("click", function(e) {
 
@@ -768,11 +768,34 @@ input {
         console.log(formUpdate.value)
       })
     }
+    
   }
 
-  function deliver() {
-    document.forms['delete'].submit();
-  }
+function deleteSearchContractMethod(){
+  let selectsArray = []
+  let searchCheckBox = document.querySelectorAll(".searchCheckBox");
+  for (let i = 0; i < searchCheckBox.length; i++) {
+    
+     let searchCheckBoxs = document.getElementById("searchCheckBoxs" + searchCheckBox[i].value)
+     searchCheckBoxs.addEventListener("click", function(e) {
+  
+        console.log(selectsArray)
+        let number = parseInt(e.target.value)
+        let index = selectsArray.indexOf(number)
+        console.log(index + " -- " + " -- " + number + " -- "
+            + " -- --" + e.target.value)
+        if (index !== -1) {
+          selectsArray.splice(index, 1)
+        } else {
+          selectsArray.push(number)
+        }
+        formUpdate.value = selectsArray
+        console.log(formUpdate.value)
+      })
+    }
+}
+
+ 
 
   function change() {
     document.forms['formModify'].submit();
@@ -789,8 +812,8 @@ input {
   }
 
   function alter() {
-    for (let i = 0; i < status.length; i++) {
-      status[i].removeAttribute('onclick');
+    for (let i = 0; i < statusClass.length; i++) {
+      statusClass[i].removeAttribute('onclick');
     }
     for (let i = 0; i < payment_status.length; i++) {
       payment_status[i].removeAttribute('onclick');
@@ -799,21 +822,21 @@ input {
       check_status[i].removeAttribute('onclick');
     }
     input1.removeAttribute('disabled');
-    input1.style.border = '1px solid lightgreen'
+    input1.style.border = '2px solid black'
     input2.removeAttribute('disabled');
-    input2.style.border = '1px solid lightgreen'
+    input2.style.border = '2px solid black'
     input3.removeAttribute('disabled');
-    input3.style.border = '1px solid lightgreen'
+    input3.style.border = '2px solid black'
     input4.removeAttribute('disabled');
-    input4.style.border = '1px solid lightgreen'
+    input4.style.border = '2px solid black'
     input5.removeAttribute('disabled');
-    input5.style.border = '1px solid lightgreen'
+    input5.style.border = '2px solid black'
   }
 
   function statusCheckbox() {
-    for (let i = 1; i <= status.length; i++) {
-      console.log(status.length)
-      console.log(status)
+    for (let i = 1; i <= statusClass.length; i++) {
+      console.log(statusClass.length)
+      console.log(statusClass)
       console.log("===================================")
       checkboxStatus = document.getElementById("cks" + i)
 
@@ -845,6 +868,151 @@ input {
         let value = e.target.value
         ContractCheck_status.value = value
       })
+    }
+  }
+
+  function searchContent(){
+    document.forms['searchForm'].submit();
+  }
+  function deliver() {
+    document.forms['delete'].submit();
+    console.log("-------change---------")
+    let forTesting = document.getElementById("forTesting")
+    let searchChange = document.querySelector(".searchCT")
+    console.log("-------try---------" + searchChange.length)
+    for(let i = 0 ; i <searchChange.length;i++){
+      searchChange[i].innerHTML()=""
+      console.log("-------test---------")
+    }
+  
+  }
+
+
+  function searchAllContract(){
+    for(let i = 0; i < searchCT.length ; i++){
+      let searchContract = document.getElementById("searchContract"+ searchCheckBox[i].value)
+      let  searchStatus = document.getElementById("searchStatus" + searchCheckBox[i].value)
+      let  searchCID = document.getElementById("searchCID" + searchCheckBox[i].value)
+      let  searchnName = document.getElementById("searchName" + searchCheckBox[i].value)
+      let  searchRoom_Number = document.getElementById("searchRoom_Number"+ searchCheckBox[i].value)
+      let  searchPayment_Status = document.getElementById("searchPayment_Status"+ searchCheckBox[i].value)
+      let  searchCheck_Status = document.getElementById("searchCheck_Status"+searchCheckBox[i].value)
+      let  searchCheck_Fee = document.getElementById("searchCheck_Fee" + searchCheckBox[i].value)
+      let  searchPDF = document.getElementById("searchPDF" + searchCheckBox[i].value)
+      let  searchDeposit = document.getElementById("searchDeposit" + searchCheckBox[i].value)
+      let searchRoom_Type = document.getElementById("searchRoom_Type" + searchCheckBox[i].value)
+      searchContract.addEventListener('click',function(){
+                input1.value = searchnName.value
+                input2.value = searchPDF.value
+                input3.value = searchRoom_Number.value
+                input4.value = searchDeposit.value
+                input5.value = searchCheck_Fee.value
+                input6.value = searchCID.value
+                ContractStatus.value = searchStatus.value
+                ContractPayment_status.value = searchPayment_Status.value
+                ContractCheck_status.value = searchCheck_Status.value
+                RoomItems.removeAttribute('style');
+                // --------合約狀態判斷式----------
+                if (searchStatus.value === renting) {
+                  cks1.checked = true;
+                  cks2.checked = false;
+                  cks3.checked = false;
+                } else if (searchStatus.value === retreat) {
+                  cks2.checked = true;
+                  cks1.checked = false;
+                  cks3.checked = false;
+                } else if (searchStatus.value === expired) {
+                  cks3.checked = true;
+                  cks1.checked = false;
+                  cks2.checked = false;
+                }
+                // --------繳費狀態判斷式----------
+                if ( searchPayment_Status.value === paid) {
+                  ckps1.checked = true;
+                  ckps2.checked = false;
+
+                } else if ( searchPayment_Status.value === unpaid) {
+                  ckps2.checked = true;
+                  ckps1.checked = false;
+                }
+                // --------點交判斷式----------
+                if (searchCheck_Status.value === unHandover) {
+                  ckcs1.checked = true;
+                  ckcs2.checked = false;
+                } else if (searchCheck_Status.value === handover) {
+                  ckcs1.checked = false;
+                  ckcs2.checked = true;
+                }
+        //                   ------------  // 房型判斷式------------
+    if (searchRoom_Type.value == "單人房A"  ) {
+                 TV.value = `*${allRoomType.get(0).TV}`
+                 WaterHeater.value = `*${allRoomType.get(0).waterHeater}`
+                 Airconditioner.value = `*${allRoomType.get(0).airconditioner}`
+                 Freezer.value = `*${allRoomType.get(0).freezer}`
+                 window1.value = `*${allRoomType.get(0).screen}`
+                 Chair.value = `*${allRoomType.get(0).chair}`
+                 Bed.value = `(雙)*${allRoomType.get(0).doubleBed}`
+                 Desk.value = `(大)*${allRoomType.get(0).bigDesk}`
+                 SideTable.value = `(大)*${allRoomType.get(0).bigSideTable}`
+                 Wardrobe.value = `*${allRoomType.get(0).wardrobe}`}
+                 else if ( searchRoom_Type.value ==  "單人房B") {
+                 TV.value = `*${allRoomType.get(1).TV}`
+                 WaterHeater.value = `*${allRoomType.get(1).waterHeater}`
+                 Airconditioner.value = `*${allRoomType.get(1).airconditioner}`
+                 Freezer.value = `*${allRoomType.get(1).freezer}`
+                 window1.value = `*${allRoomType.get(1).screen}`
+                 Chair.value = `*${allRoomType.get(1).chair}`
+                 Bed.value = `(雙)*${allRoomType.get(1).doubleBed}`
+                 Desk.value = `(大)*${allRoomType.get(1).bigDesk}`
+                 SideTable.value = `(大)*${allRoomType.get(1).bigSideTable}`
+                 Wardrobe.value = `*${allRoomType.get(1).wardrobe}`}
+                 else if ( searchRoom_Type.value == "單人房C") {
+                 TV.value = `*${allRoomType.get(2).TV}`
+                 WaterHeater.value = `*${allRoomType.get(2).waterHeater}`
+                 Airconditioner.value = `*${allRoomType.get(2).airconditioner}`
+                 Freezer.value = `*${allRoomType.get(2).freezer}`
+                 window1.value = `*${allRoomType.get(2).screen}`
+                 Chair.value = `*${allRoomType.get(2).chair}`
+                 Bed.value = `(雙)*${allRoomType.get(2).doubleBed}`
+                 Desk.value = `(大)*${allRoomType.get(2).bigDesk}`
+                 SideTable.value = `(大)*${allRoomType.get(2).bigSideTable}`
+                 Wardrobe.value = `*${allRoomType.get(2).wardrobe}`
+                } else if ( searchRoom_Type.value == "雙人房A") {
+                 TV.value = `*${allRoomType.get(3).TV}`
+                 WaterHeater.value = `*${allRoomType.get(3).waterHeater}`
+                 Airconditioner.value = `*${allRoomType.get(3).airconditioner}`
+                 Freezer.value = `*${allRoomType.get(3).freezer}`
+                 window1.value = `*${allRoomType.get(3).screen}`
+                 Chair.value = `*${allRoomType.get(3).chair}`
+                 Bed.value = `(單)*${allRoomType.get(3).singleBed}`
+                 Desk.value = `(小)*${allRoomType.get(3).smallDesk}`
+                 SideTable.value = `(小)*${allRoomType.get(3).smallSideTable}`
+                 Wardrobe.value = `*${allRoomType.get(3).wardrobe}`
+                } else if (searchRoom_Type.value == "雙人房B") {
+                 TV.value = `*${allRoomType.get(4).TV}`
+                 WaterHeater.value = `*${allRoomType.get(4).waterHeater}`
+                 Airconditioner.value = `*${allRoomType.get(4).airconditioner}`
+                 Freezer.value = `*${allRoomType.get(4).freezer}`
+                 window1.value = `*${allRoomType.get(4).screen}`
+                 Chair.value = `*${allRoomType.get(4).chair}`
+                 Bed.value = `(單)*${allRoomType.get(4).singleBed}`
+                 Desk.value = `(小)*${allRoomType.get(4).smallDesk}`
+                 SideTable.value = `(小)*${allRoomType.get(4).smallSideTable}`
+                 Wardrobe.value = `*${allRoomType.get(4).wardrobe}`
+                } else if (searchRoom_Type.value == "雙人房C") {
+                 TV.value = `*${allRoomType.get(5).TV}`
+                 WaterHeater.value = `*${allRoomType.get(5).waterHeater}`
+                 Airconditioner.value = `*${allRoomType.get(5).airconditioner}`
+                 Freezer.value = `*${allRoomType.get(5).freezer}`
+                 window1.value = `*${allRoomType.get(5).screen}`
+                 Chair.value = `*${allRoomType.get(5).chair}`
+                 Bed.value = `(雙)*${allRoomType.get(5).doubleBed}`
+                 Desk.value = `(大)*${allRoomType.get(5).bigDesk}`
+                 SideTable.value = `(大)*${allRoomType.get(5).bigSideTable}`
+                 Wardrobe.value = `*${allRoomType.get(5).wardrobe}`
+                }
+      })
+
     }
   }
 </script>

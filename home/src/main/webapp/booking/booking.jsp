@@ -29,7 +29,7 @@
       <p/>房型: <input type="text" name="roomtype"  id="booking-room-type" value="系統帶入(房型瀏覽)">
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.roomtype}</div>
       <P/>樓層: <select name="preferFloor" size="1" id="preferFloor" onChange="change()">
-          <option value="" selected> </option>
+          <option value="" selected>請選擇樓層</option>
           <option value="低樓層">低樓層</option>
           <option value="中樓層">中樓層</option>
           <option value="高樓層">高樓層</option>
@@ -39,7 +39,7 @@
       <p/>日期: <input id="datepicker" type="text" name="bookDate">
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookDate}</div>
       <P/>時段: <select id="preferTime" name="preferTime" size="1"  onChange="change()">
-          <option value="" selected> </option>
+          <option value="" selected>請選擇時段</option>
           <option value="13:00-13:30">13:00-13:30</option>
           <option value="13:30-14:00">13:30-14:00</option>
           <option value="14:00-14:30">14:00-14:30</option>
