@@ -136,18 +136,6 @@
 	src="${pageContext.request.contextPath}/landlordRepairForm/landlordRepairForm.js"></script>
 </head>
 <style>
-.bkground {
-	background-color: #01c293;
-	width: 100%;
-	margin: auto;
-}
-
-.bluebutton:hover {
-	color: blue;
-	border: 2px solid blue;
-	background-color: blue;
-}
-
 .btn-success {
 	color: blue;
 	background-color: #37cfa2;
@@ -173,9 +161,9 @@
 }
 </style>
 <body>
-	<header>
-		<%@include file="fragment/menu_index.jsp"%>
-	</header>
+
+	<%@include file="fragment/menu_index.jsp"%>
+
 	<!--  -------------------------------放header-------------------------------------------------->
 
 	<form action="book.do" method="post">
