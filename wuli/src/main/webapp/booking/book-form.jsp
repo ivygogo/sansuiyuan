@@ -138,7 +138,7 @@
 				</fieldset>
 
 
-				<button type="submit" class="btn btn-success">Save</button>
+				<button type="submit" class="btn btn-success" onClick="return confirm('確定送出?');">Save</button>
 				</form>
 			</div>
 		</div>
