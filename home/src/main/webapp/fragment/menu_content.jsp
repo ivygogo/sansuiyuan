@@ -40,46 +40,29 @@
 						</li>
 
 						<li class="nav-item dropdown has-children dropdown arrow-top">
-							<a class="nav-link " href='<c:url value="/findRoommate.jsp"/>'
+							<a class="nav-link" href='<c:url value="/findRoommate.jsp"/>'
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">找室友</a>
 							<ul class="dropdown ">
-								<li><a class="dropdown-item"
-									href='<c:url value="/findRoommate.jsp"/>'>找室友</a></li>
-								<li><a class="dropdown-item"
-									href='<c:url value="/chatRoom.jsp"/>'>聊聊</a></li>
+								<c:if test="${! empty LoginOK }">
+									<li><a class="dropdown-item"
+										href='<c:url value="/chatRoom.jsp"/>'>聊聊</a></li>
+								</c:if>
 							</ul>
-
 						</li>
-
-
-
-						<!-- <li><a href='<c:url value="/findRoommate.jsp"/>' class="nav-link ">找室友</a></li>
-            <li><a class="dropdown-item" href='<c:url value="/chatRoom.jsp"/>'>聊聊</a></li> -->
-
-						<%-- <c:if test="${! empty LoginOK }">
-              <li><a class="dropdown-item" href='<c:url value="/chatRoom.jsp"/>'>聊聊</a></li>
-            </c:if> --%>
 
 						<li class="nav-item dropdown has-children dropdown arrow-top">
 							<a class="nav-link " href='<c:url value="/login/login.jsp"/>'
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">登入/註冊</a>
-
 							<ul class="dropdown ">
-								<li><a class="dropdown-item"
-									href='<c:url value="/memberInfo.jsp"/>'>會員專區</a></li>
-								<li><a class="dropdown-item"
-									href='<c:url value="/repair.jsp"/>'>我要報修</a></li>
-							</ul> <!-- <li><a href="login.html" class="nav-link">登入/註冊</a></li>
-            <li><a href="memberInfo.jsp" class="nav-link">會員專區</a></li>
-            <li><a href="repair.jsp" class="nav-link"></a>我要報修</li> -->
-
-							<%-- <c:if test="${! empty LoginOK }">
-              <li><a href="memberInfo.jsp" class="nav-link">會員專區</a></li>
-            </c:if>
-            
-            <c:if test="${! empty LoginOK }">
-              <li><a href="repair.jsp" class="nav-link">我要報修</a></li>
-            </c:if> --%>
+								<c:if test="${! empty LoginOK }">
+									<li><a class="dropdown-item"
+										href='<c:url value="/memberInfo.jsp"/>'>會員專區</a></li>
+								</c:if>
+								<c:if test="${! empty LoginOK }">
+									<li><a class="dropdown-item"
+										href='<c:url value="/repair.jsp"/>'>我要報修</a></li>
+								</c:if>
+							</ul>
 					</ul>
 
 				</nav>
