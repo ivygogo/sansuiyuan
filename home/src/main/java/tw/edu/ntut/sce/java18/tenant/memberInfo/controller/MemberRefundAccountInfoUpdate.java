@@ -71,9 +71,9 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
           partList.add(fldName);
         }
 
-        for (int i = 0; i < partList.size(); i++) {
-          System.out.println("表單名稱:" + partList.get(i));
-        }
+        // for (int i = 0; i < partList.size(); i++) {
+        // System.out.println("表單名稱:" + partList.get(i));
+        // }
 
         for (Part p : parts) {
           String fldName = p.getName();
@@ -121,7 +121,7 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
               refundAccount.setBankAccount(bankAccount);
 
               boolean isNumeric = bankAccount.matches("[0-9]*");
-              System.out.println(isNumeric);
+              // System.out.println(isNumeric);
               if (bankAccount == null || bankAccount.trim().length() == 0) {
                 errorMsgs.put("errBankAccount", "必須輸入銀行帳戶");
               } else if (isNumeric == false) {
@@ -159,7 +159,7 @@ public class MemberRefundAccountInfoUpdate extends HttpServlet {
       } else {
         session.setAttribute("RefundIsInvalid", false);
         if (refundAccountIsExist == false) {
-          System.out.println("儲存資料");
+          // System.out.println("儲存資料");
           RefundAccountBean newBean = new RefundAccountBean();
           newBean.setMember_id(mb.getuId());
           newBean.setRefundBank(refundAccount.getRefundBank());

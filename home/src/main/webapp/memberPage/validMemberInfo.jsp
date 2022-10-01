@@ -10,7 +10,7 @@
 		
 	$("input[name='avatarIcon']").click(
 	        function() {
-	        	alert(event.target.id);
+	        	//alert(event.target.id);
 	        	<%--//$("input[name='avatarIcon']").get(0).checked = false;--%>
 	          startAvatar = `${Avatar}`;
 	          <%--//alert(startAvatar);--%>
@@ -28,16 +28,16 @@
 	
 	$(function(){
 		$("input[name='myGender']").click(function(){
-			alert(event.target.value);
+			//alert(event.target.value);
 			ans = " ";
 			
 			/*====如果是女生====*/
 			if(event.target.value==="female"){
 				str =('${femaleAvatar}')
 				str = str.substr(0, str.length-1)
-				alert(str.split(','));
+				//alert(str.split(','));
 				female = str.split(',');
-				alert(female[0]);
+				//alert(female[0]);
 				$("#avatarBlock").html("");
 				colNum = female.length / 3;
 			  col = 0;
@@ -85,7 +85,7 @@
 			    col++;
 			  }
 			  ans += "</div>";
-			  console.log(ans);
+			  //console.log(ans);
 			  $("#avatarBlock").append(ans);
 			}
 			
@@ -93,9 +93,9 @@
 		      if(event.target.value==="male"){
 		        str =('${maleAvatar}')
 		        str = str.substr(0, str.length-1)
-		        alert(str.split(','));
+		        //alert(str.split(','));
 		        male = str.split(',');
-		        alert(male[0]);
+		        //alert(male[0]);
 		        $("#avatarBlock").html("");
 		        colNum = male.length / 3;
 		        col = 0;
@@ -143,7 +143,7 @@
 		          col++;
 		        }
 		        ans += "</div>";
-		        console.log(ans);
+		        //console.log(ans);
 		        $("#avatarBlock").append(ans);
 		        
 		      }
@@ -152,9 +152,9 @@
 	          if(event.target.value==="nogender"){
 	            str =('${otherAvatar}')
 	            str = str.substr(0, str.length-1)
-	            alert(str.split(','));
+	            //alert(str.split(','));
 	            nogender = str.split(',');
-	            alert(nogender[0]);
+	            //alert(nogender[0]);
 	            $("#avatarBlock").html("");
 	            colNum = nogender.length / 3;
 	            col = 0;
@@ -202,7 +202,7 @@
 	              col++;
 	            }
 	            ans += "</div>";
-	            console.log(ans);
+	            //console.log(ans);
 	            $("#avatarBlock").append(ans);
 	            
 	          }
@@ -234,10 +234,10 @@
 			function changecb() {
 				county = $('#zipzip').twzipcode('get', 'county');
 				district = $('#zipzip').twzipcode('get', 'district');
-				console.log(county);
-				console.log(district);
+				//console.log(county);
+				//console.log(district);
 				var str = county;
-				console.log(county[0]);
+				//console.log(county[0]);
 			}
 		});
 

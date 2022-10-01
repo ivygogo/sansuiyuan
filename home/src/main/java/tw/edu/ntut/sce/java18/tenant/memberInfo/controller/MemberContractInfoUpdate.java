@@ -119,7 +119,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
                 genderCode = Integer.parseInt(idNumber.substring(1, 2));
                 if (genderCode != 1 && genderCode != 2) {
                   errMsg = "身分證號性別碼不正確 #outside";
-                  System.out.println("身分證號性別碼 genderCode" + genderCode);
+                  // System.out.println("身分證號性別碼 genderCode" + genderCode);
                 } else {
                   CheckIdNumberFormat checkIdNumberFormate = new CheckIdNumberFormat();
                   errMsg = checkIdNumberFormate.checkIdNumber(idNumber, genderCode);
@@ -222,7 +222,7 @@ public class MemberContractInfoUpdate extends HttpServlet {
       } else {
         session.setAttribute("guarantorIsInvalid", false);
         if (guarantorIsExist == false) {
-          System.out.println("儲存資料");
+          // System.out.println("儲存資料");
           GuarantorBean newBean = new GuarantorBean();
           newBean.setMember_id(mb.getuId());
           newBean.setName(guarantor.getName());
