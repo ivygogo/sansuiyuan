@@ -47,6 +47,13 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
 
+<style>
+p {
+	margin-top: 6px;
+	margin-bottom: 1px;
+}
+</style>
+
 </head>
 <%@include file="/fragment/menu_content.jsp"%>
 <body>
@@ -83,6 +90,11 @@
 										name="pswd" class="form-control form-control-lg" size="10"
 										value="${requestScope.password}${param.pswd}"> <small><Font
 										color='red' size="-3">${ErrorMsgKey.PasswordEmptyError}</Font></small>
+									<div class="" style="display: flex; justify-content: center;">
+										<small class="text mb-4" style="color: red;">請注意：<br>*密碼須由大寫字母、小寫字母、數字與
+											!@#$%!^'" 組合，<br>且長度不能小於八個字元
+										</small>
+									</div>
 								</div>
 
 								<div class="form-check d-flex justify-content-start mb-4">
@@ -90,8 +102,8 @@
 										name="rememberMe"
 										<c:if test='${requestScope.rememberMe==true}'>
                        checked='checked'
-                </c:if>
-										value="true"> <label class="form-check-label">
+                    </c:if>
+										value="true"> <label class="form-check-label h4">
 										<p>&nbsp;&nbsp;&nbsp;記住密碼</p>
 									</label>
 								</div>
