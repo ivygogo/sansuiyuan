@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.landlord.model.ContractBean;
 import tw.edu.ntut.sce.java18.landlord.service.ContractService;
-import tw.edu.ntut.sce.java18.landlord.service.Imple.ContractServiceImple;
+import tw.edu.ntut.sce.java18.landlord.service.impl.ContractServiceImple;
 
 @WebServlet("/ContractHide")
 public class ContractHide extends HttpServlet {

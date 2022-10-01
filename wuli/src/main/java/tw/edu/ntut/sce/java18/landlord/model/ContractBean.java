@@ -16,6 +16,7 @@ public class ContractBean implements Serializable {
   String Signed_Date;
   String Deposit;
   Integer Hide;
+  Integer MemberID;
 
   public ContractBean() {}
 
@@ -31,7 +32,8 @@ public class ContractBean implements Serializable {
       String check_Status,
       String signed_Date,
       String deposit,
-      Integer hide) {
+      Integer hide,
+      Integer memberID) {
     super();
     CID = cID;
     Status = status;
@@ -45,6 +47,7 @@ public class ContractBean implements Serializable {
     Signed_Date = signed_Date;
     Deposit = deposit;
     Hide = hide;
+    MemberID = memberID;
   }
 
   public Integer getCID() {
@@ -141,6 +144,14 @@ public class ContractBean implements Serializable {
 
   public void setHide(Integer hide) {
     Hide = hide;
+  }
+
+  public Integer getMemberID() {
+    return MemberID;
+  }
+
+  public void setMemberID(Integer memberID) {
+    MemberID = memberID;
   }
 
   public static long getSerialversionuid() {
