@@ -13,4 +13,8 @@ public interface MemberDao {
   boolean checkMemberUidExists(int uId); // 此uId不是帳號，而是PK
 
   int updateMemberInfo(MemberBean member);
+
+  boolean mailExists(String mail);
+
+  MemberBean checkIdPassword(String mail, String password);
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -20,6 +21,8 @@ import tw.edu.ntut.sce.java18.common.utils.DBService;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties", ignoreResourceNotFound = true)
+@ComponentScan({"tw.edu.ntut.sce.java18.*.*.impl"})
+
 // @PropertySource("classpath:db.properties")
 public class RootAppConfig {
 
