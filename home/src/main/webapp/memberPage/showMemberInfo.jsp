@@ -36,7 +36,7 @@ request.setAttribute("RefundIsInvalid", false);
 				<div class="row ">
 					<div class="col" style="display: flex; justify-content: center;">
 						<img
-							src="${pageContext.request.contextPath}//images/avatarImg/${Avatar}.png"
+							src="${pageContext.request.contextPath}/images/avatarImg/${Avatar}.png"
 							alt="Free website template by Free-Template.co"
 							class="img-fluid my-avatar">
 					</div>
