@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import tw.edu.ntut.sce.java18.common.utils.DBService;
 
+@SuppressWarnings("all")
 // @WebServlet("searchBookingServlet")
 public class SearchBookServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;

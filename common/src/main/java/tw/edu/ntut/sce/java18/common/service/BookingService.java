@@ -15,10 +15,6 @@ public class BookingService {
     daoFront = new BookingDao();
   }
 
-  //    public BookingService1() {
-  //      BookingDao dao = null;
-  //    }
-
   public BookerBean select(Integer bookerId) {
     return daoBack.selectUser(bookerId);
   }
@@ -39,7 +35,7 @@ public class BookingService {
     return daoBack.insertUser(bean);
   }
 
-  public boolean delete(Integer bookerId) throws SQLException {
-    return daoBack.deleteUser(bookerId);
+  public BookingService(Integer bookerId) throws SQLException {
+    return;
   }
 }
