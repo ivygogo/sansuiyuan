@@ -61,7 +61,7 @@ $(function () {
         '<div>關閉時間</div><span id="close-time" ></span><div id="for-btn"></div>')
 
       $('#for-btn').append(
-        `<button class="btn btn-primary" id="close-btn" data-roomId =${chatroomId} >封鎖</button >`
+        `<button class="btn btn-primary" id="close-btn" data-roomId =${chatroomId} >婉拒</button >`
       )
 
       $('#close-time').text(

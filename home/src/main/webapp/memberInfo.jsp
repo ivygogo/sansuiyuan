@@ -279,78 +279,78 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 
     <%--內容開始--%>
-    <section class="login-block">
-      <div class="container mt-5 mb-5">
-        <%--標題--%>
-        <div class="row mb-1 mt-5">
-          <div class="col-md-7 text-left">
-            <h2 class="section-title mb-3" id="myTitle">會員專區 ${myPage}</h2>
-            <p class="lead">親愛的會員您好，為確保您的權益，請定期更新及維護您的資料</p>
-          </div>
-        </div>
+		<section class="login-block">
+			<div class="container mt-5 mb-5">
+				<%--標題--%>
+				<div class="row mb-1 mt-5">
+					<div class="col-md-7 text-left">
+						<h2 class="section-title mb-3" id="myTitle">會員專區 ${myPage}</h2>
+						<p class="lead">親愛的會員您好，為確保您的權益，請定期更新及維護您的資料</p>
+					</div>
+				</div>
 
-        <%--tabs--%>
-        <ul class="nav nav-tabs" id="myTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="home-tab" data-bs-toggle="tab"
-              data-bs-target="#home" type="button" role="tab"
-              aria-controls="home" aria-selected="true" data-toggle=""
-              data-target="">基本資訊</button>
-          </li>
-          <li class="nav-item mx-2" role="presentation"><button
-              class="nav-link" id="profile-tab" data-bs-toggle="tab"
-              data-bs-target="#profile" type="button" role="tab"
-              aria-controls="profile" aria-selected="false" data-toggle=""
-              data-target="">契約簽訂資訊</button></li>
+				<%--tabs--%>
+				<ul class="nav nav-tabs" id="myTabs" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="home-tab" data-bs-toggle="tab"
+							data-bs-target="#home" type="button" role="tab"
+							aria-controls="home" aria-selected="true" data-toggle=""
+							data-target="">基本資訊</button>
+					</li>
+					<li class="nav-item mx-2" role="presentation"><button
+							class="nav-link" id="profile-tab" data-bs-toggle="tab"
+							data-bs-target="#profile" type="button" role="tab"
+							aria-controls="profile" aria-selected="false" data-toggle=""
+							data-target="">契約簽訂資訊</button></li>
 
-        </ul>
-        <div class="tab-content" id="myTabContent">
-          <%--分頁1--%>
-          <div class="tab-pane fade  " id="home" role="tabpanel"
-            aria-labelledby="home-tab">
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<%--分頁1--%>
+					<div class="tab-pane fade  " id="home" role="tabpanel"
+						aria-labelledby="home-tab">
 
-            <c:choose>
-              <c:when test="${isInvalid==true}">
-                <jsp:include page="memberPage/validMemberInfo.jsp" flush="true" />
-              </c:when>
-              <c:otherwise>
-                <jsp:include page="memberPage/showMemberInfo.jsp" flush="true" />
-              </c:otherwise>
-            </c:choose>
+						<c:choose>
+							<c:when test="${isInvalid==true}">
+								<jsp:include page="memberPage/validMemberInfo.jsp" flush="true" />
+							</c:when>
+							<c:otherwise>
+								<jsp:include page="memberPage/showMemberInfo.jsp" flush="true" />
+							</c:otherwise>
+						</c:choose>
 
-          </div>
-          <!--分頁2-->
-          <div class="tab-pane fade" id="profile" role="tabpanel"
-            aria-labelledby="profile-tab">
-            <c:choose>
-              <c:when test="${guarantorIsInvalid==true}">
-                <jsp:include page="memberPage/validContractInfo.jsp"
-                  flush="true" />
-                <%-- include file="memberPage/validMemberInfo.jsp" --%>
-              </c:when>
-              <c:when test="${RefundIsInvalid==true}">
-                <jsp:include page="memberPage/validRefundInfo.jsp" flush="true" />
-                <%-- include file="memberPage/validMemberInfo.jsp" --%>
-              </c:when>
-              <c:otherwise>
-                <jsp:include page="memberPage/showContractInfo.jsp" flush="true" />
+					</div>
+					<!--分頁2-->
+					<div class="tab-pane fade" id="profile" role="tabpanel"
+						aria-labelledby="profile-tab">
+						<c:choose>
+							<c:when test="${guarantorIsInvalid==true}">
+								<jsp:include page="memberPage/validContractInfo.jsp"
+									flush="true" />
+								<%-- include file="memberPage/validMemberInfo.jsp" --%>
+							</c:when>
+							<c:when test="${RefundIsInvalid==true}">
+								<jsp:include page="memberPage/validRefundInfo.jsp" flush="true" />
+								<%-- include file="memberPage/validMemberInfo.jsp" --%>
+							</c:when>
+							<c:otherwise>
+								<jsp:include page="memberPage/showContractInfo.jsp" flush="true" />
              ${checkErr}
              </c:otherwise>
-            </c:choose>
+						</c:choose>
 
-          </div>
+					</div>
 
-          <%--分頁3--%>
-          <div class="tab-pane fade" id="contact" role="tabpanel"
-            aria-labelledby="contact-tab"></div>
+					<%--分頁3--%>
+					<div class="tab-pane fade" id="contact" role="tabpanel"
+						aria-labelledby="contact-tab"></div>
 
-        </div>
+				</div>
 
-      </div>
+			</div>
 
-  </section>
+		</section>
 
-  <%--footer --%>
+		<%--footer --%>
   <jsp:include page="fragment/footer.jsp" />
 
   <%--.site-wrap --%>

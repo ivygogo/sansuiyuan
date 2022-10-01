@@ -47,10 +47,10 @@
           <div class="col-md-3 mx-auto">
             <h2 class="footer-heading mb-4">相關連結</h2>
             <ul class="list-unstyled">
-              <li><a href="http://localhost:8080/home/aboutus.jsp">關於我們</a></li>
-              <li><a href="http://localhost:8080/home/roomtype.jsp">房型瀏覽</a></li>
-              <li><a href="http://localhost:8080/home/findRoommate.jsp">找室友</a></li>
-              <li><a href="http://localhost:8080/home/login/login.jsp">登入/註冊</a></li>
+              <li><a href='<c:url value="/aboutus.jsp"/>'>關於我們</a></li>
+              <li><a href='<c:url value="/roomtype.jsp"/>'>房型瀏覽</a></li>
+              <li><a href='<c:url value="/findRoommate.jsp"/>'>找室友</a></li>
+              <li><a href='<c:url value="/login/login.jsp"/>'>登入/註冊</a></li>
             </ul>
           </div>
 

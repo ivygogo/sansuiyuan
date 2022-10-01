@@ -7,7 +7,9 @@
         <div class="row align-items-center mt-1">
 
           <div class="col-6 col-xl-2">
-            <h1 class="mb-0 site-logo m-0 p-0"><a href='<c:url value="/index.jsp"/>' class="mb-0">${SYSTEM.systemName}</a></h1>
+            <h1 class="mb-0 site-logo m-0 p-0">
+					<a href='<c:url value="/index.jsp"/>' class="mb-0">${SYSTEM.systemName}</a>
+				</h1>
           </div>
 
       <div class="col-12 col-md-10 d-none d-xl-block">
@@ -33,6 +35,7 @@
               <a class="nav-link " href='<c:url value="/findRoommate.jsp"/>' role="button"
               data-bs-toggle="dropdown" aria-expanded="false">找室友</a>
               <ul class="dropdown ">
+                <li><a class="dropdown-item" href='<c:url value="/findRoommate.jsp"/>'>找室友</a></li>
                 <li><a class="dropdown-item" href='<c:url value="/chatRoom.jsp"/>'>聊聊</a></li>
               </ul>
             
@@ -48,11 +51,11 @@
             </c:if> --%>
             
             <li class="nav-item dropdown has-children dropdown arrow-top">
-              <a class="nav-link " href='<c:url value="/login.jsp"/>' role="button"
+              <a class="nav-link " href='<c:url value="/login/login.jsp"/>' role="button"
               data-bs-toggle="dropdown" aria-expanded="false">登入/註冊</a>
               
               <ul class="dropdown ">
-                <li><a class="dropdown-item" href='<c:url value="/MemberInfo.do"/>'>會員專區</a></li>
+                <li><a class="dropdown-item" href='<c:url value="/memberInfo.jsp"/>'>會員專區</a></li>
                 <li><a class="dropdown-item" href='<c:url value="/repair.jsp"/>'>我要報修</a></li>
               </ul>
                 

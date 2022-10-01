@@ -97,7 +97,7 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="http://localhost:8080/home/roomtype.jsp?type=A" class="d-inline-block mb-4"><img
+              <a href='<c:url value="/roomtype.jsp?type=A"/>' class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
@@ -112,7 +112,7 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="http://localhost:8080/home/roomtype.jsp?type=B" class="d-inline-block mb-4"><img
+              <a href='<c:url value="/roomtype.jsp?type=B"/>' class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
@@ -127,7 +127,7 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="http://localhost:8080/home/roomtype.jsp?type=C" class="d-inline-block mb-4"><img
+              <a href='<c:url value="/roomtype.jsp?type=C"/>' class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
@@ -142,7 +142,7 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="http://localhost:8080/home/roomtype.jsp?type=D" class="d-inline-block mb-4"><img
+              <a href='<c:url value="/roomtype.jsp?type=D"/>' class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
@@ -157,7 +157,7 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="http://localhost:8080/home/roomtype.jsp?type=E" class="d-inline-block mb-4"><img
+              <a href='<c:url value="/roomtype.jsp?type=E"/>' class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
@@ -172,7 +172,7 @@
         <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
           <div class="ftco-media-1">
             <div class="ftco-media-1-inner">
-              <a href="http://localhost:8080/home/roomtype.jsp?type=F" class="d-inline-block mb-4"><img
+              <a href='<c:url value="/roomtype.jsp?type=F"/>' class="d-inline-block mb-4"><img
                 src="images/pp1.webp"
                 alt="Free website template by Free-Template.co"
                 class="img-fluid"></a>
@@ -478,7 +478,7 @@
       <div class="row mb-1 justify-content-center">
         <div class="col-md-7 text-center">
           <h3 class="section-title mb-1 text-black">
-            如需預約看房，請先登入會員。 <a href="https://free-template.co" target="_blank"
+            如需預約看房，請先登入會員。 <a href='<c:url value="/login/login.jsp"/>' target="_blank"
               class="btn btn-second px-2 py-2 ">立即登入</a>
           </h3>
         </div>
