@@ -42,7 +42,7 @@
 
 			</div>
 		</div>
-		<div class="row pt-5 text-center">
+		<div class="row pt-5 mt-5 text-center">
 			<div class="col-md-12">
 				<div class="border-top pt-5">
 					<!-- Link back to Free-Template.co can't be removed. Template is licensed under CC BY 3.0. -->
