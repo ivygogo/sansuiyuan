@@ -11,11 +11,8 @@ public class BookDaoHibernate {
   public BookerBeanHibernate saveUser(BookerBeanHibernate user) {
     Transaction transaction = null;
     try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
       transaction = session.beginTransaction();
-
       session.save(user);
-
       transaction.commit();
     } catch (Exception e) {
       if (transaction != null) {
@@ -29,11 +26,8 @@ public class BookDaoHibernate {
   public void updateUser(BookerBeanHibernate user) {
     Transaction transaction = null;
     try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
       transaction = session.beginTransaction();
-
       session.update(user);
-
       transaction.commit();
     } catch (Exception e) {
       if (transaction != null) {
@@ -44,17 +38,14 @@ public class BookDaoHibernate {
   }
 
   public void deleteUser(int id) {
-
     Transaction transaction = null;
     try (Session session = HibernateUtil.getSessionFactory().openSession()) {
       transaction = session.beginTransaction();
-
       BookerBeanHibernate user = session.get(BookerBeanHibernate.class, id);
       if (user != null) {
         session.delete(user);
         System.out.println(user + " 刪除成功");
       }
-
     } catch (Exception e) {
       if (transaction != null) {
         transaction.rollback();
@@ -64,15 +55,11 @@ public class BookDaoHibernate {
   }
 
   public BookerBeanHibernate getUser(int id) {
-
     Transaction transaction = null;
     BookerBeanHibernate user = null;
     try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
       transaction = session.beginTransaction();
-
       user = session.get(BookerBeanHibernate.class, id);
-
       transaction.commit();
     } catch (Exception e) {
       if (transaction != null) {
@@ -85,18 +72,14 @@ public class BookDaoHibernate {
 
   @SuppressWarnings("unchecked")
   public List<BookerBeanHibernate> getAllUser() {
-
     Transaction transaction = null;
     List<BookerBeanHibernate> listOfUser = null;
     try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
       transaction = session.beginTransaction();
-
       listOfUser = session.createQuery("from bookingexample").getResultList();
-
       transaction.commit();
     } catch (Exception e) {
-      
+
       e.printStackTrace();
     }
     return listOfUser;
