@@ -6,6 +6,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.layout.font.FontProvider;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 @WebServlet("/pdf.do")
 public class HtmlToPDF extends HttpServlet {
@@ -27,7 +29,14 @@ public class HtmlToPDF extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    processRequest(request, response);
+    //  processRequest(request, response);
+    var target = request.getParameter("target");
+    var targetPdf = request.getServletContext().getRealPath("rent/" + target);
+    response.setContentType("application/pdf");
+    var inputStream = new FileInputStream(targetPdf);
+    var outputStream = response.getOutputStream();
+    IOUtils.copy(inputStream, outputStream);
+    outputStream.flush();
   }
 
   @Override
@@ -50,8 +59,7 @@ public class HtmlToPDF extends HttpServlet {
 
       // 設定字型
       FontProvider fontProvider = new FontProvider();
-      fontProvider.addFont(
-          "/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/fonts/MSJH.TTC");
+      fontProvider.addFont(request.getServletContext().getRealPath("fonts/") + "MSJH.TTC");
       fontProvider.addStandardPdfFonts();
       fontProvider.addSystemFonts(); // for fallback
       converterProperties.setFontProvider(fontProvider);
@@ -66,7 +74,9 @@ public class HtmlToPDF extends HttpServlet {
       var pdfString =
           FileUtils.readFileToString(
                   new File(
-                      "/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/rent/contractPdfUse.html"))
+                      // "/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/rent/contractPdfUse.html"
+                      request.getSession().getServletContext().getRealPath("rent/")
+                          + "contractPdfUse.html"))
               .replaceAll("INPUT_RENTER", map.get("renter"))
               .replaceAll("START_YYYY", map.get("startYYYY"))
               .replaceAll("START_MM", map.get("startMM"))
@@ -90,7 +100,7 @@ public class HtmlToPDF extends HttpServlet {
 
       testHtmlToPDF.createPdf(
           pdfString,
-          "/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/rent/"
+          request.getSession().getServletContext().getRealPath("rent/")
               + map.get("pdfName")
               + ".pdf",
           converterProperties);

@@ -36,7 +36,7 @@ request.setAttribute("RefundIsInvalid", false);
 				<div class="row ">
 					<div class="col" style="display: flex; justify-content: center;">
 						<img
-							src="${pageContext.request.contextPath}//images/avatarImg/${Avatar}.png"
+							src="${pageContext.request.contextPath}/images/avatarImg/${Avatar}.png"
 							alt="Free website template by Free-Template.co"
 							class="img-fluid my-avatar">
 					</div>
@@ -59,7 +59,7 @@ request.setAttribute("RefundIsInvalid", false);
 								<br>
 								<ul>
 									<c:forEach var="contract" items="${LoginOK.contract}">
-										<li><a href="https://tw.yahoo.com"><font
+										<li><a href=" http://localhost:8080/wuli/rent/${contract}.pdf"><font
 												style="font-size: 20px; color: #37cfa2;">${contract}.pdf</font></a>
 										</li>
 									</c:forEach>

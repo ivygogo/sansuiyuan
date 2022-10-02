@@ -8,7 +8,7 @@
 %>
 <script type="text/javascript">
 $.getJSON('/home/RepairForm.do?doJob=getProject').then(res => {
-	console.log(res)
+	//console.log(res)
 	let projectOption="";
 	for (let i = 0; i < res.furnitureList.length; i++) {
 		projectOption += "<option value='" + res.furnitureList[i] + "'>" + res.furnitureList[i] + "</option>";

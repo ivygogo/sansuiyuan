@@ -62,7 +62,7 @@ public class RepairFormServlet extends HttpServlet {
 
         var reparFormListJson = gson.toJson(showPageInfo);
         printWriter.print(reparFormListJson);
-        System.out.println(reparFormListJson);
+        // System.out.println(reparFormListJson);
         printWriter.flush();
         break;
 
@@ -113,11 +113,11 @@ public class RepairFormServlet extends HttpServlet {
         var showNewFrom = Map.of("toRoom", memberId, "formId", repairForm);
         var showNewFromJson = gson.toJson(showNewFrom);
         printWriter.print(showNewFromJson);
-        System.out.println(showNewFromJson);
+        // System.out.println(showNewFromJson);
         printWriter.flush();
         break;
       default:
-        System.out.println("i got u");
+        // System.out.println("i got u");
         break;
     }
   }
@@ -142,19 +142,19 @@ public class RepairFormServlet extends HttpServlet {
     } else {
       job = (String) session.getAttribute("page");
     }
-    System.out.println("jobjob ->" + job);
+    // System.out.println("jobjob ->" + job);
     switch (job) {
       case "deleteRepairForm":
         String deleteFormNumber = request.getParameter("id");
-        System.out.println(deleteFormNumber);
+        // System.out.println(deleteFormNumber);
         try {
           int n = new RepairFormServiceImpl().deleteRepairForm(deleteFormNumber);
           if (n != 1) {
-            System.out.println("n != 1");
+            // System.out.println("n != 1");
             errorMsgs.put("saveErr", "系統儲存資料異常");
           }
         } catch (Exception e) {
-          System.out.println("n !!!= 1");
+          // System.out.println("n !!!= 1");
           e.printStackTrace();
         }
 
@@ -205,7 +205,7 @@ public class RepairFormServlet extends HttpServlet {
             int num =
                 new RepairFormServiceImpl()
                     .checkRepairFormAmount(member.getuId(), dateNow, dateNow);
-            System.out.println("dateNow" + dateNow);
+            // System.out.println("dateNow" + dateNow);
             formNumber = roomNumber + dateNow + "A" + (num + 1);
             session.setAttribute("formNumber", formNumber);
 
@@ -254,9 +254,9 @@ public class RepairFormServlet extends HttpServlet {
         }
 
         // 判斷project不得為空
-        System.out.println("project" + project);
+        // System.out.println("project" + project);
         int projectId = new FurniturePriceServiceImpl().getFurnitureIdByName(project);
-        System.out.println("projectId" + projectId);
+        // System.out.println("projectId" + projectId);
         if (project.equals("0") || projectId == -1) {
           errorMsgs.put("Project", "報修品項輸入錯誤");
           session.setAttribute("Project", project);
@@ -277,7 +277,7 @@ public class RepairFormServlet extends HttpServlet {
           try {
             LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(expectTimeStr));
             timeConvert = Timestamp.valueOf(localDateTime);
-            System.out.println("timeConvert" + timeConvert);
+            // System.out.println("timeConvert" + timeConvert);
             if (timeConvert.after(currentTime)) {
               session.setAttribute("expectTime", expectTime);
             } else {
@@ -296,7 +296,7 @@ public class RepairFormServlet extends HttpServlet {
           String key = (String) it.next();
           /*有了鍵就可以通過map集合的get方法獲取其對應的値 ( key:01, vaule: a  key: 02,vaule: b  key:03, vaule: c)*/
           String value = errorMsgs.get(key);
-          System.out.println("key: " + key + ", vaule: " + value);
+          // System.out.println("key: " + key + ", vaule: " + value);
           errList.add(key);
           // System.out.println(errList.get(0));
         }
@@ -356,17 +356,17 @@ public class RepairFormServlet extends HttpServlet {
               editBean.setApplicant(applicant);
               editBean.setPhone(myPhone);
               editBean.setExpectionTime(timeConvert);
-              System.out.println("timeConvert->" + timeConvert);
+              // System.out.println("timeConvert->" + timeConvert);
               editBean.setProject(projectId);
               editBean.setNote(note);
               try {
                 int n = new RepairFormServiceImpl().updateRepairForm(editBean);
                 if (n != 1) {
-                  System.out.println("n != 1");
+                  // System.out.println("n != 1");
                   errorMsgs.put("saveErr", "系統儲存資料異常");
                 }
               } catch (Exception e) {
-                System.out.println("n !!!= 1");
+                // System.out.println("n !!!= 1");
                 e.printStackTrace();
               }
               session.setAttribute("FormInvalid", "OK");

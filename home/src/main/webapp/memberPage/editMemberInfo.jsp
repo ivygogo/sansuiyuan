@@ -27,8 +27,8 @@
 				var district = $('#zipzip').twzipcode('get', 'district');
 				<%--
 				var result = $('#zipzip').twzipcode('get', 'county,district');
-				console.log(county);
-        console.log(district);
+				//console.log(county);
+        //console.log(district);
 				--%>
 			}
 		});
@@ -124,7 +124,7 @@
 		          col++;
 		        }
 		        ans += "</div>";
-		        console.log(ans);
+		        //console.log(ans);
 		        $("#avatarBlock").append(ans);
 		      }
 		      
@@ -180,7 +180,7 @@
 		              col++;
 		            }
 		            ans += "</div>";
-		            console.log(ans);
+		            //console.log(ans);
 		            $("#avatarBlock").append(ans);
 		            
 		          }
@@ -237,7 +237,7 @@
 		                col++;
 		              }
 		              ans += "</div>";
-		              console.log(ans);
+		              //console.log(ans);
 		              $("#avatarBlock").append(ans);
 		              
 		            }

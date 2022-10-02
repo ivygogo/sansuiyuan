@@ -162,7 +162,7 @@ public class RefundAccountDaoImpl implements RefundAccountDao {
       ps.setString(4, refundAccountBean.getRefundName());
       ps.setTimestamp(5, refundAccountBean.getUpdate_time());
       ps.setInt(6, refundAccountBean.getMember_id());
-      System.out.println("RefundAccountDaoImpl#updateGuarantorInfo" + refundAccountBean.getId());
+      // System.out.println("RefundAccountDaoImpl#updateGuarantorInfo" + refundAccountBean.getId());
       n = ps.executeUpdate();
 
     } catch (SQLException ex) {

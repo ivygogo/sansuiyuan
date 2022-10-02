@@ -1,19 +1,23 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/css/bookinglist.css'  type="text/css" />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/css/bookinglist.css'
+	type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>預約表單送出結果</title>
 </head>
 <body>
-<div id="booklist">
-親愛的 ${bookerBean.bookerName} 同學, 您好<P/>
-恭喜您成功預約<P/>
-${bookerBean.roomtype}，  
-<c:choose>
+	<div id="booklist">
+		親愛的 ${bookerBean.bookerName} 同學, 您好
+		<P />
+		恭喜您成功預約
+		<P />
+		${bookerBean.roomtype}，
+		<c:choose>
    <c:when test="${empty bookerBean.preferFloor}" >
        您未挑選樓層
    </c:when>
