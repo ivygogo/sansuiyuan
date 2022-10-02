@@ -117,14 +117,12 @@ p {
 									class="btn btn-primary btn-lg btn-block">
 							</form>
 
-
 							<hr class="my-4">
 
 							<div>
 								<p class="mb-0 h5">
 									還沒有加入會員嗎？ <a href='<c:url value="/register/register.jsp"/>'
 										class="text-blue-50 fw-bold">點此註冊</a>
-
 								</p>
 							</div>
 
@@ -134,33 +132,22 @@ p {
 			</div>
 		</div>
 	</section>
-	<script type="text/javascript">
-		//由<body>的onLoad事件處理函數觸發此函數
-		function setFocusToUserId() {
-			document.forms[0].userId.focus(); // 將游標放在userId欄位內
-		}
-	</script>
-	<%@include file="/fragment/footer.jsp"%>
-
-	<%--.site-wrap --%>
-	<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
-
-
-	<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
-	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
-	<script src="${pageContext.request.contextPath}/js/aos.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-
 </body>
+
+<script type="text/javascript">
+	//由<body>的onLoad事件處理函數觸發此函數
+	function setFocusToUserId() {
+		document.forms[0].userId.focus(); // 將游標放在userId欄位內
+	}
+</script>
+<%@include file="/fragment/footer.jsp"%>
+
+<%--.site-wrap --%>
+<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
+
+<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script> --%>
+<script src="${pageContext.request.contextPath}/js/aos.js"></script>
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
+
 </html>

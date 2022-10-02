@@ -55,12 +55,12 @@
 <div id="formDialogDiv" class="d-none">
 	<%@include file="booking/booking.jsp"%>
 </div>
+</body>
 
 <%@include file="fragment/footer.jsp"%>
 
 <%--.site-wrap --%>
 <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
-
 
 <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
 <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
@@ -77,7 +77,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
-</body>
+
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script type="text/javascript">
