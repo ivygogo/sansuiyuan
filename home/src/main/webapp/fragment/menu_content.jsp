@@ -53,7 +53,12 @@
 						<li class="nav-item dropdown has-children dropdown arrow-top">
 							<a class="nav-link " href='<c:url value="/login/login.jsp"/>'
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">登入/註冊</a>
+
 							<ul class="dropdown ">
+								<c:if test="${! empty LoginOK }">
+									<li><a class="dropdown-item"
+										href='<c:url value="/login/logout.jsp"/>'>登出</a></li>
+								</c:if>
 								<c:if test="${! empty LoginOK }">
 									<li><a class="dropdown-item"
 										href='<c:url value="/memberInfo.jsp"/>'>會員專區</a></li>
