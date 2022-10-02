@@ -4,31 +4,46 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class BookerBean implements Serializable {
+@Entity
+@Table(name = "bookingexample")
+public class BookerBeanHibernate implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @Id
+  @Column(name = "Booker_Id")
   private Integer bookerId;
 
+  @Column(name = "Book_Date")
   private Date bookDate;
 
+  @Column(name = "Prefer_Time")
   private String preferTime;
 
+  @Column(name = "Booker_Name")
   private String bookerName;
 
+  @Column(name = "Booker_Phone")
   private String bookerPhone;
 
+  @Column(name = "Roomtype")
   private String roomtype;
 
+  @Column(name = "Prefer_Floor")
   private String preferFloor;
 
+  @Column(name = "Lead_Person")
   private String leadPerson;
 
-  public BookerBean() {
+  public BookerBeanHibernate() {
     super();
   }
 
-  public BookerBean(
+  public BookerBeanHibernate(
       Integer bookerId,
       Date bookDate,
       String preferTime,
