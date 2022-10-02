@@ -279,7 +279,7 @@ input {
 						<input type="hidden" value="${contract.deposit}"
 							id="deposit${contract.CID}" class="Deposit">
 						<td><input type="hidden" value="${contract.PDF}"
-							id="PDF${contract.CID}" class="pdf">${contract.PDF}</td>
+							id="PDF${contract.CID}" class="pdf"><a href="http://localhost:8080/wuli/rent/${contract.PDF}.pdf">${contract.PDF}</a></td>
 						<td><input type="hidden" value="${contract.signed_Date}">${contract.signed_Date}
 						</td>
 					</tr>
@@ -358,8 +358,7 @@ input {
 								id="searchCheck_Status${searchResult.CID}">${searchResult.check_Status}</td>
 							<input type="hidden" value="${searchResult.deposit}"
 								id="searchDeposit${searchResult.CID}">
-							<td><input type="hidden" value="${searchResult.PDF}"
-								id="searchPDF${searchResult.CID}">${searchResult.PDF}</td>
+							<td><input type="hidden" value="${searchResult.PDF}"id="searchPDF${searchResult.CID}"> <a href="http://localhost:8080/wuli/rent/${searchResult.PDF}.pdf">${searchResult.PDF}</a></td>
 							<td><input type="hidden" value="${searchResult.signed_Date}"
 								id="searchSigned_Date${searchResult.CID}">${searchResult.signed_Date}</td>
 							<input type="hidden" value="${searchResult.hide}"
@@ -1020,8 +1019,8 @@ input {
 		}
 		input1.removeAttribute('disabled');
 		input1.style.border = '2px solid black'
-		input2.removeAttribute('disabled');
-		input2.style.border = '2px solid black'
+		// input2.removeAttribute('disabled');
+		// input2.style.border = '2px solid black'
 		input3.removeAttribute('disabled');
 		input3.style.border = '2px solid black'
 		input4.removeAttribute('disabled');
