@@ -10,17 +10,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import tw.edu.ntut.sce.java18.common.dao.impl.BookDAO;
-import tw.edu.ntut.sce.java18.common.model.BookerBean;
+import tw.edu.ntut.sce.java18.common.dao.impl.BookDaoHibernate;
+import tw.edu.ntut.sce.java18.common.model.BookerBeanHibernate;
 
-@WebServlet("/book.do")
-public class BookingServlet extends HttpServlet {
+@WebServlet("/bookH.do")
+public class BookServletHibernate extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private BookDAO bookingDao;
+  private BookDaoHibernate bookDaoHibernate;
 
   @Override
   public void init() {
-    bookingDao = new BookDAO();
+    bookDaoHibernate = new BookDaoHibernate();
   }
 
   @Override
@@ -32,9 +32,8 @@ public class BookingServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-    String action = request.getParameter("action");
-    System.out.println(action);
+    String action = request.getServletPath();
+
     try {
       switch (action) {
         case "new":
@@ -56,36 +55,37 @@ public class BookingServlet extends HttpServlet {
           listUser(request, response);
           break;
       }
-    } catch (Exception ex) {
+    } catch (SQLException ex) {
       throw new ServletException(ex);
     }
   }
 
   private void listUser(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, IOException, ServletException {
-    List<BookerBean> listUser = bookingDao.selectAllUsers();
+    List<BookerBeanHibernate> listUser = bookDaoHibernate.getAllUser();
+    System.out.println(listUser);
     request.setAttribute("listUser", listUser);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinglist.jsp");
+    RequestDispatcher dispatcher = request.getRequestDispatcher("bookinglistH.jsp");
     dispatcher.forward(request, response);
   }
 
   private void showNewForm(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    RequestDispatcher dispatcher = request.getRequestDispatcher("booking/book-form.jsp");
+    RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
     dispatcher.forward(request, response);
   }
 
   private void showEditForm(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, ServletException, IOException {
     int id = Integer.parseInt(request.getParameter("id"));
-    BookerBean existingUser = bookingDao.selectUser(id);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("booking/book-form.jsp");
+    BookerBeanHibernate existingUser = bookDaoHibernate.getUser(id);
+    RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
     request.setAttribute("user", existingUser);
     dispatcher.forward(request, response);
   }
 
   private void insertUser(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, IOException, ServletException {
+      throws SQLException, IOException {
     Integer bookerId = null;
     try {
       bookerId = Integer.parseInt(request.getParameter("bookerId").trim());
@@ -107,18 +107,17 @@ public class BookingServlet extends HttpServlet {
     String roomtype = request.getParameter("roomtype");
     String preferFloor = request.getParameter("preferFloor");
     String leadPerson = request.getParameter("leadPerson");
-    BookerBean newBooker =
-        new BookerBean(
+    BookerBeanHibernate newBooker =
+        new BookerBeanHibernate(
             bookerId, date, preferTime, bookerName, bookerPhone, roomtype, preferFloor, leadPerson);
-    bookingDao.insertUser(newBooker);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinglist.jsp");
-    dispatcher.forward(request, response);
+
+    bookDaoHibernate.saveUser(newBooker);
+    response.sendRedirect("list");
   }
 
   private void updateUser(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, IOException, ServletException {
+      throws SQLException, IOException {
     int bookerId = Integer.parseInt(request.getParameter("bookerId").trim());
-    System.out.println(bookerId);
     String bookDate = request.getParameter("bookDate");
     Date date = null;
     try {
@@ -133,20 +132,18 @@ public class BookingServlet extends HttpServlet {
     String preferFloor = request.getParameter("preferFloor");
     String leadPerson = request.getParameter("leadPerson");
 
-    BookerBean booker =
-        new BookerBean(
+    BookerBeanHibernate user =
+        new BookerBeanHibernate(
             bookerId, date, preferTime, bookerName, bookerPhone, roomtype, preferFloor, leadPerson);
-    bookingDao.updateUser(booker);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinglist.jsp");
-    dispatcher.forward(request, response);
+
+    bookDaoHibernate.updateUser(user);
+    response.sendRedirect("list");
   }
 
   private void deleteUser(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, IOException, ServletException {
+      throws SQLException, IOException {
     int id = Integer.parseInt(request.getParameter("id"));
-    bookingDao.deleteUser(id);
-
-    RequestDispatcher dispatcher = request.getRequestDispatcher("/bookinglist.jsp");
-    dispatcher.forward(request, response);
+    bookDaoHibernate.deleteUser(id);
+    response.sendRedirect("list");
   }
 }
