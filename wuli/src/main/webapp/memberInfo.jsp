@@ -2,14 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<% String editState = request.getParameter("edit");
+<%
+String editState = request.getParameter("edit");
 //System.out.print("editState"+editState);
-if (editState!=null&&editState.equals("drop")){
-//request.setAttribute("guarantorIsInvalid", false);
-session.setAttribute("isInvalid", false);
-//request.setAttribute("RefundIsInvalid", false);
+if (editState != null && editState.equals("drop")) {
+	//request.setAttribute("guarantorIsInvalid", false);
+	session.setAttribute("isInvalid", false);
+	//request.setAttribute("RefundIsInvalid", false);
 
-//System.out.print("editState:::::"+editState);
+	//System.out.print("editState:::::"+editState);
 }
 %>
 <!doctype html>
@@ -18,7 +19,7 @@ session.setAttribute("isInvalid", false);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>物業資訊</title>
+<title>${SYSTEM.systemName}-物業資訊</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -135,41 +136,34 @@ session.setAttribute("isInvalid", false);
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/file/jquery.twzipcode.js"></script>
-<script
-  src="https://code.jquery.com/jquery-2.2.4.js"
-  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.js"
+	integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+	crossorigin="anonymous"></script>
 
 
 
 </head>
 <script>
+	function updateLandlordinfo() {
+		innerPage = "updateRefundinfo";
+		if (innerPage == "updateRefundinfo") {
+			$('#profile').html("");
+			$('#profile').load('landlordInfo/editLandlordInfo.jsp');
+		}
+		$("html,body").animate({
+			scrollTop : 0,
+		}, 600);
 
-function updateLandlordinfo(){
-          innerPage = "updateRefundinfo";
-          if(innerPage =="updateRefundinfo"){
-                $('#profile').html("");
-                $('#profile').load('landlordInfo/editLandlordInfo.jsp');
-                }
-          $("html,body").animate(
-                  {
-                    scrollTop: 0,
-                  },
-                  600
-                );
+	}
 
-    }
+	function dropForm() {
 
-function dropForm(){
+		$('#profile').html("")
+		$('#profile').load('/landlordInfo/showLandlordInfo.jsp?edit=drop');
+		//document.location.href="/home/MemberInfo.do"
+		document.location.href = "/wuli/memberInfo.jsp?edit=drop"
 
-     $('#profile').html("")
-     $('#profile').load('/landlordInfo/showLandlordInfo.jsp?edit=drop');
-        //document.location.href="/home/MemberInfo.do"
-    	 document.location.href="/wuli/memberInfo.jsp?edit=drop"
-
-
-   }
-
+	}
 </script>
 <body>
 
@@ -180,7 +174,7 @@ function dropForm(){
 	<!-- 內容 -->
 
 	<div class="" id="profile">
-    <%-- <h1>${isInvalid}</h1> --%>
+		<%-- <h1>${isInvalid}</h1> --%>
 		<c:choose>
 			<c:when test="${isInvalid==true}">
 				<jsp:include page="landlordInfo/validLandlordInfo.jsp" />

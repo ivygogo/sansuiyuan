@@ -42,4 +42,6 @@ public interface ContractDao {
   void changeHide1(int CID);
 
   List<ContractRoom_TypeItemsBean> queryRoomType();
+
+  List<ContractBean> nameSearch(String Name);
 }

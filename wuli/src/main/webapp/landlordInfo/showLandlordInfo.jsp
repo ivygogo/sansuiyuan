@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script>
 $.getJSON('/wuli/LandlordInfo.do').then(res=> {
-    console.log(res);
+    //console.log(res);
     $("#LandlordName >h3").text(res.resultData.name);
     $("#LandlordPhone >h3").text(res.resultData.phone);
     let landlordAddress = res.resultData.county + res.resultData.district + res.resultData.address;

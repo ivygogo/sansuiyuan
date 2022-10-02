@@ -37,4 +37,6 @@ public interface ContractService {
   void changeHide1(int CID);
 
   List<ContractRoom_TypeItemsBean> getRoomType();
+
+  List<ContractBean> nameSearch(String Name);
 }

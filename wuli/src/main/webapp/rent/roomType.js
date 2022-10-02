@@ -136,12 +136,26 @@ $(function () {
     const roomFloor = $('#room-floor').val()
     const roomPosition = $('#room-position').val()
     const roomType = $('#room-type').val()
+    const RoomNumberString = roomBuilding + roomPosition + roomFloor + roomType 
 
     if (roomBuilding !== '0' && roomFloor !== '0' && roomPosition !== '0'
       && roomType
       !== '0') {
-      $.ajax()
-      $('#room-status').text("")
+               $.ajax({
+               url:"/wuli/RoomTypeStatusServlet.do",
+               type:"POST",
+               data:{"roomNumber":RoomNumberString},
+               success:function(response){
+               console.log("後端rs:",response);
+               if(response.status  !==null && response.status !== undefined && response.status !== "已退租"){
+                 $('#room-status').text(response.status);
+                 }else {
+                 $('#room-status').text("未租賃");
+                 }
+               },
+               err: function(){
+               console.error("error")}
+           })      
     }
   }
 

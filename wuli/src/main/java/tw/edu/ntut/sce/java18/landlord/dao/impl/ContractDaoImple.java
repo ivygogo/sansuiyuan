@@ -160,7 +160,7 @@ public class ContractDaoImple implements ContractDao {
         PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setString(1, Status);
       try (ResultSet rs = ps.executeQuery(); ) {
-        if (rs.next()) {
+        while (rs.next()) {
           cb = new ContractBean();
           cb.setStatus(rs.getString("Status"));
         }
@@ -376,5 +376,41 @@ public class ContractDaoImple implements ContractDao {
       e.printStackTrace();
     }
     return listCtb;
+  }
+
+  @Override
+  public List<ContractBean> nameSearch(String name) {
+    List<ContractBean> contract = new ArrayList<>();
+    ContractBean cb = null;
+    String sql = "select * from contract where Name = ? and  Hide = 1";
+    try (Connection connection = ds.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setString(1, name);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        while (rs.next()) {
+
+          cb = new ContractBean();
+          cb.setCID(rs.getInt("CID"));
+          cb.setStatus(rs.getString("Status"));
+          cb.setName(rs.getString("Name"));
+          cb.setRoom_Number(rs.getString("Room_Number"));
+          cb.setRoom_Type(rs.getString("Room_Type"));
+          cb.setPayment_Status(rs.getString("Payment_Status"));
+          cb.setCheck_Fee(rs.getString("Check_Fee"));
+          cb.setCheck_Status(rs.getString("Check_Status"));
+          cb.setPDF(rs.getString("PDF"));
+          cb.setSigned_Date(rs.getString("Signed_Date"));
+          cb.setDeposit(rs.getString("Deposit"));
+          cb.setHide(rs.getInt("Hide"));
+          cb.setMemberID(rs.getInt("MemberID"));
+          contract.add(cb);
+        }
+      }
+
+    } catch (SQLException e) {
+
+      e.printStackTrace();
+    }
+    return contract;
   }
 }

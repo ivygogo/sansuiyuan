@@ -17,26 +17,6 @@ public class LandlordInfo implements Serializable {
 
   public LandlordInfo() {}
 
-  public LandlordInfo(
-      Integer id,
-      String name,
-      String phone,
-      String county,
-      String district,
-      String address,
-      String mail,
-      String stamp) {
-    super();
-    this.id = id;
-    this.name = name;
-    this.phone = phone;
-    this.county = county;
-    this.district = district;
-    this.address = address;
-    this.mail = mail;
-    this.stamp = stamp;
-  }
-
   public static long getSerialversionuid() {
     return serialVersionUID;
   }

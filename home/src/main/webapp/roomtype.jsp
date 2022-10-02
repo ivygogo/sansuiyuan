@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	language="java"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 <title>${SYSTEM.systemName}-房型瀏覽</title>
 <meta charset="utf-8">
 <meta name="viewport"
-  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -16,77 +17,77 @@
 <link rel="shortcut icon" href="ftco-32x32.png">
 
 <link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700"
-  rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700"
+	rel="stylesheet">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
+	href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/jquery-ui.css">
+	href="${pageContext.request.contextPath}/css/jquery-ui.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/jquery.fancybox.min.css">
+	href="${pageContext.request.contextPath}/css/jquery.fancybox.min.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
+	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/aos.css">
+	href="${pageContext.request.contextPath}/css/aos.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
-<%@include file="fragment/menu_content.jsp" %>
-<%@include file="roomType/roomType_content.html" %>
+<%@include file="fragment/menu_content.jsp"%>
+<%@include file="roomType/roomType_content.html"%>
 
 <div id="formDialogDiv" class="d-none">
-  <%@include file="booking/booking.jsp" %>
+	<%@include file="booking/booking.jsp"%>
 </div>
-
-<%@include file="fragment/footer.jsp" %>
-
- <%--.site-wrap --%>
-  <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
-
-
-  <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
-  <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
-  <script src="${pageContext.request.contextPath}/js/aos.js"></script>
-  <script
-    src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
-  <script src="${pageContext.request.contextPath}/js/main.js"></script>
-  
 </body>
+
+<%@include file="fragment/footer.jsp"%>
+
+<%--.site-wrap --%>
+<a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
+
+<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.countdown.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+<script src="${pageContext.request.contextPath}/js/aos.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.fancybox.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
+
+
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script type="text/javascript">
-  $(function() {
-    $("#datepicker").datepicker({
-      minDate : +0,
-      maxDate : "+14D",
-      dateFormat : "yy-mm-dd"
-    });
-  });
+	$(function() {
+		$("#datepicker").datepicker({
+			minDate : +0,
+			maxDate : "+14D",
+			dateFormat : "yy-mm-dd"
+		});
+	});
 </script>
 </html>
 
