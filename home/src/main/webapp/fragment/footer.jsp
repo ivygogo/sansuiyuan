@@ -1,39 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>${SYSTEM.systemName}</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<meta name="author" content="Free-Template.co" />
-
-<link rel="shortcut icon" href="ftco-32x32.png">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700"
-	rel="stylesheet">
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-<link rel="stylesheet" href="css/aos.css">
-<link rel="stylesheet" href="<c:url value='css/style.css'/>">
-
-</head>
-
-
 <footer class="site-footer">
 	<div class="container">
 		<div class="row">
@@ -75,7 +42,7 @@
 
 			</div>
 		</div>
-		<div class="row pt-5 mt-5 text-center">
+		<div class="row pt-5 text-center">
 			<div class="col-md-12">
 				<div class="border-top pt-5">
 					<!-- Link back to Free-Template.co can't be removed. Template is licensed under CC BY 3.0. -->
