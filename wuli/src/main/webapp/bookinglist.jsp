@@ -197,7 +197,7 @@
 						<tr>
 							<th style="width:11%">預約日期</th>
 							<th style="width:11%">時段</th>
-							<th style="width:8%">帳號</th>
+<!-- 							<th style="width:8%">帳號</th> -->
 							<th style="width:7%">姓名</th>
 							<th style="width:10%">電話</th>
 							<th style="width:8%">房型</th>
@@ -214,7 +214,7 @@
 							<tr>
 								<td style="width:12%"><c:out value="${user.bookDate}" /></td>
 								<td style="width:12%"><c:out value="${user.preferTime}" /></td>
-								<td style="width:8%"><c:out value="${user.bookerId}" /></td>
+<%-- 								<td style="width:8%"><c:out value="${user.bookerId}" /></td> --%>
 								<td style="width:7%"><c:out value="${user.bookerName}" /></td>
 								<td style="width:11%"><c:out value="${user.bookerPhone}" /></td>
 								<td style="width:10%"><c:out value="${user.roomtype}" /></td>
@@ -250,7 +250,7 @@
 					<tr>
 						<th>預約日期</th>
 						<th>時段</th>
-						<th>帳號</th>
+<!-- 						<th>帳號</th> -->
 						<th>姓名</th>
 						<th>電話</th>
 						<th>房型</th>
@@ -268,7 +268,7 @@
 					<tr>
 						<td><%=booklist.get(1)%></td>
 						<td><%=booklist.get(2)%></td>
-						<td><%=booklist.get(0)%></td>
+<%-- 						<td><%=booklist.get(0)%></td> --%>
 						<td><%=booklist.get(3)%></td>
 						<td><%=booklist.get(4)%></td>
 						<td><%=booklist.get(5)%></td>

@@ -19,14 +19,16 @@
 </head>
 <body>
 <div id="booklist">預約表單
-<Form Action="booking.do" method="POST">
-      <p/>姓名: <input type="text" id="bookerName" name="bookerName" value="系統帶入(會員登錄)">
-      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerName}</div>
-      <p/>帳號: <input type="text" name="bookerId" value="3">
-      <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerId}</div>
-      <p/>電話: <input type="text" name="bookerPhone" value="系統帶入(會員登錄)">
+
+<!-- <Form Action="booking.do" method="POST"> -->
+<Form Action="<c:url value='booking.do'/>" method="POST">
+      <p/>姓名: <input type="text" id="bookerName" name="bookerName" value="${LoginOK.name}" readonly="readonly" style="color:#035afc">
+<%--       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerName}</div> --%>
+      <p/>帳號: <input type="text" name="bookerId" value="${LoginOK.uId}" readonly="readonly" style="color:#035afc">
+<%--       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerId}</div> --%>
+      <p/>電話: <input type="text" name="bookerPhone" value="${LoginOK.phone}" readonly="readonly" style="color:#035afc">
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.bookerPhone}</div>
-      <p/>房型: <input type="text" name="roomtype"  id="booking-room-type" value="系統帶入(房型瀏覽)">
+      <p/>房型: <input type="text" name="roomtype"  id="booking-room-type" value="">
       <div style="color:#FF0000; font-size:x-small; display: inline">${ErrorMsg.roomtype}</div>
       <P/>樓層: <select name="preferFloor" size="1" id="preferFloor" onChange="change()">
           <option value="" selected>請選擇樓層</option>
@@ -60,7 +62,7 @@
 
       <P/><input id="submit" type="submit" value="提交">
 </Form>
-<small >&lt;&lt;<a href="index.jsp">回首頁</a>&gt;&gt;</small>
+<small >&lt;&lt;<a href="http://localhost:8080/home/">回首頁</a>&gt;&gt;</small>
 </div>
 </body>
 
