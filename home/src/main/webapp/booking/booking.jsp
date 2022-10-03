@@ -62,7 +62,7 @@
 
       <P/><input id="submit" type="submit" value="提交">
 </Form>
-<small >&lt;&lt;<a href="http://localhost:8080/home/">回首頁</a>&gt;&gt;</small>
+<small ><a href="http://localhost:8080/home/">回首頁</a></small>
 </div>
 </body>
 
