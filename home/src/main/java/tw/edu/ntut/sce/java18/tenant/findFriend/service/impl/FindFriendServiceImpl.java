@@ -15,6 +15,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.edu.ntut.sce.java18.common.config.HibernateUtils;
 import tw.edu.ntut.sce.java18.common.dao.AvatarDao;
 import tw.edu.ntut.sce.java18.common.dao.CharacterAndFavorDao;
@@ -30,8 +33,8 @@ import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.tenant.findFriend.model.FriendBean;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.FindFriendService;
 
-// @Transactional
-// @Service
+@Transactional
+@Service
 public class FindFriendServiceImpl implements FindFriendService {
   private static final Logger log = LoggerFactory.getLogger(FindFriendServiceImpl.class);
 
@@ -50,15 +53,15 @@ public class FindFriendServiceImpl implements FindFriendService {
     factory = HibernateUtils.getSessionFactory();
   }
 
-  //  @Autowired
-  //  public FindFriendServiceImpl(
-  //      CharacterAndFavorDao characterAndFavorDao,
-  //      ChatroomDao chatroomDao,
-  //      MemberDao_Hibernate memberDaoHibernate) {
-  //    this.characterAndFavorDao = characterAndFavorDao;
-  //    this.chatroomDao = chatroomDao;
-  //    this.memberDaoHibernate = memberDaoHibernate;
-  //  }
+  @Autowired
+  public FindFriendServiceImpl(
+      CharacterAndFavorDao characterAndFavorDao,
+      ChatroomDao chatroomDao,
+      MemberDao_Hibernate memberDaoHibernate) {
+    this.characterAndFavorDao = characterAndFavorDao;
+    this.chatroomDao = chatroomDao;
+    this.memberDaoHibernate = memberDaoHibernate;
+  }
 
   //  @Transactional
   @Override

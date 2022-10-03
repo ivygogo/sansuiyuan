@@ -45,7 +45,7 @@
 2.如未能準時前往，請提前致電02-2626177或致聊聊系統取消預約。<P/>
 期待您的到訪～
 </div>
-<a href="http://localhost:8178/wuli/bookinglist.jsp">回首頁</a>
+<a href="index.jsp">回首頁</a>
 </div>
 </body>
 </html>

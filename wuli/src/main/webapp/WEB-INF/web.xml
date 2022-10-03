@@ -18,23 +18,23 @@
     </cookie-config>
   </session-config>
 
+  <!--  <servlet>-->
+  <!--    <servlet-name>ChatroomServlet</servlet-name>-->
+  <!--    <servlet-class>tw.edu.ntut.sce.java18.common.controller.ChatroomServlet</servlet-class>-->
+  <!--  </servlet>-->
+  <!--  <servlet-mapping>-->
+  <!--    <servlet-name>ChatroomServlet</servlet-name>-->
+  <!--    <url-pattern>/ChatroomServlet</url-pattern>-->
+  <!--  </servlet-mapping>-->
   <servlet>
-    <servlet-name>ChatroomServlet</servlet-name>
-    <servlet-class>tw.edu.ntut.sce.java18.common.controller.ChatroomServlet</servlet-class>
+    <servlet-name>SearchBookServlet</servlet-name>
+    <servlet-class>tw.edu.ntut.sce.java18.common.controller.SearchBookServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ChatroomServlet</servlet-name>
-    <url-pattern>/ChatroomServlet</url-pattern>
+    <servlet-name>SearchBookServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
   </servlet-mapping>
-    <servlet>
-<servlet-name>SearchBookServlet</servlet-name>
-<servlet-class>tw.edu.ntut.sce.java18.common.controller.SearchBookServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-<servlet-name>SearchBookServlet</servlet-name>
-<url-pattern>/search</url-pattern>
-</servlet-mapping>
-  
+
   <jsp-config>
     <jsp-property-group>
       <description>html encoding example</description>
