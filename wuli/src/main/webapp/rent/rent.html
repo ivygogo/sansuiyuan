@@ -124,13 +124,13 @@
                             <p></p>
                             <div class="form-group d-flex">
                                 <label for="theForm" class="control-label text-nowrap my-auto">租賃期間 ：</label>
-                                <input class="form-control" type="text" id="inputStartYYYY" name="inputStartYYYY" placeholder="YYY">
-                                <input class="form-control" type="text" id="inputStartMM" name="inputStartMM" placeholder="MM">
-                                <input class="form-control" type="text" id="inputStartDD" name="inputStartDD" placeholder="DD">
+                                <input class="form-control" type="date" id="inputStart" name="inputStart" placeholder="YYY">
+                                <!-- <input class="form-control" type="text" id="inputStartMM" name="inputStartMM" placeholder="MM">
+                                <input class="form-control" type="text" id="inputStartDD" name="inputStartDD" placeholder="DD"> -->
                                 <p class="mx-1 my-auto">-</p>
-                                <input class="form-control" type="text" id="inputEndYYYY" name="inputEndYYYY" placeholder="YYY">
-                                <input class="form-control" type="text" id="inputEndMM" name="inputEndMM" placeholder="MM">
-                                <input class="form-control" type="text" id="inputEndDD" name="inputEndDD" placeholder="DD">
+                                <input class="form-control" type="date" id="inputEnd" name="inputEnd" placeholder="YYY">
+                                <!-- <input class="form-control" type="text" id="inputEndMM" name="inputEndMM" placeholder="MM">
+                                <input class="form-control" type="text" id="inputEndDD" name="inputEndDD" placeholder="DD"> -->
                             </div>
                             <p></p>
                             <div class="form-group d-flex">
@@ -344,18 +344,18 @@
     
 <script>
     function addRent() {
-    	const idNumber = window.prompt("請輸入身分證字號");
-    //	var idnumber = prompt("請輸入身分證字號:", "");
+      const idNumber = window.prompt("請輸入身分證字號");
+    //  var idnumber = prompt("請輸入身分證字號:", "");
          if (idNumber !== null || "") {
-        //	 console.log(idnumber);
+        //   console.log(idnumber);
         //request.parameper("id",idnumber);
         
            $.ajax({
-        	     url:"/wuli/rent.do",
-        	     type:"POST",
-        	     data:{"id":idNumber},
-        	     success:function(response){
-        	    //	 console.log(response)
+               url:"/wuli/rent.do",
+               type:"POST",
+               data:{"id":idNumber},
+               success:function(response){
+              //   console.log(response)
               //   console.log(response.renterName)
                  document.getElementById("inputRenter").value = response.renterName;
                  document.getElementById("inputID").value = response.renterIdNumber;
@@ -366,23 +366,25 @@
                  document.getElementById("inputGuarntorPhone").value = response.guarntorPhone;
                  document.getElementById("inputGuarntorAddress").value = response.guarntorAddress;
                  document.getElementById("renterUid").value = response.uId;
-        	     },
-        	  	 err: function(){
-        		   console.error("error")}
+               },
+               err: function(){
+               console.error("error")}
            })
          } 
     }
 </script>
 <script>
-	  var storage = localStorage;
-function contractRent(){
+    var storage = localStorage;
+function contractRent(){    
     var renter = document.getElementById("inputRenter").value;
-    var startYYYY = document.getElementById("inputStartYYYY").value;
-    var startMM = document.getElementById("inputStartMM").value;
-    var startDD = document.getElementById("inputStartDD").value;
-    var endYYYY = document.getElementById("inputEndYYYY").value;
-    var endMM = document.getElementById("inputEndMM").value;
-    var endDD = document.getElementById("inputEndDD").value;
+    var inputStart = document.getElementById("inputStart").value;
+    var startYYY = inputStart.substr(0,4)-1911;
+    var startMM = inputStart.substr(5,2);
+    var startDD = inputStart.substr(8,2); 
+    var inputEnd = document.getElementById("inputEnd").value;
+    var endYYY = inputEnd.substr(0,4)-1911; 
+    var endMM = inputEnd.substr(5,2);
+    var endDD = inputEnd.substr(8,2); 
     var rent = document.getElementById("inputRent").innerHTML;
     var deposit = document.getElementById("inputDeposit").innerHTML;
     var ID = document.getElementById("inputID").value;
@@ -397,21 +399,18 @@ function contractRent(){
     var roomFloor = document.getElementById("room-floor").value;
     var roomType = document.getElementById("room-type").value;
     var roomNumber = roomBuilding + roomPosition + roomFloor + roomType ;
-    var pdfName = startYYYY + roomBuilding + roomPosition + roomFloor + roomType ;
+    var pdfName = startYYY + roomBuilding + roomPosition + roomFloor + roomType ;
     var rentUid = document.getElementById("renterUid").value;
-    var startY = parseInt(startYYYY)+1911;
-    var endY = parseInt(endYYYY)+1911;
+    var startYYYY = inputStart.substr(0,4);
+    var endYYYY = inputEnd.substr(0,4);
+    var roomStatus = document.getElementById("room-status").innerHTML;
+    
 
-
-/* 檢查 */
+/* 檢查空格 */
     if (!(
         renter &&
-        startYYYY &&
-        startMM &&
-        startDD &&
-        endYYYY &&
-        endMM &&
-        endDD &&
+        inputStart &&
+        inputEnd &&
         rent &&
         deposit &&
         ID &&
@@ -425,54 +424,47 @@ function contractRent(){
         alert("請填寫完整!");
         return false;
     } 
-/* 檢查 */
-    var durationYYYY = endYYYY - startYYYY;
-    var durationMM = endMM - startMM;
-    if (startYYYY < endYYYY) {
-        if (durationYYYY < 0 ) {
-            alert("請輸入合理的日期!");
-            return false;            
-        }
-    }
-    else if ( startYYYY > endYYYY || startMM >= endMM ) {
-        alert("請輸入合理的日期!");
+    
+    if(roomStatus !='未租賃'){
+        alert("房間租賃中");
         return false;
-    } 
+      }
+    
     
     const contract = {
-    		  renter,
-    		  startYYYY,
-    		  startMM,
-    		  startDD,
-    		  endYYYY,
-    		  endMM,
-    		  endDD,
-    		  rent,
-    		  deposit,
-    		  ID,
-    		  phone,
-    		  address,
-    		  guarntor,
-    		  guarntorID,
-    		  guarntorPhone,
-    		  guarntorAddress,
-    		  roomBuilding,
-    		  roomPosition,
-    		  roomFloor,
-    		  roomType,
-    		  roomNumber,
-    		  pdfName,
-    		  rentUid,
-    		  startY,
-    		  endY
-    		}
-    		storage.setItem("contract", JSON.stringify(contract))
+          renter,
+          startYYY,
+          startMM,
+          startDD,
+          endYYY,
+          endMM,
+          endDD,
+          rent,
+          deposit,
+          ID,
+          phone,
+          address,
+          guarntor,
+          guarntorID,
+          guarntorPhone,
+          guarntorAddress,
+          roomBuilding,
+          roomPosition,
+          roomFloor,
+          roomType,
+          roomNumber,
+          pdfName,
+          rentUid,
+          startYYYY,
+          endYYYY
+        }
+        storage.setItem("contract", JSON.stringify(contract))
     
     storage.setItem("renter",renter)
-    storage.setItem("startYYYY",startYYYY)
+    storage.setItem("startYYY",startYYY)
     storage.setItem("startMM",startMM)
     storage.setItem("startDD",startDD)
-    storage.setItem("endYYYY",endYYYY)
+    storage.setItem("endYYY",endYYY)
     storage.setItem("endMM",endMM)
     storage.setItem("endDD",endDD)
     storage.setItem("rent",rent)
@@ -490,8 +482,8 @@ function contractRent(){
     storage.setItem("roomType",roomType)
     storage.setItem("pdfName",pdfName)
     storage.setItem("rentUid",rentUid)
-    storage.setItem("startY",startY)
-    storage.setItem("endY",endY)
+    storage.setItem("startYYYY",startYYYY)
+    storage.setItem("endYYYY",endYYYY)
 
     window.location.href='/wuli/rent/contract.jsp';    
 }

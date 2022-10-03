@@ -16,7 +16,7 @@ import tw.edu.ntut.sce.java18.common.utils.DBService;
 public class BookDAO {
   private DataSource ds = null;
 
-  private static final String SELECT_ALL = "Select * from bookingexample order by 2 desc";
+  private static final String SELECT_ALL = "Select * from bookingexample order by 3 desc";
   private static final String SELECT_BY_ID =
       "Select booker_id, book_date, prefer_time, booker_name, booker_phone, roomtype, prefer_floor,"
           + " lead_person from bookingexample where booker_id = ?";
