@@ -30,7 +30,7 @@ public class ModifyContractServlet extends HttpServlet {
     ContractService cs = new ContractServiceImple();
     String status = request.getParameter("status");
     String name = request.getParameter("name");
-    String PDF = request.getParameter("PDF");
+    //    String PDF = request.getParameter("PDF");
     String room_Number = request.getParameter("room_Number");
     String payment_Status = request.getParameter("payment_Status");
     String deposit = request.getParameter("deposit");
@@ -38,8 +38,7 @@ public class ModifyContractServlet extends HttpServlet {
     String check_Status = request.getParameter("check_Status");
     int CID = Integer.parseInt(request.getParameter("CID").trim());
     cs.modifyContract(
-        status, name, PDF, room_Number, payment_Status, deposit, check_Fee, check_Status, CID);
-    System.out.println(name);
+        status, name, room_Number, payment_Status, deposit, check_Fee, check_Status, CID);
 
     response.sendRedirect("Contract.do");
   }
