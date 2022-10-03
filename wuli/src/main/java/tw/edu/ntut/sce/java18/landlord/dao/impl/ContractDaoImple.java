@@ -121,7 +121,6 @@ public class ContractDaoImple implements ContractDao {
   public void modifyStatus(
       String status,
       String name,
-      String PDF,
       String room_Number,
       String payment_status,
       String deposit,
@@ -129,7 +128,7 @@ public class ContractDaoImple implements ContractDao {
       String check_status,
       int cId) {
     String sql =
-        "update contract set Status = ? , Name = ?, PDF = ?"
+        "update contract set Status = ? , Name = ?"
             + ", Room_Number = ?, Payment_Status = ?, Deposit = ?"
             + ", Check_Fee = ? ,Check_Status = ? where CID =?";
 
@@ -137,13 +136,12 @@ public class ContractDaoImple implements ContractDao {
         PreparedStatement ps = con.prepareStatement(sql)) {
       ps.setString(1, status);
       ps.setString(2, name);
-      ps.setString(3, PDF);
-      ps.setString(4, room_Number);
-      ps.setString(5, payment_status);
-      ps.setString(6, deposit);
-      ps.setString(7, check_Fee);
-      ps.setString(8, check_status);
-      ps.setInt(9, cId);
+      ps.setString(3, room_Number);
+      ps.setString(4, payment_status);
+      ps.setString(5, deposit);
+      ps.setString(6, check_Fee);
+      ps.setString(7, check_status);
+      ps.setInt(8, cId);
 
       ps.executeUpdate();
     } catch (SQLException e) {

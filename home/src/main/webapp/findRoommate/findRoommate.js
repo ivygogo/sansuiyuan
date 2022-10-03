@@ -1,6 +1,15 @@
 $(function () {
 
-  const userId = 4;  //todo
+  let userId
+
+  $.ajax({
+    url: '/home/ChatroomServlet?callFrom=getSessionId',
+    type: 'POST',
+    async: false,
+    success: function (resp) {
+      userId = resp
+    }
+  })
 
   let memberIdArray = []
   let htmlArray = []
@@ -32,6 +41,7 @@ $(function () {
       type: 'POST',
       url: '/home/FindFriendServlet?callFrom=checkLimit',
       data: {'userId': userId},
+      async: false,
       success: function (resp) {
         console.log(resp)
         if (resp === 'true') {

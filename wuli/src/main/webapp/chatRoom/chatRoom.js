@@ -1,15 +1,10 @@
 //todo  可直接開啟聊天室?? 可強開已關閉的聊天室??  需不需要disable??
 $(function () {
-  window.onload = decideBlockSize
-  window.onreset = decideBlockSize
-  window.onresize = decideBlockSize
-  window.onbeforeunload = decideBlockSize
 
   const name1 = 0 //
   let name2 //接收訊息的人targetId
   // finish! 讀取chatroomList  -----------------
   loadExistChatroom(name1)
-  decideBlockSize()
 
   $("#input-message").prop('disabled', true)
 
@@ -122,7 +117,7 @@ $(function () {
     ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
       renderMessage(message)
-      decideBlockSize()
+      // decideBlockSize()
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
@@ -248,6 +243,8 @@ $(function () {
       data: {'Id': name1},
       success: function (resp) {
         renderChatroomList(resp)
+        decideBlockSize()
+
       },
       err: function () {
         console.log('renderChatroomList with error')

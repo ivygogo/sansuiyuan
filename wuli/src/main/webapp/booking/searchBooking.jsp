@@ -16,15 +16,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+.btn-success {
+  color: white;
+  background-color: #37cfa2;
+  border-color: #37cfa2;
+}
+</style>
 <body>
 <form  method="post" name="frm" action="search" >
 <table  align="center" class="btn btn-success" style="background-color:#01c293;" >
 <tr><td >帳號: </td>
-<td><input  type="text" name="bookerId" id="bookerId">
+<td><input  type="text" name="bookerId" id="bookerId" style="color:black;">
 </td><td >日期: </td>
-<td><input  type="text" name="bookDate" id="datepicker">
+<td><input  type="text" name="bookDate" id="datepicker" style="color:black;">
 </td><td colspan=2 align="center">
-<input  type="submit" name="submit" value="搜尋"></td></tr>
+<input  type="submit" name="submit" value="搜尋" style="color:black;"></td></tr>
 </table>
 </form>
 </body>

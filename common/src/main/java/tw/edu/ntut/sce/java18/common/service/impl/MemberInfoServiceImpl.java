@@ -219,7 +219,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
                 + characterList.get(i)
                 + "</label> </div>";
       }
-      System.out.println("無");
+      // System.out.println("無");
     } else {
       List<String> characterTabsList = Arrays.asList(characterTabs.split("、"));
       for (int i = 0; i < characterList.size(); i++) {
@@ -281,7 +281,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
                 + favorList.get(i)
                 + "</label> </div>";
       }
-      System.out.println("無");
+      // System.out.println("無");
     } else {
 
       List<String> favorTabsList = Arrays.asList(favorTabs.split("、"));
@@ -503,7 +503,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
                 + characterList.get(i)
                 + "</label> </div>";
       }
-      System.out.println("無");
+      // System.out.println("無");
     } else {
       List<String> characterTabsList = Arrays.asList(characterTabs.split("、"));
       for (int i = 0; i < characterList.size(); i++) {
@@ -564,7 +564,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
                 + favorList.get(i)
                 + "</label> </div>";
       }
-      System.out.println("無");
+      // System.out.println("無");
     } else {
       List<String> favorTabsList = Arrays.asList(favorTabs.split("、"));
       for (int i = 0; i < favorList.size(); i++) {

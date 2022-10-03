@@ -12,7 +12,6 @@ public interface ContractService {
   void modifyContract(
       String status,
       String name,
-      String PDF,
       String room_Number,
       String payment_status,
       String deposit,

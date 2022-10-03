@@ -1,17 +1,20 @@
 $(function () {
-  window.onload = decideBlockSize
-  window.onreset = decideBlockSize
-  window.onresize = decideBlockSize
-  window.onbeforeunload = decideBlockSize
-  decideBlockSize()
-  decideBlockSize
 
-  const name1 = 4 //  要發訊息的人    //TODO (從會員資料)
+  let name1  //  要發訊息的人    //TODO (從會員資料)
   let name2
+
+  $.ajax({
+    url: '/home/ChatroomServlet?callFrom=getSessionId',
+    type: 'POST',
+    async: false,
+    success: function (resp) {
+      name1 = resp
+    }
+  })
   console.log('user ==' + name1)
   // 讀取chatroomList  -----------------
   loadExistChatroom(name1)
-  decideBlockSize()
+  // decideBlockSize()
   $("#input-message").prop('disabled', true)
 
   $('input[name=is-talk-able]').change(function () {
@@ -31,14 +34,17 @@ $(function () {
   $('#checklist').on('click', '.chatroom-block', e => {
 
     name2 = $(e.target).closest('table').find('.chat-target').data('memberid')
+    console.log(name2)
+
     $('#chat-avatar').removeClass('invisible')
     $('#chat-avatar').attr('src',
       `/home/images/avatarImg/${$(e.target).closest('table').data(
         'avatarpic')}`)
     $('#character').text(" ")
 
-    if (name2 !== 0) {
+    console.log(name2)
 
+    if (name2 !== 0) {
       $('#chat-target').data('memberId', name2)
       $('#chat-target').text(
         `${$(e.target).closest('table').data('targetnickname')}`)
@@ -47,12 +53,14 @@ $(function () {
       if ($(e.target).closest('table').data('moreinfo') !== 'null') {
         $('#character').text(
           `個性標籤：${$(e.target).closest('table').data('moreinfo')}`)
+      } else {
+        $('#character').text('')
       }
-
     } else {
       $('#chat-target').data('memberId', 0)
       $('#chat-target').text("房東")
       $('#id-type').text('管理員')
+      $('#character').text('')
     }
 
     if ($(e.target).closest('table').data("open") === true) {
@@ -60,9 +68,11 @@ $(function () {
       $('.isClose-block').html(
         '<div>關閉時間</div><span id="close-time" ></span><div id="for-btn"></div>')
 
-      $('#for-btn').append(
-        `<button class="btn btn-primary" id="close-btn" data-roomId =${chatroomId} >封鎖</button >`
-      )
+      if (name2 != 0) {
+        $('#for-btn').append(
+          `<button class="btn btn-primary" id="close-btn" data-roomId =${chatroomId} >婉拒</button >`
+        )
+      }
 
       $('#close-time').text(
         $(e.target).closest('table').data("closetime").split(',', 1))
@@ -95,7 +105,7 @@ $(function () {
     ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
       renderMessage(message)
-      decideBlockSize()
+      // decideBlockSize()
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
@@ -114,7 +124,7 @@ $(function () {
 
     $(e.target).closest('table').find('.chat-unread').css(
       {'visibility': 'hidden'})
-    decideBlockSize()
+    // decideBlockSize()
   })
 
   // 送出------------------
@@ -167,7 +177,7 @@ $(function () {
 
   })
 
-//決定block大小 ------------------
+  //決定block大小 ------------------
   function decideBlockSize() {
     const windowInnerWidth = window.innerWidth
 
@@ -234,7 +244,7 @@ $(function () {
     }
   }
 
-//用來改變左側bar的箭頭方向 -----------------
+  //用來改變左側bar的箭頭方向 -----------------
   $('.side-label').click(function () {
     if ($('.side-label').hasClass('rotate-arrow')) {
       $('.side-label').removeClass('rotate-arrow')
@@ -243,7 +253,7 @@ $(function () {
     }
   })
 
-// -----------------
+  // -----------------
   function loadExistChatroom(name1) {
     $.ajax({
       type: 'POST',
@@ -251,6 +261,7 @@ $(function () {
       data: {'Id': name1},
       success: function (resp) {
         renderChatroomList(resp)
+        decideBlockSize()
       },
       err: function () {
         console.log('renderChatroomList with error')
@@ -258,10 +269,11 @@ $(function () {
     })
   }
 
-// -----------------
+  // -----------------
   function renderChatroomList(resp) {
     let target
     for (let i = 0; i < resp.length; i++) {
+      console.log(resp)
       target = resp[i].target
       if (resp[i].moreInfo === 'X') {
         resp[i].moreInfo = '無'
@@ -275,8 +287,8 @@ $(function () {
           data-chattype= ${resp[i].chatroomType} data-targe=${target}}>
           <tr>
             <td rowSpan="2" style="width: 70px">
-              <img src="/home/images/avatarImg/${resp[i].avatarPic}" alt="X" width="60px"
-                   class="chat-avatar"></td>
+              <img src="/home/images/avatarImg/${resp[i].avatarPic}" alt="X"
+                   class="chat-avatar "></td>
             <td class="chat-target" data-memberid=${target}>${resp[i].targetNickName}</td>
             <td class="chat-unread" data-unRead=${resp[i].unRead}>${resp[i].unRead}</td>
           </tr
@@ -286,11 +298,12 @@ $(function () {
             </td>
           </tr>
         </table>`)
+      $('.chat-avatar').width('65px ')
     }
     $('[data-unread="0"]').hide()
   }
 
-// -----------------
+  // -----------------
   function loadOldChatMessage() {
     $.ajax({
         type: 'POST',
@@ -301,10 +314,10 @@ $(function () {
         success: function (resp) {
           if (name2 !== 0) {
             for (let k = 0; k < resp.length; k++) {
-              if (k == 0) {
+              if (k === 0) {
                 $('.chat-inside-block').append(`
                  <div class="send-message-block row m-3 bg-primary system-message">
-                   <span class="send-message-content col-12 message-content">${resp[k].content}</span>
+                   <span class="send-message-content col-12 ">${resp[k].content}</span>
                    <span class="send-message-time col-12 text-end">${resp[k].currentTime}</span>
                  </div>`)
               } else {

@@ -5,7 +5,7 @@
 <script type="text/javascript">
 $('#newRepairBtn').hide();
 $.getJSON('/home/RepairForm.do?doJob=getProject').then(res => {
-	  console.log(res)
+	  //console.log(res)
 	  let projectOption="";
 	  projectOption +="<option value='0'>請選擇報修項目</option>";
 	  for (let i = 0; i < res.furnitureList.length; i++) {

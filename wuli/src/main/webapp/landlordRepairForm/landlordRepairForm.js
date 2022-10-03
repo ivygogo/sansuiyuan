@@ -375,7 +375,7 @@ function sendForm() {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log('EditForm with error');
+            //console.log('EditForm with error');
             $("#tips").text("系統異常，請聯繫維運單位");
             $("#tips").attr("style", "color:red;");
         }

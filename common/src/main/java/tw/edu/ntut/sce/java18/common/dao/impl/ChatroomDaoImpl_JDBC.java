@@ -87,11 +87,11 @@ public class ChatroomDaoImpl_JDBC implements ChatroomDao {
           existChatroom.setCloseTime(resultSet.getTimestamp("Close_Time"));
           existChatroom.setIsOpen(resultSet.getInt("IsOpen"));
           if (resultSet.getInt("member1") == member) {
-            existChatroom.setUserId(resultSet.getInt("member2"));
-            existChatroom.setTargetId(resultSet.getInt("member1"));
-          } else {
             existChatroom.setUserId(resultSet.getInt("member1"));
             existChatroom.setTargetId(resultSet.getInt("member2"));
+          } else {
+            existChatroom.setUserId(resultSet.getInt("member2"));
+            existChatroom.setTargetId(resultSet.getInt("member1"));
           }
           existChatroomList.add(existChatroom);
         }
