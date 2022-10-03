@@ -4,55 +4,58 @@ import java.io.Serializable;
 
 public class ContractStatusBean implements Serializable {
   private static final long serialVersionUID = 1L;
-  Integer cId;
+  // Integer cId;
   String status;
   String name;
-  String pdf;
   String roomNumber;
   String roomType;
   String paymentStatus;
   String checkFee;
   String checkStatus;
+  String pdf;
   String signedDate;
   String deposit;
   Integer hide;
+  Integer memberId;
 
   public ContractStatusBean() {}
 
   public ContractStatusBean(
-      Integer cId,
+      //   Integer cId,
       String status,
       String name,
-      String pdf,
       String roomNumber,
       String roomType,
       String paymentStatus,
       String checkFee,
       String checkStatus,
+      String pdf,
       String signedDate,
       String deposit,
-      Integer hide) {
-    this.cId = cId;
+      Integer hide,
+      Integer memberId) {
+    //  this.cId = cId;
     this.status = status;
     this.name = name;
-    this.pdf = pdf;
     this.roomNumber = roomNumber;
     this.roomType = roomType;
     this.paymentStatus = paymentStatus;
     this.checkFee = checkFee;
     this.checkStatus = checkStatus;
+    this.pdf = pdf;
     this.signedDate = signedDate;
     this.deposit = deposit;
     this.hide = hide;
+    this.memberId = memberId;
   }
 
-  public Integer getcId() {
-    return cId;
-  }
-
-  public void setcId(Integer cId) {
-    this.cId = cId;
-  }
+  //  public Integer getcId() {
+  //    return cId;
+  //  }
+  //
+  //  public void setcId(Integer cId) {
+  //    this.cId = cId;
+  //  }
 
   public String getStatus() {
     return status;
@@ -68,14 +71,6 @@ public class ContractStatusBean implements Serializable {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getPdf() {
-    return pdf;
-  }
-
-  public void setPdf(String pdf) {
-    this.pdf = pdf;
   }
 
   public String getRoomNumber() {
@@ -118,6 +113,14 @@ public class ContractStatusBean implements Serializable {
     this.checkStatus = checkStatus;
   }
 
+  public String getPdf() {
+    return pdf;
+  }
+
+  public void setPdf(String pdf) {
+    this.pdf = pdf;
+  }
+
   public String getSignedDate() {
     return signedDate;
   }
@@ -140,6 +143,14 @@ public class ContractStatusBean implements Serializable {
 
   public void setHide(Integer hide) {
     this.hide = hide;
+  }
+
+  public Integer getMemberId() {
+    return memberId;
+  }
+
+  public void setMemberId(Integer memberId) {
+    this.memberId = memberId;
   }
 
   public static long getSerialversionuid() {
