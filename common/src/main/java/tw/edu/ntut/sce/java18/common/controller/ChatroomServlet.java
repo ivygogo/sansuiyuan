@@ -5,15 +5,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.common.model.ChatMessageServiceBean;
+import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.service.ChatMessageService;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService.LoadChatroom;
 
-// @WebServlet("/common/ChatroomServlet")
+@WebServlet("/ChatroomServlet")
 public class ChatroomServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -27,7 +30,7 @@ public class ChatroomServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 
-    String callFrom = request.getParameter("callFrom");
+    var callFrom = request.getParameter("callFrom");
 
     switch (callFrom) {
       case "loadChatroomList":
@@ -48,12 +51,28 @@ public class ChatroomServlet extends HttpServlet {
       case ("getAllUnReadCount"):
         getAllUnReadCount(request, response);
         break;
+      case ("getSessionId"):
+        getSessionId(request, response);
+        break;
     }
   }
 
+  private void getSessionId(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
+    var printWriter = response.getWriter();
+    response.setContentType("text/plain; charset=UTF-8");
+    printWriter.print(userId);
+    printWriter.flush();
+  }
+
   private void createChatroom(HttpServletRequest request) {
-    // todo
-    int userId = Integer.parseInt(request.getParameter("Id"));
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
+
     int chatTarget = Integer.parseInt(request.getParameter("chatTarget"));
     String chatType = request.getParameter("chatType");
 
@@ -127,9 +146,12 @@ public class ChatroomServlet extends HttpServlet {
     // 進入畫面就load出左側頁面所需的內容
     ChatroomService chatroomService = new ChatroomService();
     chatroomService.checkOpenState();
-    String id = request.getParameter("Id");
-    List<LoadChatroom> chatroomLastMessage =
-        chatroomService.getChatroomLastInfo(Integer.parseInt(id));
+
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int id = mb.getuId();
+    //    String id = request.getParameter("Id");
+    List<LoadChatroom> chatroomLastMessage = chatroomService.getChatroomLastInfo(id);
 
     Gson gson = new Gson();
     String chatroomList = gson.toJson(chatroomLastMessage);
@@ -142,13 +164,18 @@ public class ChatroomServlet extends HttpServlet {
       throws IOException {
 
     ChatroomService chatroom = new ChatroomService();
-    int user = Integer.parseInt(request.getParameter("user"));
+    //    int user = Integer.parseInt(request.getParameter("user"));
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+
+    int userId = mb.getuId();
+
     int target = Integer.parseInt(request.getParameter("target"));
     String chatroomName;
-    if (user < target) {
-      chatroomName = user + "_" + target;
+    if (userId < target) {
+      chatroomName = userId + "_" + target;
     } else {
-      chatroomName = target + "_" + user;
+      chatroomName = target + "_" + userId;
     }
     System.out.println(chatroomName);
     ChatMessageService chatMessageService = new ChatMessageService();
@@ -170,7 +197,11 @@ public class ChatroomServlet extends HttpServlet {
   public void changeReadCount(HttpServletRequest request) {
     ChatMessageService chatMessageService = new ChatMessageService();
 
-    int userId = Integer.parseInt(request.getParameter("userId"));
+    //    int userId = Integer.parseInt(request.getParameter("userId"));
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
+
     int targetId = Integer.parseInt(request.getParameter("targetId"));
     String chatType = request.getParameter("chatType");
 
@@ -186,15 +217,17 @@ public class ChatroomServlet extends HttpServlet {
 
   public void changeCloseTime(HttpServletRequest request) {
     int roomId = Integer.parseInt(request.getParameter("roomId"));
-    int additionalTime =
-        Integer.parseInt(
-            request.getParameter("additionalTime")); // todo 型態待確定,手動直接關閉=0  or 延長時間=n>0
+    int additionalTime = Integer.parseInt(request.getParameter("additionalTime"));
     System.out.println("roomId = " + roomId + ";   additionalTime = " + additionalTime);
     new ChatroomService().changeCloseTime(roomId, additionalTime);
   }
 
   public int getAllUnReadCount(HttpServletRequest request, HttpServletResponse response) {
-    int userId = Integer.parseInt(request.getParameter("userId"));
+
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
+
     return new ChatMessageService().getAllUnreadCount(userId);
     // todo  要加到nav上
   }
