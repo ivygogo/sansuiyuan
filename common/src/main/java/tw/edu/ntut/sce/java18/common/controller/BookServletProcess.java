@@ -53,7 +53,13 @@ public class BookServletProcess extends HttpServlet {
     if (preferTime == null || preferTime.trim().length() == 0) {
       errorMessage.put("preferTime", "請選擇時段");
     }
-    Integer bookerId = Integer.parseInt(request.getParameter("bookerId"));
+    Integer bookerId = null;
+    try {
+      bookerId = Integer.parseInt(request.getParameter("bookerId"));
+    } catch (NumberFormatException e1) {
+      RequestDispatcher rd = request.getRequestDispatcher("/login/login.jsp");
+      rd.forward(request, response);
+    }
 
     String bookerName = request.getParameter("bookerName");
 
