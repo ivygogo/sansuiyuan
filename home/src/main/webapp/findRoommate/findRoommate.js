@@ -1,6 +1,15 @@
-$(function() {
+$(function () {
 
-  const userId = 4;  //todo
+  let userId
+
+  $.ajax({
+    url: '/home/ChatroomServlet?callFrom=getSessionId',
+    type: 'POST',
+    async: false,
+    success: function (resp) {
+      userId = resp
+    }
+  })
 
   let memberIdArray = []
   let htmlArray = []
@@ -9,7 +18,7 @@ $(function() {
   loadSelectedList()
   loadAllList()
 
-  $('input[type=radio][name=is-open]').change(function() {
+  $('input[type=radio][name=is-open]').change(function () {
     if (this.value === 'open') {
       $('#not-open').hide()
       $('.select-block').show()
@@ -26,12 +35,13 @@ $(function() {
     }
   })
 
-  $('body').on('click', '.make-friend', function(e) {
+  $('body').on('click', '.make-friend', function (e) {
     const targetId = e.target.getAttribute('data-memberId')
     $.ajax({
       type: 'POST',
       url: '/home/FindFriendServlet?callFrom=checkLimit',
       data: {'userId': userId},
+      async: false,
       success: function (resp) {
         console.log(resp)
         if (resp === 'true') {
@@ -51,11 +61,11 @@ $(function() {
 
   });
 
-  $('.pick-condition').change(function() {
+  $('.pick-condition').change(function () {
     renderCorrespondList()
   })
 
-  $('#refresh-btn').click(function() {
+  $('#refresh-btn').click(function () {
     randomList()
     renderCorrespondList()
   })
@@ -64,8 +74,8 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: 'FindFriendServlet?callFrom=checkOpen',
-      data: { 'userId': userId },
-      success: function(resp) {
+      data: {'userId': userId},
+      success: function (resp) {
         if (resp === "true") {
           $("#open-finding").prop("checked", true);
           $('#not-open').hide()
@@ -81,7 +91,7 @@ $(function() {
           $('#refresh-btn').addClass('d-none')
         }
       },
-      err: function() {
+      err: function () {
         console.log('wrong!!!')
       }
     })
@@ -91,8 +101,8 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: '/home/FindFriendServlet?callFrom=loadAllList',
-      data: { 'userId': userId },
-      success: function(resp) {
+      data: {'userId': userId},
+      success: function (resp) {
         for (let i = 0; i < resp.length; i++) {
           renderInfo(resp[i])
         }
@@ -106,7 +116,7 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: '/home/FindFriendServlet?callFrom=loadSelectedList',
-      success: function(resp) {
+      success: function (resp) {
         for (let i = 0; i < resp.signature.length; i++) {
           $('#character-option1').append(
             `<option>${resp.signature[i]}</option>`)
@@ -128,7 +138,7 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: '/home/FindFriendServlet?callFrom=changeStage',
-      data: { 'userId': userId, 'stage': stage }
+      data: {'userId': userId, 'stage': stage}
     })
   }
 
@@ -155,11 +165,11 @@ $(function() {
         class: 'img-fluid avatar'
       })
 
-    const info = createTag('h2', { class: 'font-size-regular' })
+    const info = createTag('h2', {class: 'font-size-regular'})
     const nameSchoolBlock = createTag('div',
-      { class: 'text-dark', 'data-memberId': memberInfo.id })
+      {class: 'text-dark', 'data-memberId': memberInfo.id})
     const name = createTag('span',
-      { class: 'target-name' })
+      {class: 'target-name'})
     name.innerText = memberInfo.name
 
     pAppendC(nameSchoolBlock, name)
@@ -180,7 +190,7 @@ $(function() {
     })
 
     const signatureBlcok = createTag('div',
-      { class: 'col-6 text-center signature-block' })
+      {class: 'col-6 text-center signature-block'})
     const signatureTitle = createTag('div', {
       class: 'text-center fs-5 signature-title',
     })
@@ -198,7 +208,7 @@ $(function() {
     }
 
     const favorBlcok = createTag('div',
-      { class: 'col-6 text-center favor-block' })
+      {class: 'col-6 text-center favor-block'})
     const favorTitle = createTag('div', {
       class: 'text-center fs-5 favor-title',
     })
@@ -272,7 +282,7 @@ $(function() {
   function renderCorrespondList() {
 
     let selectedConditionArray = []
-    $('.pick-condition').each(function() {
+    $('.pick-condition').each(function () {
       if ($(this).val() !== "0") {
         selectedConditionArray.push($(this).val())
       }
@@ -281,9 +291,9 @@ $(function() {
     for (let i = 0; i < memberIdArray.length; i++) {
       const personalConditionArray = []
       $(`[data-memberid="${memberIdArray[i]}"]`).find(
-        $('.condition-attr')).each(function() {
-          personalConditionArray.push($(this).text())
-        })
+        $('.condition-attr')).each(function () {
+        personalConditionArray.push($(this).text())
+      })
       isContain()
 
       function isContain() {
