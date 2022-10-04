@@ -46,6 +46,7 @@ public class LandlordInfoServlet extends HttpServlet {
   //  String tempFileSrc;
   //  String tempFileBase64;
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -84,6 +85,7 @@ public class LandlordInfoServlet extends HttpServlet {
   }
 
   /*============== # doPost方法 # =================*/
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

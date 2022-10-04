@@ -7,6 +7,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<c:if test="${empty LoginOK}">
+  <c:redirect url="/login/login.jsp" />
+</c:if>
 <title>${SYSTEM.systemName}-聊天室</title>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -197,7 +200,7 @@
             <tr>
               <th style="width:11%">預約日期</th>
               <th style="width:11%">時段</th>
-              <th style="width:8%">帳號</th>
+<!--               <th style="width:8%">帳號</th> -->
               <th style="width:7%">姓名</th>
               <th style="width:10%">電話</th>
               <th style="width:8%">房型</th>

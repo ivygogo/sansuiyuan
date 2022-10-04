@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.common.dao.impl.BookDAO;
 import tw.edu.ntut.sce.java18.common.model.BookerBean;
 
@@ -32,8 +33,10 @@ public class BookingServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    HttpSession session = request.getSession();
     request.setCharacterEncoding("UTF-8");
     String action = request.getParameter("action");
+
     System.out.println(action);
     try {
       switch (action) {
