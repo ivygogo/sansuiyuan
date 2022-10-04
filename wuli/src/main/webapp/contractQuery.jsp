@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${empty LoginOK}">
+ <c:redirect url="/login/login.jsp" />
+</c:if>
 <title>${SYSTEM.systemName}-合約查詢</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
