@@ -173,6 +173,29 @@
 								</div>
 								<div class="row">
 									<div class="col-12">
+										<label class="form-label">學校：</label> <input type="text"
+												name='school' value="${param.school}"
+												class="form-control form-control-lg" /> <font color="red"
+												size="-1">${MsgMap.errorSchool}</font>
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<label class="form-label">(縣/市)：</label>
+										<input type="text" name='county' value="${param.county}" class="form-control form-control-lg" />
+										<font color="red" size="-1">${MsgMap.errorCounty}</font>
+
+									</div>
+									<div class="col-6">
+										<label class="form-label">(鄉/鎮/區)：</label>
+										<input type="text" name='district' value="${param.district}" class="form-control form-control-lg" />
+										<font color="red" size="-1">${MsgMap.errorDistrict}</font>
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
 										<label class="form-label">地址：</label> <input type="text"
 											name='address' value="${param.address}"
 											class="form-control form-control-lg" /> <font color="red"

@@ -50,7 +50,10 @@ public class RegisterServlet extends HttpServlet {
     String password1 = request.getParameter("password1");
     String address = request.getParameter("address");
     String nickname = request.getParameter("nickname");
-    int pic = 0;
+    String school = request.getParameter("school");
+    String county = request.getParameter("county");
+    String district = request.getParameter("district");
+    int pic = 7;
     //    String fileName = "";
     //    long sizeInBytes = 0;
     //    InputStream is = null;
@@ -129,7 +132,15 @@ public class RegisterServlet extends HttpServlet {
     if (nickname == null || nickname.trim().length() == 0) {
       errorMsg.put("errorNickName", "匿名欄必須輸入");
     }
-
+    if (school == null || school.trim().length() == 0) {
+      errorMsg.put("errorSchool", "學校欄必須輸入");
+    }
+    if (county == null || county.trim().length() == 0) {
+      errorMsg.put("errorCounty", "縣市欄必須輸入");
+    }
+    if (district == null || district.trim().length() == 0) {
+      errorMsg.put("errorDistrict", "鄉鎮區欄必須輸入");
+    }
     //    } else {
     //      errorMsg.put("errTitle", "此表單不是上傳檔案的表單");
     //    }
@@ -168,7 +179,9 @@ public class RegisterServlet extends HttpServlet {
         //        blob = GlobalService.fileToBlob(is, sizeInBytes);
         //      }
         MemberBean mem =
-            new MemberBean(name, gender, phone, Id_Number, mail, password, address, nickname, pic);
+            new MemberBean(
+                name, gender, phone, Id_Number, mail, password, address, nickname, pic, school,
+                county, district);
 
         // 呼叫MemberDao的saveMember方法
         int n = service.saveMember(mem);
