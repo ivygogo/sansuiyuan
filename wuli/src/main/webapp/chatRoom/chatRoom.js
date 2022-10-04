@@ -1,23 +1,18 @@
 //todo  可直接開啟聊天室?? 可強開已關閉的聊天室??  需不需要disable??
-$(function() {
-  window.onload = decideBlockSize
-  window.onreset = decideBlockSize
-  window.onresize = decideBlockSize
-  window.onbeforeunload = decideBlockSize
+$(function () {
 
   const name1 = 0 //
   let name2 //接收訊息的人targetId
   // finish! 讀取chatroomList  -----------------
   loadExistChatroom(name1)
-  decideBlockSize()
 
   $("#input-message").prop('disabled', true)
 
   //搜尋 todo
-  $('.search-icon').click(function() {
+  $('.search-icon').click(function () {
     if ($('#search').hasClass('d-none')) {
       $('#search').removeClass('d-none')
-      $('#search').keypress(function(enter) {
+      $('#search').keypress(function (enter) {
         if (enter.key === "Enter") {
           if ($('#search').val().trim() !== '') {
             console.log($('#search').val())
@@ -32,17 +27,17 @@ $(function() {
   })
 
   // 根據選擇顯示聊天對象 -----------------
-  $('.form-select').change(function() {
+  $('.form-select').change(function () {
     showSelect()
   })
 
-  $('input[name=is-talk-able]').change(function() {
+  $('input[name=is-talk-able]').change(function () {
     showSelect()
   })
 
   $(`*[data-memberid="${name2}"]`).closest('table').find(
     '.chat-trim-text').text(
-      $('.message-content').last().text())
+    $('.message-content').last().text())
 
   function showSelect() {
     const chatroomBlock = $('.chatroom-block')
@@ -119,10 +114,10 @@ $(function() {
     $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
     //onMessage ------------------
-    ws.onmessage = function(event) {
+    ws.onmessage = function (event) {
       const message = JSON.parse(event.data);
       renderMessage(message)
-      decideBlockSize()
+      // decideBlockSize()
 
       $('.chat-inside-block').scrollTop($('.chat-inside-block')[0].scrollHeight)
 
@@ -130,17 +125,17 @@ $(function() {
         $('.message-content').last().text())
     }
 
-    ws.onclose = function(enent) {
+    ws.onclose = function (enent) {
       console.log('close reason = ' + enent.code + " --- " + enent.reason)
     }
 
     // $(e.target).closest('table').find('.chat-unread').text('0')
     $(e.target).closest('table').find('.chat-unread').css(
-      { 'visibility': 'hidden' })
+      {'visibility': 'hidden'})
   })
 
   // 送出 ------------------
-  $('.btn-send-message').click(function() {
+  $('.btn-send-message').click(function () {
     const date = new Date()    //發訊息的日期
     const currentDate = `${date.getMonth() + 1}`.padStart(2, '0') + "/"
       + `${date.getDate()}`.padStart(2, '0')
@@ -159,7 +154,7 @@ $(function() {
     $('#input-message').val("")
   })
 
-  $('#input-message').keypress(function(enter) {
+  $('#input-message').keypress(function (enter) {
     if (enter.key === "Enter") {
       $('.btn-send-message').click()
     }
@@ -176,17 +171,17 @@ $(function() {
       const textWidth = leftWidth - 130
 
       $('.chat-main-block-left').css(
-        { display: 'block', width: leftWidth }).removeClass('sideMenu')
-      $('.chat-main-block-right').css({ width: rightWidth })
+        {display: 'block', width: leftWidth}).removeClass('sideMenu')
+      $('.chat-main-block-right').css({width: rightWidth})
 
-      $('.chat-target').css({ width: targetWidth })  // 60+50+10
-      $('.chat-trim-text').css({ width: textWidth })
-      $('.chat-unread-count').css({ width: 10 })
+      $('.chat-target').css({width: targetWidth})  // 60+50+10
+      $('.chat-trim-text').css({width: textWidth})
+      $('.chat-unread-count').css({width: 10})
 
       $('#sideMenu--active').removeClass('sideMenu--active').addClass('d-none')
       $('#side-label').removeClass('side-label').addClass('d-none')
-      $('#input-message').css({ width: rightWidth * 0.66 })
-      $('.btn-send-message').css({ width: rightWidth * 0.2 })
+      $('#input-message').css({width: rightWidth * 0.66})
+      $('.btn-send-message').css({width: rightWidth * 0.2})
 
     } else if (windowInnerWidth >= 720 & windowInnerWidth < 810) {
       const leftWidth = 250
@@ -194,45 +189,45 @@ $(function() {
       const targetWidth = leftWidth - 140
       const textWidth = leftWidth - 130
 
-      $('.chat-main-all').css({ 'transform': 'translateX(0.5%)' })
+      $('.chat-main-all').css({'transform': 'translateX(0.5%)'})
 
       $('.chat-main-block-left').css(
-        { display: 'block', width: leftWidth }).removeClass('sideMenu')
-      $('.chat-main-block-right').css({ width: rightWidth })
+        {display: 'block', width: leftWidth}).removeClass('sideMenu')
+      $('.chat-main-block-right').css({width: rightWidth})
 
-      $('.chat-target').css({ width: targetWidth })  // 60+50+10
-      $('.chat-trim-text').css({ width: textWidth })
-      $('.chat-unread-count').css({ width: 10 })
+      $('.chat-target').css({width: targetWidth})  // 60+50+10
+      $('.chat-trim-text').css({width: textWidth})
+      $('.chat-unread-count').css({width: 10})
 
       $('#sideMenu--active').removeClass('sideMenu--active').addClass('d-none')
       $('#side-label').removeClass('side-label').addClass('d-none')
 
-      $('#input-message').css({ width: rightWidth * 0.66 })
-      $('.btn-send-message').css({ width: rightWidth * 0.2 })
+      $('#input-message').css({width: rightWidth * 0.66})
+      $('.btn-send-message').css({width: rightWidth * 0.2})
     } else {
       const leftWidth = 250
       const targetWidth = leftWidth - 140
       const textWidth = leftWidth - 130
 
-      $('.chat-main-all').css({ 'transform': 'translateX(-20%)' })
-      $('.chat-main-block-right').css({ width: windowInnerWidth - 50 })
-      $('.chat-main-block-left').css({ width: leftWidth }).addClass('sideMenu',
+      $('.chat-main-all').css({'transform': 'translateX(-20%)'})
+      $('.chat-main-block-right').css({width: windowInnerWidth - 50})
+      $('.chat-main-block-left').css({width: leftWidth}).addClass('sideMenu',
         'd-none')
 
-      $('.chat-target').css({ width: targetWidth, 'font-size': 20 })  // 60+50+10
-      $('.chat-trim-text').css({ width: textWidth })
-      $('.chat-unread-count').css({ width: 10 })
+      $('.chat-target').css({width: targetWidth, 'font-size': 20})  // 60+50+10
+      $('.chat-trim-text').css({width: textWidth})
+      $('.chat-unread-count').css({width: 10})
 
       $('#sideMenu--active').addClass('sideMenu--active').removeClass('d-none')
       $('#side-label').addClass('side-label').removeClass('d-none')
 
-      $('#input-message').css({ width: (windowInnerWidth - 50) * 0.66 })
-      $('.btn-send-message').css({ width: (windowInnerWidth - 50) * 0.2 })
+      $('#input-message').css({width: (windowInnerWidth - 50) * 0.66})
+      $('.btn-send-message').css({width: (windowInnerWidth - 50) * 0.2})
     }
   }
 
   //用來改變左側bar的箭頭方向 -----------------
-  $('.side-label').click(function() {
+  $('.side-label').click(function () {
     if ($('.side-label').hasClass('rotate-arrow')) {
       $('.side-label').removeClass('rotate-arrow')
     } else {
@@ -245,11 +240,13 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: '/wuli/ChatroomServlet?callFrom=loadChatroomList',
-      data: { 'Id': name1 },
-      success: function(resp) {
+      data: {'Id': name1},
+      success: function (resp) {
         renderChatroomList(resp)
+        decideBlockSize()
+
       },
-      err: function() {
+      err: function () {
         console.log('renderChatroomList with error')
       }
     })
@@ -292,14 +289,14 @@ $(function() {
       data: {
         'user': name1, 'target': name2
       },
-      success: function(resp) {
+      success: function (resp) {
         for (let k in resp) {
           renderMessage(resp[k])
         }
         $('.chat-inside-block').scrollTop(
           $('.chat-inside-block')[0].scrollHeight)
       },
-      err: function() {
+      err: function () {
         console.log('renderChatroomList with error')
       }
     })
@@ -346,7 +343,7 @@ $(function() {
         'targetId': targetId,
         'chatType': chatType
       },
-      err: function() {
+      err: function () {
         console.log('changeUnreadCount() with error')
       }
     })

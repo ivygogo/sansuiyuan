@@ -344,18 +344,18 @@
     
 <script>
     function addRent() {
-      const idNumber = window.prompt("請輸入身分證字號");
-    //  var idnumber = prompt("請輸入身分證字號:", "");
+    	const idNumber = window.prompt("請輸入身分證字號");
+    //	var idnumber = prompt("請輸入身分證字號:", "");
          if (idNumber !== null || "") {
-        //   console.log(idnumber);
+        //	 console.log(idnumber);
         //request.parameper("id",idnumber);
         
            $.ajax({
-               url:"/wuli/rent.do",
-               type:"POST",
-               data:{"id":idNumber},
-               success:function(response){
-              //   console.log(response)
+        	     url:"/wuli/rent.do",
+        	     type:"POST",
+        	     data:{"id":idNumber},
+        	     success:function(response){
+        	    //	 console.log(response)
               //   console.log(response.renterName)
                  document.getElementById("inputRenter").value = response.renterName;
                  document.getElementById("inputID").value = response.renterIdNumber;
@@ -366,15 +366,15 @@
                  document.getElementById("inputGuarntorPhone").value = response.guarntorPhone;
                  document.getElementById("inputGuarntorAddress").value = response.guarntorAddress;
                  document.getElementById("renterUid").value = response.uId;
-               },
-               err: function(){
-               console.error("error")}
+        	     },
+        	  	 err: function(){
+        		   console.error("error")}
            })
          } 
     }
 </script>
 <script>
-    var storage = localStorage;
+	  var storage = localStorage;
 function contractRent(){    
     var renter = document.getElementById("inputRenter").value;
     var inputStart = document.getElementById("inputStart").value;
@@ -432,33 +432,33 @@ function contractRent(){
     
     
     const contract = {
-          renter,
-          startYYY,
-          startMM,
-          startDD,
-          endYYY,
-          endMM,
-          endDD,
-          rent,
-          deposit,
-          ID,
-          phone,
-          address,
-          guarntor,
-          guarntorID,
-          guarntorPhone,
-          guarntorAddress,
-          roomBuilding,
-          roomPosition,
-          roomFloor,
-          roomType,
-          roomNumber,
-          pdfName,
-          rentUid,
-          startYYYY,
-          endYYYY
-        }
-        storage.setItem("contract", JSON.stringify(contract))
+    		  renter,
+    		  startYYY,
+    		  startMM,
+    		  startDD,
+    		  endYYY,
+    		  endMM,
+    		  endDD,
+    		  rent,
+    		  deposit,
+    		  ID,
+    		  phone,
+    		  address,
+    		  guarntor,
+    		  guarntorID,
+    		  guarntorPhone,
+    		  guarntorAddress,
+    		  roomBuilding,
+    		  roomPosition,
+    		  roomFloor,
+    		  roomType,
+    		  roomNumber,
+    		  pdfName,
+    		  rentUid,
+    		  startYYYY,
+    		  endYYYY
+    		}
+    		storage.setItem("contract", JSON.stringify(contract))
     
     storage.setItem("renter",renter)
     storage.setItem("startYYY",startYYY)
