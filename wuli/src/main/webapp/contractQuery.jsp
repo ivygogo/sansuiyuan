@@ -397,7 +397,7 @@ input {
 
 					<p style="display: inline;">合約狀態：</p>
 					<input type="hidden" id="ContractStatus" name="status" value="">
-					<input type="checkbox" id="cks1" value="${contractS.cbs2.status}"
+					<input type="checkbox" id="cks1" value="${contractS.cbs1.status}"
 						class="statusClass" onclick="return false;"> 租賃中 <input
 						type="checkbox" id="cks2" value="${contractS.cbs2.status}"
 						class="statusClass" onclick="return false;"> 已退租 <input
