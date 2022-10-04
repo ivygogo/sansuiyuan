@@ -3,9 +3,13 @@
   padding: 0
 }
 
+<<<<<<< HEAD
+
+=======
 body {
   background-color: #9e9e9e;
 }
+>>>>>>> 89168240e40562b06a82dda1a4e9bdf0be45e66b
 
 .chat-main-all {
   display: flex;
