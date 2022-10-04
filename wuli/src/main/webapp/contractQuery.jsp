@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${empty LoginOK}">
+ <c:redirect url="/login/login.jsp" />
+</c:if>
 <title>${SYSTEM.systemName}-合約查詢</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -155,7 +158,7 @@ tr:focus {
 #status1 {
 	border: 3px solid #01c293;
 	height: 280px;
-	width: 1150px;
+	width: 90%;
 	margin: auto;
 	position: relative;
 	text-align: center;
@@ -164,7 +167,7 @@ tr:focus {
 #status2 {
 	border: 3px solid #01c293;
 	height: 180px;
-	width: 1150px;
+	width: 90%;
 	margin: auto;
 	position: relative;
 	text-align: center;
@@ -376,7 +379,7 @@ input {
 
 	<!-- -------------- ------------------------------------------------>
 	<div
-		style="position: relative; border: 1px solid #01c293; height: 800px; width: 1150px; border-radius: 50px;"
+		style="position: relative; border: 1px solid #01c293; height: 800px; width: 90%; border-radius: 50px;"
 		class="container-fluid">
 		<div style="margin: 0px 0 0 1200px"></div>
 		<div style="position: relative; padding: 30px;">
@@ -397,7 +400,7 @@ input {
 
 					<p style="display: inline;">合約狀態：</p>
 					<input type="hidden" id="ContractStatus" name="status" value="">
-					<input type="checkbox" id="cks1" value="${contractS.cbs2.status}"
+					<input type="checkbox" id="cks1" value="${contractS.cbs1.status}"
 						class="statusClass" onclick="return false;"> 租賃中 <input
 						type="checkbox" id="cks2" value="${contractS.cbs2.status}"
 						class="statusClass" onclick="return false;"> 已退租 <input
@@ -421,7 +424,7 @@ input {
 
 				<div>
 					<p style="display: inline; margin-top: 15px; margin-bottom: 10px;">租客名字：</p>
-					<input type="text" id="input1" disabled="disabled" name="name" value="" style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
+					<input type="text" id="input1" readonly="readonly" name="name" value="" style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
 				</div>
 
 				<p style="display: inline;">合約：</p>
@@ -430,7 +433,7 @@ input {
 
 				<div>
 					<p style="display: inline; margin-top: 15px; margin-bottom: 10px;">房號：</p>
-					<input type="text" id="input3" disabled="disabled"
+					<input type="text" id="input3" readonly="readonly"
 						name="room_Number" value=""
 						style="border: none; width: 60px; height: 30px; background-color: white; display: inline;">
 				</div>
@@ -455,7 +458,7 @@ input {
 				</script>
 				<div>
 					<p style="display: inline; margin-top: 10px; margin-bottom: 10px;">押金：</p>
-					<input type="text" id="input4" disabled="disabled" value=""
+					<input type="text" id="input4" readonly="readonly" value=""
 						name="deposit"
 						style="border: none; width: 80px; height: 30px; background-color: white; display: inline;">
 				</div>
@@ -463,7 +466,7 @@ input {
 				<div>
 
 					<p style="display: inline; margin-top: 15px; margin-bottom: 10px;">費用結算：</p>
-					<input type="text" id="input5" disabled="disabled" name="check_Fee"
+					<input type="text" id="input5" readonly="readonly" name="check_Fee"
 						value=""
 						style="border: none; width: 65px; height: 30px; background-color: white; display: inline;">
 					
@@ -999,13 +1002,13 @@ input {
 		for (let i = 0; i < check_status.length; i++) {
 			check_status[i].removeAttribute('onclick');
 		}
-		input1.removeAttribute('disabled');
+		input1.removeAttribute('readonly');
 		input1.style.border = '2px solid black'
-		input3.removeAttribute('disabled');
+		input3.removeAttribute('readonly');
 		input3.style.border = '2px solid black'
-		input4.removeAttribute('disabled');
+		input4.removeAttribute('readonly');
 		input4.style.border = '2px solid black'
-		input5.removeAttribute('disabled');
+		input5.removeAttribute('readonly');
 		input5.style.border = '2px solid black'
 	}
 	function statusCheckbox() {

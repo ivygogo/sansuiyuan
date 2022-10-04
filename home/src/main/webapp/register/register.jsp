@@ -201,6 +201,12 @@
 		function setFocusToUserId() {
 			document.forms[0].mid.focus(); // 將游標放在mid欄位內
 		}
+		<%--$(document).ready(function(){--%>
+		<%--	<c:if test="${not empty registerSuccess}">--%>
+		<%--		alert("${registerSuccess.registerSuccess}");--%>
+		<%--	</c:if>--%>
+		<%--});--%>
+
 	</script>
 	<%@include file="/fragment/footer.jsp"%>
 

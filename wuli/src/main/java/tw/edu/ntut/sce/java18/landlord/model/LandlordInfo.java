@@ -14,6 +14,7 @@ public class LandlordInfo implements Serializable {
   String address;
   String mail;
   String stamp;
+  String password;
 
   public LandlordInfo() {}
 
@@ -83,5 +84,13 @@ public class LandlordInfo implements Serializable {
 
   public void setStamp(String stamp) {
     this.stamp = stamp;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }

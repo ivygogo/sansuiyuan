@@ -80,4 +80,34 @@ public class LandlordInfoDaoImpl implements LandlordInfoDao {
     }
     return n;
   }
+
+  @Override
+  public LandlordInfo checkIdPassword(String mail, String password) {
+    LandlordInfo landlordInfo = null;
+    String sql = "SELECT * FROM PROPERTY_MANAGEMENT p WHERE p.mail = ? and p.password = ?";
+    try (Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql); ) {
+      ps.setString(1, mail);
+      ps.setString(2, password);
+      try (ResultSet rs = ps.executeQuery(); ) {
+        if (rs.next()) {
+          landlordInfo = new LandlordInfo();
+          landlordInfo.setId(rs.getInt("id"));
+          landlordInfo.setName(rs.getString("name"));
+          landlordInfo.setPassword(rs.getString("password"));
+          landlordInfo.setPhone(rs.getString("phone"));
+          landlordInfo.setCounty(rs.getString("county"));
+          landlordInfo.setDistrict(rs.getString("district"));
+          landlordInfo.setAddress(rs.getString("address"));
+          landlordInfo.setMail(rs.getString("mail"));
+          landlordInfo.setStamp(rs.getString("stamp"));
+        }
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      throw new RuntimeException(
+          "MemberDaoImpl_Jdbc類別#checkIDPassword()發生SQL例外: " + ex.getMessage());
+    }
+    return landlordInfo;
+  }
 }
