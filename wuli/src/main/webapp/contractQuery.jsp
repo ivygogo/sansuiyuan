@@ -155,7 +155,7 @@ tr:focus {
 #status1 {
 	border: 3px solid #01c293;
 	height: 280px;
-	width: 1150px;
+	width: 90%;
 	margin: auto;
 	position: relative;
 	text-align: center;
@@ -164,7 +164,7 @@ tr:focus {
 #status2 {
 	border: 3px solid #01c293;
 	height: 180px;
-	width: 1150px;
+	width: 90%;
 	margin: auto;
 	position: relative;
 	text-align: center;
@@ -376,7 +376,7 @@ input {
 
 	<!-- -------------- ------------------------------------------------>
 	<div
-		style="position: relative; border: 1px solid #01c293; height: 800px; width: 1150px; border-radius: 50px;"
+		style="position: relative; border: 1px solid #01c293; height: 800px; width: 90%; border-radius: 50px;"
 		class="container-fluid">
 		<div style="margin: 0px 0 0 1200px"></div>
 		<div style="position: relative; padding: 30px;">

@@ -30,3 +30,35 @@
 		</div>
 	</div>
 </header>
+
+<!-- Mobile Menu start -->
+
+<div class="mobile-menu-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="mobile-menu">
+          <nav id="dropdown">
+            <ul class="mobile-menu-nav">
+              <li><a data-toggle="collapse" data-target="#Charts" href='<c:url value="/rent.jsp"/>'>房契管理</a></li>
+              <li><a data-toggle="collapse" data-target="#demoevent"
+                href='<c:url value="/Contract.do"/>'>合約查詢</a></li>
+              <li><a data-toggle="collapse" data-target="#democrou"
+                href="#">行事曆</a></li>
+              <li><a data-toggle="collapse" data-target="#demolibra"
+                href='<c:url value="/bookinglist.jsp"/>'>預約管理</a></li>
+              <li><a data-toggle="collapse" data-target="#demodepart"
+                href='<c:url value="/lanlordRepairForm.jsp"/>'>報修管理</a></li>
+              <li><a data-toggle="collapse" data-target="#demo" href='<c:url value="/chatRoom.jsp"/>'>聊天室</a></li>
+              <li><a data-toggle="collapse"
+                data-target="#Miscellaneousmob" href='<c:url value="/memberInfo.jsp"/>'>物業資訊</a></li>
+              <li><a data-toggle="collapse" data-target="#Pagemob"
+                href='<c:url value="/login/login.jsp"/>'>登入</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Mobile Menu end -->
