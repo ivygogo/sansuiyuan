@@ -421,7 +421,7 @@ input {
 
 				<div>
 					<p style="display: inline; margin-top: 15px; margin-bottom: 10px;">租客名字：</p>
-					<input type="text" id="input1" disabled="disabled" name="name" value="" style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
+					<input type="text" id="input1" readonly="readonly" name="name" value="" style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
 				</div>
 
 				<p style="display: inline;">合約：</p>
@@ -430,7 +430,7 @@ input {
 
 				<div>
 					<p style="display: inline; margin-top: 15px; margin-bottom: 10px;">房號：</p>
-					<input type="text" id="input3" disabled="disabled"
+					<input type="text" id="input3" readonly="readonly"
 						name="room_Number" value=""
 						style="border: none; width: 60px; height: 30px; background-color: white; display: inline;">
 				</div>
@@ -455,7 +455,7 @@ input {
 				</script>
 				<div>
 					<p style="display: inline; margin-top: 10px; margin-bottom: 10px;">押金：</p>
-					<input type="text" id="input4" disabled="disabled" value=""
+					<input type="text" id="input4" readonly="readonly" value=""
 						name="deposit"
 						style="border: none; width: 80px; height: 30px; background-color: white; display: inline;">
 				</div>
@@ -463,7 +463,7 @@ input {
 				<div>
 
 					<p style="display: inline; margin-top: 15px; margin-bottom: 10px;">費用結算：</p>
-					<input type="text" id="input5" disabled="disabled" name="check_Fee"
+					<input type="text" id="input5" readonly="readonly" name="check_Fee"
 						value=""
 						style="border: none; width: 65px; height: 30px; background-color: white; display: inline;">
 					
@@ -999,13 +999,13 @@ input {
 		for (let i = 0; i < check_status.length; i++) {
 			check_status[i].removeAttribute('onclick');
 		}
-		input1.removeAttribute('disabled');
+		input1.removeAttribute('readonly');
 		input1.style.border = '2px solid black'
-		input3.removeAttribute('disabled');
+		input3.removeAttribute('readonly');
 		input3.style.border = '2px solid black'
-		input4.removeAttribute('disabled');
+		input4.removeAttribute('readonly');
 		input4.style.border = '2px solid black'
-		input5.removeAttribute('disabled');
+		input5.removeAttribute('readonly');
 		input5.style.border = '2px solid black'
 	}
 	function statusCheckbox() {
