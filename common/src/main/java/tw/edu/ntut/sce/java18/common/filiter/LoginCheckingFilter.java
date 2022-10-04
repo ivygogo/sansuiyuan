@@ -23,7 +23,7 @@ import tw.edu.ntut.sce.java18.common.model.MemberBean;
 @WebFilter(
     urlPatterns = {"/*"},
     initParams = {
-      @WebInitParam(name = "", value = ""),
+      @WebInitParam(name = "mustLogin1", value = "/findRoommate.jsp"),
     })
 public class LoginCheckingFilter implements Filter {
   List<String> url = new ArrayList<String>();
@@ -65,7 +65,7 @@ public class LoginCheckingFilter implements Filter {
             // 原本要執行的程式。
             session.setAttribute("requestURI", requestURI);
           }
-          resp.sendRedirect(contextPath + "/_02_login/login.jsp");
+          resp.sendRedirect(contextPath + "/login/login.jsp");
           return;
         }
       } else { // 不需要登入，直接去執行他要執行的程式
