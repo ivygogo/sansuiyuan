@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import tw.edu.ntut.sce.java18.common.dao.impl.AvatarDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.CharacterAndFavorDaoImpl;
 import tw.edu.ntut.sce.java18.common.dao.impl.GuarantorDaoImpl;
@@ -35,7 +36,8 @@ public class MemberInfoServiceImpl implements MemberInfoService {
     MemberBean member = mbDao.queryMemberByPrimaryKey(uId);
     GuarantorDaoImpl guarantorDao = new GuarantorDaoImpl();
     RefundAccountDaoImpl refundAccountDao = new RefundAccountDaoImpl();
-    if (member.getSchool().trim().length() == 0) {
+    if (!Optional.ofNullable(member.getSchool()).isPresent()
+        || member.getSchool().trim().length() == 0) {
       member.setSchool("無");
     }
     member.setSignatureAll(getSignature(uId));
@@ -145,7 +147,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
       ab = avaDao.queryAvatarByPrimaryKey(mb.getPic());
       avatarLink = ab.getAvatarName();
     } else {
-      avatarLink = "default.png";
+      avatarLink = "other.png";
     }
 
     return avatarLink;

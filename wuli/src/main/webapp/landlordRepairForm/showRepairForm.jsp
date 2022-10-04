@@ -129,6 +129,7 @@
     		  type:"get",
     		  dataType:"JSON",
     		  dataSrc:function(res){
+    			  console.log(res)
     			  return getTableData(res);
     		  }
       },
