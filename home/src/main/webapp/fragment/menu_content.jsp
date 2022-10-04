@@ -5,7 +5,7 @@
 	role="banner">
 
 	<div class="container">
-		<div class="row align-items-center mt-1">
+		<div class="row align-items-center">
 
 			<div class="col-6 col-xl-2">
 				<h1 class="mb-0 site-logo m-0 p-0">
@@ -73,7 +73,7 @@
 				</nav>
 			</div>
 
-			<div class="col-6 d-inline-block d-xl-none ml-md-0 py-2">
+			<div class="col-6 d-inline-block d-xl-none ml-md-0 py-3">
 				<a href="#"
 					class="site-menu-toggle js-menu-toggle text-white float-right"><span
 					class="icon-menu h3"></span></a>
