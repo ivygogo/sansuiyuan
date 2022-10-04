@@ -72,7 +72,7 @@ public class MemberBean implements Serializable {
       String password,
       String address,
       String nickname,
-      Timestamp create_time) {
+      int pic) {
     super();
     this.name = name;
     this.gender = gender;
@@ -82,7 +82,7 @@ public class MemberBean implements Serializable {
     this.password = password;
     this.address = address;
     this.nickname = nickname;
-    this.create_time = create_time;
+    this.pic = pic;
   }
   /* ====== getter ======*/
 

@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
 
     String mail = request.getParameter("mail");
     String name = request.getParameter("name");
-    System.out.println(request.getParameter("gender"));
+    //    System.out.println(request.getParameter("gender"));
     int gender = Integer.parseInt(request.getParameter("gender"));
     String phone = request.getParameter("phone");
     String Id_Number = request.getParameter("Id_Number");
@@ -50,6 +50,7 @@ public class RegisterServlet extends HttpServlet {
     String password1 = request.getParameter("password1");
     String address = request.getParameter("address");
     String nickname = request.getParameter("nickname");
+    int pic = 0;
     //    String fileName = "";
     //    long sizeInBytes = 0;
     //    InputStream is = null;
@@ -167,7 +168,7 @@ public class RegisterServlet extends HttpServlet {
         //        blob = GlobalService.fileToBlob(is, sizeInBytes);
         //      }
         MemberBean mem =
-            new MemberBean(name, gender, phone, Id_Number, mail, password, address, nickname, ts);
+            new MemberBean(name, gender, phone, Id_Number, mail, password, address, nickname, pic);
 
         // 呼叫MemberDao的saveMember方法
         int n = service.saveMember(mem);

@@ -199,7 +199,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
   public int saveMember(MemberBean mb) {
     String sql =
         "Insert into member (name, gender, phone, Id_Number, mail, password, address,"
-            + " nickname) values ( ?, ?, ?, ?, ?, ?, ?, ?)";
+            + " nickname,pic) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     int n = 0;
     try (Connection con = ds.getConnection();
         PreparedStatement ps = con.prepareStatement(sql); ) {
@@ -214,6 +214,7 @@ public class MemberDaoImpl_jdbc implements MemberDao {
       ps.setString(6, mb.getPassword());
       ps.setString(7, mb.getAddress());
       ps.setString(8, mb.getNickname());
+      ps.setInt(9, mb.getPic());
       n = ps.executeUpdate();
     } catch (Exception ex) {
       ex.printStackTrace();
