@@ -58,7 +58,6 @@ public class ContractServiceImple implements ContractService {
   public void modifyContract(
       String status,
       String name,
-      String PDF,
       String room_Number,
       String payment_status,
       String deposit,
@@ -67,7 +66,7 @@ public class ContractServiceImple implements ContractService {
       int cId) {
 
     cdao.modifyStatus(
-        status, name, PDF, room_Number, payment_status, deposit, check_Fee, check_status, cId);
+        status, name, room_Number, payment_status, deposit, check_Fee, check_status, cId);
   }
 
   @Override

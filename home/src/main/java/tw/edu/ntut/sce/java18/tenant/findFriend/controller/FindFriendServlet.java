@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import tw.edu.ntut.sce.java18.common.controller.ChatroomServlet;
+import tw.edu.ntut.sce.java18.common.model.MemberBean;
 import tw.edu.ntut.sce.java18.common.service.ChatroomService;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.FindFriendService;
 import tw.edu.ntut.sce.java18.tenant.findFriend.service.impl.FindFriendServiceImpl;
@@ -27,6 +29,7 @@ public class FindFriendServlet extends HttpServlet {
       throws ServletException, IOException {
     String callFrom = request.getParameter("callFrom");
     System.out.println("callFrom --- " + callFrom + " ---");
+
     switch (callFrom) {
       case "checkOpen":
         boolean result = checkOpen(request, response);
@@ -59,8 +62,12 @@ public class FindFriendServlet extends HttpServlet {
 
   private void checkLimit(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
-    int userId = Integer.parseInt(request.getParameter("userId"));
-    System.out.println(userId);
+    //    int userId = Integer.parseInt(request.getParameter("userId"));
+
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
+
     FindFriendService findFriendService = new FindFriendServiceImpl();
     var printWriter = response.getWriter();
     response.setContentType("text/plain; charset=UTF-8");
@@ -71,10 +78,14 @@ public class FindFriendServlet extends HttpServlet {
   }
 
   public boolean checkOpen(HttpServletRequest request, HttpServletResponse response) {
-    int userId = Integer.parseInt(request.getParameter("userId"));
+    //    int userId = Integer.parseInt(request.getParameter("userId"));
     //    ServletContext sc = getServletContext();
     //    WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(sc);
     //    var findFriendService = ctx.getBean(FindFriendServiceImpl.class);
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
+
     FindFriendService findFriendService = new FindFriendServiceImpl();
     return findFriendService.checkOpen(userId);
   }
@@ -96,7 +107,11 @@ public class FindFriendServlet extends HttpServlet {
   }
 
   public void changeStage(HttpServletRequest request, HttpServletResponse response) {
-    int userId = Integer.parseInt(request.getParameter("userId"));
+    //    int userId = Integer.parseInt(request.getParameter("userId"));
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
+
     boolean stage = Boolean.parseBoolean(request.getParameter("stage"));
     FindFriendServiceImpl findFriendService = new FindFriendServiceImpl();
     findFriendService.updateOpenStage(userId, stage);
@@ -106,8 +121,12 @@ public class FindFriendServlet extends HttpServlet {
   public void loadAllList(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 
+    //    int userId = Integer.parseInt(request.getParameter("userId"));
     FindFriendServletConvert convert = new FindFriendServletConvert();
-    int userId = Integer.parseInt(request.getParameter("userId"));
+
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
 
     Gson gson = new Gson();
     String result = gson.toJson(convert.getFriendBeanList(userId));
@@ -122,9 +141,13 @@ public class FindFriendServlet extends HttpServlet {
 
   public boolean makePair(HttpServletRequest request, HttpServletResponse response) {
 
-    int userId = Integer.parseInt(request.getParameter("userId"));
+    //    int userId = Integer.parseInt(request.getParameter("userId"));
     int targetId = Integer.parseInt(request.getParameter("targetId"));
     FindFriendService findFriendService = new FindFriendServiceImpl();
+
+    HttpSession session = request.getSession();
+    MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+    int userId = mb.getuId();
 
     System.out.println("the limit check is " + findFriendService.isBelowLimit(userId));
 

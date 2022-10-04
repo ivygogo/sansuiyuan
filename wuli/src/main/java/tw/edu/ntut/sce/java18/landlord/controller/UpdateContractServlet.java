@@ -1,7 +1,6 @@
 package tw.edu.ntut.sce.java18.landlord.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -41,12 +40,11 @@ public class UpdateContractServlet extends HttpServlet {
       RequestDispatcher rd = request.getRequestDispatcher("Contract.do");
       rd.forward(request, response);
     } else {
-      System.out.println(number);
+
       String[] CID = number.split(",");
-      System.out.println(CID);
-      System.out.println(Arrays.toString(CID));
+
       for (int i = 0; i < CID.length; i++) {
-        System.out.println(CID[i]);
+
         cs.changeHide0(Integer.parseInt(CID[i].trim()));
       }
       response.sendRedirect("Contract.do");

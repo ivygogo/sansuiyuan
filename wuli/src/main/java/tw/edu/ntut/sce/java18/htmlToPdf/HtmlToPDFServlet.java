@@ -22,7 +22,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 @WebServlet("/pdf.do")
-public class HtmlToPDF extends HttpServlet {
+public class HtmlToPDFServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -53,7 +53,7 @@ public class HtmlToPDF extends HttpServlet {
     Type type = new TypeToken<Map<String, String>>() {}.getType();
     Map<String, String> map = new Gson().fromJson(body, type);
     System.out.println("PDFName:" + map.get("pdfName"));
-    HtmlToPDF testHtmlToPDF = new HtmlToPDF();
+    HtmlToPDFServlet testHtmlToPDF = new HtmlToPDFServlet();
     try {
       ConverterProperties converterProperties = new ConverterProperties();
 
@@ -70,18 +70,17 @@ public class HtmlToPDF extends HttpServlet {
       var month = cal.get(Calendar.MONTH) + 1;
       var day = cal.get(Calendar.DAY_OF_MONTH);
       String today = year + " 年 " + month + " 月 " + day + " 日 ";
-      System.out.println(today);
+      // System.out.println(today);
       var pdfString =
           FileUtils.readFileToString(
                   new File(
                       // "/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/rent/contractPdfUse.html"
-                      request.getSession().getServletContext().getRealPath("rent/")
-                          + "contractPdfUse.html"))
+                      request.getServletContext().getRealPath("rent/") + "contractPdfUse.html"))
               .replaceAll("INPUT_RENTER", map.get("renter"))
-              .replaceAll("START_YYYY", map.get("startYYYY"))
+              .replaceAll("START_YYYY", map.get("startYYY"))
               .replaceAll("START_MM", map.get("startMM"))
               .replaceAll("START_DD", map.get("startDD"))
-              .replaceAll("END_YYYY", map.get("endYYYY"))
+              .replaceAll("END_YYYY", map.get("endYYY"))
               .replaceAll("END_MM", map.get("endMM"))
               .replaceAll("END_DD", map.get("endDD"))
               .replace("RENT_FEE", map.get("rent"))
@@ -100,9 +99,7 @@ public class HtmlToPDF extends HttpServlet {
 
       testHtmlToPDF.createPdf(
           pdfString,
-          request.getSession().getServletContext().getRealPath("rent/")
-              + map.get("pdfName")
-              + ".pdf",
+          request.getServletContext().getRealPath("rent/") + map.get("pdfName") + ".pdf",
           converterProperties);
     } catch (IOException e) {
       throw new RuntimeException(e);
