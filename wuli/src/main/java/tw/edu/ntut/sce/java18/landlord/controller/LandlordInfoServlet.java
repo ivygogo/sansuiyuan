@@ -2,6 +2,7 @@ package tw.edu.ntut.sce.java18.landlord.controller;
 
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,23 +54,33 @@ public class LandlordInfoServlet extends HttpServlet {
     response.setContentType("text/html; charset=UTF-8;");
     response.setCharacterEncoding("UTF-8");
     HttpSession session = request.getSession();
-
+    LandlordInfo landlord = (LandlordInfo) session.getAttribute("LoginOK");
     // 1. 以房東會員ID撈出房東資料
+    // var landlordInfo = new LandlordInfoService().queryLandlordInfoByPrimaryKey(landlord.getId());
     var landlordInfo = new LandlordInfoService().queryLandlordInfoByPrimaryKey(1);
+    String imgPath = null;
+    String imgBase64 = null;
+    String imgMimeType = null;
+    String myimgSrc = null;
+
     // 2. 以房東資料的公司章檔名，找到對應圖檔的路徑
-    String imgPath = System.getProperty("java.io.tmpdir") + "images//" + landlordInfo.getStamp();
+    // 3.將圖片處理成 Data URI資料 System.getProperty("java.io.tmpdir") + "images//"
+    File filePath = new File("C:\\_SpringBoot\\tomcat9\\temp\\images\\");
+    if (Optional.ofNullable(landlordInfo.getStamp()).isPresent()
+        && landlordInfo.getStamp().trim().length() != 0) {
+      imgPath = filePath + landlordInfo.getStamp();
+      imgBase64 = getImageEncoderByPath(imgPath);
+      imgMimeType = getMimeType(landlordInfo.getStamp());
+      myimgSrc = "data:" + imgMimeType + ";" + "base64," + imgBase64;
+    } else {
+      myimgSrc = "";
+    }
 
     // 測試
-    String k = System.getenv("HOME_PWD");
-    System.out.println(k);
-
+    // String k = System.getenv("HOME_PWD");
+    // System.out.println(k);
     // var file = new File(new File(System.getProperty("java.io.tmpdir")), landlordInfo.getStamp());
-    System.out.println("!!!!imgPath!!!!" + imgPath);
-
-    // 3.將圖片處理成 Data URI資料
-    String imgBase64 = getImageEncoderByPath(imgPath);
-    String imgMimeType = getMimeType(landlordInfo.getStamp());
-    String myimgSrc = "data:" + imgMimeType + ";" + "base64," + imgBase64;
+    // System.out.println("!!!!imgPath!!!!" + imgPath);
 
     // 4.將會員資料轉成兩個Map，一個放會員資料，一個放大小章
     var landlordDataMap = Map.of("resultData", landlordInfo, "resultImg", myimgSrc);
@@ -220,33 +232,16 @@ public class LandlordInfoServlet extends HttpServlet {
           var fileName = getFileName(p); // 此為圖片檔的檔名
           // System.out.println("fileName:  --->" + fileName);
 
-          if (num == 0) {
-            tempFilename = landlordOld.getStamp();
-            sizeInBytes = -1;
-            landlordInfoEdit.setStamp(tempFilename);
-            String imgPath = System.getProperty("java.io.tmpdir") + "images//" + tempFilename;
-            // "C:\\_SpringBoot\\workspace\\sansuiyuan\\wuli\\src\\main\\webapp\\file\\temp\\"
-            //   + tempFilename;
-            String img64 = getImageEncoderByPath(imgPath);
-            String imgMimeType = getMimeType(tempFilename);
-            String imgSrc = "data:" + imgMimeType + ";" + "base64," + img64;
-            session.setAttribute("imgSrc", imgSrc);
-            tempFileSrc = imgSrc;
-            tempFileBase64 = img64;
-            session.setAttribute("tempFilename", tempFilename);
-            session.setAttribute("tempFileSrc", tempFileSrc);
-            session.setAttribute("tempFileBase64", tempFileBase64);
-
-          } else if (num > 0 && fileName.length() == 0) {
-            tempFilename = (String) session.getAttribute("tempFilename");
-            landlordInfoEdit.setStamp(tempFilename);
-            tempFileSrc = (String) session.getAttribute("tempFileSrc");
-            session.setAttribute("imgSrc", tempFileSrc);
-
-            // System.out.println("沒傳圖檔");
+          // 如果上傳的fileName是空值，且資料庫沒有圖
+          if (!Optional.ofNullable(fileName).isPresent()
+              || !Optional.ofNullable(landlordOld.getStamp()).isPresent()
+              || landlordOld.getStamp().trim().length() == 0) {
+            errorMsgs.put("errLandlordPic", "必須輸入大小章");
           }
 
-          if (fileName != null && fileName.trim().length() > 0 && num >= 0) {
+          // 如果上傳的fileName有值
+          if (Optional.ofNullable(fileName).isPresent() && fileName.trim().length() > 0) {
+            errorMsgs.remove("errLandlordPic");
             num++;
             session.setAttribute("num", num);
             fileName = GlobalService.getFileName(p); // 由變數 p 中取出檔案名稱
@@ -264,6 +259,36 @@ public class LandlordInfoServlet extends HttpServlet {
             session.setAttribute("tempFileBase64", tempFileBase64);
             landlordInfoEdit.setStamp(tempFilename);
             session.setAttribute("imgSrc", tempFileSrc);
+          }
+
+          if (num == 0
+              && (Optional.ofNullable(landlordOld.getStamp()).isPresent()
+                  && landlordOld.getStamp().trim().length() != 0)) {
+            sizeInBytes = -1;
+            landlordInfoEdit.setStamp(tempFilename);
+            File filePath = new File("C:\\_SpringBoot\\tomcat9\\temp\\images\\");
+            String imgPath = filePath + tempFilename;
+            // System.out.println(num);
+            // System.out.println(tempFilename);
+            // System.out.println(imgPath);
+
+            String img64 = getImageEncoderByPath(imgPath);
+            String imgMimeType = getMimeType(tempFilename);
+            String imgSrc = "data:" + imgMimeType + ";" + "base64," + img64;
+            session.setAttribute("imgSrc", imgSrc);
+            tempFileSrc = imgSrc;
+            tempFileBase64 = img64;
+            session.setAttribute("tempFilename", tempFilename);
+            session.setAttribute("tempFileSrc", tempFileSrc);
+            session.setAttribute("tempFileBase64", tempFileBase64);
+
+          } else if (num > 0 && fileName.length() == 0) {
+            tempFilename = (String) session.getAttribute("tempFilename");
+            landlordInfoEdit.setStamp(tempFilename);
+            tempFileSrc = (String) session.getAttribute("tempFileSrc");
+            session.setAttribute("imgSrc", tempFileSrc);
+
+            // System.out.println("沒傳圖檔");
           }
         }
         // =============== else end ===============
@@ -407,12 +432,12 @@ public class LandlordInfoServlet extends HttpServlet {
     String fileNewName = "";
 
     /*======== 1.建立目錄 ===========*/
-    //    File filePath =
-    //        new
-    // File("C:\\_SpringBoot\\workspace\\sansuiyuan\\wuli\\src\\main\\webapp\\file\\stamps");
-    //    if (!filePath.exists()) {
-    //      filePath.mkdir();
-    //    }
+
+    // System.getProperty("java.io.tmpdir") + "images//"
+    File filePath = new File("C:\\_SpringBoot\\tomcat9\\temp\\images\\");
+    if (!filePath.exists()) {
+      filePath.mkdir();
+    }
 
     if (tempFileBase64 == null) { // 影象資料為空
       // System.out.println("img64為空值");
@@ -424,8 +449,7 @@ public class LandlordInfoServlet extends HttpServlet {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Date fileNameDate = new Date();
         fileNewName = "mid_" + uid + "_" + sdf.format(fileNameDate) + fileType;
-        String imgFilePath =
-            System.getProperty("java.io.tmpdir") + "images//" + fileNewName; // 新生成的圖片
+        String imgFilePath = filePath + fileNewName; // 新生成的圖片
 
         OutputStream out = new FileOutputStream(imgFilePath);
         out.write(decodeImg);
