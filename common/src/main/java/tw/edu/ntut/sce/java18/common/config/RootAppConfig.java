@@ -21,8 +21,8 @@ import tw.edu.ntut.sce.java18.common.utils.DBService;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties", ignoreResourceNotFound = true)
-@ComponentScan({"tw.edu.ntut.sce.java18.*.*.impl"})
-
+// @ComponentScan({"tw.edu.ntut.sce.java18.*.*.impl"})
+@ComponentScan({"tw.edu.ntut.sce.java18.*"})
 // @PropertySource("classpath:db.properties")
 public class RootAppConfig {
 
@@ -73,7 +73,7 @@ public class RootAppConfig {
     // 第一次建立本檔案時就要列入所有含永續類別的套件
     factory.setPackagesToScan(
         new String[] {
-          "tw.edu.ntut.sce.java18.wuli.model",
+          "tw.edu.ntut.sce.java18.landlord.model",
           "tw.edu.ntut.sce.java18.common.model",
           "tw.edu.ntut.sce.java18.home.model"
         });

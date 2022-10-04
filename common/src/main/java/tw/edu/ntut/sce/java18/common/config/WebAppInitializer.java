@@ -24,11 +24,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
   @Override
   protected Filter[] getServletFilters() {
-    HiddenHttpMethodFilter hhmf = new HiddenHttpMethodFilter();
-    CharacterEncodingFilter cef = new CharacterEncodingFilter();
-    cef.setEncoding("UTF-8");
-    return new Filter[] {cef, hhmf};
-
+    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+    characterEncodingFilter.setEncoding("UTF-8");
+    characterEncodingFilter.setForceEncoding(true);
+    HiddenHttpMethodFilter hiddenFilter = new HiddenHttpMethodFilter();
+    return new Filter[] {characterEncodingFilter, hiddenFilter};
     //		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
     //		characterEncodingFilter.setEncoding("UTF-8");
     //		return new Filter[] {characterEncodingFilter, new HiddenHttpMethodFilter()};
