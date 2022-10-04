@@ -11,40 +11,54 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name="property_management")
+@Table(name = "property_management")
 public class LandlordBeanM implements Serializable {
   private static final long serialVersionUID = 1L;
+
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY )
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name ="Name", columnDefinition = "VARCHAR(10)")
+  @Column(name = "Name", columnDefinition = "VARCHAR(10)")
   private String name;
-  @Column(name ="Password", columnDefinition = "VARCHAR(64)")
+
+  @Column(name = "Password", columnDefinition = "VARCHAR(64)")
   private String password;
-  @Column(name ="Phone", columnDefinition = "VARCHAR(15)")
+
+  @Column(name = "Phone", columnDefinition = "VARCHAR(15)")
   private String phone;
-  @Column(name ="county", columnDefinition = "VARCHAR(15)")
+
+  @Column(name = "county", columnDefinition = "VARCHAR(15)")
   private String county;
-  @Column(name ="district", columnDefinition = "VARCHAR(15)")
+
+  @Column(name = "district", columnDefinition = "VARCHAR(15)")
   private String district;
-  @Column(name ="Address", columnDefinition = "VARCHAR(45)")
+
+  @Column(name = "Address", columnDefinition = "VARCHAR(45)")
   private String address;
-  @Column(name ="Mail", columnDefinition = "VARCHAR(45)")
+
+  @Column(name = "Mail", columnDefinition = "VARCHAR(45)")
   private String mail;
-  @Column(name ="Stamp", columnDefinition = "VARCHAR(45)")
+
+  @Column(name = "Stamp", columnDefinition = "VARCHAR(45)")
   private String stamp;
 
-  @Transient
-  private String stampImg;
-  @Transient
-  private MultipartFile uploadImg;
+  @Transient private String stampImg;
+  @Transient private MultipartFile uploadImg;
 
-  public LandlordBeanM(){}
+  public LandlordBeanM() {}
 
-
-  public LandlordBeanM(Integer id, String name, String password, String phone, String county,
-      String district, String address, String mail, String stamp, String stampImg,
+  public LandlordBeanM(
+      Integer id,
+      String name,
+      String password,
+      String phone,
+      String county,
+      String district,
+      String address,
+      String mail,
+      String stamp,
+      String stampImg,
       MultipartFile uploadImg) {
     this.id = id;
     this.name = name;

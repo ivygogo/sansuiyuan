@@ -28,46 +28,49 @@ public class UpdateLandlordInfo {
     return "landlordMvc/editLandlordInfo";
   }
 
-  @PostMapping(value = "landlordInfo/editLandlordInfo", consumes = "application/json", produces = "application/json")
-  public @ResponseBody Map<String, Map<String,String>> editLandlordEdit(@RequestBody LandlordBeanM landlordInfo) {
+  @PostMapping(
+      value = "landlordInfo/editLandlordInfo",
+      consumes = "application/json",
+      produces = "application/json")
+  public @ResponseBody Map<String, Map<String, String>> editLandlordEdit(
+      @RequestBody LandlordBeanM landlordInfo) {
     Map<String, String> map = new HashMap<>();
-    System.out.println("ok"+ landlordInfo);
+    System.out.println("ok" + landlordInfo);
     landlordInfo.setId(memberIdForTest);
 
     map = landlordService.getErrorMsgs(landlordInfo);
-    if (!map.isEmpty()){
-      var errMap = Map.of("errMeg",map);
+    if (!map.isEmpty()) {
+      var errMap = Map.of("errMeg", map);
       return errMap;
 
     } else {
 
-      if(landlordInfo.getStamp()==null){
+      if (landlordInfo.getStamp() == null) {
         System.out.println("沒有圖片");
       }
 
-      var saveMap = new HashMap<String, Map<String,String>>();
+      var saveMap = new HashMap<String, Map<String, String>>();
       try {
         String imgBase64Src = landlordInfo.getStampImg();
         int n = imgBase64Src.indexOf("base64,");
-        String imgBase64= imgBase64Src.substring(n+7);
-        String newImgFileName = processImg.saveImage(imgBase64,landlordInfo.getStamp(),
-            landlordInfo.getId());
+        String imgBase64 = imgBase64Src.substring(n + 7);
+        String newImgFileName =
+            processImg.saveImage(imgBase64, landlordInfo.getStamp(), landlordInfo.getId());
 
         landlordInfo.setStamp(newImgFileName);
 
-        //update
+        // update
         landlordService.updateLandlord(landlordInfo);
         // saveImage.saveImage
         map.put("successMsg", "更新成功");
-        saveMap.put("success",map);
+        saveMap.put("success", map);
 
       } catch (Exception e) {
         e.printStackTrace();
         map.put("fail", "更新失敗");
-        saveMap.put("fail",map);
+        saveMap.put("fail", map);
       }
       return saveMap;
     }
   }
 }
-

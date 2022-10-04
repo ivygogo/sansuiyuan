@@ -2,7 +2,6 @@ package tw.edu.ntut.sce.java18.landlord.service;
 
 import java.util.List;
 import java.util.Map;
-
 import tw.edu.ntut.sce.java18.landlord.model.LandlordBeanM;
 
 public interface LandlordService_Mvc {

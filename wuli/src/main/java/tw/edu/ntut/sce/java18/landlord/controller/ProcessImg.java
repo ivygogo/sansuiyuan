@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class ProcessImg {
 
-  //透過表單傳送回的Part取得檔案名稱
+  // 透過表單傳送回的Part取得檔案名稱
   private String getFileNameByPart(final Part part) {
     for (String content : part.getHeader("content-disposition").split(";")) {
       if (content.trim().startsWith("filename")) {
@@ -26,7 +26,7 @@ public class ProcessImg {
     return null;
   }
 
-  //將表單傳送回Part裡的圖片，轉成Base64
+  // 將表單傳送回Part裡的圖片，轉成Base64
   public String getImageEncoderByPart(final Part part) throws IOException {
     // read image from file
     InputStream stream = part.getInputStream();
@@ -51,8 +51,9 @@ public class ProcessImg {
     return imageString;
   }
 
-  //將表單傳送回MultipartFile裡的圖片，轉成Base64
-  public String getImageEncoderByMultipartFile(final MultipartFile multipartfile) throws IOException {
+  // 將表單傳送回MultipartFile裡的圖片，轉成Base64
+  public String getImageEncoderByMultipartFile(final MultipartFile multipartfile)
+      throws IOException {
     // read image from file
     InputStream stream = multipartfile.getInputStream();
 
@@ -76,8 +77,7 @@ public class ProcessImg {
     return imageString;
   }
 
-
-  //從圖片檔名取出MimeType
+  // 從圖片檔名取出MimeType
   public String getMimeTypeByFileName(String filename) {
     String fileType = filename.substring(filename.lastIndexOf("."), filename.length());
     fileType = fileType.substring(1, fileType.length());
@@ -92,7 +92,7 @@ public class ProcessImg {
     return fileMimeType;
   }
 
-  //將圖片編碼為base64
+  // 將圖片編碼為base64
   public String getImageEncoderByPath(final String imgPath) throws IOException {
 
     // read image from file
@@ -121,7 +121,7 @@ public class ProcessImg {
     return imageString;
   }
 
-  //儲存圖片
+  // 儲存圖片
   public String saveImage(final String tampFileBase64, final String fileName, int uid)
       throws IOException {
     String fileNewName = "";
@@ -146,7 +146,7 @@ public class ProcessImg {
         fileNewName = "mid_" + uid + "_" + sdf.format(fileNameDate) + fileType;
         String imgFilePath =
             System.getProperty("java.io.tmpdir") + "\\images\\" + fileNewName; // 新生成的圖片
-        System.out.println("我是存檔路徑:"+imgFilePath);
+        System.out.println("我是存檔路徑:" + imgFilePath);
         OutputStream out = new FileOutputStream(imgFilePath);
         out.write(decodeImg);
         out.flush();
@@ -158,5 +158,4 @@ public class ProcessImg {
     }
     return fileNewName;
   }
-
 }

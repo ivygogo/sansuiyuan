@@ -10,14 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.edu.ntut.sce.java18.landlord.dao.LandlordDao_Mvc;
 import tw.edu.ntut.sce.java18.landlord.model.LandlordBeanM;
+
 @Transactional
 @Service
-public class LandlordService_Mvc implements
-    tw.edu.ntut.sce.java18.landlord.service.LandlordService_Mvc {
+public class LandlordService_Mvc
+    implements tw.edu.ntut.sce.java18.landlord.service.LandlordService_Mvc {
   LandlordDao_Mvc landlordInfoDao;
 
   @Autowired
-  public LandlordService_Mvc(LandlordDao_Mvc landlordInfoDao){
+  public LandlordService_Mvc(LandlordDao_Mvc landlordInfoDao) {
     this.landlordInfoDao = landlordInfoDao;
   }
 
@@ -74,7 +75,6 @@ public class LandlordService_Mvc implements
   @Override
   public String checkLandlordId(String memberId) {
     return landlordInfoDao.checkLandlordId(memberId);
-
   }
 
   @Override

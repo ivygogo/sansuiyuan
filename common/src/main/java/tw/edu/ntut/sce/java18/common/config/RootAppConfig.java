@@ -21,7 +21,7 @@ import tw.edu.ntut.sce.java18.common.utils.DBService;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties", ignoreResourceNotFound = true)
-//@ComponentScan({"tw.edu.ntut.sce.java18.*.*.impl"})
+// @ComponentScan({"tw.edu.ntut.sce.java18.*.*.impl"})
 @ComponentScan({"tw.edu.ntut.sce.java18.*"})
 // @PropertySource("classpath:db.properties")
 public class RootAppConfig {
@@ -101,5 +101,4 @@ public class RootAppConfig {
     properties.put("hibernate.hbm2ddl.auto", "update");
     return properties;
   }
-
 }

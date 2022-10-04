@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import tw.edu.ntut.sce.java18.landlord.model.LandlordBeanM;
 
-
 @Repository
 public interface LandlordDao_Mvc {
   LandlordBeanM queryLandlordInfoByPrimaryKey(int id);

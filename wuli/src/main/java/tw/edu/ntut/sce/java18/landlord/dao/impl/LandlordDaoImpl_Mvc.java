@@ -13,6 +13,7 @@ import tw.edu.ntut.sce.java18.landlord.model.LandlordBeanM;
 @Repository
 public class LandlordDaoImpl_Mvc implements LandlordDao_Mvc {
   SessionFactory factory;
+
   @Autowired
   public LandlordDaoImpl_Mvc(SessionFactory factory) {
     this.factory = factory;
@@ -62,16 +63,15 @@ public class LandlordDaoImpl_Mvc implements LandlordDao_Mvc {
   @Override
   public List<LandlordBeanM> findAllLandlords() {
     Session session = factory.getCurrentSession();
-    String hql ="FROM LandlordBeanM ";
-    List<LandlordBeanM> list =session.createQuery(hql).getResultList();
+    String hql = "FROM LandlordBeanM ";
+    List<LandlordBeanM> list = session.createQuery(hql).getResultList();
     return list;
-
   }
 
   @Override
   public void deleteLandlord() {
     Session session = factory.getCurrentSession();
-    String hql ="DELETE FROM LandlordBeanM";
+    String hql = "DELETE FROM LandlordBeanM";
     session.createQuery(hql).executeUpdate();
   }
 
@@ -79,13 +79,13 @@ public class LandlordDaoImpl_Mvc implements LandlordDao_Mvc {
   public boolean isLandlordExist(LandlordBeanM landlordInfo) {
     boolean exist = false;
     Session session = factory.getCurrentSession();
-    String hql ="FROM LandlordBeanM e where e.id=:id";
-    try{
-      session.createQuery(hql).setParameter("id",landlordInfo.getId()).getSingleResult();
+    String hql = "FROM LandlordBeanM e where e.id=:id";
+    try {
+      session.createQuery(hql).setParameter("id", landlordInfo.getId()).getSingleResult();
       exist = true;
-    }catch(NoResultException ex){
+    } catch (NoResultException ex) {
       ex.printStackTrace();
-    } catch (NonUniqueResultException ex){
+    } catch (NonUniqueResultException ex) {
       ex.printStackTrace();
     }
     return exist;
@@ -94,17 +94,17 @@ public class LandlordDaoImpl_Mvc implements LandlordDao_Mvc {
   @Override
   public String checkLandlordId(String memberId) {
     Session session = factory.getCurrentSession();
-    String hql ="FROM LandlordBeanM tb where tb.id=:id";
-    String id ="";
-    try{
-      LandlordBeanM landlordInfo = (LandlordBeanM) session.createQuery(hql).setParameter("id",
-          memberId).getSingleResult();
-    }catch(NoResultException ex){
+    String hql = "FROM LandlordBeanM tb where tb.id=:id";
+    String id = "";
+    try {
+      LandlordBeanM landlordInfo =
+          (LandlordBeanM) session.createQuery(hql).setParameter("id", memberId).getSingleResult();
+    } catch (NoResultException ex) {
       ex.printStackTrace();
-    }catch(Exception ex){
+    } catch (Exception ex) {
       ex.printStackTrace();
       System.out.println(ex.getMessage());
-      id ="Error: 資料庫異常，請檢查資料庫";
+      id = "Error: 資料庫異常，請檢查資料庫";
     }
     return id;
   }
