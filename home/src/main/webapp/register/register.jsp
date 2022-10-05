@@ -107,6 +107,11 @@
 											<label class="form-label">密碼：</label> <input type="password"
 												name='password' class="form-control form-control-lg" /> <font
 												color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+												<div class="" style="display: flex; justify-content: center;">
+                    <small class="text mb-4" style="color: red;">請注意：<br>*密碼須由大寫字母、小寫字母、數字與
+                      !@#$%!^'" 組合，且長度不能小於八個字元
+                    </small>
+                  </div>
 										</div>
 
 									</div>

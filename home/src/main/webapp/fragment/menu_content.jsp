@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="site-mobile-menu-body"></div>
-		</div>
+		</div> 
 
 		<header class="site-navbar py-4 js-sticky-header site-navbar-target"
 			role="banner">
@@ -55,44 +55,31 @@
 											href='<c:url value="/roomtype.jsp?type=F"/>'>雙人C</a></li>
 									</ul>
 								</li>
-
-							<%-- 	<c:if test="${! empty LoginOK }">
-									<li><a class="dropdown-item"
-										href='<c:url value="/findRoommate.jsp"/>'>找室友</a></li>
-								</c:if> --%>
-								
-								
-                  <li><a class="dropdown-item"
-                    href='<c:url value="/findRoommate.jsp"/>'>找室友</a></li>
-                
-
+								<li><a href='<c:url value="/findRoommate.jsp"/>'
+									  class="nav-link">找室友</a></li>
 								<c:if test="${! empty LoginOK }">
-									<li><a class="dropdown-item"
-										href='<c:url value="/chatRoom.jsp"/>'>聊天室</a></li>
+									<li><a href='<c:url value="/chatRoom.jsp"/>'
+										class="nav-link">聊天室</a></li>
 								</c:if>
-
-
-								<li class="nav-item dropdown has-children dropdown arrow-top">
-									<a class="nav-link " href='<c:url value="/login/login.jsp"/>'
-									role="button" data-bs-toggle="dropdown" aria-expanded="false">會員登入</a>
-
-									<ul class="dropdown ">
-										<c:if test="${! empty LoginOK }">
-											<li><a class="dropdown-item"
-												href='<c:url value="/login/logout.jsp"/>'>會員登出</a></li>
-										</c:if>
-										<c:if test="${! empty LoginOK }">
-											<li><a class="dropdown-item"
-												href='<c:url value="/memberInfo.jsp"/>'>會員專區</a></li>
-										</c:if>
-										<c:if test="${! empty LoginOK }">
-											<li><a class="dropdown-item"
-												href='<c:url value="/repair.jsp"/>'>我要報修</a></li>
-										</c:if>
-									</ul>
+								<c:if test="${ empty LoginOK }">
+									<li><a href='<c:url value="/login/login.jsp"/>'
+										class="nav-link">會員登入</a></li>
+								</c:if>
+								<c:if test="${! empty LoginOK }">
+									<li><a href='<c:url value="/MemberInfo.do"/>'
+										class="nav-link">會員專區</a></li>
+								</c:if>
+								<c:if test="${! empty LoginOK }">
+									<li><a href='<c:url value="/repair.jsp"/>'
+										class="nav-link">我要報修</a></li>
+								</c:if>
+								<c:if test="${! empty LoginOK }">
+									<li><a href='<c:url value="/login/logout.jsp"/>'
+										class="nav-link">會員登出</a></li>
+								</c:if>
+							</ul>
 						</nav>
 					</div>
-
 
 					<div class="col-6 d-inline-block d-xl-none ml-md-0 py-3">
 						<a href="#"
@@ -102,9 +89,8 @@
 
 				</div>
 			</div>
-
 		</header>
-
-		<div class="site-blocks-cover inner-page-cover2 overlay2"
-			style="background-image:url(${pageContext.request.contextPath}/images/white.png);"
-			data-aos="fade"></div>
+	</div>
+	<div class="site-blocks-cover inner-page-cover2 overlay2"
+		style="background-image:url(${pageContext.request.contextPath}/images/white.png);"
+		data-aos="fade"></div>
