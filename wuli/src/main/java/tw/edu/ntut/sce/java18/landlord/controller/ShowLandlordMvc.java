@@ -21,7 +21,7 @@ import tw.edu.ntut.sce.java18.landlord.service.LandlordService_Mvc;
 public class ShowLandlordMvc {
   LandlordService_Mvc landlordService;
   ProcessImg processImg;
-  //int memberIdForTest = 1;
+  // int memberIdForTest = 1;
 
   @Autowired
   public ShowLandlordMvc(LandlordService_Mvc landlordService, ProcessImg processImg) {
@@ -53,12 +53,13 @@ public class ShowLandlordMvc {
 
   @ResponseBody
   @GetMapping("/getLandlordInfoGson")
-  public String getLandlordInfoGson(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public String getLandlordInfoGson(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
     String myimgSrc = null;
     HttpSession session = request.getSession();
     // 1. 取得會員資料
     LandlordInfo landlord = (LandlordInfo) session.getAttribute("LoginOK");
-    System.out.println("測試"+landlord.getId());
+    System.out.println("測試" + landlord.getId());
 
     if (!session.isNew()) {
       landlord = (LandlordInfo) session.getAttribute("LoginOK");

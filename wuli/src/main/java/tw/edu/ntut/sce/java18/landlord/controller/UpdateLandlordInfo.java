@@ -19,7 +19,7 @@ import tw.edu.ntut.sce.java18.landlord.service.LandlordService_Mvc;
 public class UpdateLandlordInfo {
   LandlordService_Mvc landlordService;
   ProcessImg processImg;
-  //int memberIdForTest = 1;
+  // int memberIdForTest = 1;
 
   @Autowired
   public UpdateLandlordInfo(LandlordService_Mvc landlordService, ProcessImg processImg) {
@@ -37,13 +37,15 @@ public class UpdateLandlordInfo {
       consumes = "application/json",
       produces = "application/json")
   public @ResponseBody Map<String, Map<String, String>> editLandlordEdit(
-      @RequestBody LandlordBeanM landlordInfo, HttpServletRequest request, HttpServletResponse response) {
+      @RequestBody LandlordBeanM landlordInfo,
+      HttpServletRequest request,
+      HttpServletResponse response) {
     Map<String, String> map = new HashMap<>();
     System.out.println("ok" + landlordInfo);
     HttpSession session = request.getSession();
     // 1. 取得會員資料
     LandlordInfo landlord = (LandlordInfo) session.getAttribute("LoginOK");
-    System.out.println("測試"+landlord.getId());
+    System.out.println("測試" + landlord.getId());
 
     if (!session.isNew()) {
       landlord = (LandlordInfo) session.getAttribute("LoginOK");
