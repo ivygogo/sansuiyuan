@@ -219,8 +219,8 @@
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html">活潑開朗 <span class="mx-0">｜</span> 喜歡運動
-										<span class="mx-0">｜</span> 喜歡電競
+									<a href="single.html">活潑開朗<span class="mx-0">｜</span>喜歡運動<span
+										class="mx-0">｜</span>喜歡電競
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
@@ -232,7 +232,7 @@
 							</div>
 							<center>
 								<p>
-									<a href="https://free-template.co" target="_blank"
+									<a href='<c:url value="/findRoommate.jsp"/>' target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
@@ -251,20 +251,20 @@
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html"> 喜歡看書 <span class="mx-0">｜</span>喜歡動漫
-										<span class="mx-0">｜</span> 喜歡日韓
+									<a href="single.html">喜歡看書<span class="mx-0">｜</span>喜歡動漫<span
+										class="mx-0">｜</span>喜歡日韓
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
 								<ul style="list-style-type: decimal;">
-									<li></li>
+									<li>很好溝通</li>
 									<li>公費均攤</li>
 									<li>朋友可訪</li>
 								</ul>
 							</div>
 							<center>
 								<p>
-									<a href="https://free-template.co" target="_blank"
+									<a href='<c:url value="/findRoommate.jsp"/>' target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
@@ -283,8 +283,8 @@
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html"> 安靜內向 <span class="mx-0">｜</span>喜歡音樂
-										<span class="mx-0">｜</span> 喜歡運動
+									<a href="single.html">安靜內向<span class="mx-0">｜</span>喜歡音樂<span
+										class="mx-0">｜</span>喜歡運動
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
@@ -296,7 +296,7 @@
 							</div>
 							<center>
 								<p>
-									<a href="https://free-template.co" target="_blank"
+									<a href='<c:url value="/findRoommate.jsp"/>' target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
@@ -315,8 +315,8 @@
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html"> 喜歡電競 <span class="mx-0">｜</span>喜歡運動
-										<span class="mx-0">｜</span> 喜歡日韓
+									<a href="single.html">喜歡電競<span class="mx-0">｜</span>喜歡運動<span
+										class="mx-0">｜</span>喜歡日韓
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
@@ -328,7 +328,7 @@
 							</div>
 							<center>
 								<p>
-									<a href="https://free-template.co" target="_blank"
+									<a href='<c:url value="/findRoommate.jsp"/>' target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
