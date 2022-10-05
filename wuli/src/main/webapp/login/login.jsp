@@ -8,7 +8,6 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="author" content="Free-Template.co" />
@@ -27,7 +26,6 @@
             ============================================ -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-
 <!-- owl.carousel CSS
             ============================================ -->
 <link rel="stylesheet"
@@ -52,7 +50,6 @@
             ============================================ -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/themesaller-forms.css">
-
 <!-- normalize CSS
             ============================================ -->
 <link rel="stylesheet"
@@ -100,6 +97,7 @@
 	href="${pageContext.request.contextPath}/css/wave/waves.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/wave/button.css">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <!-- main CSS
@@ -165,13 +163,12 @@
 	<%--<!-- 引入共同的頁首 -->--%>
 	<%-- <%@include file="/fragment/menu_content.jsp" %> --%>
 
-	<section class="vh-100" style="margin-left: 27%;"> 
+	<section class="vh-100" style="margin-left: 27%;">
 		<div class="container py-5 h-100">
 			<div
 				class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 					<div class="card shadow-2-strong" style="border-radius: 1rem;">
-
 						<div class="card-body p-5 text-center">
 
 							<h3 class="mb-5">山水苑</h3>

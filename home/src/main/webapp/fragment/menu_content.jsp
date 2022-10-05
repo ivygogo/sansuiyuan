@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="site-mobile-menu-body"></div>
-		</div> 
+		</div>
 
 		<header class="site-navbar py-4 js-sticky-header site-navbar-target"
 			role="banner">
@@ -55,8 +55,9 @@
 											href='<c:url value="/roomtype.jsp?type=F"/>'>雙人C</a></li>
 									</ul>
 								</li>
+
 								<li><a href='<c:url value="/findRoommate.jsp"/>'
-									  class="nav-link">找室友</a></li>
+									class="nav-link">找室友</a></li>
 								<c:if test="${! empty LoginOK }">
 									<li><a href='<c:url value="/chatRoom.jsp"/>'
 										class="nav-link">聊天室</a></li>
@@ -80,6 +81,7 @@
 							</ul>
 						</nav>
 					</div>
+
 
 					<div class="col-6 d-inline-block d-xl-none ml-md-0 py-3">
 						<a href="#"

@@ -8,148 +8,49 @@
 <meta charset="utf-8">
 <meta name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="author" content="Free-Template.co" />
 <meta http-equiv="expires" content="0">
-<!-- favicon
-    ============================================ -->
-<link rel="shortcut icon"
-  type="${pageContext.request.contextPath}/image/x-icon"
-  href="img/favicon.ico">
-<!-- Google Fonts
-            ============================================ -->
+
+<link rel="shortcut icon" href="ftco-32x32.png">
+
 <link
-  href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700"
   rel="stylesheet">
-<!-- Bootstrap CSS
-            ============================================ -->
+<link rel="stylesheet"
+  href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
+
 <link rel="stylesheet"
   href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet"
+  href="${pageContext.request.contextPath}/css/jquery-ui.css">
+<link rel="stylesheet"
+  href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet"
+  href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+  href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
 
-<!-- owl.carousel CSS
-            ============================================ -->
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.carousel.css">
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.theme.css">
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/owl.transitions.css">
-<!-- meanmenu CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/meanmenu/meanmenu.min.css">
-<!-- animate CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/animate.css">
-<!-- summernote CSS
-    ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/summernote/summernote.css">
-<!-- Range Slider CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/themesaller-forms.css">
+  href="${pageContext.request.contextPath}/css/jquery.fancybox.min.css">
 
-<!-- normalize CSS
-            ============================================ -->
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/normalize.css">
-<!-- mCustomScrollbar CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/scrollbar/jquery.mCustomScrollbar.min.css">
-<!-- bootstrap select CSS
-    ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/bootstrap-select/bootstrap-select.css">
-<!-- datapicker CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/datapicker/datepicker3.css">
-<!-- Color Picker CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/color-picker/farbtastic.css">
-<!-- main CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/chosen/chosen.css">
+  href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
 
-<!-- notification CSS
-    ============================================ -->
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/notification/notification.css">
-<!-- dropzone CSS
-    ============================================ -->
+  href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
+
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/dropzone/dropzone.css">
-<!-- jvectormap CSS
-            ============================================ -->
+  href="${pageContext.request.contextPath}/css/aos.css">
+
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/jvectormap/jquery-jvectormap-2.0.3.css">
-<!-- notika icon CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/notika-custom-icon.css">
-<!-- wave CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/wave/waves.min.css">
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/wave/button.css">
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-<!-- main CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/main.css">
-<!-- style CSS
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/style.css">
-<!-- responsive CSS 
-            ============================================ -->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/responsive.css">
-<!-- modernizr JS
-            ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
-<!-- cropper CSS
-    ============================================-->
-<link rel="stylesheet"
-  href="${pageContext.request.contextPath}/css/cropper/cropper.min.css">
-<script type="text/javascript"
-  src="${pageContext.request.contextPath}/file/jquery-2.1.1.min.js"></script>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/landlordRepairForm/landlordRepairForm.js"></script>
+  href="${pageContext.request.contextPath}/css/style.css">
 
 <style>
-.row {
-  margin: auto;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #00c292;
-  border-color: #00c292;
-}
-
-.p-5 {
-  padding: 3rem !important;
-}
-
-.card-body {
-  -webkit-box-flex: 1;
-  flex: 1 1 auto;
-  padding: 1.25rem;
+p {
+  margin-top: 6px;
+  margin-bottom: 1px;
 }
 </style>
 
@@ -165,13 +66,12 @@
   <%--<!-- 引入共同的頁首 -->--%>
   <%-- <%@include file="/fragment/menu_content.jsp" %> --%>
 
-  <section class="vh-100" style="margin-left: 27%;"> 
+  <section class="vh-100" style="background-color: #37cfa2;">
     <div class="container py-5 h-100">
       <div
         class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
-
             <div class="card-body p-5 text-center">
 
               <h3 class="mb-5">山水苑</h3>
