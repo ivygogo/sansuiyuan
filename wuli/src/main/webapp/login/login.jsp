@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>${SYSTEM.systemName}-房契管理</title>
+<title>${SYSTEM.systemName}-登入</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -165,7 +165,7 @@
 	<%--<!-- 引入共同的頁首 -->--%>
 	<%-- <%@include file="/fragment/menu_content.jsp" %> --%>
 
-	<section class="vh-100" style="margin-left: 27%;">
+	<section class="vh-100" style="margin-left: 27%;"> 
 		<div class="container py-5 h-100">
 			<div
 				class="row d-flex justify-content-center align-items-center h-100">

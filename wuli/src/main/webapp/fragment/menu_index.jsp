@@ -68,7 +68,7 @@
 							<c:if test="${! empty LoginOK }">
 								<li><a data-toggle="collapse" data-target="#Pagemob"
 									href='<c:url value="/login/logout.jsp"/>'>登出</a></li>
-							</c:if>
+							</c:if> 
 						</ul>
 					</nav>
 				</div>
