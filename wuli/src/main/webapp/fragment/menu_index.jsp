@@ -21,7 +21,7 @@
 							class="notika-icon notika-windows"></i>報修管理</a></li>
 					<li><a href='<c:url value="/chatRoom.jsp"/>'><i
 							class="notika-icon notika-form"></i>聊天室</a></li>
-					<li><a href='<c:url value="/memberInfo.jsp"/>'><i
+					<li><a href='<c:url value="/landlordInfo.jsp"/>'><i
 							class="notika-icon notika-support"></i>物業資訊</a></li>
 					<c:if test="${ empty LoginOK }">
 						<li><a href='<c:url value="/login/login.jsp"/>'><i
@@ -60,7 +60,7 @@
 								href='<c:url value="/chatRoom.jsp"/>'>聊天室</a></li>
 							<li><a data-toggle="collapse"
 								data-target="#Miscellaneousmob"
-								href='<c:url value="/memberInfo.jsp"/>'>物業資訊</a></li>
+								href='<c:url value="/landlord"/>'>物業資訊</a></li>
 							<c:if test="${ empty LoginOK }">
 								<li><a data-toggle="collapse" data-target="#Pagemob"
 									href='<c:url value="/login/login.jsp"/>'>登入</a></li>
