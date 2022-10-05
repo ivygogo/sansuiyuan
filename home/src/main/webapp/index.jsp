@@ -107,7 +107,7 @@
 									alt="Free website template by Free-Template.co"
 									class="img-fluid"></a>
 								<div class="ftco-media-details">
-									<h3>單人Ａ</h3>
+									<h3>單人A</h3>
 									<p>無陽台｜單衣櫃</p>
 									<strong>$7,800元／月</strong>
 								</div>
@@ -139,7 +139,7 @@
 									alt="Free website template by Free-Template.co"
 									class="img-fluid"></a>
 								<div class="ftco-media-details">
-									<h3>單人Ｃ</h3>
+									<h3>單人C</h3>
 									<p>大陽台｜單衣櫃</p>
 									<strong>$8,500元／月</strong>
 								</div>
@@ -156,7 +156,7 @@
 									class="img-fluid"></a>
 								<div class="ftco-media-details">
 									<h3>雙人A</h3>
-									<p>無陽台｜雙衣櫃</p>
+									<p>小陽台｜雙衣櫃</p>
 									<strong>$9,500元／月</strong>
 								</div>
 							</div>
@@ -172,7 +172,7 @@
 									class="img-fluid"></a>
 								<div class="ftco-media-details">
 									<h3>雙人B</h3>
-									<p>小陽台｜雙衣櫃</p>
+									<p>無陽台｜雙衣櫃</p>
 									<strong>$10,000元／月</strong>
 								</div>
 							</div>
@@ -219,22 +219,20 @@
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天
+									<a href="single.html">活潑開朗 <span class="mx-0">｜</span> 喜歡運動
+										<span class="mx-0">｜</span> 喜歡電競
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
 								<ul style="list-style-type: decimal;">
-									<li>限女性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
+									<li>晨型人</li>
+									<li>一塵不染</li>
+									<li>很好溝通</li>
 								</ul>
 							</div>
 							<center>
 								<p>
 									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
@@ -253,22 +251,20 @@
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天
+									<a href="single.html"> 喜歡看書 <span class="mx-0">｜</span>喜歡動漫
+										<span class="mx-0">｜</span> 喜歡日韓
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
 								<ul style="list-style-type: decimal;">
-									<li>限女性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
+									<li></li>
+									<li>公費均攤</li>
+									<li>朋友可訪</li>
 								</ul>
 							</div>
 							<center>
 								<p>
 									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
@@ -282,27 +278,25 @@
 									alt="Free website template by Free-Template.co"
 									class="img-fluid"></a>
 								<h2 class="font-size-regular">
-									<a href="single.html" class="text-dark">鸚鵡/淡大</a>
+									<a href="single.html" class="text-dark">玫瑰/淡大</a>
 								</h2>
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天
+									<a href="single.html"> 安靜內向 <span class="mx-0">｜</span>喜歡音樂
+										<span class="mx-0">｜</span> 喜歡運動
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
 								<ul style="list-style-type: decimal;">
-									<li>限女性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
+									<li>亂中有序</li>
+									<li>邊界感強</li>
+									<li>接受寵物</li>
 								</ul>
 							</div>
 							<center>
 								<p>
 									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
@@ -321,165 +315,25 @@
 							</center>
 							<div class="meta mb-4">
 								<center>
-									<a href="single.html"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天
+									<a href="single.html"> 喜歡電競 <span class="mx-0">｜</span>喜歡運動
+										<span class="mx-0">｜</span> 喜歡日韓
 									</a>
 								</center>
 								<font style="color: black"> 希望室友條件： </font>
 								<ul style="list-style-type: decimal;">
-									<li>限男性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
+									<li>夜貓子</li>
+									<li>稍微潔癖</li>
+									<li>邊界感強</li>
 								</ul>
 							</div>
 							<center>
 								<p>
 									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
 										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
 								</p>
 							</center>
 						</div>
 					</div>
-					<!-- 第5個 -->
-					<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
-						<div class="h-entry">
-							<center>
-								<a href="single.html"><img src="images/avatarImg/boy02.png"
-									alt="Free website template by Free-Template.co"
-									class="img-fluid"></a>
-								<h2 class="font-size-regular">
-									<a href="single.html" class="text-dark">鸚鵡/淡大</a>
-								</h2>
-							</center>
-							<div class="meta mb-4">
-								<center>
-									<font style="color: black"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
-									</font>
-								</center>
-								<font style="color: black"> 希望室友條件： </font>
-								<ul style="list-style-type: decimal;">
-									<li>限男性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
-								</ul>
-							</div>
-							<center>
-								<p>
-									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
-								</p>
-							</center>
-						</div>
-					</div>
-					<!-- 第6個 -->
-					<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
-						<div class="h-entry">
-							<center>
-								<a href="single.html"><img src="images/avatarImg/boy03.png"
-									alt="Free website template by Free-Template.co"
-									class="img-fluid"></a>
-								<h2 class="font-size-regular">
-									<a href="single.html" class="text-dark">鸚鵡/淡大</a>
-								</h2>
-							</center>
-							<div class="meta mb-4">
-								<center>
-									<font style="color: black"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
-									</font>
-								</center>
-								<font style="color: black"> 希望室友條件： </font>
-								<ul style="list-style-type: decimal;">
-									<li>限男性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
-								</ul>
-							</div>
-							<center>
-								<p>
-									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
-								</p>
-							</center>
-						</div>
-					</div>
-					<!-- 第7個 -->
-					<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
-						<div class="h-entry">
-							<center>
-								<a href="single.html"><img src="images/avatarImg/girl04.png"
-									alt="Free website template by Free-Template.co"
-									class="img-fluid"></a>
-								<h2 class="font-size-regular">
-									<a href="single.html" class="text-dark">鸚鵡/淡大</a>
-								</h2>
-							</center>
-							<div class="meta mb-4">
-								<center>
-									<font style="color: black"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
-									</font>
-								</center>
-								<font style="color: black"> 希望室友條件： </font>
-								<ul style="list-style-type: decimal;">
-									<li>限女性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
-								</ul>
-							</div>
-							<center>
-								<p>
-									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
-								</p>
-							</center>
-						</div>
-					</div>
-					<!-- 第8個 -->
-					<div class="col-md-6 col-lg-3 mb-4 mb-lg-3">
-						<div class="h-entry">
-							<center>
-								<a href="single.html"><img src="images/avatarImg/boy04.png"
-									alt="Free website template by Free-Template.co"
-									class="img-fluid"></a>
-								<h2 class="font-size-regular">
-									<a href="single.html" class="text-dark">鸚鵡/淡大</a>
-								</h2>
-							</center>
-							<div class="meta mb-4">
-								<center>
-									<font style="color: black"> 晨型人 <span class="mx-0">｜</span>
-										不喜歡寵物<span class="mx-0">｜</span> 愛聊天 </a>
-									</font>
-								</center>
-								<font style="color: black"> 希望室友條件： </font>
-								<ul style="list-style-type: decimal;">
-									<li>限男性</li>
-									<li>公費均分</li>
-									<li>無寵物</li>
-								</ul>
-							</div>
-							<center>
-								<p>
-									<a href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 ">看 看</a> <a
-										href="https://free-template.co" target="_blank"
-										class="btn btn-primary px-2 py-2 mx-3">聊 聊</a>
-								</p>
-							</center>
-						</div>
-					</div>
-				</div>
-			</div>
 		</section>
 
 		<section class="py-5 bg-primary site-section how-it-works"

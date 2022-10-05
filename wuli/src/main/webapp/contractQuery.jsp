@@ -390,10 +390,10 @@ input {
 				<div>
 					<img
 						src='<c:url value="/images/contractQueryImg/edit.png" ></c:url>'
-						style="width: 30px; height: 30px; display: inline; margin-left: 900px; margin-bottom: 17px; cursor: pointer;"
+						style="width: 30px; height: 30px; display: inline; margin-left: 85%; margin-bottom: 17px; cursor: pointer;"
 						id="edit"> <input type="image" id="save"
 						src='<c:url value="/images/contractQueryImg/save.png" ></c:url>'
-						style="width: 30px; height: 30px; cursor: pointer; display: inline; margin-left: 50px;">
+						style="width: 30px; height: 30px; cursor: pointer; display: inline; margin-left: 5%;">
 				</div>
 
 				<div id="checkboxgroup1">
