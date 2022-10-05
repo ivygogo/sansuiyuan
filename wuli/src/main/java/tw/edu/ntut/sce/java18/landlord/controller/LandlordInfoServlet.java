@@ -43,7 +43,7 @@ public class LandlordInfoServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   private final Gson gson = new Gson();
-  // int num = 0;
+  int num = 0;
   //  String tempFilename;
   //  String tempFileSrc;
   //  String tempFileBase64;

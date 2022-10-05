@@ -8,7 +8,7 @@ landlordCounty="";
 landlordDistrict="";
 
 $.getJSON('LandlordInfo.do').then(res => {    
-    <%--console.log(res);--%>
+    <%--console.log(res);--%  >
     $("input[name='landlordName']").val(res.resultData.name);
     $("input[name='landlordPhone']").val(res.resultData.phone);
     landlordCounty += res.resultData.county;
