@@ -23,6 +23,7 @@ public class LandlordBeanM implements Serializable {
   private String name;
 
   @Column(name = "Password", columnDefinition = "VARCHAR(64)")
+  @Transient
   private String password;
 
   @Column(name = "Phone", columnDefinition = "VARCHAR(15)")
