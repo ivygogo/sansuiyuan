@@ -5,7 +5,7 @@
 	<div class="main-menu-area mg-tb-40">
 		<div class="container">
 			<div class="row">
-				<ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+				<ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro" style="margin-left: 10%;">
 					<li><img
 						src='<c:url value="/images/contractQueryImg/icon.png" ></c:url>'
 						width="100" height="50"></li>
@@ -13,8 +13,8 @@
 							class="notika-icon notika-house"></i>房契管理</a></li>
 					<li><a href='<c:url value="/Contract.do"/>'><i
 							class="notika-icon notika-mail"></i>合約查詢</a></li>
-					<li><a href="#Interface"><i
-							class="notika-icon notika-edit"></i>行事曆</a></li>
+					<!-- <li><a href="#Interface"><i
+							class="notika-icon notika-edit"></i>行事曆</a></li> -->
 					<li><a href='<c:url value="/bookinglist.jsp"/>'><i
 							class="notika-icon notika-bar-chart"></i>預約管理</a></li>
 					<li><a href='<c:url value="/lanlordRepairForm.jsp"/>'><i
@@ -50,8 +50,8 @@
 								href='<c:url value="/rent.jsp"/>'>房契管理</a></li>
 							<li><a data-toggle="collapse" data-target="#demoevent"
 								href='<c:url value="/Contract.do"/>'>合約查詢</a></li>
-							<li><a data-toggle="collapse" data-target="#democrou"
-								href="#">行事曆</a></li>
+							<!-- <li><a data-toggle="collapse" data-target="#democrou"
+								href="#">行事曆</a></li> -->
 							<li><a data-toggle="collapse" data-target="#demolibra"
 								href='<c:url value="/bookinglist.jsp"/>'>預約管理</a></li>
 							<li><a data-toggle="collapse" data-target="#demodepart"
