@@ -26,20 +26,20 @@ function showLandlordEditPage(){
     url: "/wuli/getLandlordInfoGson",
     dataType: "json",
     success: function (response) {
-
+      console.log(response)
       $('#landlordName input').val(response.resultData.name);
       $('#landlordPhone input').val(response.resultData.phone);
       //秀出地址
       let landlordCounty = response.resultData.county;
       let landlordDistrict = response.resultData.district;
       //alert(landlordDistrict)
-      $(" #county option[value='"+landlordCounty+"']").attr("selected",true);
       showZip (landlordCounty, landlordDistrict);
+      $(" #county option[value='"+landlordCounty+"']").attr("selected",true);
       $('#landlordAddress input').val(response.resultData.address);
       $('#landlordMail input').val(response.resultData.mail);
       $("#landlordStamp >img").attr("src", response.resultData.stampImg);
       $('#desc').text(response.resultData.stamp);
-
+      console.log(landlordCounty)
     }
   });
 
@@ -62,6 +62,7 @@ function showZip(county, district) {
       }
     });
     $(" #district option[value='" + district + "']").attr("selected", true);
+    $(" #county option[value='"+county+"']").attr("selected",true);
   })
 }
 

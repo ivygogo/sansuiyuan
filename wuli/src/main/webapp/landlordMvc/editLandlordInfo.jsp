@@ -5,8 +5,9 @@
 <script>
   $(document).ready(function () {
     generateSelect();
-    showLandlordEditPage()
-    uploadPic()
+
+    uploadPic();
+    showLandlordEditPage();
   });
 
 

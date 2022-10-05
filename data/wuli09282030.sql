@@ -472,7 +472,7 @@ values (1, '蘇酥酥', 1, '0923154653', 'A272977393', 'ggg.gg.ggg@gmail.com', '
         NULL, 1, '2022-09-10 13:02:28', NULL, NULL, NULL),
        (5, '連勝文', 0, '0956385656', 'A122883611', '4563@gmail.com', '1235456', '台南市', '安平區',
         '台南市安平區鯤鯓路41號', '小文5', 1, '1024', '真理大學', 10, 4, 6, 8, 21, 26, 22, NULL, NULL, NULL, NULL,
-        NULL, 1, '2022-09-10 13:03:42', NULL, NULL, NULL), 
+        NULL, 1, '2022-09-10 13:03:42', NULL, NULL, NULL),
        (6, '馬英九', 0, '0945616256', 'A123456789', 'ma@gmail.com', '333', '台北市', NULL, '台北市', '小馬6',
         1, '1234', '真理大學', 12, 5, 2, 1, 25, 24, 25, NULL, NULL, NULL, NULL, NULL, 1,
         '2022-09-24 20:56:00', NULL, NULL, NULL);
@@ -547,8 +547,8 @@ CREATE TABLE `property_management`
 
 insert into `property_management`(`id`, `Name`, `Password`, `Phone`, `county`, `district`,
                                   `Address`, `Mail`, `Stamp`)
-values (1, '山水苑', '123456', '(02)2626-1777', '新北市', '淡水區', '水源街二段177巷45號', 'wuli.co.ltd@gmail.com',
-        'mid_1_20220925.png');
+values (1, '山水苑', '63f2680b55866975bf149514e344df18', '0926888888', '新北市', '淡水區', '水源街二段177巷45號',
+        'wuli.co.ltd@gmail.com', 'mid_1_20220925.png');
 
 /*Table structure for table `refund_account` */
 
