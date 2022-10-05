@@ -1,6 +1,7 @@
 package tw.edu.ntut.sce.java18.landlord.controller;
 
 import com.google.gson.Gson;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,23 +65,24 @@ public class ShowLandlordMvc {
     if (landlordInfo.getStamp() == null || landlordInfo.getStamp().length() == 0) {
       landlordInfo.setStampImg(null);
       myimgSrc = "";
-      /*
-      imgPath = System.getProperty("java.io.tmpdir") + "//images//" + "stamp.png";
-      imgMimeType = processImg.getMimeTypeByFileName("stamp.png");
-      landlordInfo.setStamp("stamp.png");
-      System.out.println("null");
-      System.out.println(System.getProperty("java.io.tmpdir") + "\\images\\" + "stamp.png");*/
+
     } else {
       imgPath = System.getProperty("java.io.tmpdir") + "//images//" + landlordInfo.getStamp();
       imgMimeType = processImg.getMimeTypeByFileName(landlordInfo.getStamp());
+      File file = new File(imgPath);
+        if(file.exists()){
+          // System.out.println("ivy!!!!"+System.getProperty("java.io.tmpdir"));
+          // 3.將圖片處理成 Data URI資料
+          String imgBase64 = processImg.getImageEncoderByPath(imgPath);
 
-      // System.out.println("ivy!!!!"+System.getProperty("java.io.tmpdir"));
-      // 3.將圖片處理成 Data URI資料
-      String imgBase64 = processImg.getImageEncoderByPath(imgPath);
+          myimgSrc = "data:" + imgMimeType + ";" + "base64," + imgBase64;
 
-      myimgSrc = "data:" + imgMimeType + ";" + "base64," + imgBase64;
-
-      landlordInfo.setStampImg(myimgSrc);
+          landlordInfo.setStampImg(myimgSrc);
+          System.out.println(file + " Exists");
+          }else{
+          myimgSrc = "";
+          System.out.println(file + " Does not exists");
+        }
     }
 
     var landlordDataMap = Map.of("resultData", landlordInfo, "resultImg", myimgSrc);

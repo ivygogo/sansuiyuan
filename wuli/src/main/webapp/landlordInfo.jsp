@@ -2,7 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<% String editState = request.getParameter("edit");
+<%
+  String editState = request.getParameter("edit");
   //System.out.print("editState"+editState);
   if (editState != null && editState.equals("drop")) {
     //request.setAttribute("guarantorIsInvalid", false);
@@ -142,17 +143,11 @@
 
 </head>
 <body>
-<!-- 選單-->
-<div class="" id="myMenu"></div>
 <jsp:include page="fragment/menu_index.jsp" />
-<!-- 內容 -->
+<div class="" id="myMenu"></div>
 <div class="" id="profile"></div>
-
-<!-- Start Footer area-->
 <div class="" id="myFooter"></div>
 <jsp:include page="fragment/footer.jsp" />
-<!-- End Footer area-->
-
 
 <!-- bootstrap JS============================================ -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
