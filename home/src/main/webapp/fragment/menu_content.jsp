@@ -73,7 +73,6 @@
 									<li><a href='<c:url value="/repair.jsp"/>'
 										class="nav-link">我要報修</a></li>
 								</c:if>
-
 								<c:if test="${! empty LoginOK }">
 									<li><a href='<c:url value="/login/logout.jsp"/>'
 										class="nav-link">會員登出</a></li>
