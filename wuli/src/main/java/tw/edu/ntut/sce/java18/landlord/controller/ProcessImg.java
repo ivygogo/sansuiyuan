@@ -128,10 +128,10 @@ public class ProcessImg {
     String fileNewName = "";
 
     /*======== 1.建立目錄 ===========*/
-    String folder =System.getProperty("java.io.tmpdir") + "\\images\\";
+    String folder = System.getProperty("java.io.tmpdir") + "\\images\\";
     File filePath = new File(folder);
     if (!filePath.exists()) {
-    filePath.mkdir();
+      filePath.mkdir();
     }
 
     if (tampFileBase64 == null) { // 影象資料為空

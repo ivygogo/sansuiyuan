@@ -70,19 +70,19 @@ public class ShowLandlordMvc {
       imgPath = System.getProperty("java.io.tmpdir") + "//images//" + landlordInfo.getStamp();
       imgMimeType = processImg.getMimeTypeByFileName(landlordInfo.getStamp());
       File file = new File(imgPath);
-        if(file.exists()){
-          // System.out.println("ivy!!!!"+System.getProperty("java.io.tmpdir"));
-          // 3.將圖片處理成 Data URI資料
-          String imgBase64 = processImg.getImageEncoderByPath(imgPath);
+      if (file.exists()) {
+        // System.out.println("ivy!!!!"+System.getProperty("java.io.tmpdir"));
+        // 3.將圖片處理成 Data URI資料
+        String imgBase64 = processImg.getImageEncoderByPath(imgPath);
 
-          myimgSrc = "data:" + imgMimeType + ";" + "base64," + imgBase64;
+        myimgSrc = "data:" + imgMimeType + ";" + "base64," + imgBase64;
 
-          landlordInfo.setStampImg(myimgSrc);
-          System.out.println(file + " Exists");
-          }else{
-          myimgSrc = "";
-          System.out.println(file + " Does not exists");
-        }
+        landlordInfo.setStampImg(myimgSrc);
+        System.out.println(file + " Exists");
+      } else {
+        myimgSrc = "";
+        System.out.println(file + " Does not exists");
+      }
     }
 
     var landlordDataMap = Map.of("resultData", landlordInfo, "resultImg", myimgSrc);
