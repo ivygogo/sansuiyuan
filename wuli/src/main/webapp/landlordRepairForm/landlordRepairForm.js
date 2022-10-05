@@ -16,6 +16,7 @@ res = {};
 function getTableData(res) {
   mydata = [];
   dataForm = res;
+  console.log(res)
   for (let i = 0; i < res.length; i++) {
     let inners = [];
     inners.push("");
@@ -25,7 +26,7 @@ function getTableData(res) {
     inners.push(res[i].projectNameAlias);
     inners.push(transfromTime(res[i].creatTime));
     inners.push(transfromStatus(res[i].status));
-    inners.push(res[i].projectPrice);
+    inners.push(res[i].amount);
     mydata.push(inners);
   }
   //傳資料給table
@@ -249,7 +250,7 @@ function showCheckedRepairForm(showForm, number) {
   $("#expectTime h3").text(transfromTime(showForm.expectionTime));
   $("#repairNote h3").text(showForm.note);
   $("#feedbackTime h3").text(transfromTime(showForm.fixTime));
-  $("#price h3").text(showForm.projectPrice);
+  $("#price h3").text(showForm.amount);
   $("#landlordNote h3").text(showForm.landlordNote);
   $(".landlordedit").attr("value", showForm.formNumber);
   $(".landlordsave").attr("value", showForm.formNumber);
@@ -289,7 +290,7 @@ function editRepairForm(item) {
         $("#expectTime h3").text(transfromTime(showForm.expectionTime));
         $("#repairNote h3").text(showForm.note);
         $("#datetimepicker1 input").attr("value", transfromTime(showForm.fixTime));
-        $("#price input").attr("value", showForm.projectPrice);
+        $("#price input").attr("value", showForm.amount);
         $("#landlordNote").text(showForm.landlordNote);
         $('.selectpicker').selectpicker('val', newStatus);
         $('.selectpicker').selectpicker('refresh');

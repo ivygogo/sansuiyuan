@@ -42,7 +42,7 @@ public class LandlordRepairFormServlet extends HttpServlet {
 
     var reparFormListJson = gson.toJson(repairFormList);
     printWriter.print(reparFormListJson);
-    // System.out.println(reparFormListJson);
+    System.out.println(reparFormListJson);
     printWriter.flush();
   }
 

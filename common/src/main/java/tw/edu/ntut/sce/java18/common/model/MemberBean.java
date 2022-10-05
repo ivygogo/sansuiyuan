@@ -72,7 +72,10 @@ public class MemberBean implements Serializable {
       String password,
       String address,
       String nickname,
-      int pic) {
+      int pic,
+      String school,
+      String county,
+      String district) {
     super();
     this.name = name;
     this.gender = gender;
@@ -83,6 +86,9 @@ public class MemberBean implements Serializable {
     this.address = address;
     this.nickname = nickname;
     this.pic = pic;
+    this.school = school;
+    this.county = county;
+    this.district = district;
   }
   /* ====== getter ======*/
 

@@ -145,6 +145,10 @@ $(function(){
 	      $("#errLandlordMail").prev().attr("class","nk-int-st-invalid");
 	        $("#errLandlordMail").html(objErr.errLandlordMail);
 	    }
+	  else if (arr[i]==="errLandlordPic"){
+	        //$("#errStamp").prev().attr("class","nk-int-st-invalid");
+	          $("#errStamp").html(objErr.errLandlordPic);
+	      }
 	}
 	}
 })    
