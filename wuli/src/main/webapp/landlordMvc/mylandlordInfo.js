@@ -62,6 +62,7 @@ function showZip(county, district) {
       }
     });
     $(" #district option[value='" + district + "']").attr("selected", true);
+    $(" #county option[value='"+county+"']").attr("selected",true);
   })
 }
 
