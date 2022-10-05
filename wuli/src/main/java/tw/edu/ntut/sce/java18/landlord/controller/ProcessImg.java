@@ -1,6 +1,7 @@
 package tw.edu.ntut.sce.java18.landlord.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -127,12 +128,11 @@ public class ProcessImg {
     String fileNewName = "";
 
     /*======== 1.建立目錄 ===========*/
-    //    File filePath =
-    //        new
-    // File("C:\\_SpringBoot\\workspace\\sansuiyuan\\wuli\\src\\main\\webapp\\file\\stamps");
-    //    if (!filePath.exists()) {
-    //      filePath.mkdir();
-    //    }
+    String folder = System.getProperty("java.io.tmpdir") + "\\images\\";
+    File filePath = new File(folder);
+    if (!filePath.exists()) {
+      filePath.mkdir();
+    }
 
     if (tampFileBase64 == null) { // 影象資料為空
       // System.out.println("img64為空值");
