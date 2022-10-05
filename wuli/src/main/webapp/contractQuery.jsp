@@ -6,7 +6,7 @@
 <html>
 <head>
 <c:if test="${empty LoginOK}">
- <c:redirect url="/login/login.jsp" />
+	<c:redirect url="/login/login.jsp" />
 </c:if>
 <title>${SYSTEM.systemName}-合約查詢</title>
 <meta charset="UTF-8">
@@ -281,8 +281,10 @@ input {
 							id="check_Status${contract.CID}" class="CS">${contract.check_Status}</td>
 						<input type="hidden" value="${contract.deposit}"
 							id="deposit${contract.CID}" class="Deposit">
-						<td><input type="hidden" value="${contract.PDF}" id="PDF${contract.CID}" class="pdf"> <a href="http://localhost:8080/wuli/pdf.do?target=${contract.PDF}.pdf">${contract.PDF}</a></td>
-						
+						<td><input type="hidden" value="${contract.PDF}"
+							id="PDF${contract.CID}" class="pdf"> <a
+							href="http://localhost:8080/wuli/pdf.do?target=${contract.PDF}.pdf">${contract.PDF}</a></td>
+
 						<td><input type="hidden" value="${contract.signed_Date}">${contract.signed_Date}
 						</td>
 					</tr>
@@ -361,7 +363,9 @@ input {
 								id="searchCheck_Status${searchResult.CID}">${searchResult.check_Status}</td>
 							<input type="hidden" value="${searchResult.deposit}"
 								id="searchDeposit${searchResult.CID}">
-							<td><input type="hidden" value="${searchResult.PDF}"id="searchPDF${searchResult.CID}"> <a href="http://localhost:8080/wuli/pdf.do?target=${searchResult.PDF}.pdf">${searchResult.PDF}</a></td>
+							<td><input type="hidden" value="${searchResult.PDF}"
+								id="searchPDF${searchResult.CID}"> <a
+								href="http://localhost:8080/wuli/pdf.do?target=${searchResult.PDF}.pdf">${searchResult.PDF}</a></td>
 							<td><input type="hidden" value="${searchResult.signed_Date}"
 								id="searchSigned_Date${searchResult.CID}">${searchResult.signed_Date}</td>
 							<input type="hidden" value="${searchResult.hide}"
@@ -385,15 +389,16 @@ input {
 		<div style="position: relative; padding: 30px;">
 
 
-			<form action="modify" style="display: inline;" method="post" name="formModify">
+			<form action="modify" style="display: inline;" method="post"
+				name="formModify">
 
 				<div>
 					<img
 						src='<c:url value="/images/contractQueryImg/edit.png" ></c:url>'
-						style="width: 30px; height: 30px; display: inline; margin-left: 900px; margin-bottom: 17px; cursor: pointer;"
+						style="width: 30px; height: 30px; display: inline; margin-left: 85%; margin-bottom: 17px; cursor: pointer;"
 						id="edit"> <input type="image" id="save"
 						src='<c:url value="/images/contractQueryImg/save.png" ></c:url>'
-						style="width: 30px; height: 30px; cursor: pointer; display: inline; margin-left: 50px;">
+						style="width: 30px; height: 30px; cursor: pointer; display: inline; margin-left: 5%;">
 				</div>
 
 				<div id="checkboxgroup1">
@@ -424,11 +429,15 @@ input {
 
 				<div>
 					<p style="display: inline; margin-top: 15px; margin-bottom: 10px;">租客名字：</p>
-					<input type="text" id="input1" readonly="readonly" name="name" value="" style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
+					<input type="text" id="input1" readonly="readonly" name="name"
+						value=""
+						style="border: none; width: 150px; height: 30px; background-color: white; display: inline;">
 				</div>
 
 				<p style="display: inline;">合約：</p>
-				<input type="text" id="input2" readonly="readonly" value="" name="PDF" style="border: none; width: 90px; height: 30px; background-color: white; display: inline;">
+				<input type="text" id="input2" readonly="readonly" value=""
+					name="PDF"
+					style="border: none; width: 90px; height: 30px; background-color: white; display: inline;">
 
 
 				<div>
@@ -469,7 +478,7 @@ input {
 					<input type="text" id="input5" readonly="readonly" name="check_Fee"
 						value=""
 						style="border: none; width: 65px; height: 30px; background-color: white; display: inline;">
-					
+
 				</div>
 
 
@@ -702,7 +711,8 @@ input {
 	let handover = "${contractCS.cbcs2.check_Status}"
 	let ContractStatus = document.getElementById("ContractStatus")
 	let ck = document.querySelectorAll(".ck");
-	let ContractPayment_status = document.getElementById("ContractPayment_status")
+	let ContractPayment_status = document
+			.getElementById("ContractPayment_status")
 	let ContractCheck_status = document.getElementById("ContractCheck_status")
 	let allCK = document.getElementById("allCK")
 	let clip = document.getElementById('clip')
@@ -758,8 +768,10 @@ input {
 		let CID = document.getElementById("CID" + ck[0].value)
 		let name = document.getElementById("name" + ck[0].value)
 		let room_Number = document.getElementById("room_Number" + ck[0].value)
-		let payment_Status = document.getElementById("payment_Status"+ ck[0].value)
-		let check_Status = document.getElementById("check_Status" + ck[0].value)
+		let payment_Status = document.getElementById("payment_Status"
+				+ ck[0].value)
+		let check_Status = document
+				.getElementById("check_Status" + ck[0].value)
 		let check_Fee = document.getElementById("check_Fee" + ck[0].value)
 		let PDF = document.getElementById("PDF" + ck[0].value)
 		let deposit = document.getElementById("deposit" + ck[0].value)
@@ -811,17 +823,23 @@ input {
 			let status = document.getElementById("status" + ck[i].value)
 			let CID = document.getElementById("CID" + ck[i].value)
 			let name = document.getElementById("name" + ck[i].value)
-			let room_Number = document.getElementById("room_Number"+ ck[i].value)
-			let payment_Status = document.getElementById("payment_Status"+ ck[i].value)
-			let check_Status = document.getElementById("check_Status"+ ck[i].value)
+			let room_Number = document.getElementById("room_Number"
+					+ ck[i].value)
+			let payment_Status = document.getElementById("payment_Status"
+					+ ck[i].value)
+			let check_Status = document.getElementById("check_Status"
+					+ ck[i].value)
 			let check_Fee = document.getElementById("check_Fee" + ck[i].value)
 			let PDF = document.getElementById("PDF" + ck[i].value)
 			let deposit = document.getElementById("deposit" + ck[i].value)
 			let room_Type = document.getElementById("room_Type" + ck[i].value)
-			contract.addEventListener("click",function() {
+			contract
+					.addEventListener(
+							"click",
+							function() {
 								input1.value = name.value
 								input2.value = PDF.value
-							console.log(input2.value)
+								console.log(input2.value)
 								input3.value = room_Number.value
 								input4.value = deposit.value
 								input5.value = check_Fee.value
@@ -936,22 +954,20 @@ input {
 		let selectsArray = []
 		let ck = document.querySelectorAll(".ck");
 
-		
-
 		for (let i = 0; i < ck.length; i++) {
 			let checkbox = document.getElementById("delete" + ck[i].value)
 			checkbox.addEventListener("click", function(e) {
-				
+
 				let number = parseInt(e.target.value)
 				let index = selectsArray.indexOf(number)
-			
+
 				if (index !== -1) {
 					selectsArray.splice(index, 1)
 				} else {
 					selectsArray.push(number)
 				}
 				formUpdate.value = selectsArray
-				
+
 			})
 		}
 
@@ -965,17 +981,16 @@ input {
 					+ searchCheckBox[i].value)
 			searchCheckBoxs.addEventListener("click", function(e) {
 
-				
 				let number = parseInt(e.target.value)
 				let index = selectsArray.indexOf(number)
-				
+
 				if (index !== -1) {
 					selectsArray.splice(index, 1)
 				} else {
 					selectsArray.push(number)
 				}
 				formUpdate.value = selectsArray
-				
+
 			})
 		}
 	}
@@ -1062,8 +1077,12 @@ input {
 					+ searchCheckBox[i].value)
 			let searchRoom_Number = document.getElementById("searchRoom_Number"
 					+ searchCheckBox[i].value)
-			let searchPayment_Status = document.getElementById("searchPayment_Status"+ searchCheckBox[i].value)
-			let searchCheck_Status = document.getElementById("searchCheck_Status"+ searchCheckBox[i].value)
+			let searchPayment_Status = document
+					.getElementById("searchPayment_Status"
+							+ searchCheckBox[i].value)
+			let searchCheck_Status = document
+					.getElementById("searchCheck_Status"
+							+ searchCheckBox[i].value)
 			let searchCheck_Fee = document.getElementById("searchCheck_Fee"
 					+ searchCheckBox[i].value)
 			let searchPDF = document.getElementById("searchPDF"

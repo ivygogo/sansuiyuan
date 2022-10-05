@@ -107,6 +107,11 @@
 											<label class="form-label">密碼：</label> <input type="password"
 												name='password' class="form-control form-control-lg" /> <font
 												color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+											<div class="" style="display: flex; justify-content: center;">
+												<small class="text mb-4" style="color: red;">請注意：<br>*密碼須由大寫字母、小寫字母、數字與
+													!@#$%!^'" 組合，且長度不能小於八個字元
+												</small>
+											</div>
 										</div>
 
 									</div>
@@ -174,26 +179,29 @@
 								<div class="row">
 									<div class="col-12">
 										<label class="form-label">學校：</label> <input type="text"
-												name='school' value="${param.school}"
-												class="form-control form-control-lg" /> <font color="red"
-												size="-1">${MsgMap.errorSchool}</font>
+											name='school' value="${param.school}"
+											class="form-control form-control-lg" /> <font color="red"
+											size="-1">${MsgMap.errorSchool}</font>
 
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-6">
-										<label class="form-label">(縣/市)：</label>
-										<input type="text" name='county' value="${param.county}" class="form-control form-control-lg" />
-										<font color="red" size="-1">${MsgMap.errorCounty}</font>
+										<label class="form-label">(縣/市)：</label> <input type="text"
+											name='county' value="${param.county}"
+											class="form-control form-control-lg" /> <font color="red"
+											size="-1">${MsgMap.errorCounty}</font>
 
 									</div>
 									<div class="col-6">
-										<label class="form-label">(鄉/鎮/區)：</label>
-										<input type="text" name='district' value="${param.district}" class="form-control form-control-lg" />
-										<font color="red" size="-1">${MsgMap.errorDistrict}</font>
+										<label class="form-label">(鄉/鎮/區)：</label> <input type="text"
+											name='district' value="${param.district}"
+											class="form-control form-control-lg" /> <font color="red"
+											size="-1">${MsgMap.errorDistrict}</font>
 
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-12">
 										<label class="form-label">地址：</label> <input type="text"
@@ -224,12 +232,16 @@
 		function setFocusToUserId() {
 			document.forms[0].mid.focus(); // 將游標放在mid欄位內
 		}
-		<%--$(document).ready(function(){--%>
-		<%--	<c:if test="${not empty registerSuccess}">--%>
-		<%--		alert("${registerSuccess.registerSuccess}");--%>
-		<%--	</c:if>--%>
-		<%--});--%>
-
+	<%--$(document).ready(function(){--%>
+		
+	<%--  <c:if test="${not empty registerSuccess}">--%>
+		
+	<%--    alert("${registerSuccess.registerSuccess}");--%>
+		
+	<%--  </c:if>--%>
+		
+	<%--});--%>
+		
 	</script>
 	<%@include file="/fragment/footer.jsp"%>
 
