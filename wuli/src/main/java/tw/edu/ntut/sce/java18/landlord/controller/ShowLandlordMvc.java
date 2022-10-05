@@ -4,12 +4,16 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tw.edu.ntut.sce.java18.landlord.model.LandlordBeanM;
+import tw.edu.ntut.sce.java18.landlord.model.LandlordInfo;
 import tw.edu.ntut.sce.java18.landlord.service.LandlordService_Mvc;
 
 // @RequestMapping(value = {"/"})
@@ -17,7 +21,7 @@ import tw.edu.ntut.sce.java18.landlord.service.LandlordService_Mvc;
 public class ShowLandlordMvc {
   LandlordService_Mvc landlordService;
   ProcessImg processImg;
-  int memberIdForTest = 1;
+  // int memberIdForTest = 1;
 
   @Autowired
   public ShowLandlordMvc(LandlordService_Mvc landlordService, ProcessImg processImg) {
@@ -49,11 +53,21 @@ public class ShowLandlordMvc {
 
   @ResponseBody
   @GetMapping("/getLandlordInfoGson")
-  public String getLandlordInfoGson() throws IOException {
+  public String getLandlordInfoGson(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
     String myimgSrc = null;
-
+    HttpSession session = request.getSession();
     // 1. 取得會員資料
-    LandlordBeanM landlordInfo = landlordService.queryLandlordInfoByPrimaryKey(memberIdForTest);
+    LandlordInfo landlord = (LandlordInfo) session.getAttribute("LoginOK");
+    System.out.println("測試" + landlord.getId());
+
+    if (!session.isNew()) {
+      landlord = (LandlordInfo) session.getAttribute("LoginOK");
+    } else {
+      landlord = new LandlordInfo();
+    }
+    LandlordBeanM landlordInfo = landlordService.queryLandlordInfoByPrimaryKey(landlord.getId());
+
     System.out.println(landlordInfo.getStamp());
     System.out.println(landlordInfo.getName());
     System.out.println(landlordInfo.getCounty());
