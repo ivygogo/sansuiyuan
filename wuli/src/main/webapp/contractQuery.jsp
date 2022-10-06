@@ -140,6 +140,11 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <style>
+body {
+	font-family: Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #F6F8FA;
+}
+
 .font {
 	color: white;
 	padding: 10px;
@@ -1207,6 +1212,7 @@ input {
 		}
 	}
 </script>
-<%@include file="fragment/footer.jsp"%>
 </body>
+<%@include file="fragment/footer.jsp"%>
+
 </html>

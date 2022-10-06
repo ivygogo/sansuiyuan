@@ -144,6 +144,11 @@
 </head>
 
 <style>
+body {
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F6F8FA;
+}
+
 .btn-success {
   color: #fff;
   background-color: #37cfa2;
