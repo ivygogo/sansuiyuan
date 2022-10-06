@@ -197,7 +197,7 @@
 		                ans += "<div class=\"row mb-2\">\n" + "<div class=\"col\" id=\"avatarId"+ (col + 1) + "\" style=\"display: flex; justify-content: center;\">";
 		                for (let i = col * 3; i < (col + 1) * 3; i++) {
 		                  
-		                  if(nogender[i]==="default"){
+		                  if(nogender[i]==="other"){
 		                    ans +="<input type=\"radio\" name=\"avatarIcon\" class=\"advice\" value=\""
 		                                + nogender[i]
 		                                + "\" "

@@ -16,16 +16,16 @@ $(function() {
       'districtSel' : str2,
       zipcodeIntoDistrict : true,
       css : [ "county form-control", "district form-control" ],
-      countyName : "county2", 
+      countyName : "county2",
       <%--自訂城市 select 標籤的 name 值--%>
-      districtName : "district2", 
+      districtName : "district2",
       <%--自訂區別 select 標籤的 name 值--%>
       onCountySelect : changecb,
       onDistrictSelect : changecb
     });
     var el = document.querySelectorAll("select");
-    
-    
+
+
     el[0].className = "form-control";
     el[0].id = "inputState3";
     el[1].className = "form-control";
@@ -54,7 +54,7 @@ $(function() {
     wrapper2.appendChild(oldChild2);
 
   })
-  
+
 
 </script>
 <div class="row mb-1 mt-5 ml-3">
@@ -83,19 +83,19 @@ $(function() {
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="row lg-mx-5">
-			
+
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">姓名</h6>
-					<input type="text" id="fname" class="form-control col-12 mb-4 mx-4" name="guarantorName"
+					<input type="text"  class="form-control col-12 mb-4 mx-4" name="guarantorName"
 						value="${LoginOK.guarantor.name}">
 				</div>
 
 				<div class="col lg-mx-5  ">
 					<h6 class="text-black-opacity-05 mx-4">關係</h6>
-					<input type="text" id="fname" class="form-control col-12 mb-4 mx-4" name="guarantorRelation"
+					<input type="text"  class="form-control col-12 mb-4 mx-4" name="guarantorRelation"
 						value="${LoginOK.guarantor.relation}">
 				</div>
 			</div>
@@ -103,13 +103,13 @@ $(function() {
 			<div class="row lg-mx-5">
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">身份字號</h6>
-					<input type="text" id="fname"
+					<input type="text"
 						class="form-control col-12 mx-4" name="guarantorIdNumber"
 						value="${LoginOK.guarantor.id_number}">
 				</div>
 				<div class="col lg-mx-5">
 					<h6 class="text-black-opacity-05 mx-4">聯絡手機號碼</h6>
-					<input type="text" id="fname"
+					<input type="text" id=""
 						class="form-control mx-4 col-12" name="guarantorPhone"
 						value="${LoginOK.guarantor.phone}">
 				</div>
@@ -124,12 +124,12 @@ $(function() {
 					<input type="text" id="fname"
 						class="form-control mx-4 col-md-12" name="guarantorAddress"
 						value="${LoginOK.guarantor.address}">
-					
+
 				</div>
 			</div>
-			
+
 		</div>
-		
+
 
 		<div class="row mb-1 mt-5 mx-3">
 			<div class="col-md-12 text-left">

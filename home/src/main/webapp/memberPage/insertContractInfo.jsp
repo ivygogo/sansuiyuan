@@ -75,13 +75,13 @@
 			<div class="row lg-mx-5">
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">姓名</h6>
-					<input type="text" id="fname" class="form-control col-12 mb-4 mx-4"
+					<input type="text"  class="form-control col-12 mb-4 mx-4"
 						name="guarantorName" value="${param.guarantorName}">
 				</div>
 
 				<div class="col lg-mx-5  ">
 					<h6 class="text-black-opacity-05 mx-4">關係</h6>
-					<input type="text" id="fname" class="form-control col-12 mb-4 mx-4"
+					<input type="text"  class="form-control col-12 mb-4 mx-4"
 						name="guarantorRelation" value="${param.guarantorRelation}">
 				</div>
 			</div>
@@ -89,13 +89,13 @@
 			<div class="row lg-mx-5">
 				<div class="col lg-mx-5 ">
 					<h6 class="text-black-opacity-05 mx-4">身份字號</h6>
-					<input type="text" id="fname"
+					<input type="text"
 						class="form-control col-12 mx-4 mb-4"
 						name="guarantorIdNumber" value="${param.guarantorIdNumber}">
 				</div>
 				<div class="col lg-mx-5">
 					<h6 class="text-black-opacity-05 mx-4">聯絡手機號碼</h6>
-					<input type="text" id="fname"
+					<input type="text" 
 						class="form-control mx-4 col-12 mb-4" name="guarantorPhone"
 						value="${param.guarantorPhone}">
 				</div>
