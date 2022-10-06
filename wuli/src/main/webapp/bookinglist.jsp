@@ -7,9 +7,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<c:if test="${empty LoginOK}">
+<%-- <c:if test="${empty LoginOK}">
 	<c:redirect url="/login/login.jsp" />
-</c:if>
+</c:if> --%>
 <title>${SYSTEM.systemName}-預約管理</title>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -138,37 +138,7 @@
 <script
 	src="${pageContext.request.contextPath}/landlordRepairForm/landlordRepairForm.js"></script>
 </head>
-<style>
-body{
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #F6F8FA;
-}
-
-.bluebutton:hover {
-	color: #37cfa2;
-	border: 2px solid #37cfa2;
-	background-color: #37cfa2;
-}
-
-.btn-success {
-	color: #37cfa2;
-	background-color: #37cfa2;
-	border-color: #37cfa2;
-}
-
-.bluebutton {
-	padding: 2px;
-	background-color: #37cfa2;
-	color: white;
-}
-
-.bluebutton:hover {
-	color: #37cfa2;
-	border: 2px solid #37cfa2;
-	background-color: white;
-}
-</style>
-<body>
+<body style="background-color: #F6F8FA;">
 	<header>
 		<%@include file="fragment/menu_index.jsp"%>
 	</header>
@@ -264,10 +234,10 @@ body{
 					</tr>
 					<%
 					if (request.getAttribute("booklist") != null) {
-					    ArrayList al = (ArrayList) request.getAttribute("booklist");
-					    Iterator itr = al.iterator();
-					    while (itr.hasNext()) {
-					      ArrayList booklist = (ArrayList) itr.next();
+						ArrayList al = (ArrayList) request.getAttribute("booklist");
+						Iterator itr = al.iterator();
+						while (itr.hasNext()) {
+							ArrayList booklist = (ArrayList) itr.next();
 					%>
 					<tr>
 						<td><%=booklist.get(1)%></td>
@@ -288,7 +258,7 @@ body{
 					</tr>
 					<%
 					}
-					  }
+					}
 					%>
 				</thead>
 			</table>
@@ -302,181 +272,182 @@ body{
 
 	<!--  -------------------------------放footer-------------------------------------------------->
 
-<jsp:include page="fragment/footer.jsp" />
+	<jsp:include page="fragment/footer.jsp" />
 
-<!-- bootstrap JS============================================ -->
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<!-- bootstrap JS============================================ -->
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
-<!-- wow JS============================================ -->
-<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
+	<!-- wow JS============================================ -->
+	<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
 
-<!-- price-slider JS============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/jquery-price-slider.js"></script>
+	<!-- price-slider JS============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/jquery-price-slider.js"></script>
 
-<!-- owl.carousel JS
+	<!-- owl.carousel JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 
-<!-- scrollUp JS
+	<!-- scrollUp JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/jquery.scrollUp.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.scrollUp.min.js"></script>
 
-<!-- meanmenu JS
+	<!-- meanmenu JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/meanmenu/jquery.meanmenu.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/meanmenu/jquery.meanmenu.js"></script>
 
-<!-- counterup JS
+	<!-- counterup JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/counterup/jquery.counterup.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/counterup/waypoints.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/counterup/counterup-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/counterup/jquery.counterup.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/counterup/waypoints.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/counterup/counterup-active.js"></script>
 
-<!-- mCustomScrollbar JS
+	<!-- mCustomScrollbar JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 
-<!-- sparkline JS
+	<!-- sparkline JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/sparkline/sparkline-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/sparkline/sparkline-active.js"></script>
 
-<!-- flot JS
+	<!-- flot JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/flot/jquery.flot.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/flot/jquery.flot.resize.js"></script>
-<script src="${pageContext.request.contextPath}/js/flot/flot-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/flot/jquery.flot.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/flot/jquery.flot.resize.js"></script>
+	<script src="${pageContext.request.contextPath}/js/flot/flot-active.js"></script>
 
-<!-- knob JS
+	<!-- knob JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/knob/jquery.knob.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/knob/jquery.appear.js"></script>
-<script src="${pageContext.request.contextPath}/js/knob/knob-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/knob/jquery.knob.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/knob/jquery.appear.js"></script>
+	<script src="${pageContext.request.contextPath}/js/knob/knob-active.js"></script>
 
-<!-- icheck JS
+	<!-- icheck JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/icheck/icheck.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/icheck/icheck-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/icheck/icheck.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/icheck/icheck-active.js"></script>
 
-<!--  Chat JS
+	<!--  Chat JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/chat/jquery.chat.js"></script>
+	<script src="${pageContext.request.contextPath}/js/chat/jquery.chat.js"></script>
 
-<!--  todo JS
+	<!--  todo JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/todo/jquery.todo.js"></script>
+	<script src="${pageContext.request.contextPath}/js/todo/jquery.todo.js"></script>
 
-<!--  wave JS
+	<!--  wave JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/wave/waves.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/wave/wave-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/wave/waves.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/wave/wave-active.js"></script>
 
-<!-- autosize JS
+	<!-- autosize JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/autosize.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/autosize.min.js"></script>
 
-<!-- plugins JS
+	<!-- plugins JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
+	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
 
-<!-- main JS
+	<!-- main JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 
-<!-- tawk chat JS
+	<!-- tawk chat JS
 ============================================ -->
-<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
 
-<!-- Input Mask JS
+	<!-- Input Mask JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/jasny-bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jasny-bootstrap.min.js"></script>
 
-<!-- icheck JS
+	<!-- icheck JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/icheck/icheck.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/icheck/icheck-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/icheck/icheck.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/icheck/icheck-active.js"></script>
 
 
-<!-- rangle-slider JS
+	<!-- rangle-slider JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/rangle-slider/jquery-ui-1.10.4.custom.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/rangle-slider/jquery-ui-touch-punch.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/rangle-slider/rangle-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/rangle-slider/jquery-ui-1.10.4.custom.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/rangle-slider/jquery-ui-touch-punch.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/rangle-slider/rangle-active.js"></script>
 
-<!-- datapicker JS
+	<!-- datapicker JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/datapicker/bootstrap-datepicker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/datapicker/bootstrap-datepicker.js"></script>
 
 
-<!-- bootstrap select JS
+	<!-- bootstrap select JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/bootstrap-select/bootstrap-select.js"></script>
-<!--  color-picker JS
+	<script
+		src="${pageContext.request.contextPath}/js/bootstrap-select/bootstrap-select.js"></script>
+	<!--  color-picker JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/color-picker/farbtastic.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/color-picker/color-picker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/color-picker/farbtastic.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/color-picker/color-picker.js"></script>
 
-<!--  notification JS
+	<!--  notification JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/notification/bootstrap-growl.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/notification/notification-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/notification/bootstrap-growl.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/notification/notification-active.js"></script>
 
-<!--  summernote JS
+	<!--  summernote JS
         ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/summernote/summernote-updated.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/summernote/summernote-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/summernote/summernote-updated.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/summernote/summernote-active.js"></script>
 
-<!-- dropzone JS
+	<!-- dropzone JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
-<!--  chosen JS
+	<script
+		src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
+	<!--  chosen JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/chosen/chosen.jquery.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/chosen/chosen.jquery.js"></script>
 
-<!-- cropper JS
+	<!-- cropper JS
 ============================================ -->
-<script
-  src="${pageContext.request.contextPath}/js/cropper/cropper.min.js"></script>
-<script
-  src="${pageContext.request.contextPath}/js/cropper/cropper-actice.js"></script>
-<script
-  src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
-<script src="${pageContext.request.contextPath}/landlordMvc/mylandlordInfo.js"></script>
-<script>
-  $(document).ready(function(){
+	<script
+		src="${pageContext.request.contextPath}/js/cropper/cropper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/cropper/cropper-actice.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/file/jquery.twzipcode.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/landlordMvc/mylandlordInfo.js"></script>
+	<script>
+		$(document).ready(function() {
 
-    //$('#myMenu').load('menu_index');
-    $('#profile').load('showLandlordInfo');
-    //$('#myFooter').load('footer');
-  })
-</script>
+			//$('#myMenu').load('menu_index');
+			$('#profile').load('showLandlordInfo');
+			//$('#myFooter').load('footer');
+		})
+	</script>
 </body>
 </html>

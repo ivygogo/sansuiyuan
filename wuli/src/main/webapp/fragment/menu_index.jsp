@@ -5,7 +5,8 @@
 	<div class="main-menu-area mg-tb-40">
 		<div class="container">
 			<div class="row">
-				<ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro" style="margin-left: 10%;">
+				<ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro"
+					style="margin-left: 10%;">
 					<li><img
 						src='<c:url value="/images/contractQueryImg/icon.png" ></c:url>'
 						width="100" height="50"></li>

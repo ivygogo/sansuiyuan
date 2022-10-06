@@ -187,12 +187,8 @@ input {
 	height: 15px;
 }
 </style>
-
-
 </head>
-
 <body>
-
 
 	<%@include file="fragment/menu_index.jsp"%>
 
