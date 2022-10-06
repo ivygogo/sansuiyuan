@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:if test="${empty LoginOK}">
-	<c:redirect url="/login/login.jsp" />
-</c:if>
+<%-- <c:if test="${empty LoginOK}"> --%>
+<%-- 	<c:redirect url="/login/login.jsp" /> --%>
+<%-- </c:if> --%>
 <title>${SYSTEM.systemName}-合約查詢</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -226,7 +226,7 @@ input {
 
 
 	<div id="status1" class="overflow-auto"
-		style="margin-top: 1px; border-radius: 20px;">
+		style="margin-top: 1px; border-radius: 20px; background-color: white;">
 		<table class="table">
 			<thead>
 				<tr style="background-color: #01c293;">
@@ -314,7 +314,7 @@ input {
 
 
 	<div id="status2" class="overflow-auto"
-		style="margin-top: 1px; border-radius: 20px;">
+		style="margin-top: 1px; border-radius: 20px; background-color: white;">
 		<table class="table">
 			<thead>
 				<tr style="background-color: #01c293;">
@@ -384,7 +384,7 @@ input {
 
 	<!-- -------------- ------------------------------------------------>
 	<div
-		style="position: relative; border: 1px solid #01c293; height: 1000px; width: 90%; border-radius: 50px;"
+		style="position: relative; border: 1px solid #01c293; height: 1000px; width: 90%; border-radius: 50px; background-color: white;"
 		class="container-fluid">
 		<div style="margin: 0px 0 0 1200px"></div>
 		<div style="position: relative; padding: 30px;">
