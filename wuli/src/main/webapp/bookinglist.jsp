@@ -7,9 +7,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<c:if test="${empty LoginOK}">
-  <c:redirect url="/login/login.jsp" />
-</c:if>
+<%-- <c:if test="${empty LoginOK}"> --%>
+<%--   <c:redirect url="/login/login.jsp" /> --%>
+<%-- </c:if> --%>
 <title>${SYSTEM.systemName}-聊天室</title>
 <meta charset="utf-8">
 <meta name="viewport"
