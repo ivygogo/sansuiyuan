@@ -185,6 +185,7 @@
 
 									</div>
 								</div>
+								<br>
 								<div class="row">
 									<div class="col-6">
 										<label class="form-label">(縣/市)：</label> <input type="text"
@@ -201,7 +202,7 @@
 
 									</div>
 								</div>
-
+								<br>
 								<div class="row">
 									<div class="col-12">
 										<label class="form-label">地址：</label> <input type="text"
