@@ -7,29 +7,29 @@
 landlordCounty="";
 landlordDistrict="";
 
-$.getJSON('LandlordInfo.do').then(res => {    
+$.getJSON('LandlordInfo.do').then(res => {
     <%--console.log(res);--%>
     $("input[name='landlordName']").val(res.resultData.name);
     $("input[name='landlordPhone']").val(res.resultData.phone);
     landlordCounty += res.resultData.county;
     landlordDistrict += res.resultData.district;
-    
+
     $("#zipzip").twzipcode('set', {
         'county': landlordCounty,
         'district': landlordDistrict,
     });
-    
+
     $('.selectpicker').selectpicker('refresh');
     $("input[name='landlordAddress']").val(res.resultData.address);
     $("input[name='landlordMail']").val(res.resultData.mail);
-   
+
     $("#desc").text(res.resultData.stamp);
     let landlordStamp = res.resultImg;
     $('.preview').attr("src" , landlordStamp);
-   
-}) 
- 
- 
+
+})
+
+
 $(function(){
 	document.getElementById('upload_img').onchange = fileChange
 	function fileChange(){
@@ -37,8 +37,8 @@ $(function(){
 	     message = file.name
 	     document.getElementById('desc').textContent = message;
 	 }
-	 
-	
+
+
  function format_float(num, pos){
      var size = Math.pow(10, pos);
      return Math.round(num * size) / size;
@@ -68,7 +68,7 @@ $(function() {
           'districtSel' : "" ,
           zipcodeIntoDistrict : true,
           css : [ "county form-control", "district form-control" ],
-          countyName : "county", 
+          countyName : "county",
           districtName : "district",
           onCountySelect : changecb,
           onDistrictSelect : changecb
@@ -86,7 +86,7 @@ $(function() {
           $('.selectpicker').selectpicker('refresh');
         }
       });
-     
+
   $(function() {
       var oldChild = document.getElementById('inputState');
       var wrapper = document.createElement('div');
@@ -97,7 +97,7 @@ $(function() {
       oldParent.appendChild(wrapper);
       wrapper.appendChild(wrapper2);
       wrapper2.appendChild(oldChild);
-      
+
       var oldChild2 = document.getElementById('inputState2');
       var wrapper3 = document.createElement('div');
       wrapper3.className = "col-lg-3 col-md-6 col-sm-6 col-xs-12";
@@ -106,13 +106,11 @@ $(function() {
       oldParent.appendChild(wrapper3);
       wrapper3.appendChild(wrapper4);
       wrapper4.appendChild(oldChild2);
-    
+
       $('.selectpicker').selectpicker('refresh');
     })
-    
-</script>
 
-<body>
+</script>
 
 	<div class="breadcomb-area">
 		<div class="container">
@@ -179,14 +177,10 @@ $(function() {
 
 							<div class="row ms-5 mt-3">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-
 									<h4 class="text-black">地址</h4>
-
 									<div class="row mt-4">
 										<div class="form-group">
 											<div class="form-row" id="zipzip"></div>
-
 											<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 												<div class="form-group me-5">
 													<div class="nk-int-st">
@@ -198,8 +192,6 @@ $(function() {
 										</div>
 
 									</div>
-
-
 								</div>
 							</div>
 
@@ -231,7 +223,7 @@ $(function() {
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 													<div class="size mt-1"></div>
 													<div id="desc" class="mt-1"></div>
-													
+
 												</div>
 											</div>
 
@@ -247,7 +239,7 @@ $(function() {
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="row mx-5 mt-4">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="" style="display: flex; justify-content: center;">
@@ -256,10 +248,12 @@ $(function() {
                 </div>
               </div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
-				
+      </div>
+
 			</div>
 	</form>
+ </div>

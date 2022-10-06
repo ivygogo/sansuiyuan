@@ -2,18 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<script type="text/javascript">
-$.getJSON('/home/common/RepairForm.do?doJob=getProject').then(res => {
-	console.log(res)
-	let projectOption="";
-	for (let i = 0; i < res.furnitureList.length; i++) {
-		projectOption += "<option value='" + res.furnitureList[i] + "'>" + res.furnitureList[i] + "</option>";
-	}
-	$('#inputState').append(projectOption);
-});
-</script>
-
-
 <div class="row mb-1 mt-5 ml-3">
 	<div class="col-md-12 text-left">
 		<div class="" style="display: flex; justify-content: center;">
