@@ -1,4 +1,5 @@
 $(function () {
+  window.onresize = decideBlockSize
 
   let name1  //  要發訊息的人    //TODO (從會員資料)
   let name2
@@ -180,7 +181,6 @@ $(function () {
   //決定block大小 ------------------
   function decideBlockSize() {
     const windowInnerWidth = window.innerWidth
-
     if (windowInnerWidth >= 810) {
       const leftWidth = (windowInnerWidth - 100) / 3
       const rightWidth = windowInnerWidth - leftWidth - 50
