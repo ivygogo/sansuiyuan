@@ -351,7 +351,7 @@ $(function () {
       `)
       }
 
-      if (message.sender === name1) {
+      if (`${message.sender}` === name1) {
         $('.chat-inside-block').append(`
        <div class="send-message-block row m-3">
         <span class="col-4"></span>
