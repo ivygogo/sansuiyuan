@@ -31,8 +31,8 @@ $("#desc").text(objResult.result.stamp);
 
 }
 });
- 
- 
+
+
 $(function(){
 	document.getElementById('upload_img').onchange = fileChange
 	function fileChange(){
@@ -43,8 +43,8 @@ $(function(){
 	     document.getElementById('desc').textContent = message;
 	     //alert(message)
 	 }
-	 
-	
+
+
  function format_float(num, pos){
      var size = Math.pow(10, pos);
      return Math.round(num * size) / size;
@@ -74,8 +74,8 @@ $(function() {
           'districtSel' : landlordDistrict,
           zipcodeIntoDistrict : true,
           css : [ "county form-control", "district form-control" ],
-          countyName : "county", 
-          districtName : "district", 
+          countyName : "county",
+          districtName : "district",
           onCountySelect : changecb,
           onDistrictSelect : changecb
         });
@@ -92,40 +92,40 @@ $(function() {
           $('.selectpicker').selectpicker('refresh');
         }
       });
-     
+
   $(function() {
       var oldChild = document.getElementById('inputState');
-      
+
       var wrapper = document.createElement('div');
       wrapper.className = "col-lg-3 col-md-6 col-sm-6 col-xs-12"
-      
+
       var wrapper2 = document.createElement('div');
       wrapper2.className = "bootstrap-select fm-cmp-mg pt-2"
-      
+
       var oldParent = document.getElementById('zipzip');
-      
+
       oldParent.appendChild(wrapper);
       wrapper.appendChild(wrapper2);
       wrapper2.appendChild(oldChild);
-      
-      
+
+
       var oldChild2 = document.getElementById('inputState2');
       var wrapper3 = document.createElement('div');
       wrapper3.className = "col-lg-3 col-md-6 col-sm-6 col-xs-12";
-      
-      
+
+
       var wrapper4 = document.createElement('div');
       wrapper4.className = "bootstrap-select fm-cmp-mg pt-2";
-      
-      
-      
+
+
+
       oldParent.appendChild(wrapper3);
       wrapper3.appendChild(wrapper4);
       wrapper4.appendChild(oldChild2);
-    
+
       $('.selectpicker').selectpicker('refresh');
     })
-    
+
 $(function(){
 	if(resultJson.length!=0){
 	const objErr = JSON.parse(errJson);
@@ -151,7 +151,7 @@ $(function(){
 	      }
 	}
 	}
-})    
+})
 </script>
 
 <body>
@@ -307,6 +307,7 @@ $(function(){
 						</div>
 					</div>
 				</div>
-
+      </div>
 			</div>
 	</form>
+  </div>

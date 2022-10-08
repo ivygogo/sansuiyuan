@@ -1,5 +1,6 @@
 //todo  可直接開啟聊天室?? 可強開已關閉的聊天室??  需不需要disable??
 $(function () {
+  window.onresize = decideBlockSize
 
   const name1 = 0 //
   let name2 //接收訊息的人targetId
