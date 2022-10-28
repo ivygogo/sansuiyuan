@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.pdf.EncryptionConstants;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.layout.font.FontProvider;
 import java.io.File;
 import java.io.FileInputStream;
@@ -100,15 +103,24 @@ public class HtmlToPDFServlet extends HttpServlet {
       testHtmlToPDF.createPdf(
           pdfString,
           request.getServletContext().getRealPath("rent/") + map.get("pdfName") + ".pdf",
-          converterProperties);
+          converterProperties,
+          map.get("ID"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
   }
 
   // src 是要轉的html路徑+名稱,dest是轉出來的pdf路徑名稱,converterProperties是所需要的字型
-  public void createPdf(String src, String dest, ConverterProperties converterProperties)
+  public void createPdf(String src, String dest, ConverterProperties converterProperties, String id)
       throws IOException {
-    HtmlConverter.convertToPdf(src, new FileOutputStream(dest), converterProperties);
+    WriterProperties props =
+        new WriterProperties()
+            .setStandardEncryption(
+                id.getBytes(),
+                null,
+                EncryptionConstants.ALLOW_PRINTING,
+                EncryptionConstants.ENCRYPTION_AES_128);
+    PdfWriter writer = new PdfWriter(new FileOutputStream(dest), props);
+    HtmlConverter.convertToPdf(src, writer, converterProperties);
   }
 }
