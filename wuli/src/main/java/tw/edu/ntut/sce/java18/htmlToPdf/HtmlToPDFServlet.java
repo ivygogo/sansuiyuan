@@ -66,7 +66,8 @@ public class HtmlToPDFServlet extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
     System.out.println("START PDF");
     Map<String, String> requestBody = parseRequestBody(request);
-    System.out.println("PDFName:" + requestBody.get("pdfName"));
+    String pdfName = getPdfName(requestBody);
+    System.out.println("PDFName:" + pdfName);
     try {
       Calendar cal = Calendar.getInstance();
       cal.setTime(new java.util.Date());
@@ -103,7 +104,7 @@ public class HtmlToPDFServlet extends HttpServlet {
 
       createPdf(
           pdfString,
-          request.getServletContext().getRealPath("rent/") + requestBody.get("pdfName") + ".pdf",
+          request.getServletContext().getRealPath("rent/") + pdfName + ".pdf",
           DEFAULT_CONVERTER_PROPERTIES,
           requestBody.get("ID"));
     } catch (IOException e) {
@@ -115,6 +116,14 @@ public class HtmlToPDFServlet extends HttpServlet {
     Type type = new TypeToken<Map<String, String>>() {}.getType();
     String body = request.getReader().lines().collect(Collectors.joining());
     return new Gson().fromJson(body, type);
+  }
+
+  private String getPdfName(Map<String, String> requestBody) {
+    return requestBody.get("startYYY")
+        + requestBody.get("roomBuilding")
+        + requestBody.get("roomPosition")
+        + requestBody.get("roomFloor")
+        + requestBody.get("roomType");
   }
 
   // src 是要轉的html路徑+名稱,dest是轉出來的pdf路徑名稱,converterProperties是所需要的字型

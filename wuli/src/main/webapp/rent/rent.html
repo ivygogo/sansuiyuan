@@ -23,7 +23,7 @@
                                 display: block;">房型資訊</h2>
                         <div class="d-flex flex-column select-block">
                             <div class="bg-white w-75 ms-auto me-auto border select-regin">
-                                <div class="text-center"> 
+                                <div class="text-center">
                                     <span>大樓：</span>
                                     <select class="w-50 text-center form-select form-select-sm d-inline" id="room-building">
                                         <option value="0">請選擇</option>
@@ -33,9 +33,9 @@
                                 </div>
                             </div>
                             <div class="bg-white w-75 ms-auto me-auto border select-regin">
-                                <div class="text-center"> 
+                                <div class="text-center">
                                     <span>房型：</span>
-                                    <select class="w-50 text-center form-select form-select-sm d-inline" id="room-type"> <!-- onchange="changeRoomType()" -->   
+                                    <select class="w-50 text-center form-select form-select-sm d-inline" id="room-type"> <!-- onchange="changeRoomType()" -->
                                         <option value="0">請選擇</option>
                                         <option value="A">單人A</option>
                                         <option value="B">單人B</option>
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="bg-white w-75 ms-auto me-auto border select-regin">
-                                <div class="text-center"> 
+                                <div class="text-center">
                                     <span>樓層：</span>
                                     <select class="w-50 text-center form-select form-select-sm d-inline " id="room-floor">
                                         <option value="0">請選擇</option>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="bg-white w-75 ms-auto me-auto border select-regin">
-                                <div class="text-center"> 
+                                <div class="text-center">
                                     <span>位置：</span>
                                     <select class="w-50 text-center form-select form-select-sm d-inline" id="room-position">
                                         <option value="0">請選擇</option>
@@ -95,8 +95,8 @@
                 </div>
 
          <!-- 租客資訊 -->
-                <div class="col-md-8 col-12"> 
-                    <div class="border tenant-information"> 
+                <div class="col-md-8 col-12">
+                    <div class="border tenant-information">
                         <div class="d-flex pt-5">
                             <h2 class="mx-5">租客資訊</h2> <span id="renterUid" style=""></span>
                             <input onclick="addRent()" type="image" src="../wuli/img/add.png" alt="加入" title="加入" width="25px" class="my-auto mx-4" >
@@ -326,7 +326,7 @@
             </div>
         </div>
     </body>
-    
+
 <script>
     function addRent() {
     	const idNumber = window.prompt("請輸入身分證字號");
@@ -334,7 +334,7 @@
          if (idNumber !== null || "") {
         //	 console.log(idnumber);
         //request.parameper("id",idnumber);
-        
+
            $.ajax({
         	     url:"/wuli/rent.do",
         	     type:"POST",
@@ -355,21 +355,21 @@
         	  	 err: function(){
         		   console.error("error")}
            })
-         } 
+         }
     }
 </script>
 <script>
 	  var storage = localStorage;
-function contractRent(){    
+function contractRent(){
     var renter = document.getElementById("inputRenter").value;
     var inputStart = document.getElementById("inputStart").value;
     var startYYY = inputStart.substr(0,4)-1911;
     var startMM = inputStart.substr(5,2);
-    var startDD = inputStart.substr(8,2); 
+    var startDD = inputStart.substr(8,2);
     var inputEnd = document.getElementById("inputEnd").value;
-    var endYYY = inputEnd.substr(0,4)-1911; 
+    var endYYY = inputEnd.substr(0,4)-1911;
     var endMM = inputEnd.substr(5,2);
-    var endDD = inputEnd.substr(8,2); 
+    var endDD = inputEnd.substr(8,2);
     var rent = document.getElementById("inputRent").innerHTML;
     var deposit = document.getElementById("inputDeposit").innerHTML;
     var ID = document.getElementById("inputID").value;
@@ -384,12 +384,11 @@ function contractRent(){
     var roomFloor = document.getElementById("room-floor").value;
     var roomType = document.getElementById("room-type").value;
     var roomNumber = roomBuilding + roomPosition + roomFloor + roomType ;
-    var pdfName = startYYY + roomBuilding + roomPosition + roomFloor + roomType ;
     var rentUid = document.getElementById("renterUid").value;
     var startYYYY = inputStart.substr(0,4);
     var endYYYY = inputEnd.substr(0,4);
     var roomStatus = document.getElementById("room-status").innerHTML;
-    
+
 
 /* 檢查空格 */
     if (!(
@@ -408,18 +407,18 @@ function contractRent(){
     )){
         alert("請填寫完整!");
         return false;
-    } 
-/* 檢查房間是否未租*/   
+    }
+/* 檢查房間是否未租*/
     if(roomStatus !='未租賃'){
         alert("房間租賃中");
         return false;
       }
 /* 檢查合約日期是否合理 */
-    let date = new Date(); 
+    let date = new Date();
     let curYYYY = date.getFullYear();
     let curMM = String(date.getMonth() + 1).padStart(2, '0');
     let curDD = String(date.getDate()).padStart(2, '0');
-    
+
     var today = curYYYY+curMM+curDD+"";
     console.log(today);
     var start = $('#inputStart').val().replaceAll('-','');
@@ -427,15 +426,15 @@ function contractRent(){
        alert("起始日期不能小於當天日期")
        return false;
     }
-        
+
     var end = $('#inputEnd').val().replaceAll('-','');
       if(parseInt(start) -  parseInt(end) > 0){
     	  alert("结束日期不能小於起始日期");
         return false;
       }
 
-    
-    
+
+
     const contract = {
     		  renter,
     		  startYYY,
@@ -458,13 +457,12 @@ function contractRent(){
     		  roomFloor,
     		  roomType,
     		  roomNumber,
-    		  pdfName,
     		  rentUid,
     		  startYYYY,
     		  endYYYY
     		}
     		storage.setItem("contract", JSON.stringify(contract))
-    
+
     storage.setItem("renter",renter)
     storage.setItem("startYYY",startYYY)
     storage.setItem("startMM",startMM)
@@ -485,12 +483,11 @@ function contractRent(){
     storage.setItem("roomPosition",roomPosition)
     storage.setItem("roomFloor",roomFloor)
     storage.setItem("roomType",roomType)
-    storage.setItem("pdfName",pdfName)
     storage.setItem("rentUid",rentUid)
     storage.setItem("startYYYY",startYYYY)
     storage.setItem("endYYYY",endYYYY)
 
-    window.location.href='/wuli/rent/contract.jsp';    
+    window.location.href='/wuli/rent/contract.jsp';
 }
 
 </script>
