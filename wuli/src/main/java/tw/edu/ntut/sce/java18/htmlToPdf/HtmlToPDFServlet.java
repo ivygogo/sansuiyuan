@@ -16,6 +16,7 @@ import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +29,18 @@ import org.apache.commons.io.IOUtils;
 public class HtmlToPDFServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
+
+  private static final ConverterProperties DEFAULT_CONVERTER_PROPERTIES = new ConverterProperties();
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    // 設定字型
+    FontProvider fontProvider = new FontProvider();
+    fontProvider.addFont(config.getServletContext().getRealPath("fonts/") + "MSJH.TTC");
+    fontProvider.addStandardPdfFonts();
+    fontProvider.addSystemFonts(); // for fallback
+    DEFAULT_CONVERTER_PROPERTIES.setFontProvider(fontProvider);
+  }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,15 +70,6 @@ public class HtmlToPDFServlet extends HttpServlet {
     Map<String, String> map = new Gson().fromJson(body, type);
     System.out.println("PDFName:" + map.get("pdfName"));
     try {
-      ConverterProperties converterProperties = new ConverterProperties();
-
-      // 設定字型
-      FontProvider fontProvider = new FontProvider();
-      fontProvider.addFont(request.getServletContext().getRealPath("fonts/") + "MSJH.TTC");
-      fontProvider.addStandardPdfFonts();
-      fontProvider.addSystemFonts(); // for fallback
-      converterProperties.setFontProvider(fontProvider);
-
       Calendar cal = Calendar.getInstance();
       cal.setTime(new java.util.Date());
       var year = cal.get(Calendar.YEAR) - 1911;
@@ -102,7 +106,7 @@ public class HtmlToPDFServlet extends HttpServlet {
       createPdf(
           pdfString,
           request.getServletContext().getRealPath("rent/") + map.get("pdfName") + ".pdf",
-          converterProperties,
+          DEFAULT_CONVERTER_PROPERTIES,
           map.get("ID"));
     } catch (IOException e) {
       throw new RuntimeException(e);
