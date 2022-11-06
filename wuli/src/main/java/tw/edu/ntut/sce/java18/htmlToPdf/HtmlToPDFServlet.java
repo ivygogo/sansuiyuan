@@ -58,10 +58,6 @@ public class HtmlToPDFServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    processRequest(request, response);
-  }
-
-  public void processRequest(HttpServletRequest request, HttpServletResponse response) {
     try {
       request.setCharacterEncoding("UTF-8");
       System.out.println("START PDF");
