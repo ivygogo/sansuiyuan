@@ -64,11 +64,9 @@ public class HtmlToPDFServlet extends HttpServlet {
   public void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
     request.setCharacterEncoding("UTF-8");
-    String body = request.getReader().lines().collect(Collectors.joining());
     System.out.println("START PDF");
-    Type type = new TypeToken<Map<String, String>>() {}.getType();
-    Map<String, String> map = new Gson().fromJson(body, type);
-    System.out.println("PDFName:" + map.get("pdfName"));
+    Map<String, String> requestBody = parseRequestBody(request);
+    System.out.println("PDFName:" + requestBody.get("pdfName"));
     try {
       Calendar cal = Calendar.getInstance();
       cal.setTime(new java.util.Date());
@@ -82,35 +80,41 @@ public class HtmlToPDFServlet extends HttpServlet {
                   new File(
                       // "/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/rent/contractPdfUse.html"
                       request.getServletContext().getRealPath("rent/") + "contractPdfUse.html"))
-              .replaceAll("INPUT_RENTER", map.get("renter"))
-              .replaceAll("START_YYYY", map.get("startYYY"))
-              .replaceAll("START_MM", map.get("startMM"))
-              .replaceAll("START_DD", map.get("startDD"))
-              .replaceAll("END_YYYY", map.get("endYYY"))
-              .replaceAll("END_MM", map.get("endMM"))
-              .replaceAll("END_DD", map.get("endDD"))
-              .replace("RENT_FEE", map.get("rent"))
-              .replace("DEPOSIT_FEE", map.get("deposit"))
-              .replaceAll("RENTER_ID", map.get("ID"))
-              .replace("RENTER_PHONE", map.get("phone"))
-              .replace("RENTER_ADDRESS", map.get("address"))
-              .replaceAll("INPUT_GUARNTOR", map.get("guarntor"))
-              .replaceAll("GUARNTOR_ID", map.get("guarntorID"))
-              .replaceAll("GUARNTOR_PHONE", map.get("guarntorPhone"))
-              .replaceAll("GUARNTOR_ADDRESS", map.get("guarntorAddress"))
-              .replace("RENTER_SIGN", map.get("renterSign"))
-              .replace("GUARANTOR_SIGN", map.get("guarantorSign"))
-              .replace("CONFIRM_SIGN", map.get("confirmSign"))
+              .replaceAll("INPUT_RENTER", requestBody.get("renter"))
+              .replaceAll("START_YYYY", requestBody.get("startYYY"))
+              .replaceAll("START_MM", requestBody.get("startMM"))
+              .replaceAll("START_DD", requestBody.get("startDD"))
+              .replaceAll("END_YYYY", requestBody.get("endYYY"))
+              .replaceAll("END_MM", requestBody.get("endMM"))
+              .replaceAll("END_DD", requestBody.get("endDD"))
+              .replace("RENT_FEE", requestBody.get("rent"))
+              .replace("DEPOSIT_FEE", requestBody.get("deposit"))
+              .replaceAll("RENTER_ID", requestBody.get("ID"))
+              .replace("RENTER_PHONE", requestBody.get("phone"))
+              .replace("RENTER_ADDRESS", requestBody.get("address"))
+              .replaceAll("INPUT_GUARNTOR", requestBody.get("guarntor"))
+              .replaceAll("GUARNTOR_ID", requestBody.get("guarntorID"))
+              .replaceAll("GUARNTOR_PHONE", requestBody.get("guarntorPhone"))
+              .replaceAll("GUARNTOR_ADDRESS", requestBody.get("guarntorAddress"))
+              .replace("RENTER_SIGN", requestBody.get("renterSign"))
+              .replace("GUARANTOR_SIGN", requestBody.get("guarantorSign"))
+              .replace("CONFIRM_SIGN", requestBody.get("confirmSign"))
               .replaceAll("TODAY", today);
 
       createPdf(
           pdfString,
-          request.getServletContext().getRealPath("rent/") + map.get("pdfName") + ".pdf",
+          request.getServletContext().getRealPath("rent/") + requestBody.get("pdfName") + ".pdf",
           DEFAULT_CONVERTER_PROPERTIES,
-          map.get("ID"));
+          requestBody.get("ID"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private Map<String, String> parseRequestBody(HttpServletRequest request) throws IOException {
+    Type type = new TypeToken<Map<String, String>>() {}.getType();
+    String body = request.getReader().lines().collect(Collectors.joining());
+    return new Gson().fromJson(body, type);
   }
 
   // src 是要轉的html路徑+名稱,dest是轉出來的pdf路徑名稱,converterProperties是所需要的字型
