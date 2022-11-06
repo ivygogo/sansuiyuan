@@ -56,7 +56,6 @@ public class HtmlToPDFServlet extends HttpServlet {
     Type type = new TypeToken<Map<String, String>>() {}.getType();
     Map<String, String> map = new Gson().fromJson(body, type);
     System.out.println("PDFName:" + map.get("pdfName"));
-    HtmlToPDFServlet testHtmlToPDF = new HtmlToPDFServlet();
     try {
       ConverterProperties converterProperties = new ConverterProperties();
 
@@ -100,7 +99,7 @@ public class HtmlToPDFServlet extends HttpServlet {
               .replace("CONFIRM_SIGN", map.get("confirmSign"))
               .replaceAll("TODAY", today);
 
-      testHtmlToPDF.createPdf(
+      createPdf(
           pdfString,
           request.getServletContext().getRealPath("rent/") + map.get("pdfName") + ".pdf",
           converterProperties,
@@ -111,7 +110,8 @@ public class HtmlToPDFServlet extends HttpServlet {
   }
 
   // src 是要轉的html路徑+名稱,dest是轉出來的pdf路徑名稱,converterProperties是所需要的字型
-  public void createPdf(String src, String dest, ConverterProperties converterProperties, String id)
+  private void createPdf(
+      String src, String dest, ConverterProperties converterProperties, String id)
       throws IOException {
     WriterProperties props =
         new WriterProperties()
