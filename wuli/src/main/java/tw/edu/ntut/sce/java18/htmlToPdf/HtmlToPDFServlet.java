@@ -69,11 +69,6 @@ public class HtmlToPDFServlet extends HttpServlet {
     String pdfName = getPdfName(requestBody);
     System.out.println("PDFName:" + pdfName);
     try {
-      Calendar cal = Calendar.getInstance();
-      var year = cal.get(Calendar.YEAR) - 1911;
-      var month = cal.get(Calendar.MONTH) + 1;
-      var day = cal.get(Calendar.DAY_OF_MONTH);
-      String today = year + " 年 " + month + " 月 " + day + " 日 ";
       // System.out.println(today);
       var pdfString =
           FileUtils.readFileToString(
@@ -99,7 +94,7 @@ public class HtmlToPDFServlet extends HttpServlet {
               .replace("RENTER_SIGN", requestBody.get("renterSign"))
               .replace("GUARANTOR_SIGN", requestBody.get("guarantorSign"))
               .replace("CONFIRM_SIGN", requestBody.get("confirmSign"))
-              .replaceAll("TODAY", today);
+              .replaceAll("TODAY", getTodayLiteral());
 
       createPdf(
           pdfString,
@@ -123,6 +118,14 @@ public class HtmlToPDFServlet extends HttpServlet {
         + requestBody.get("roomPosition")
         + requestBody.get("roomFloor")
         + requestBody.get("roomType");
+  }
+
+  private String getTodayLiteral() {
+    Calendar cal = Calendar.getInstance();
+    var year = cal.get(Calendar.YEAR) - 1911;
+    var month = cal.get(Calendar.MONTH) + 1;
+    var day = cal.get(Calendar.DAY_OF_MONTH);
+    return year + " 年 " + month + " 月 " + day + " 日 ";
   }
 
   // src 是要轉的html路徑+名稱,dest是轉出來的pdf路徑名稱,converterProperties是所需要的字型
