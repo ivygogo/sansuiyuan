@@ -61,16 +61,15 @@ public class HtmlToPDFServlet extends HttpServlet {
     processRequest(request, response);
   }
 
-  public void processRequest(HttpServletRequest request, HttpServletResponse response)
-      throws IOException, ServletException {
-    request.setCharacterEncoding("UTF-8");
-    System.out.println("START PDF");
-    Map<String, String> requestBody = parseRequestBody(request);
-    String pdfName = getPdfName(requestBody);
-    System.out.println("PDFName:" + pdfName);
+  public void processRequest(HttpServletRequest request, HttpServletResponse response) {
     try {
-      String pdfContent = preparePdfContent(request, requestBody);
+      request.setCharacterEncoding("UTF-8");
+      System.out.println("START PDF");
+      Map<String, String> requestBody = parseRequestBody(request);
+      String pdfName = getPdfName(requestBody);
+      System.out.println("PDFName:" + pdfName);
 
+      String pdfContent = preparePdfContent(request, requestBody);
       createPdf(
           pdfContent,
           request.getServletContext().getRealPath("rent/") + pdfName + ".pdf",
@@ -98,8 +97,7 @@ public class HtmlToPDFServlet extends HttpServlet {
   private String preparePdfContent(HttpServletRequest request, Map<String, String> requestBody)
       throws IOException {
     return FileUtils.readFileToString(
-            new File(
-                request.getServletContext().getRealPath("rent/") + "contractPdfUse.html"))
+            new File(request.getServletContext().getRealPath("rent/") + "contractPdfUse.html"))
         .replaceAll("INPUT_RENTER", requestBody.get("renter"))
         .replaceAll("START_YYYY", requestBody.get("startYYY"))
         .replaceAll("START_MM", requestBody.get("startMM"))
