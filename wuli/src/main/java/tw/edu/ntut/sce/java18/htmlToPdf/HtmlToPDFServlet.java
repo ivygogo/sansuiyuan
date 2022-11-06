@@ -70,7 +70,6 @@ public class HtmlToPDFServlet extends HttpServlet {
     System.out.println("PDFName:" + pdfName);
     try {
       Calendar cal = Calendar.getInstance();
-      cal.setTime(new java.util.Date());
       var year = cal.get(Calendar.YEAR) - 1911;
       var month = cal.get(Calendar.MONTH) + 1;
       var day = cal.get(Calendar.DAY_OF_MONTH);
