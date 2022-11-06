@@ -69,35 +69,10 @@ public class HtmlToPDFServlet extends HttpServlet {
     String pdfName = getPdfName(requestBody);
     System.out.println("PDFName:" + pdfName);
     try {
-      // System.out.println(today);
-      var pdfString =
-          FileUtils.readFileToString(
-                  new File(
-                      // "/Users/afra/Desktop/_SpringBoot/workspace/sansuiyuan/wuli/src/main/webapp/rent/contractPdfUse.html"
-                      request.getServletContext().getRealPath("rent/") + "contractPdfUse.html"))
-              .replaceAll("INPUT_RENTER", requestBody.get("renter"))
-              .replaceAll("START_YYYY", requestBody.get("startYYY"))
-              .replaceAll("START_MM", requestBody.get("startMM"))
-              .replaceAll("START_DD", requestBody.get("startDD"))
-              .replaceAll("END_YYYY", requestBody.get("endYYY"))
-              .replaceAll("END_MM", requestBody.get("endMM"))
-              .replaceAll("END_DD", requestBody.get("endDD"))
-              .replace("RENT_FEE", requestBody.get("rent"))
-              .replace("DEPOSIT_FEE", requestBody.get("deposit"))
-              .replaceAll("RENTER_ID", requestBody.get("ID"))
-              .replace("RENTER_PHONE", requestBody.get("phone"))
-              .replace("RENTER_ADDRESS", requestBody.get("address"))
-              .replaceAll("INPUT_GUARNTOR", requestBody.get("guarntor"))
-              .replaceAll("GUARNTOR_ID", requestBody.get("guarntorID"))
-              .replaceAll("GUARNTOR_PHONE", requestBody.get("guarntorPhone"))
-              .replaceAll("GUARNTOR_ADDRESS", requestBody.get("guarntorAddress"))
-              .replace("RENTER_SIGN", requestBody.get("renterSign"))
-              .replace("GUARANTOR_SIGN", requestBody.get("guarantorSign"))
-              .replace("CONFIRM_SIGN", requestBody.get("confirmSign"))
-              .replaceAll("TODAY", getTodayLiteral());
+      String pdfContent = preparePdfContent(request, requestBody);
 
       createPdf(
-          pdfString,
+          pdfContent,
           request.getServletContext().getRealPath("rent/") + pdfName + ".pdf",
           DEFAULT_CONVERTER_PROPERTIES,
           requestBody.get("ID"));
@@ -118,6 +93,33 @@ public class HtmlToPDFServlet extends HttpServlet {
         + requestBody.get("roomPosition")
         + requestBody.get("roomFloor")
         + requestBody.get("roomType");
+  }
+
+  private String preparePdfContent(HttpServletRequest request, Map<String, String> requestBody)
+      throws IOException {
+    return FileUtils.readFileToString(
+            new File(
+                request.getServletContext().getRealPath("rent/") + "contractPdfUse.html"))
+        .replaceAll("INPUT_RENTER", requestBody.get("renter"))
+        .replaceAll("START_YYYY", requestBody.get("startYYY"))
+        .replaceAll("START_MM", requestBody.get("startMM"))
+        .replaceAll("START_DD", requestBody.get("startDD"))
+        .replaceAll("END_YYYY", requestBody.get("endYYY"))
+        .replaceAll("END_MM", requestBody.get("endMM"))
+        .replaceAll("END_DD", requestBody.get("endDD"))
+        .replace("RENT_FEE", requestBody.get("rent"))
+        .replace("DEPOSIT_FEE", requestBody.get("deposit"))
+        .replaceAll("RENTER_ID", requestBody.get("ID"))
+        .replace("RENTER_PHONE", requestBody.get("phone"))
+        .replace("RENTER_ADDRESS", requestBody.get("address"))
+        .replaceAll("INPUT_GUARNTOR", requestBody.get("guarntor"))
+        .replaceAll("GUARNTOR_ID", requestBody.get("guarntorID"))
+        .replaceAll("GUARNTOR_PHONE", requestBody.get("guarntorPhone"))
+        .replaceAll("GUARNTOR_ADDRESS", requestBody.get("guarntorAddress"))
+        .replace("RENTER_SIGN", requestBody.get("renterSign"))
+        .replace("GUARANTOR_SIGN", requestBody.get("guarantorSign"))
+        .replace("CONFIRM_SIGN", requestBody.get("confirmSign"))
+        .replaceAll("TODAY", getTodayLiteral());
   }
 
   private String getTodayLiteral() {
